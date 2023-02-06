@@ -6,7 +6,8 @@
     "start": "next start"
   },
   "dependencies": {
-    "mongodb": "^4.8.1",
+    "mongodb": "^3.5.9",
+    "mongodb-memory-server-core": "^7.4.5",
     "next": "latest",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
