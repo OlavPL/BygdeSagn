@@ -7,8 +7,8 @@ interface Props {
     text: String,
     tags: String[],
     likes: number,
-    dislikes: number,
-
+    dislikes:number,
+ 
 }
 
 const CardFortelling = (props: Props) => {
