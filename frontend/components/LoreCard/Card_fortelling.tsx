@@ -1,5 +1,6 @@
 import Link from "next/link"
 import CardTags from "./CardTags"
+import LikeDislikeButtons from "./LikeDislikeButtons"
 
 interface Props {
     title: String,
@@ -19,13 +20,12 @@ const CardFortelling = (props: Props) => {
                     {props.title}
                 </Link>
             </div>
-            <p className="inline-block p-2 line-clamp-4 ">
+            <p className="inline-block px-2 line-clamp-4"> 
                 {props.text}
             </p>
             <div className="flex flex-row-reverse space-x-reverse space-x-2 place-content-between p-2">
-                <div className="">
-                    <button className="w-20 p-2 hover:bg-blue-400 rounded-l-full border-2 border-slate-500">Likes: {props.likes}</button>
-                    <button className="w-20 p-2 hover:bg-blue-400 rounded-r-full border-2 border-l-0 border-slate-500">Disl: {props.dislikes}</button>
+                <div className="flex flex-row">
+                    <LikeDislikeButtons likes={props.likes} dislikes={props.dislikes}/>
                 </div>
                 
                 <CardTags tags={props.tags}/>
