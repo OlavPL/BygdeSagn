@@ -97,7 +97,6 @@ module.exports = {
       colors: {
         primary: muesli,
         secondary: colors.blue,
-        
       },
     },
   variants:{
