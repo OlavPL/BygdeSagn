@@ -8,7 +8,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 
        let bodyObject = JSON.parse(req.body);
        let myPost = await db.collection("posts").insertOne(bodyObject);
-       res.json(myPost);
+       res.status(200).json(myPost);
    } catch (e) {
        console.error(e);
    }

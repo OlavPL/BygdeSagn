@@ -11,7 +11,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
            .sort({ metacritic: -1 })
            .toArray()
 
-       res.json(post);
+       res.status(200).json(post);
        console.log(post);
        
    } catch (e) {

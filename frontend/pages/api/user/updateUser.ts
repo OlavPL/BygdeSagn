@@ -7,17 +7,18 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
    try {
     const client = await clientPromise;
     const db = client.db("App_Db");
-    const id = (req.body.epost)
+    const id = (req.body.user_id)
     console.log(id)
     const updateDocument={
         $set:{
             name:req.body.name,
+            epost:req.body.epost,
             password:req.body.password
 
         },
     };
-    const result = await db.collection("users").updateOne({epost:req.body.epost},updateDocument)
-    res.status(200).json(updateDocument+id)
+    const result = await db.collection("users").updateOne({user_id:id},updateDocument)
+    res.status(200).json("Document Updated"+" id:"+ id)
 
     
    } catch (e) {
