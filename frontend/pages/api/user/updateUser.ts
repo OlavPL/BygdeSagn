@@ -17,6 +17,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 
         },
     };
+    
     const result = await db.collection("users").updateOne({user_id:id},updateDocument)
     res.status(200).json("Document Updated"+" id:"+ id)
 
