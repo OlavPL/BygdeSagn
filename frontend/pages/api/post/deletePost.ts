@@ -4,13 +4,9 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
    try {
        const client = await clientPromise;
        const db = client.db("App_Db");
-       const userId= req.body.user_id;
-       const user = await db
-           .collection("users")
-           .find({userId})
-           .sort({ metacritic: -1 })
-           .toArray();
-       res.status(200).json(user);
+       let myPost = await db.collection("posts").deleteOne({titel:req.body.titel});
+       res.status(200).json(myPost);
+       console.log(myPost)
    } catch (e) {
        console.error(e);
    }

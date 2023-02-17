@@ -10,7 +10,6 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
            .find({})
            .sort({ metacritic: -1 })
            .toArray()
-
        res.status(200).json(post);
        console.log(post);
        

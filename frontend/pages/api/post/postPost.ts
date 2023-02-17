@@ -8,7 +8,8 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 
        let bodyObject = JSON.parse(req.body);
        let myPost = await db.collection("posts").insertOne(bodyObject);
-       //db.collection("posts").createIndex({"post_id":1},{unique:true})
+       //metod to create index's
+      // db.collection("posts").createIndex({"titel":1},{unique:true})
        res.status(200).json(myPost);
    } catch (e) {
        console.error(e);
