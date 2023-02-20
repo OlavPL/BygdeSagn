@@ -14,7 +14,7 @@ interface Props {
 const CardFortelling = (props: Props) => {
 
     return (
-        <div className="flex flex-col mx-3 bg-gray-100 rounded-md shadow-md text-black md:max-w-md sm:max-w-xl sm:mx-auto">
+        <div className="flex flex-col md:mx-0 bg-gray-100 rounded-md shadow-md text-gray-800 md:max-w-m">
             <div className="p-2">
                 <Link href={"/storyFullView"} className=" box-content text-3xl underline text-blue-600 font-semibold line-clamp-2">
                     {props.title}

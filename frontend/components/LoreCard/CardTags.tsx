@@ -1,4 +1,6 @@
 import Link from "next/link"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faArrowsUpDown } from "@fortawesome/free-solid-svg-icons"
 
 interface Tags{
 tags: String[]
@@ -11,17 +13,19 @@ const CardTags = (tags: Tags) =>{
     }
 
     return(
-        <div className = "flex flex-row space-x space-x-2">
+        <div className = "flex flex-row space-x space-x-2 text-textColor">
             {tagArr.map((tag, index) => {
                 return(
-                <div key={index}  className="rounded bg-yellow self-center">
-                    <p className="bg-yellow-300 rounded-full p-2 border-2 border-slate-500">{tag}</p>
+                <div key={index}  className=" self-center place-center">
+                    <p className="bg-secondary-500 rounded text-justify px-1">{tag}</p>
                 </div>
             )})}
 
             {tags.tags.length > 3 &&
-                <div className="rounded bg-yellow self-center">
-                    <p className="bg-yellow-300 rounded-full p-2 px-4 border-2 border-slate-500 hover:" onClick={openTags} >{"..."}</p>
+                <div className="rounded bg-secondary-500 self-center">
+                    <p className=" p-1 flex hover:cursor-pointer" onClick={openTags} >
+                        <FontAwesomeIcon icon={faArrowsUpDown} className="h-7 w-5"/>
+                    </p>
                 </div>
             }
         </div>

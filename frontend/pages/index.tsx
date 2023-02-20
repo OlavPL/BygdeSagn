@@ -6,7 +6,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
-import LocationListBox from '@/components/LoreCard/LocationListBox';
+import SortListBox from '@/components/LoreCard/SortListBox';
 
 library.add(fas)
 
@@ -30,7 +30,7 @@ const Home = () => (
               <FontAwesomeIcon icon={faLocationDot} className="p-2"/>
             </span> */}
               {/* <input className=" grow bg-slate-600 focus:outline-none rounded " placeholder='Søk på sted...'/> */}
-              <LocationListBox/> 
+              <SortListBox/> 
 
             {/* </div> */}
         </div>

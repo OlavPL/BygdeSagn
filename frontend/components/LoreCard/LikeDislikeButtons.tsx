@@ -1,6 +1,8 @@
 import LikeIcon from "@/public/LikeIcon.png"
 import DislikeIcon from "@/public/DislikeIcon.png"
 import Image from "next/image"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faThumbsUp, faThumbsDown } from "@fortawesome/free-regular-svg-icons"
 
 interface Props {
     likes: number,
@@ -10,12 +12,12 @@ interface Props {
 const LikeDislikeButtons = (props: Props) =>{
 return (
 <div className="flex flex-row">
-    <div className="flex flex-row w-20 py-2 place-content-evenly self-center hover:bg-blue-400 rounded-l-full border-2 border-slate-500">
-        <Image className={"ml-3"} src={LikeIcon} title={"Finger icons by Gregor Cresnar - Flaticon"}alt={"LikeIcon"} width={20} height={20} ></Image>
+    <div className="flex flex-row w-20 py-1 place-content-center self-center hover:bg-primary-200 rounded-l-full border-2 border-slate-500">
+    <FontAwesomeIcon icon={faThumbsUp} className={"ml-3 fa-lg"} width={20} height={10} />
         <div className=" text-center px-2 ">{props.likes}</div>
     </div>
-    <div className="flex flex-row w-20 py-2 place-content-evenly self-center hover:bg-blue-400 rounded-r-full border-l-0 border-2 border-slate-500">
-        <Image className={"ml-3"} src={DislikeIcon} title={"Finger icons by Gregor Cresnar - Flaticon"} alt={"DislikeIcon"} width={20} height={20} ></Image>
+    <div className="flex flex-row w-20 py-1 place-content-center self-center hover:bg-primary-200 rounded-r-full border-l-0 border-2 border-slate-500">
+        <FontAwesomeIcon icon={faThumbsDown} className={"fa-lg place-self-end"} />
         <div className=" text-center px-2 ">{props.dislikes}</div>
     </div>
 </div>

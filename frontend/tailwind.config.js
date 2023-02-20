@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const { gray } = require('tailwindcss/colors')
 const colors = require('tailwindcss/colors')
 const muesli = {
   '50': '#f7f4ef',
@@ -96,7 +97,8 @@ module.exports = {
     extend: {
       colors: {
         primary: muesli,
-        secondary: colors.blue,
+        secondary: eggBlue,
+        textColor: gray[800]
       },
     },
   variants:{
