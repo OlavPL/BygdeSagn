@@ -2,12 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @layer components {
-  input.outlinedGroup:hover{
-    @apply outline-red-800 outline-8
-  }
+* {
+  padding:0;
+  margin: 0;
+  
 }
-
-div.outlinedGroup:focus-withi{
-  border: 2px solid blue;
-} */
