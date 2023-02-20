@@ -11,7 +11,7 @@ const Header = () => {
 	};
 	
 	return (
-	  <nav className="shadow-sm fixed w-full z-10">
+	  <nav className="shadow-sm w-full z-10">
 		
 		  <div className="flex items-center h-14 w-full bg-gray-900">
 			<div className="flex items-center mx-10 justify-between w-full">
