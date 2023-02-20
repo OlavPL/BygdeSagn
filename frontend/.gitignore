@@ -4,7 +4,6 @@
 /node_modules
 /.pnp
 .pnp.js
-
 # testing
 /coverage
 
@@ -14,7 +13,6 @@
 
 # production
 /build
-
 # misc
 .DS_Store
 *.pem
@@ -38,5 +36,5 @@ next-env.d.ts
 #Visual Studio
 .vs
 
-# json
+#package-lock
 .package-lock.json
