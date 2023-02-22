@@ -18,7 +18,7 @@ interface IndexProps {
 }
 
 const Home = ({ sagnModel }: IndexProps) => (
-  <div className="bg-gray-200 min-h-screen flex flex-col items-center text-textColor">
+  <div className="bg-gradient-to-b from-plantation-200 to-primary-200 min-h-screen flex flex-col items-center text-textColor">
 
     <div className="pt-10 space-y-2">
       <form className='space-y-2 '>
@@ -28,11 +28,11 @@ const Home = ({ sagnModel }: IndexProps) => (
           </span>
           <input className="grow rounded-l-none bg-primary-200 focus:outline-none border-l-0 border-[1px] border-black rounded placeholder-textColor " placeholder='Søk på sted...'/>
         </div>
-        <div className='flex flex-row  space-x-2 '>
+        <div className='flex flex-row space-x-2'>
             <SortListBox/> 
         </div>
       </form>
-      <div className="text-3xl font-bold  mb-10">
+      <div className="text-3xl font-bold mb-10">
         Welcome to Bygdehistorie ™
       </div>
     </div>
