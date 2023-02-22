@@ -2,38 +2,37 @@ import { useContext, useState } from 'react'
 import { Listbox } from '@headlessui/react'
 import { faArrowsUpDown, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import SagnListController, { SortTypes } from '../Controller/SagnListController';
+import { SortValue } from '../Controller/SagnListController';
 import Sagn from '@/objects/Sagn';
 
 
 
 
-const SortListBox = () => {
-  const sortTypes:string[] = ['alphabetical','Alphabetical_Desc','Likes','Controversial','NewFirst','OldFirst']
-  const sortType = [
-    {id: 1, sType: sortTypes[0]},
-    {id: 2, sType: sortTypes[1]},
-    {id: 3, sType: sortTypes[2]},
-    {id: 4, sType: sortTypes[3]},
-    {id: 5, sType: sortTypes[4]},
-    {id: 6, sType: sortTypes[5]},
-  ]
+const SortListBox = (props: {sagnListController: SagnListController, list: Sagn[], updateList: (e: SortTypes) => void}) => {
+  const [selectedSort, setSelectedSort] = useState(props.sagnListController.sortObjects[0])
+  
+  const handleChange = (e: SortValue) =>{
+    const target: SortValue = e
+    setSelectedSort(e)
+    props.updateList(e.sType)
+  }
 
-  const [selectedSort, setSelectedSort] = useState(sortType[0])
 
   return (
-    <Listbox as="div" value={selectedSort} by="id" onChange={setSelectedSort}
+    <Listbox as="div" value={selectedSort} by="id" onChange={(e:SortValue) => {handleChange(e)}}
       className="w-44 py-1 rounded-md space-y-2 bg-primary-200 justify-center shadow-md border-[1px] border-black"
     >
       <Listbox.Button className="flex w-full items-center relative">
         <span className='px-2 truncate'>
-          {selectedSort.sType}
+          {selectedSort.text}
         </span>
         <span className="absolute inset-y-0 right-0 flex items-center pr-2">
           <FontAwesomeIcon icon={faArrowsUpDown} className="h-10 w-10"/>
         </span>
       </Listbox.Button>
       <Listbox.Options className="flex flex-col w-44 absolute rounded-md bg-white shadow-md">
-        {sortType.map((sort) => (
+        {props.sagnListController.sortObjects.map((sort) => (
           <Listbox.Option 
             key={sort.id}
             value={sort}
@@ -44,7 +43,7 @@ const SortListBox = () => {
               <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                 { selected && <FontAwesomeIcon icon={faCheck} />}
               </span>
-              <span className='truncate'>{sort.sType}</span>
+              <span className='truncate'>{sort.text}</span>
             </div>
           )}
             
