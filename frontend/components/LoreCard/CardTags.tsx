@@ -6,10 +6,10 @@ interface Tags{
 tags: String[]
 }
 
-const CardTags = (tags: Tags) =>{
-    var tagArr: String[] = tags.tags
-    if (tags.tags.length > 3){
-        tagArr = [tags.tags[0], tags.tags[1]]
+const CardTags = ({tags}: Tags) =>{
+    var tagArr: String[] = tags
+    if (tags.length > 3){
+        tagArr = [tags[0], tags[1]]
     }
 
     return(
@@ -21,7 +21,7 @@ const CardTags = (tags: Tags) =>{
                 </div>
             )})}
 
-            {tags.tags.length > 3 &&
+            {tags.length > 3 &&
                 <div className="rounded bg-secondary-300 self-center">
                     <p className=" p-1 flex hover:cursor-pointer" onClick={openTags} >
                         <FontAwesomeIcon icon={faArrowsUpDown} className="h-7 w-5"/>
