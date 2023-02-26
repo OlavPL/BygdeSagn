@@ -2,8 +2,8 @@
 
 const Footer = () => {
     return(
-      // Test endring
-        <footer className="bg-gray-900 text-white py-4 fixed bottom-0 w-full ">
+   
+        <footer className="bg-gray-900 text-white py-4 bottom-0 w-full ">
           <div className="grid grid-cols-3 divide-x">
             <div className="left-footer w-full text-center md:text-left ">
               <ul className="flex flex-col items-center">
