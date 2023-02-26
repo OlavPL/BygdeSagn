@@ -126,6 +126,9 @@ module.exports = {
     ],
   theme: {
     extend: {
+      width:{
+        'rounded-bar':'99%'
+      },
       colors: {
         primary: brandy,
         secondary: plantation,

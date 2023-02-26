@@ -5,7 +5,7 @@ import Footer from '@/components/header/Footer'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css' 
 import { SagnModel} from '@/ViewModel/SagnModel'
-import { useContext, useState } from 'react'
+import { NextUIProvider } from '@nextui-org/react';
 
 config.autoAddCss = false
 
@@ -16,8 +16,10 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Header/> 
+      <NextUIProvider>
       <Component {...pageProps} sagnModel={sagnModel} />
-      <Footer/>
+      </NextUIProvider>
+      {/* <Footer/> */}
     </>
   )
 }

@@ -4,7 +4,7 @@ type Sagn  = {
     tags: string[];
     likes: number;
     dislikes: number;
-    id: number;
+    _id: number;
     postedAt: Date;
 
     // constructor(title: String, text: String){
