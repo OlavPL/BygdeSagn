@@ -1,4 +1,4 @@
-import Sagn from "@/objects/Sagn"
+import Sagn from "@/types/SagnType"
 
 const testData: Sagn[] = [
   {

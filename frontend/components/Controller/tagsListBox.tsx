@@ -4,7 +4,7 @@ import { faArrowsUpDown, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SagnListController, { SortTypes } from './SagnListController';
 import { SortValue } from './SagnListController';
-import Sagn from '@/objects/Sagn';
+import Sagn from '@/types/SagnType';
 
 enum Tag{
   SAGN = "Sagn", HUMOR = "Humor", EPISK = "Episk",   
@@ -17,8 +17,8 @@ const tagList: Tag[] = [
 ]
 
 interface Props{
-  list: Tag[]
-  onChange: (e: Tag) => void 
+  list: string[]
+  onChange: (e: string) => void 
   className?: string
 }
 

@@ -1,4 +1,4 @@
-import Sagn from "@/objects/Sagn"
+import Sagn from "@/types/SagnType"
 import { useState } from 'react'
 import Card_fortelling from "../LoreCard/Card_fortelling"
 import HoriCard from "../LoreCard/HorizontalCard/HoriCard"
