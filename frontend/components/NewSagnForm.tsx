@@ -16,22 +16,21 @@ interface Props {
   className?: string;
 }
  const postSagn=async (data:Inputs)=>{
-  console.log("222"+data)
-  const JSOndata= {"title":"seventh post",
-    "text":"eksempel text",
-    "tags":["tag1","tag2","tag53"],
+  const JSOndata= {
+    "title":data.title,
+    "text":data.story,
+    "tags":[data.tags],
     "likes":13,
     "dislikes":13,
     "id":21,
-    "postedAt":{"$date":946674620000}}; 
-   // const JSOndata= data;
+    "postedAt":{"$date":new Date()}}; 
   const options:RequestInit={
     headers:{
       'Content-Type':'application/json',
     },
     method:'POST',
     body:JSON.stringify(JSOndata),
-  }
+  } 
   console.log(JSOndata)
   const endpoint=("http://localhost:3000/api/post/postPost")
   const response = await fetch(endpoint,options).catch(
@@ -54,8 +53,7 @@ const NewSagnForm = ({className}: Props) => {
 
   }
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => postSagn(data);
-
+  const onSubmit: SubmitHandler<Inputs> = (data) =>postSagn(data);
   useForm()
 
   return (

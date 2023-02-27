@@ -11,6 +11,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
        //metod to create index's
       // db.collection("posts").createIndex({"titel":1},{unique:true})
        res.status(200).json(myPost);
+       console.log("Post Created")
    } catch (e) {
        console.error(e);
    }
