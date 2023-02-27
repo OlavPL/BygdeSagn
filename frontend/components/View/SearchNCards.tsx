@@ -4,17 +4,14 @@ import DisplaySagn from "./displaySagn"
 import SortListBox from "../LoreCard/sortListBox"
 import SagnListController, { SortTypes } from "../Controller/SagnListController"
 import { useState, useEffect } from 'react'
-import Sagn from "@/types/SagnType"
+import Sagn from "@/objects/Sagn"
 
 const SearchNCards = () => {
-    let sagnListControllerr = new SagnListController([])
     const [sagnListController, setLi] = useState(new SagnListController([]))
     const [list, setList] = useState(sagnListController.sortSagn(SortTypes.LIKES))
-    const [data, setData] = useState(null)
     const [isLoading, setLoading] = useState(false)
 
     const updateList = (e: SortTypes) =>{
-        console.log(sagnListController.sortSagn(e))
         setList(sagnListController.sortSagn(e))
     }
 
@@ -23,6 +20,7 @@ const SearchNCards = () => {
         fetch('/api/post/getPosts')
           .then((res) => res.json())
           .then((data) => {
+            let sagnList: Sagn[]
             setList(data)
             setLi(new SagnListController(data))
           })
