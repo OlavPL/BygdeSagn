@@ -20,10 +20,10 @@ interface Props {
     "title":data.title,
     "text":data.story,
     "tags":[data.tags],
-    "likes":13,
-    "dislikes":13,
-    "id":21,
-    "postedAt":{"$date":new Date()}}; 
+    "likes":0,
+    "dislikes":0,
+    "id":0,
+    "postedAt":{"$date":new Date( )}}; 
   const options:RequestInit={
     headers:{
       'Content-Type':'application/json',
