@@ -6,7 +6,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
-import Sagn from '@/objects/Sagn';
+import Sagn from '@/types/SagnType';
 import DisplaySagn from '@/components/View/displaySagn';
 import { SagnModel } from '@/ViewModel/SagnModel';
 import SearchNCards from '@/components/View/SearchNCards';

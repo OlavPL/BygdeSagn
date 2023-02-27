@@ -4,7 +4,7 @@ import { faArrowsUpDown, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SagnListController, { SortTypes } from '../Controller/SagnListController';
 import { SortValue } from '../Controller/SagnListController';
-import Sagn from '@/objects/Sagn';
+import Sagn from '@/types/SagnType';
 
 
 

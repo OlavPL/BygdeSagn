@@ -1,4 +1,4 @@
-import Sagn from "@/objects/Sagn"
+import Sagn from "@/types/SagnType"
 
 const now = new Date().getTime();
 const tenDaysAgo = now - 10 * 24 * 60 * 60 * 1000;

@@ -4,7 +4,7 @@ import DisplaySagn from "./displaySagn"
 import SortListBox from "../LoreCard/sortListBox"
 import SagnListController, { SortTypes } from "../Controller/SagnListController"
 import { useState, useEffect } from 'react'
-import Sagn from "@/objects/Sagn"
+import Sagn from "@/types/SagnType"
 
 const SearchNCards = () => {
     let sagnListControllerr = new SagnListController([])
