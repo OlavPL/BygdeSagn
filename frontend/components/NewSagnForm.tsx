@@ -4,15 +4,42 @@ import TagsListBox from "./Controller/tagsListBox";
 import Input from "./Input";
 import TextArea from "./TextArea";
 import SelectedTagsBox from "./Controller/selectedTagsBox";
+import { json } from "stream/consumers";
 
 interface Inputs {
   title: string;
   story: string;
+  tags : string[];
 }
 
 interface Props {
   className?: string;
 }
+ const postSagn=async (data:Inputs)=>{
+  console.log("222"+data)
+  const JSOndata= {"title":"seventh post",
+    "text":"eksempel text",
+    "tags":["tag1","tag2","tag53"],
+    "likes":13,
+    "dislikes":13,
+    "id":21,
+    "postedAt":{"$date":946674620000}}; 
+   // const JSOndata= data;
+  const options:RequestInit={
+    headers:{
+      'Content-Type':'application/json',
+    },
+    method:'POST',
+    body:JSON.stringify(JSOndata),
+  }
+  console.log(JSOndata)
+  const endpoint=("http://localhost:3000/api/post/postPost")
+  const response = await fetch(endpoint,options).catch(
+  )
+  const result =response.json;
+  console.log(result)
+  }
+
 
 const NewSagnForm = ({className}: Props) => {
   const {
@@ -27,7 +54,8 @@ const NewSagnForm = ({className}: Props) => {
 
   }
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) => postSagn(data);
+
   useForm()
 
   return (
@@ -38,7 +66,7 @@ const NewSagnForm = ({className}: Props) => {
         labelText="Tittel"
       />
       <TextArea
-        {...register("story", { required: true })}
+        {...register("story", { required: false })}
         className="mt-4"
         labelText="Historie"
         error={errors.story && "Historien må skrives"}
