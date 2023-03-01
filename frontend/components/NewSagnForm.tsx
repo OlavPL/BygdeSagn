@@ -8,12 +8,13 @@ import { json } from "stream/consumers";
 
 const postSagn = async (data:Inputs)=>{
   console.log("222"+data)
-  const JSOndata= {"title":"seventh post",
-    "text":"eksempel text",
-    "tags":["tag1","tag2","tag53"],
-    "likes":13,
-    "dislikes":14,
-    "id":21,
+  const JSOndata= {
+    "title":data.title,
+    "text":data.story,
+    "tags":[data.tags],
+    "likes":0,
+    "dislikes":0,
+    "id":0,
     "postedAt":{"$date":946674620000}}; 
    // const JSOndata = data;
 
