@@ -7,14 +7,17 @@ import { SortValue } from '../Controller/SagnListController';
 import Sagn from '@/types/SagnType';
 
 
+interface Props{
+  sagnListController: SagnListController
+  updateList: (e: SortTypes) => void
+}
 
-
-const SortListBox = (props: {sagnListController: SagnListController, list: Sagn[], updateList: (e: SortTypes) => void}) => {
-  const [selected, setSelected] = useState(props.sagnListController.sortObjects[0])
+const SortListBox = ({sagnListController, updateList}: Props ) => {
+  const [selected, setSelected] = useState(sagnListController.sortObjects[0])
   
   const handleChange = (e: SortValue) =>{
     setSelected(e)
-    props.updateList(e.sType)
+    updateList(e.sType)
   }
 
 
@@ -31,7 +34,7 @@ const SortListBox = (props: {sagnListController: SagnListController, list: Sagn[
         </span>
       </Listbox.Button>
       <Listbox.Options className="flex flex-col w-44 absolute rounded-md bg-white shadow-md">
-        {props.sagnListController.sortObjects.map((sort) => (
+        {sagnListController.sortObjects.map((sort) => (
           <Listbox.Option 
             key={sort.id}
             value={sort}

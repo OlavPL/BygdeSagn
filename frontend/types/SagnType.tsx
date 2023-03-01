@@ -1,10 +1,10 @@
 type SagnType  = {
-    title: String;
-    text: String;
+    title: string;
+    text: string;
     tags: string[];
     likes: number;
     dislikes: number;
-    _id: number;
+    _id: string;
     postedAt: Date;
 }
 

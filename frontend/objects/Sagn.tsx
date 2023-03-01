@@ -1,20 +1,39 @@
-import React, { Component } from 'react'
+import { useState, useEffect } from 'react'
+
+// interface SagnI{
+//     _title: String
+//     _text: string;
+//     _tags: string[];
+//     _likes: number;
+//     _dislikes: number;
+//     _id?: string;
+//     _postedAt?: Date;
+// }
+// const Sagn = ({_title, _text, _tags, _likes, _dislikes,_id, _postedAt}: SagnI) =>{
+//     const [title, setTitle] = useState(_title)
+//     const [tags, settags] = useState(_text)
+//     const [likes, setlikes] = useState(_likes)
+//     const [dislikes, setdislikes] = useState(_dislikes)
+//     const [id, setid] = useState(_id? _id : 0)
+//     const [postedAt, setpostedAt] = useState( _postedAt? _postedAt : new Date(Date.now()) )
+// }
+
 interface SagnI{
     title: String
-    text: String;
+    text: string;
     tags: string[];
     likes: number;
     dislikes: number;
-    _id: number;
-    postedAt: Date;
+    id?: string;
+    postedAt?: Date;
 }
 class Sagn implements SagnI{
     title: string;
-    text: String;
+    text: string;
     tags: string[];
     likes: number;
     dislikes: number;
-    _id: number;
+    id: string;
     postedAt: Date;
 
 
@@ -24,13 +43,9 @@ class Sagn implements SagnI{
         this.tags = _tags
         this.likes = 0
         this.dislikes = 0
-        this._id = 0
+        this.id = ""
         this.postedAt = new Date(Date.now());
     }
-    
-
-
-
 }
 
 export default Sagn

@@ -1,20 +1,16 @@
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import DisplaySagn from "./displaySagn"
-import SortListBox from "../LoreCard/SortListBox"
+import SortListBox from "../LoreCard/sortListBox"
 import SagnListController, { SortTypes } from "../Controller/SagnListController"
 import { useState, useEffect } from 'react'
-import Sagn from "@/types/SagnType"
 
 const SearchNCards = () => {
-    let sagnListControllerr = new SagnListController([])
     const [sagnListController, setLi] = useState(new SagnListController([]))
     const [list, setList] = useState(sagnListController.sortSagn(SortTypes.LIKES))
-    const [data, setData] = useState(null)
     const [isLoading, setLoading] = useState(false)
 
     const updateList = (e: SortTypes) =>{
-        console.log(sagnListController.sortSagn(e))
         setList(sagnListController.sortSagn(e))
     }
 
@@ -41,7 +37,7 @@ const SearchNCards = () => {
                 <input className="grow rounded-l-none bg-primary-200 focus:outline-none border-l-0 rounded placeholder-textColor " placeholder='Søk på sted...'/>
             </div>
             <div className='flex flex-row  space-x-2 '>
-                <SortListBox sagnListController={sagnListController} list={list} updateList={updateList}/>
+                <SortListBox sagnListController={sagnListController} updateList={updateList}/>
             </div>
         </form>
         <div className="text-3xl font-bold  mb-10">

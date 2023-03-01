@@ -1,8 +1,9 @@
-import Sagn from "@/types/SagnType"
+import Sagn from "@/objects/Sagn";
+import SagnType from "@/types/SagnType";
 
 const now = new Date().getTime();
 const tenDaysAgo = now - 10 * 24 * 60 * 60 * 1000;
-const testData: Sagn[] = [
+const testData: SagnType[] = [
     {
       _id:1,
       title: "First fortelling",
@@ -98,9 +99,6 @@ class SagnListController {
           case SortTypes.CONTROVERSIAL:{
             return this.sagnList.slice().sort((a, b) => a.likes - b.likes);
           }
-          case SortTypes.ID:{
-            return this.sagnList.slice().sort((a, b) => a._id - b._id);
-          }
           case SortTypes.NEWFIRST:{
             return this.sagnList.slice().sort((a, b) => b.postedAt.getUTCMilliseconds() - a.postedAt.getUTCMilliseconds());
           }
@@ -112,7 +110,7 @@ class SagnListController {
       return this.sagnList
     }
 
-    fetchSagn():Sagn[] {
+    fetchSagn():SagnType[] {
         return testData;
     }
 }
