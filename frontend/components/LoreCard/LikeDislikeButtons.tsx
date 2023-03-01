@@ -1,6 +1,3 @@
-import LikeIcon from "@/public/LikeIcon.png"
-import DislikeIcon from "@/public/DislikeIcon.png"
-import Image from "next/image"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-regular-svg-icons"
 

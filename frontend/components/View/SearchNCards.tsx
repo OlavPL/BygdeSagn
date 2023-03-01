@@ -4,7 +4,6 @@ import DisplaySagn from "./displaySagn"
 import SortListBox from "../LoreCard/sortListBox"
 import SagnListController, { SortTypes } from "../Controller/SagnListController"
 import { useState, useEffect } from 'react'
-import Sagn from "@/objects/Sagn"
 
 const SearchNCards = () => {
     const [sagnListController, setLi] = useState(new SagnListController([]))
@@ -20,7 +19,6 @@ const SearchNCards = () => {
         fetch('/api/post/getPosts')
           .then((res) => res.json())
           .then((data) => {
-            let sagnList: Sagn[]
             setList(data)
             setLi(new SagnListController(data))
           })
@@ -39,7 +37,7 @@ const SearchNCards = () => {
                 <input className="grow rounded-l-none bg-primary-200 focus:outline-none border-l-0 rounded placeholder-textColor " placeholder='Søk på sted...'/>
             </div>
             <div className='flex flex-row  space-x-2 '>
-                <SortListBox sagnListController={sagnListController} list={list} updateList={updateList}/>
+                <SortListBox sagnListController={sagnListController} updateList={updateList}/>
             </div>
         </form>
         <div className="text-3xl font-bold  mb-10">

@@ -1,10 +1,5 @@
-import Sagn from '@/objects/Sagn'
 import { useState } from 'react'
-import Card_fortelling from "../LoreCard/Card_fortelling"
-import HoriCard from "../LoreCard/HorizontalCard/HoriCard"
-import HoriCard2Col from "../LoreCard/HorizontalCard/HoriCard2Col"
-import { SagnModel } from "@/ViewModel/SagnModel"
-import SagnListController from "@/components/Controller/SagnListController"
+import HoriCard from '../LoreCard/HoriCard'
 import SagnType from '@/types/SagnType'
 interface Props{
     sagnList:   SagnType[]

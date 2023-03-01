@@ -1,6 +1,6 @@
 import Link from "next/link"
-import CardTags from "../cardTags"
-import LikeDislikeButtons from "../likeDislikeButtons"
+import CardTags from "./cardTags"
+import LikeDislikeButtons from "./likeDislikeButtons"
 
 interface Props {
     title: String,
@@ -12,7 +12,6 @@ interface Props {
 }
 
 const HoriCard = ({title, text, tags, likes, dislikes}: Props) => {
-    console.log(tags)
 
     return (
         <div className="w-full flex flex-col p-2 md:mx-0 bg-gray-100 rounded-md shadow-md text-textColor md:max-w-screen-lg space-y-2">
