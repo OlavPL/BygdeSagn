@@ -5,7 +5,7 @@ import Input from "./Input";
 import TextArea from "./TextArea";
 
 const postSagn = async (data:Inputs)=>{
-  console.log("222"+data)
+
   const JSOndata= {
     "title":data.title,
     "text":data.story,
@@ -13,7 +13,8 @@ const postSagn = async (data:Inputs)=>{
     "likes":0,
     "dislikes":0,
     "id":0,
-    "postedAt":{"$date":946674620000}}; 
+    "postedAt":{"$date":new Date().getTimezoneOffset()}
+  }
    // const JSOndata = data;
 
   const options:RequestInit={
