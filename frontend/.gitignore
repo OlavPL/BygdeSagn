@@ -35,6 +35,3 @@ next-env.d.ts
 
 #Visual Studio
 .vs
-
-#package-lock
-package-lock.json

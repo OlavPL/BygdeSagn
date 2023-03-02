@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import HoriCard from '../LoreCard/HoriCard'
+import SagnCard from '../LoreCard/sagnCard'
 import SagnType from '@/types/SagnType'
 interface Props{
     sagnList:   SagnType[]
@@ -25,7 +25,7 @@ const DisplaySagn = ({sagnList}: Props) => {
 
         <div className="flex flex-col w-full gap-5 sm:gap-x-5 items-center p-5">
             {sagnList.map((sagn: SagnType) => (
-                <HoriCard
+                <SagnCard
                     key={sagn._id}
                     title={sagn.title}
                     text={sagn.text}

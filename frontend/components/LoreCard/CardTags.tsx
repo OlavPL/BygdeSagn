@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowsUpDown } from "@fortawesome/free-solid-svg-icons"
 
 interface Tags{
-tags: String[]
+    tags: String[]
+    removeTag?: () => void 
 }
 
 const CardTags = ({tags}: Tags) =>{

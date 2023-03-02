@@ -3,8 +3,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import TagsListBox from "./tagsListBox";
 import Input from "./Input";
 import TextArea from "./TextArea";
-import SelectedTagsBox from "./Controller/selectedTagsBox";
-import { json } from "stream/consumers";
 
 const postSagn = async (data:Inputs)=>{
   console.log("222"+data)
