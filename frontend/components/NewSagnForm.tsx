@@ -9,14 +9,17 @@ import { json } from "stream/consumers";
 const postSagn = async (data:Inputs)=>{
 
   const JSOndata= {
-    "title":data.title,
-    "text":data.story,
-    "tags":[data.tags],
-    "likes":0,
-    "dislikes":0,
-    "id":0,
-    "postedAt":{"$date":new Date().getTimezoneOffset()}
-  }
+    "title": data.title,
+    "text": data.story,
+    "tags": [data.tags],
+    "likes": 0,
+    "dislikes": 0,
+    "id": 0,
+    "postedAt": {
+      "$date": new Date().setUTCHours(new Date().getUTCHours() + 1)
+    }
+  };
+
    // const JSOndata = data;
 
   const options:RequestInit={
