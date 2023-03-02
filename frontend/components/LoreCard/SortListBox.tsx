@@ -4,35 +4,37 @@ import { faArrowsUpDown, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SagnListController, { SortTypes } from '../Controller/SagnListController';
 import { SortValue } from '../Controller/SagnListController';
-import Sagn from '@/objects/Sagn';
+import Sagn from '@/types/SagnType';
 
 
+interface Props{
+  sagnListController: SagnListController
+  updateList: (e: SortTypes) => void
+}
 
-
-const SortListBox = (props: {sagnListController: SagnListController, list: Sagn[], updateList: (e: SortTypes) => void}) => {
-  const [selectedSort, setSelectedSort] = useState(props.sagnListController.sortObjects[0])
+const SortListBox = ({sagnListController, updateList}: Props ) => {
+  const [selected, setSelected] = useState(sagnListController.sortObjects[0])
   
   const handleChange = (e: SortValue) =>{
-    const target: SortValue = e
-    setSelectedSort(e)
-    props.updateList(e.sType)
+    setSelected(e)
+    updateList(e.sType)
   }
 
 
   return (
-    <Listbox as="div" value={selectedSort} by="id" onChange={(e:SortValue) => {handleChange(e)}}
-      className="w-44 py-1 rounded-md space-y-2 bg-primary-200 justify-center shadow-md border-[1px] border-black"
+    <Listbox as="div" value={selected} by="id" onChange={(e:SortValue) => {handleChange(e)}}
+      className="w-44 py-1 rounded-md space-y-2 bg-primary-200 justify-center shadow-md"
     >
       <Listbox.Button className="flex w-full items-center relative">
         <span className='px-2 truncate'>
-          {selectedSort.text}
+          {selected.text}
         </span>
         <span className="absolute inset-y-0 right-0 flex items-center pr-2">
           <FontAwesomeIcon icon={faArrowsUpDown} className="h-10 w-10"/>
         </span>
       </Listbox.Button>
       <Listbox.Options className="flex flex-col w-44 absolute rounded-md bg-white shadow-md">
-        {props.sagnListController.sortObjects.map((sort) => (
+        {sagnListController.sortObjects.map((sort) => (
           <Listbox.Option 
             key={sort.id}
             value={sort}

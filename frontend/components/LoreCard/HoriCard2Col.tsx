@@ -1,6 +1,6 @@
 import Link from "next/link"
-import CardTags from "../CardTags"
-import LikeDislikeButtons from "../LikeDislikeButtons"
+import CardTags from "./cardTags"
+import LikeDislikeButtons from "./likeDislikeButtons"
 
 interface Props {
     title: String,
@@ -8,11 +8,9 @@ interface Props {
     tags: String[],
     likes: number,
     dislikes: number,
-
 }
 
 const HoriCard2Col = (props: Props) => {
-
     return (
         <div className="w-full flex flex-col p-2 md:mx-0 bg-gray-100 rounded-md shadow-md text-textColor md:max-w-screen-lg space-x-2">
             <Link href={"/storyFullView"} className=" box-content text-xl font-semibold line-clamp-1 md:max-w-x">
