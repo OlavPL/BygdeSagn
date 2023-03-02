@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { useState } from "react"
-import NewSagnForm from "@/components/NewSagnForm";
+import NewSagnForm from "@/components/newSagnForm";
 
 const StoryFullView = () => {
     const [value, setValue] = useState('')

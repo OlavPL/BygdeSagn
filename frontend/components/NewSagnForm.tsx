@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import TagsListBox from "./tagsListBox";
-import Input from "./Input";
-import TextArea from "./TextArea";
+import Input from "./input";
+import TextArea from "./textArea";
 
 const postSagn = async (data:Inputs)=>{
 

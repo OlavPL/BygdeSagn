@@ -37,14 +37,14 @@ class Sagn implements SagnI{
     postedAt: Date;
 
 
-    constructor(_title: string, _text: string, _tags: string[],){
+    constructor(_title: string, _text: string, _tags: string[], postedAt?: number){
         this.title = _title
         this.text = _text
         this.tags = _tags
         this.likes = 0
         this.dislikes = 0
         this.id = ""
-        this.postedAt = new Date(Date.now());
+        this.postedAt = postedAt? new Date(postedAt) : new Date(Date.now());
     }
 }
 

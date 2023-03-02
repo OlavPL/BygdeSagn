@@ -1,12 +1,12 @@
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import DisplaySagn from "./displaySagn"
-import SortListBox from "../LoreCard/SortListBox"
-import SagnListController, { SortTypes } from "../Controller/SagnListController"
+import SortListBox from "./sagnCard/sortListBox"
+import SagnListController, { SortTypes } from "./controller/sagnListController"
 import { useState, useEffect } from 'react'
 
 const SearchNCards = () => {
-    const [sagnListController, setLi] = useState(new SagnListController([]))
+    const [sagnListController, setListController] = useState(new SagnListController([]))
     const [list, setList] = useState(sagnListController.sortSagn(SortTypes.LIKES))
     const [isLoading, setLoading] = useState(false)
 
@@ -20,7 +20,7 @@ const SearchNCards = () => {
           .then((res) => res.json())
           .then((data) => {
             setList(data)
-            setLi(new SagnListController(data))
+            setListController(new SagnListController(data))
           })
       }
       , [])

@@ -1,4 +1,4 @@
-import NewSagnForm from "@/components/NewSagnForm"
+import NewSagnForm from "@/components/newSagnForm"
 
 
 const createSagn = () =>{
