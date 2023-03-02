@@ -8,9 +8,9 @@ const DisplaySagn = ({sagnList}: Props) => {
     
     return(
         <div className="flex flex-col w-full gap-5 sm:gap-x-5 items-center p-5">
-            {sagnList.map((sagn: Sagn) => (
+            {sagnList.map((sagn: Sagn, index) => (
                 <SagnCard
-                    key={sagn.id}
+                    key={index}
                     title={sagn.title}
                     text={sagn.text}
                     tags={sagn.tags}
