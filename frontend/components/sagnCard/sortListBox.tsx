@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SagnListController, { SortTypes } from '../controller/sagnListController';
 import { SortValue } from '../controller/sagnListController';
 
-
 interface Props{
   sagnListController: SagnListController
   updateList: (e: SortTypes) => void
