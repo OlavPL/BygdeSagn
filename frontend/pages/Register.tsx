@@ -32,7 +32,7 @@ const Register =()=> {
       alert("Password's does not match")
     }
     const JSOndata= {
-      "user": username,
+      "name": username,
       "password": postpassword,
       "email":email,
       "created": {

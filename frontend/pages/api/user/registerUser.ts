@@ -13,6 +13,6 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
        console.log("User Registered")
    } catch (e) {
        console.error(e);
-       console.log("User allready exsists")
+       
    }
 }
