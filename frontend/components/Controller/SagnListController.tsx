@@ -3,7 +3,7 @@ import SagnType from "@/types/SagnType";
 
 const now = new Date().getTime();
 const tenDaysAgo = now - 10 * 24 * 60 * 60 * 1000;
-const testData: SagnType[] = [
+/*const testData: SagnType[] = [
     {
       _id:1,
       title: "First fortelling",
@@ -59,7 +59,7 @@ const testData: SagnType[] = [
       postedAt: new Date(tenDaysAgo + Math.random() * (now - tenDaysAgo)),
     },
 ]
-
+*/
 export enum SortTypes{
     LIKES,
     CONTROVERSIAL,
@@ -110,9 +110,9 @@ class SagnListController {
       return this.sagnList
     }
 
-    fetchSagn():SagnType[] {
+    /* fetchSagn():SagnType[] {
         return testData;
-    }
+    } */
 }
 
 export default SagnListController

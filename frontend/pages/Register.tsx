@@ -22,8 +22,35 @@ const Register =()=> {
     setRepeatPassword(event.target.value);
   };
 
-  const handleRegister = () => {
-    // Register
+  const handleRegister = async ()=> {
+    var postpassword;
+    try { 
+      if(password == repeatPassword){
+        postpassword=password;
+      }  
+    } catch (error) {
+      alert("Password's does not match")
+    }
+    const JSOndata= {
+      "user": username,
+      "password": postpassword,
+      "email":email,
+      "created": {
+        "$date": new Date().setUTCHours(new Date().getUTCHours() + 1)
+      }
+    };  
+    const options:RequestInit={
+      headers:{
+        'Content-Type':'application/json',
+      },
+      method:'POST',
+      body:JSON.stringify(JSOndata),
+    }
+    console.log(JSOndata)
+    const endpoint=("http://localhost:3000/api/user/registerUser")
+    const response = await fetch(endpoint,options).catch()
+    const result =response.json;
+    console.log(result)
   };
 
   return (
