@@ -5,17 +5,18 @@ import Input from "./input";
 import TextArea from "./textArea";
 import SelectedTagsBox from "./controller/selectedTagsBox";
 import { Tag } from "@/types/tag";
+import { NextRouter, useRouter } from "next/router";
 
-const postSagn = async (data:Inputs)=>{
+const postSagn = async (data:Inputs, router: NextRouter )=>{
 
   const JSOndata= {
     "title":data.title,
     "text":data.story,
-    "tags":[data.tags],
+    "tags":data.tags,
     "likes":0,
     "dislikes":0,
     "id":0,
-    "postedAt":{"$date":new Date().getTimezoneOffset()}
+    "postedAt":new Date(Date.now())
   }
   // const JSOndata = data;
 
@@ -29,7 +30,8 @@ const postSagn = async (data:Inputs)=>{
   console.log(JSOndata)
   const endpoint=("http://localhost:3000/api/post/postPost")
   const response = await fetch(endpoint,options).catch()
-  const result =response.json;
+  const result = response.json;
+  router.push("/#")
   console.log(result)
 }
 
@@ -44,6 +46,8 @@ interface Props {
 }
 
 const NewSagnForm = ({className}: Props) => {
+    const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -64,7 +68,7 @@ const NewSagnForm = ({className}: Props) => {
 
   const onSubmit: SubmitHandler<Inputs> = (data) =>{
     data.tags = tags
-    postSagn(data)
+    postSagn(data, router)
   };
   useForm()
 
@@ -92,7 +96,7 @@ const NewSagnForm = ({className}: Props) => {
         </button>
         <TagsDropBox key={tags.length} className="mt-2" list={tags} handleTag={addTag} propText={"Velg Tagger"} propTextEmpty={"Ikke fler Tagger"}/>
       </div>
-      <SelectedTagsBox key={tags.length} removeTag={removeTag}  tagList={tags} className=""/>
+      <SelectedTagsBox key={tags.length} removeTag={removeTag}  tagList={tags} />
     </form>
   );
 };

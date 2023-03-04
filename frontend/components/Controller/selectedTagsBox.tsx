@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import TagsDropBox from '../tagsDropBox'
 
 interface Props extends React.HTMLAttributes<HTMLDivElement>{
-    className: string
+    className?: string
     tagList: string[]
     removeTag: (value: string) => void
 }
