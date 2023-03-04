@@ -1,4 +1,4 @@
-import Sagn from "@/objects/Sagn";
+import Sagn from "@/objects/sagn";
 import SagnType from "@/types/sagnType";
 
 const now = new Date().getTime();

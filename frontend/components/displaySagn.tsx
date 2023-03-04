@@ -1,5 +1,5 @@
 import SagnCard from './sagnCard/sagnCard'
-import Sagn from '@/objects/Sagn'
+import Sagn from '@/objects/sagn'
 interface Props{
     sagnList:   Sagn[]
 }
