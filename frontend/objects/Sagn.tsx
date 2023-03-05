@@ -1,3 +1,4 @@
+import { Tag } from '@/types/tag';
 import { useState, useEffect } from 'react'
 
 // interface SagnI{
@@ -19,7 +20,7 @@ import { useState, useEffect } from 'react'
 // }
 
 interface SagnI{
-    title: String
+    title: string
     text: string;
     tags: string[];
     likes: number;
@@ -37,14 +38,14 @@ class Sagn implements SagnI{
     postedAt: Date;
 
 
-    constructor(_title: string, _text: string, _tags: string[], postedAt?: number){
+    constructor(_title: string, _text: string, _tags: Tag[], postedAt: number){
         this.title = _title
         this.text = _text
         this.tags = _tags
         this.likes = 0
         this.dislikes = 0
         this.id = ""
-        this.postedAt = postedAt? new Date(postedAt) : new Date(Date.now());
+        this.postedAt = new Date(postedAt);
     }
 }
 

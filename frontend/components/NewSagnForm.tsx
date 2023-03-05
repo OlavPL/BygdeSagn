@@ -16,7 +16,7 @@ const postSagn = async (data:Inputs, router: NextRouter )=>{
     "likes":0,
     "dislikes":0,
     "id":0,
-    "postedAt":new Date(Date.now())
+    "postedAt":new Date().setUTCHours(new Date().getUTCHours() + 1)
   }
   // const JSOndata = data;
 
@@ -34,6 +34,7 @@ const postSagn = async (data:Inputs, router: NextRouter )=>{
   router.push("/#")
   console.log(result)
 }
+
 
 interface Inputs {
   title: string;

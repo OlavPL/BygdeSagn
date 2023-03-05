@@ -1,4 +1,5 @@
 import Sagn from "@/objects/sagn";
+import { SagnJSON } from "@/types/sagnJson";
 import SagnType from "@/types/sagnType";
 
 const now = new Date().getTime();
@@ -80,15 +81,19 @@ class SagnListController {
     sortType: SortTypes 
     sortObjects: SortValue[]
 
-    constructor(data: Sagn[]){
-        this.sagnList = data
-        this.sortType = SortTypes.NEWFIRST
-        this.sortObjects = [
-          {id: 1, sType: SortTypes.LIKES, text:'Likes'},
-          {id: 2, sType: SortTypes.CONTROVERSIAL, text:'Controversial'},
-          {id: 3, sType: SortTypes.NEWFIRST, text:'New First'},
-          {id: 4, sType: SortTypes.OLDFIRST, text:'Old First'},
-        ]
+    constructor(data: SagnJSON[]){
+      let newData: Sagn[] = []
+      data.map(object => {
+        newData.push(new Sagn(object.title, object.text, object.tags, object.postedAt))
+      })
+      this.sagnList = newData
+      this.sortType = SortTypes.NEWFIRST
+      this.sortObjects = [
+        {id: 1, sType: SortTypes.LIKES, text:'Likes'},
+        {id: 2, sType: SortTypes.CONTROVERSIAL, text:'Controversial'},
+        {id: 3, sType: SortTypes.NEWFIRST, text:'New First'},
+        {id: 4, sType: SortTypes.OLDFIRST, text:'Old First'},
+      ]
     }
 
      sortSagn(sortType: SortTypes): Sagn[] {
@@ -100,6 +105,7 @@ class SagnListController {
             return this.sagnList.slice().sort((a, b) => a.likes - b.likes);
           }
           case SortTypes.NEWFIRST:{
+            console.log(this.sagnList[0].postedAt)
             return this.sagnList.slice().sort((a, b) => b.postedAt.getMilliseconds() - a.postedAt.getMilliseconds());
           }
           case SortTypes.OLDFIRST:{
