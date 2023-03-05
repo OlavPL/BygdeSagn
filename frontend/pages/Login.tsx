@@ -52,7 +52,7 @@ const Login =()=> {
             <button type="button" onClick={handleLogin} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
               Login
             </button>
-            <Link href="/Register" className ="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded cursor-pointer" role="menuitem" id="menu-item-3">
+            <Link href="/register" className ="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded cursor-pointer" role="menuitem" id="menu-item-3">
               Register
             </Link>
           </div>

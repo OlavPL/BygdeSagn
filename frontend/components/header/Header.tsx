@@ -47,7 +47,7 @@ const Header = () => {
                   <Link href="#" className="px-2 py-2 text-sm block" role="menuitem" id="menu-item-2">
                     Link 2
                   </Link>
-                  <Link href="/Login" className="px-2 py-2 text-sm block text-black hover:text-blue-250" role="menuitem" id="menu-item-3">
+                  <Link href="/login" className="px-2 py-2 text-sm block text-black hover:text-blue-250" role="menuitem" id="menu-item-3">
                     Login
                   </Link>
               </div>
