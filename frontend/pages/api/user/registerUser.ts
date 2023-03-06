@@ -10,7 +10,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
        //metod to create index's
        //db.collection("users").createIndex({"name":1},{unique:true})
        res.status(200).json(myPost);
-       console.log("User Registered")
+       console.log("User posted")
    } catch (e) {
        console.error(e);
        

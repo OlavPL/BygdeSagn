@@ -1,5 +1,5 @@
 import { useState, ChangeEvent } from 'react';
-
+import bcrypt from 'bcryptjs';
 const Register =()=> {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -21,19 +21,29 @@ const Register =()=> {
   const handleRepeatPasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
     setRepeatPassword(event.target.value);
   };
+  const hashPassword= ()=>{
+    let postpassword;
+    let hashedpassword;
 
-  const handleRegister = async ()=> {
-    var postpassword;
     try { 
       if(password == repeatPassword){
-        postpassword=password;
+        hashedpassword=password;
+        bcrypt.hash(hashedpassword,"10",(err,hash)=>{
+          postpassword = hash;
+          console.log(err)
+        })
       }  
     } catch (error) {
       alert("Password's does not match")
     }
+    return postpassword;
+  }
+
+  const handleRegister = async ()=> {
+    
     const JSOndata= {
       "name": username,
-      "password": postpassword,
+      "password": hashPassword(),
       "email":email,
       "created": {
         "$date": new Date().setUTCHours(new Date().getUTCHours() + 1)
