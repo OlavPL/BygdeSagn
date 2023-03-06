@@ -1,3 +1,4 @@
+import { Tag } from "@/types/tag"
 import Link from "next/link"
 import CardTags from "./cardTags"
 import LikeDislikeButtons from "./likeDislikeButtons"
@@ -11,13 +12,13 @@ interface Props {
 
 }
 
-const HoriCard = ({title, text, tags, likes, dislikes}: Props) => {
+const SagnCard = ({title, text, tags, likes, dislikes}: Props) => {
 
     return (
         <div className="w-full flex flex-col p-2 md:mx-0 bg-gray-100 rounded-md shadow-md text-textColor md:max-w-screen-lg space-y-2">
             <div className="flex flex-row justify-between w-full">
-                <Link href={"/storyFullView"} className=" box-content text-xl font-semibold line-clamp-1 md:max-w-x">
-                    {title} {title} {title} {title}
+                <Link href={"/storyFullView"} className=" box-content text-xl font-semibold line-clamp-1 md:max-w-x text-textColor">
+                    {title}
                 </Link>
                 <div className="flex-row space-x-3 hidden lg:flex">
                     <CardTags tags={tags}/>
@@ -33,4 +34,4 @@ const HoriCard = ({title, text, tags, likes, dislikes}: Props) => {
     )
 }
 
-export default HoriCard
+export default SagnCard

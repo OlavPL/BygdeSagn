@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 
 
 interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -22,7 +22,7 @@ const Input = React.forwardRef<HTMLInputElement, IProps> (
             ref={ref}
             required
             {...props}
-            className="w-full pl-1 rounded-t focus:ring-0 border-transparent focus:border-transparent peer"
+            className="w-full pl-1 rounded-t focus:ring-0 outline-none border-transparent focus:border-transparent peer"
             type={"text"}
             placeholder=""
           />

@@ -1,12 +1,15 @@
+import NewSagnForm from "@/components/newSagnForm"
 
 
 const createSagn = () =>{
     return (
         <>
-        <div id="editor">
-            <p>Title</p>
-            <p>Fill Text</p>
-
+        <div id="editor" className="mt-5">
+            <div className="w-full max-w-lg p-2 m-auto shadow-md">
+                <div className="">
+                    <NewSagnForm className="flex flex-col"/>
+                </div>
+            </div>
         </div>
         </>
     )

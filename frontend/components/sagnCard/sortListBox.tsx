@@ -2,10 +2,8 @@ import { useContext, useState } from 'react'
 import { Listbox } from '@headlessui/react'
 import { faArrowsUpDown, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import SagnListController, { SortTypes } from '../Controller/SagnListController';
-import { SortValue } from '../Controller/SagnListController';
-import Sagn from '@/types/SagnType';
-
+import SagnListController, { SortTypes } from '../controller/sagnListController';
+import { SortValue } from '../controller/sagnListController';
 
 interface Props{
   sagnListController: SagnListController

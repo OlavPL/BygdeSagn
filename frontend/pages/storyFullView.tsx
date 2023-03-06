@@ -1,10 +1,6 @@
 import Link from "next/link"
 import { useState } from "react"
-import 'react-quill/dist/quill.snow.css';
-import { Dropdown, Textarea } from "@nextui-org/react";
-import TagsListBox from "@/components/tagsListBox";
-import Input from "@/components/Input";
-import NewSagnForm from "@/components/NewSagnForm";
+import NewSagnForm from "@/components/newSagnForm";
 
 const StoryFullView = () => {
     const [value, setValue] = useState('')
