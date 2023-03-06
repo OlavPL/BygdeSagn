@@ -166,10 +166,6 @@ tussock = {
 },
 
 
-
-
-
-
 module.exports = {
     content: [
         "./app/**/*.{js,ts,jsx,tsx}",
@@ -182,8 +178,8 @@ module.exports = {
         'rounded-bar':'99%'
       },
       colors: {
-        primary: brandy,
-        secondary: plantation,
+        primary: botticelli,
+        secondary: brandy,
         textColor: gray[800],
         plantation : {
           '50': '#f1f8f5',
@@ -196,6 +192,30 @@ module.exports = {
           '700': '#266150',
           '800': '#1e473c',
           '900': '#193b32',
+        },
+        tallPoppy : {
+          '50': '#fdf4f3',
+          '100': '#fce6e4',
+          '200': '#fad2ce',
+          '300': '#f5b3ac',
+          '400': '#ee867b',
+          '500': '#e25f51',
+          '600': '#ce4334',
+          '700': '#ac3528',
+          '800': '#8f2f25',
+          '900': '#772d25',
+        },
+        eggBlue : {
+          '50': '#f6f7f9',
+          '100': '#ebeef3',
+          '200': '#d3dae4',
+          '300': '#adbbcc',
+          '400': '#8096b0',
+          '500': '#607997',
+          '600': '#4c607d',
+          '700': '#3e4e66',
+          '800': '#3b495d',
+          '900': '#313a49',
         }
       },
     },

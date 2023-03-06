@@ -55,7 +55,7 @@ const NewSagnForm = ({className}: Props) => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const [tags, setTags] = useState([Tag.SAGN])
+  const [tags, setTags] = useState<Tag[]>([])
 
   const addTag= (value: Tag) => {
     setTags([...tags, value])
@@ -97,7 +97,7 @@ const NewSagnForm = ({className}: Props) => {
         </button>
         <TagsDropBox key={tags.length} className="mt-2" list={tags} handleTag={addTag} propText={"Velg Tagger"} propTextEmpty={"Ikke fler Tagger"}/>
       </div>
-      <SelectedTagsBox key={tags.length} removeTag={removeTag}  tagList={tags} />
+      <SelectedTagsBox key={tags.length} removeTag={removeTag} tagList={tags} />
     </form>
   );
 };

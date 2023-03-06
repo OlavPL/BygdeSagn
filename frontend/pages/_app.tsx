@@ -11,9 +11,12 @@ const App = ({ Component, pageProps }: AppProps) => {
 
   return (
     <>
-      <Header/> 
-      <Component {...pageProps} />
-      <Footer/>
+      {/* <div className="bg-gradient-to-b from-eggBlue-200 to-white text-textColor min-h-screen relative"> */}
+      <div className="bg-secondary-100  text-textColor min-h-screen relative">
+        <Header/> 
+        <Component {...pageProps} />
+      </div>
+        <Footer/>
     </>
   )
 }
