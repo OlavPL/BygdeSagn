@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import TagsDropBox from "./tagsDropBox";
-import Input from "./input";
-import TextArea from "./textArea";
-import SelectedTagsBox from "./controller/selectedTagsBox";
+import Input from "./Input";
+import TextArea from "./TextArea";
+import SelectedTagsBox from "./Controller/selectedTagsBox";
 import { Tag } from "@/types/tag";
 import { NextRouter, useRouter } from "next/router";
 
