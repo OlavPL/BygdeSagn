@@ -11,11 +11,11 @@ interface Props{
 }
 
 const SortListBox = ({sagnListController, updateList}: Props ) => {
-  const [selected, setSelected] = useState(sagnListController.sortObjects[0])
+  const [selected, setSelected] = useState(sagnListController.sortType)
   
   const handleChange = (e: SortValue) =>{
     setSelected(e)
-    updateList(e.sType)
+    updateList(e.type)
   }
 
 

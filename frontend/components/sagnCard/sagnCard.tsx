@@ -17,9 +17,11 @@ const SagnCard = ({title, text, tags, likes, dislikes}: Props) => {
     return (
         <div className="w-full flex flex-col p-2 md:mx-0 bg-gray-100 rounded-md shadow-md text-textColor md:max-w-screen-lg space-y-2">
             <div className="flex flex-row justify-between w-full">
-                <Link href={"/storyFullView"} className=" box-content text-xl font-semibold line-clamp-1 md:max-w-x text-textColor">
+                {/* <Link href={"/storyFullView"} className=" box-content text-xl font-semibold line-clamp-1 md:max-w-x text-textColor">
+                </Link> */}
+                <h1 className="font-semibold text-lg">
                     {title}
-                </Link>
+                </h1>
                 <div className="flex-row space-x-3 hidden lg:flex">
                     <CardTags tags={tags}/>
                     <LikeDislikeButtons likes={likes} dislikes={dislikes}/>

@@ -1,6 +1,6 @@
 import Link from "next/link"
-import CardTags from "../sagnCard/cardTags"
-import LikeDislikeButtons from "../sagnCard/likeDislikeButtons"
+import CardTags from "./cardTags"
+import LikeDislikeButtons from "./likeDislikeButtons"
 
 interface Props {
     title: String,

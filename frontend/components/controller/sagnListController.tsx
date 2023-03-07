@@ -69,31 +69,33 @@ export enum SortTypes{
     ID
 }
 
+const sortChoises = [
+  {id: 1, type: SortTypes.LIKES, text:'Mest likt'},
+  {id: 2, type: SortTypes.CONTROVERSIAL, text:'Kontroversielle'},
+  {id: 3, type: SortTypes.NEWFIRST, text:'Nyest først'},
+  {id: 4, type: SortTypes.OLDFIRST, text:'Eldst først'},
+]
+
 export type SortValue = {
   id: number
-  sType: SortTypes
+  type: SortTypes
   text: string
 }
 
 
 class SagnListController {
     sagnList: Sagn[]
-    sortType: SortTypes 
+    sortType: SortValue 
     sortObjects: SortValue[]
 
     constructor(data: SagnJSON[]){
       let newData: Sagn[] = []
       data.map(object => {
-        newData.push(new Sagn(object.title, object.text, object.tags, object.postedAt))
+        newData.push(new Sagn(object.title, object.text, object.tags, object.postedAt, object.likes, object.dislikes))
       })
-      this.sagnList = newData
-      this.sortType = SortTypes.NEWFIRST
-      this.sortObjects = [
-        {id: 1, sType: SortTypes.LIKES, text:'Likes'},
-        {id: 2, sType: SortTypes.CONTROVERSIAL, text:'Controversial'},
-        {id: 3, sType: SortTypes.NEWFIRST, text:'New First'},
-        {id: 4, sType: SortTypes.OLDFIRST, text:'Old First'},
-      ]
+      this.sagnList = newData;
+      this.sortType = sortChoises[2]
+      this.sortObjects = sortChoises
     }
 
      sortSagn(sortType: SortTypes): Sagn[] {
@@ -105,12 +107,10 @@ class SagnListController {
             return this.sagnList.slice().sort((a, b) => a.likes - b.likes);
           }
           case SortTypes.NEWFIRST:{
-            console.log(this.sagnList[0].postedAt)
-            return this.sagnList.slice().sort((a, b) => b.postedAt.getMilliseconds() - a.postedAt.getMilliseconds());
+            return this.sagnList.slice().sort((a, b) => a.postedAt.getMilliseconds() - b.postedAt.getMilliseconds());
           }
           case SortTypes.OLDFIRST:{
-            console.log(this.sagnList[0].postedAt)
-            return this.sagnList.slice().sort((a, b) => a.postedAt.getMilliseconds() - b.postedAt.getMilliseconds());
+            return this.sagnList.slice().sort((a, b) => b.postedAt.getMilliseconds() - a.postedAt.getMilliseconds());
           }
           default: this.sagnList
       }

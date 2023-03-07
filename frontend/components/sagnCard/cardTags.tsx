@@ -13,11 +13,11 @@ const CardTags = ({tags}: Tags) =>{
     }
 
     return(
-        <div className = "flex flex-row space-x space-x-2 text-textColor">
+        <div className = "flex flex-row space-x space-x-2 text-textColor font-semibold">
             {tagArr.map((tag, index) => {
                 return(
                 <div key={index}  className="self-center place-center">
-                    <p className="bg-secondary-300 rounded text-justify px-1">{tag}</p>
+                    <p className="bg-secondary-300 rounded text-justify px-1 ">{tag}</p>
                 </div>
             )})}
 
