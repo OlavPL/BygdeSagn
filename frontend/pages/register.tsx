@@ -1,10 +1,11 @@
 import { useState, ChangeEvent } from 'react';
-import bcrypt from 'bcryptjs';
+var simplecrypt = require("simplecrypt");
 const Register =()=> {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+
 
   const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -21,29 +22,16 @@ const Register =()=> {
   const handleRepeatPasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
     setRepeatPassword(event.target.value);
   };
-  const hashPassword= ()=>{
-    let postpassword;
-    let hashedpassword;
 
-    try { 
-      if(password == repeatPassword){
-        hashedpassword=password;
-        bcrypt.hash(hashedpassword,"10",(err,hash)=>{
-          postpassword = hash;
-          console.log(err)
-        })
-      }  
-    } catch (error) {
-      alert("Password's does not match")
-    }
-    return postpassword;
-  }
 
   const handleRegister = async ()=> {
-    
+
+    if(password===repeatPassword){
+    var sc= simplecrypt();
+    var cryptpass = sc.encrypt(password)
     const JSOndata= {
       "name": username,
-      "password": hashPassword(),
+      "password": cryptpass,
       "email":email,
       "created": {
         "$date": new Date().setUTCHours(new Date().getUTCHours() + 1)
@@ -61,8 +49,10 @@ const Register =()=> {
     const response = await fetch(endpoint,options).catch()
     const result =response.json;
     console.log(result)
-  };
-
+   }else{
+    alert("Passwords does not match")
+   }
+  }
   return (
     <div className="flex flex-col items-center mt-20 min-h-screen">
       <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full">
