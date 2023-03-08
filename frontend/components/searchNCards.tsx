@@ -4,11 +4,11 @@ import DisplaySagn from "./displaySagn"
 import SortListBox from "./sagnCard/sortListBox"
 import SagnListController, { SortTypes } from "./controller/sagnListController"
 import { useState, useEffect } from 'react'
-import { SagnJSON } from "@/types/sagnJson"
+import Sagn from "@/objects/sagn"
 
 const SearchNCards = () => {
     const [sagnListController, setListController] = useState(new SagnListController([]))
-    const [list, setList] = useState(sagnListController.sortSagn(sagnListController.sortType.type))
+    const [list, setList] = useState([] as Sagn[])
     const [isLoading, setLoading] = useState(false)
 
     const updateList = (e: SortTypes) =>{
