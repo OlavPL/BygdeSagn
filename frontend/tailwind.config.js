@@ -174,6 +174,27 @@ module.exports = {
     ],
   theme: {
     extend: {
+      keyframes: {
+        float: {
+          '0%, 100%': {
+            transform: 'translate3d(0, 0, 0)',
+          },
+          '33%': {
+            transform: 'translate3d(-1%, -1%, 0)',
+          },          
+          '66%': {
+            transform: 'translate3d(-1%, 1%, 0)',
+          },
+        },
+      },
+      animation: {
+        'float-slow': 'float 20s ease-in-out infinite',
+      },
+
+      backgroundImage:{
+        'waves':"url(https://res.cloudinary.com/zsa-technology/image/upload/f_auto/q_auto/v1/zsa-io-refactor-prod/hot-swappable-waves.png?_a=ATCqVAA0)"
+      },
+
       width:{
         'rounded-bar':'99%'
       },

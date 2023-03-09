@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import TagsDropBox from "./tagsDropBox";
 import Input from "./input";
@@ -6,34 +6,7 @@ import TextArea from "./textArea";
 import SelectedTagsBox from "./controller/selectedTagsBox";
 import { Tag } from "@/types/tag";
 import { NextRouter, useRouter } from "next/router";
-
-const postSagn = async (data:Inputs, router: NextRouter )=>{
-
-  const JSOndata= {
-    "title":data.title,
-    "text":data.story,
-    "tags":data.tags,
-    "likes":0,
-    "dislikes":0,
-    "id":0,
-    "postedAt":new Date().setUTCHours(new Date().getUTCHours() + 1)
-  }
-  // const JSOndata = data;
-
-  const options:RequestInit={
-    headers:{
-      'Content-Type':'application/json',
-    },
-    method:'POST',
-    body:JSON.stringify(JSOndata),
-  }
-  console.log(JSOndata)
-  const endpoint=("http://localhost:3000/api/post/postPost")
-  const response = await fetch(endpoint,options).catch()
-  const result = response.json;
-  router.push("/#")
-  console.log(result)
-}
+import ImageInput from "./imageInput";
 
 
 interface Inputs {
@@ -47,15 +20,19 @@ interface Props {
 }
 
 const NewSagnForm = ({className}: Props) => {
-    const router = useRouter()
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Inputs>();
-
   const [tags, setTags] = useState<Tag[]>([])
+  const [images, setImages] = useState<FileList | null>(null)
+  const [storyText, setStoryText] = useState<string>("")
+  const router = useRouter()
+
+  const onImageChange = (files: FileList | null) =>{
+    if( files!= null){
+      setImages(files)
+    }
+  }
+  
+
+
 
   const addTag= (value: Tag) => {
     setTags([...tags, value])
@@ -73,33 +50,75 @@ const NewSagnForm = ({className}: Props) => {
   };
   useForm()
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={`${className} ${"space-y-6"}`}>
-      <Input
-        {...register("title", {required:true}) }
-        className="mt-6"
-        labelText="Tittel"
-        error={errors.title && "Angi tittel"}
-      />
-      <TextArea
-        {...register("story", { required: true })}
-        className=""
-        labelText="Historie"
-        error={errors.story && "Historien må skrives"}
-      />
-      <div className="flex flex-row space-x-2 place-content-between">
-        <button
-            className="mt-2 transition duration-500 active:scale-95 py-2 px-4 bg-violet-500 hover:bg-violet-700
-                 text-white shadow shadow-violet-600/25 rounded-md hover:shadow-violet-600/75"
-            type="submit"
-        >
-            submit
-        </button>
-        <TagsDropBox key={tags.length} className="mt-2" list={tags} handleTag={addTag} propText={"Velg Tagger"} propTextEmpty={"Ikke fler Tagger"}/>
-      </div>
-      <SelectedTagsBox key={tags.length} removeTag={removeTag} tagList={tags} />
-    </form>
+    <div className={`${className} ${"space-y-6"}`}>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <Input
+          {...register("title", {required:true}) }
+          className="mt-6 w-full"
+          labelText="Tittel"
+          error={errors.title && "Angi tittel"}
+        />
+        {/* <TextArea 
+          {...register("story", { required: true })}
+          className=""
+          labelText="Historie"
+          storyText={storyText}
+          onInput={(e:FormEvent<HTMLTextAreaElement>)=>{setStoryText(e.currentTarget.value), console.log(e.currentTarget.value)}}
+          error={errors.story && "Historien må skrives"}
+        /> */}
+        <textarea className="w-full" value={storyText} {...register("story",{required:true})} onChange={(e)=>setStoryText(e.target.value)}></textarea>
+        <div className="flex flex-row space-x-2 place-content-between">
+          <button
+              className="mt-2 transition duration-500 active:scale-95 py-2 px-4 bg-primary-500 hover:bg-primary-700
+                  text-white shadow shadow-primary-600/25 rounded-md hover:shadow-primary-600/75"
+              type="submit"
+          >
+              submit
+          </button>
+          <TagsDropBox key={tags.length} className="mt-2" list={tags} handleTag={addTag} propText={"Velg Tagger"} propTextEmpty={"Ikke fler Tagger"}/>
+        </div>
+        <SelectedTagsBox key={tags.length} removeTag={removeTag} tagList={tags} />
+
+      </form>
+      
+      <ImageInput onImageChange={onImageChange} onConvertToText={(text:string) => {setStoryText(storyText+text)}} images={images} className="mt-6"></ImageInput>
+    </div>
   );
 };
+
+
+
+const postSagn = async (data:Inputs, router: NextRouter )=>{
+
+  const JSOndata= {
+    "title":data.title,
+    "text":data.story,
+    "tags":data.tags,
+    "likes":0,
+    "dislikes":0,
+    "postedAt":new Date().setUTCHours(new Date().getUTCHours() + 1)
+  }
+
+  const options:RequestInit={
+    headers:{
+      'Content-Type':'application/json',
+    },
+    method:'POST',
+    body:JSON.stringify(JSOndata),
+  }
+  console.log(JSOndata)
+  const endpoint=("http://localhost:3000/api/post/postPost")
+  const response = await fetch(endpoint,options).catch()
+  const result = response.json;
+  router.push("/#")
+  console.log(result)
+}
 
 export default NewSagnForm;

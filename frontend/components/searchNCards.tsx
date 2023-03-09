@@ -30,7 +30,9 @@ const SearchNCards = () => {
 
     return (
         <div className="w-full flex flex-col items-center text-textColor">
-            <div className="pt-10 space-y-2">
+
+            <div className="pt-10 space-y-2 relative" >
+
                 <div className="text-3xl  text-center font-bold  mb-5">
                             Velkommen til Bygdesagn ™
                 </div>
@@ -41,13 +43,12 @@ const SearchNCards = () => {
                         </span>
                         <input className="grow rounded-l-none bg-primary-200 focus:outline-none border-l-0 rounded placeholder-textColor " placeholder='Søk på sted...'/>
                     </div>
-                    <div className='flex flex-row  space-x-2 '>
+                    <div className='flex flex-row  space-x-2'>
                         <SortListBox sagnListController={sagnListController} updateList={updateList}/>
                     </div>
                 </form>
 
             </div>
-
 
             <div className="w-full  mt-5">
                 <h2 className="text-lg font-bold text-center">
