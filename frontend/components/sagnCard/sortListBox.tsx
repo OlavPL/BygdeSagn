@@ -21,7 +21,7 @@ const SortListBox = ({sagnListController, updateList}: Props ) => {
 
   return (
     <Listbox as="div" value={selected} by="id" onChange={(e:SortValue) => {handleChange(e)}}
-      className="w-44 py-1 rounded-md space-y-2 bg-primary-200 justify-center shadow-md"
+      className="w-44 py-1 rounded-md space-y-2 bg-primary-100 justify-center shadow-md"
     >
       <Listbox.Button className="flex w-full items-center relative">
         <span className='px-2 truncate'>
@@ -36,7 +36,7 @@ const SortListBox = ({sagnListController, updateList}: Props ) => {
           <Listbox.Option 
             key={sort.id}
             value={sort}
-            className="hover:bg-primary-100 hover:text-primary-900 ui-active:text-white ui-active ui-not-active:bg-white ui-not-active:text-black"
+            className="hover:bg-primary-50 hover:text-primary-900 ui-active:text-white ui-active ui-not-active:bg-white ui-not-active:text-black"
           >
           {({ selected }) => (
             <div className="relative cursor-default select-none py-2 pl-10 pr-4 overflow-hidden">

@@ -164,6 +164,55 @@ tussock = {
   '800': '#6b3f28',
   '900': '#5c3627',
 },
+corvette = {
+  '50': '#fef6ee',
+  '100': '#fde9d7',
+  '200': '#f9c398',
+  '300': '#f7ae7a',
+  '400': '#f38344',
+  '500': '#ef6220',
+  '600': '#e04816',
+  '700': '#ba3514',
+  '800': '#942c18',
+  '900': '#772617',
+},
+
+aquaIsland = {
+  '50': '#f1faf9',
+  '100': '#dbf2f0',
+  '200': '#bce5e1',
+  '300': '#9fd9d5',
+  '400': '#58b8b3',
+  '500': '#3d9d99',
+  '600': '#358485',
+  '700': '#316b6d',
+  '800': '#2f595b',
+  '900': '#2a4c4f',
+},
+nandor = {
+  '50': '#f6f7f7',
+  '100': '#e1e6e3',
+  '200': '#c3ccc6',
+  '300': '#9daba3',
+  '400': '#78897f',
+  '500': '#5e6e65',
+  '600': '#47544d',
+  '700': '#3d4842',
+  '800': '#343b38',
+  '900': '#2e3331',
+}
+brownRust = {
+  '50': '#faf6f0',
+  '100': '#f1e5d4',
+  '200': '#e1c9a6',
+  '300': '#d2ab77',
+  '400': '#c79258',
+  '500': '#bd7844',
+  '600': '#a65d39',
+  '700': '#8b4732',
+  '800': '#723b2e',
+  '900': '#5f3128',
+},
 
 
 module.exports = {
@@ -192,15 +241,17 @@ module.exports = {
       },
 
       backgroundImage:{
-        'waves':"url(https://res.cloudinary.com/zsa-technology/image/upload/f_auto/q_auto/v1/zsa-io-refactor-prod/hot-swappable-waves.png?_a=ATCqVAA0)"
+        'waves':"url(https://res.cloudinary.com/zsa-technology/image/upload/f_auto/q_auto/v1/zsa-io-refactor-prod/hot-swappable-waves.png?_a=ATCqVAA0)",
+        'oldScroll':"url(https://www.poewiki.net/w/images/9/98/Bg.jpg)",
       },
 
       width:{
         'rounded-bar':'99%'
       },
       colors: {
-        primary: botticelli,
-        secondary: brandy,
+        primary: aquaIsland,
+        secondary: nandor,
+        emphasis: brownRust,
         textColor: gray[800],
         plantation : {
           '50': '#f1f8f5',
@@ -237,7 +288,9 @@ module.exports = {
           '700': '#3e4e66',
           '800': '#3b495d',
           '900': '#313a49',
-        }
+        },
+
+      
       },
     },
   variants:{

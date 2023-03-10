@@ -10,7 +10,8 @@ config.autoAddCss = false
 const App = ({ Component, pageProps }: AppProps) => {
 
   return (
-    <div className='bg-secondary-100 text-textColor min-h-screen relative '>
+    <div className='bg-emphasis-50 text-textColor min-h-screen relative '>
+    {/* <div className=' text-textColor min-h-screen relative bg-oldScroll'> */}
     {/* <div className="bg-gradient-to-b from-eggBlue-200 to-white text-textColor min-h-screen relative"> */}
       <div className=" bg-cover text-textColor min-h-screen relative bg-center ">
         <Header/>

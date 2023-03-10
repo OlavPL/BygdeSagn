@@ -10,15 +10,15 @@ const Header = () => {
   };
 
   return (
-    <nav className="shadow-sm w-full z-10">
-      <div className="flex items-center h-20 w-full bg-primary-300">
+    <nav className=" w-full z-10">
+      <div className="flex items-center h-20 w-full ">
         <div className="flex items-center mx-4 justify-between w-full">
           
           {/* Logo */}
           <div className="flex justify-center items-center flex-shrink-0">
             <Link href="/">
               <div className="font-bold text-4xl cursor-pointer">
-                Bygde<span className="text-blue-500">Sagn</span>
+              <span className="text-primary-90 ">Bygde</span><span className="drop-shaodw-md text-primary-400">Sagn</span>
               </div>
             </Link>
           </div>

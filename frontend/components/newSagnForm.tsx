@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import TagsDropBox from "./tagsDropBox";
 import Input from "./input";
 import TextArea from "./textArea";
-import SelectedTagsBox from "./controller/selectedTagsBox";
+import SelectedTagsBox from "./selectedTagsBox";
 import { Tag } from "@/types/tag";
 import { NextRouter, useRouter } from "next/router";
 import ImageInput from "./imageInput";
@@ -75,14 +75,14 @@ const NewSagnForm = ({className}: Props) => {
         /> */}
         <textarea className="w-full" value={storyText} {...register("story",{required:true})} onChange={(e)=>setStoryText(e.target.value)}></textarea>
         <div className="flex flex-row space-x-2 place-content-between">
+          <TagsDropBox key={tags.length} className="mt-2" list={tags} handleTag={addTag} propText={"Velg Tagger"} propTextEmpty={"Ikke fler Tagger"}/>
           <button
-              className="mt-2 transition duration-500 active:scale-95 py-2 px-4 bg-primary-500 hover:bg-primary-700
-                  text-white shadow shadow-primary-600/25 rounded-md hover:shadow-primary-600/75"
+              className="mt-2 transition duration-500 text-white font-semibold  active:scale-95 py-2 px-4 bg-secondary-600 hover:bg-green-500
+                  shadow shadow-emphasis-600/25 rounded-md hover:shadow-secondary-500"
               type="submit"
           >
-              submit
+              Legg ut 
           </button>
-          <TagsDropBox key={tags.length} className="mt-2" list={tags} handleTag={addTag} propText={"Velg Tagger"} propTextEmpty={"Ikke fler Tagger"}/>
         </div>
         <SelectedTagsBox key={tags.length} removeTag={removeTag} tagList={tags} />
 

@@ -45,26 +45,30 @@ const ImageInput: React.FC<ImageInputProps> = ({ onImageChange, images, classNam
 
 return (
     <div className={`${className} ${""}`}>
-        <button onClick={handleClick} className=" transition duration-500 active:scale-95 py-2 px-4 bg-primary-500 hover:bg-primary-700
-                 text-white shadow shadow-primary-600/25 rounded-md hover:shadow-primary-600/75 justify-self-end"
-        > Hent tekst fra bilde
-        </button>
         <input type="file" accept='image/*' ref={hiddenFileInput} onChange={handleImageChange} className="invisible"/>
-        {images && (
+
             <div className='flex felx-row space-x-5 py-2 justify-between w-full'>
-                <div className="flex felx-row space-x-5" >
-                    {Array.from(images).map((image, index) => (
-                        <Image key={index} src={URL.createObjectURL(image)} width={100} height={100} alt={`image-${index}`} />
-                    ))}
-                </div>
-            <button className=" transition duration-500 active:scale-95 py-2 px-4 bg-primary-500 hover:bg-primary-700
-                    text-white shadow shadow-primary-600/25 rounded-md hover:shadow-primary-600/75 justify-self-end"
-                    onClick={imgToText}
-            > 
-                Omgjør til tekst 
-            </button>
+                <button onClick={handleClick} className=" transition duration-500 active:scale-95 py-2 px-4 bg-primary-200 hover:bg-primary-700
+                        text-textColor shadow shadow-primary-600/25 rounded-md hover:shadow-primary-600/75 justify-self-end opacity-100"
+                > Hent tekst fra bilde
+                </button>
+                {images && (
+                    <button className=" transition duration-500 active:scale-95 py-2 px-4 bg-emphasis-300 hover:bg-emphasis-700
+                            text-textColor shadow shadow-primary-600/25 rounded-md hover:shadow-emphasis-600/75 justify-self-end"
+                            onClick={imgToText}
+                    > 
+                        Omgjør til tekst 
+                    </button> 
+                )}
             </div>
-        )}
+            {images && (
+                    <div className="flex felx-row space-x-5" >
+                        {Array.from(images).map((image, index) => (
+                            <Image key={index} src={URL.createObjectURL(image)} width={100} height={100} alt={`image-${index}`} />
+                        ))}
+                    </div>
+                    
+                )}
     </div>
   );
 };

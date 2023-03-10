@@ -3,7 +3,7 @@
 const Footer = () => {
     return(
    
-        <footer className="mt-auto w-full bg-primary-300 text-textColor py-4  ">
+        <footer className="mt-auto w-full bg-secondary-500 text-textColor py-4  ">
           <div className="grid grid-cols-3 divide-x">
             <div className="left-footer w-full text-center md:text-left ">
               <ul className="flex flex-col items-center">
