@@ -1,4 +1,5 @@
 import {useSession,signOut,getSession} from 'next-auth/react'
+import { Context } from 'vm';
 
 
 const account =()=> {
@@ -7,9 +8,10 @@ const account =()=> {
     
         if(status==='authenticated'){
             return(
+                
             <div><p>Welcome{session.user?.name}</p>
               <button onClick={()=> signOut()}>Sign out</button>
-            </div>
+            </div> 
             
             )
         }else{
@@ -20,11 +22,11 @@ const account =()=> {
     
 }
 export default account;
-/*
+
 export const getServerSideProps = async (context:Context)=>{
     const session = await getSession(context);
 
-    if(!session){
+    if(session){
         return{
             redirect:{
                destination: '/'
@@ -34,4 +36,4 @@ export const getServerSideProps = async (context:Context)=>{
     return{
         props:{session},
     }
-} */
+} 

@@ -1,13 +1,12 @@
 import { useState, ChangeEvent } from 'react';
 import Link from 'next/link';
 import React from 'react'
-import {useSession, signIn, signOut} from 'next-auth/react'
+import {useSession, signIn, signOut,getSession} from 'next-auth/react'
+import { Context } from 'vm';
 
 const Login =()=> {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
-  const {data: session} = useSession()
 
   const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -25,11 +24,17 @@ const Login =()=> {
     signIn('GoogleProvider')
   }
 
-  if(session) {
+
+  const {data: session,status} = useSession()
+
+
+  if(status==='authenticated') {
+    return(
     <div>
         <p>Welcome, {session.user?.email}</p>
         <button onClick={()=> signOut()}>Sign out</button>
       </div>
+    )
   }
   else {
     return (
@@ -86,3 +91,19 @@ const Login =()=> {
 }
 
 export default Login;
+
+/*
+export const getServerSideProps = async (context:Context)=>{
+    const session = await getSession(context);
+
+    if(!session){
+        return{
+            redirect:{
+               destination: '/login'
+            }
+        }
+    }
+    return{
+        props:{session},
+    }
+} */
