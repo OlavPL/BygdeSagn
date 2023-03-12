@@ -2,65 +2,6 @@ import Sagn from "@/objects/sagn";
 import { SagnJSON } from "@/types/sagnJson";
 import SagnType from "@/types/sagnType";
 
-const now = new Date().getTime();
-const tenDaysAgo = now - 10 * 24 * 60 * 60 * 1000;
-const testData: SagnType[] = [
-    {
-      _id:"1",
-      title: "First fortelling",
-      text: "This is the first fortelling. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      tags: ["tag1", "tag2"],
-      likes: 10,
-      dislikes: 2,
-      postedAt: new Date(tenDaysAgo + Math.random() * (now - tenDaysAgo)),
-    },
-    {
-      _id:"2",
-      title: "Second fortelling",
-      text: "This is the second fortelling.",
-      tags: ["tag2222", "tag3", "HIstorie"],
-      likes: 5,
-      dislikes: 1,
-      postedAt: new Date(tenDaysAgo + Math.random() * (now - tenDaysAgo)),
-    },
-    {
-      _id:"3",
-      title: "Third fortelling",
-      text: "This is the third fortelling. Maker including versions of Lorem Ipsum.",
-      tags: ["tag1", "tag3"],
-      likes: 8,
-      dislikes: 3,
-      postedAt: new Date(tenDaysAgo + Math.random() * (now - tenDaysAgo)),
-    },
-    {
-      _id:"4",
-      title: "4Th fortelling",
-      text: "This is the first fortelling. Lorem Ipsum is simply dummy text of the printing and typesndard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      tags: ["tag1", "tag2","tag3","tag2222", "tag3", "HIstorie"],
-      likes: 10,
-      dislikes: 2,
-      postedAt: new Date(tenDaysAgo + Math.random() * (now - tenDaysAgo)),
-    },
-    {
-      _id:"5",
-      title: "5th fortelling",
-      text: "This is the second fortelling.",
-      tags: ["tag2", "tag3"],
-      likes: 5,
-      dislikes: 1,
-      postedAt: new Date(tenDaysAgo + Math.random() * (now - tenDaysAgo)),
-    },
-    {
-      _id:"6",
-      title: "6th fortelling",
-      text: "This is the third fortelling.",
-      tags: ["tag1", "tag3"],
-      likes: 8,
-      dislikes: 3,
-      postedAt: new Date(tenDaysAgo + Math.random() * (now - tenDaysAgo)),
-    },
-]
-
 export enum SortTypes{
     LIKES,
     CONTROVERSIAL,
@@ -115,10 +56,6 @@ class SagnListController {
           default: this.sagnList
       }
       return this.sagnList
-    }
-
-    fetchSagn():SagnType[] {
-        return testData;
     }
 }
 

@@ -29,7 +29,7 @@ const SearchNCards = () => {
       , [])
 
     return (
-        <div className="w-full flex flex-col items-center text-textColor relative">
+        <div className="w-full flex flex-col items-center text-textColor">
 
             <div className="pt-10 space-y-2 relative" >
 

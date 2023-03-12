@@ -23,6 +23,10 @@ const Header = () => {
             </Link>
           </div>
 
+          <div className="text-3xl  text-center font-bold">
+            Finn dine BygdeSagn ™ (Page tittel)
+          </div>
+
         {/* Create Sagn Button */}
           <div className="ml-10 flex items-baseline space-x-8">
             <Link href={"/createSagn"}>

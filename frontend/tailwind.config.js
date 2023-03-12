@@ -256,6 +256,7 @@ module.exports = {
       backgroundImage:{
         'waves':"url(https://res.cloudinary.com/zsa-technology/image/upload/f_auto/q_auto/v1/zsa-io-refactor-prod/hot-swappable-waves.png?_a=ATCqVAA0)",
         'oldScroll':"url(https://www.poewiki.net/w/images/9/98/Bg.jpg)",
+        'coralGrain':`/frontend/resources/coralGrain64.jpg`,
       },
 
       width:{
