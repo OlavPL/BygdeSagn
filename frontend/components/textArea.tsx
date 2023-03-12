@@ -6,11 +6,12 @@ interface IProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   className?: string;
   error?: string;
   storyText: string;
-  onInput: (e:FormEvent<HTMLTextAreaElement>) => void;
+  onInput2: React.Dispatch<React.SetStateAction<string>>;
+  // onInput2: (e:React.ChangeEvent<HTMLTextAreaElement>)=>void;
 }
 // eslint-disable-next-line react/display-name
 const Input = React.forwardRef<HTMLTextAreaElement, IProps> (
-  ({ labelText, className, error, storyText, onInput, ...props }, ref) => {
+  ({ labelText, className, error, storyText, onInput2, ...props }, ref) => {
     return (
       <>
         <div
@@ -22,6 +23,8 @@ const Input = React.forwardRef<HTMLTextAreaElement, IProps> (
         >
           <textarea rows={6} cols={60}
             required
+            value={storyText}
+            onChange={(e)=>{console.log(e.target.value)}}
             ref={ref}
             {...props}
             className="w-full pl-1 rounded-t focus:ring-0 outline-none border-transparent focus:border-transparent peer"

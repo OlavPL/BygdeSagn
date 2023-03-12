@@ -16,7 +16,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement>{
       {tagList.map((tag, index) =>{
         return (
           <div key={tag+index} className={""}>
-            <p onClick={(e:any) => removeTag(tag)} className="bg-emphasis-300 rounded text-justify px-1 font-semibold">{tag}</p>
+            <p onClick={(e:any) => removeTag(tag)} className="bg-emphasis-400 rounded text-justify px-1 font-semibold">{tag}</p>
           </div>
         )
       })}

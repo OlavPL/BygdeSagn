@@ -213,6 +213,19 @@ brownRust = {
   '800': '#723b2e',
   '900': '#5f3128',
 },
+coral = {
+  '50': '#fff4ed',
+  '100': '#ffe6d4',
+  '200': '#ffc9a8',
+  '300': '#ffa471',
+  '400': '#ff8552',
+  '500': '#fe4d11',
+  '600': '#ef3307',
+  '700': '#c62108',
+  '800': '#9d1d0f',
+  '900': '#7e1b10',
+},
+
 
 
 module.exports = {
@@ -251,7 +264,7 @@ module.exports = {
       colors: {
         primary: aquaIsland,
         secondary: nandor,
-        emphasis: brownRust,
+        emphasis: coral,
         textColor: gray[800],
         plantation : {
           '50': '#f1f8f5',

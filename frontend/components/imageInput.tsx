@@ -10,8 +10,10 @@ interface ImageInputProps {
 }
 
 const ImageInput: React.FC<ImageInputProps> = ({ onImageChange, images, className, onConvertToText}) => {
+    const [loading, setLoading] = useState(false)
     const [progress, setProgress] = useState(0)
     const [progressLabel, setProgressLabel] = useState("")
+
     const worker = createWorker();
     const [selectedImage, setSelectedImage] = useState<File | null>(null)
     
@@ -25,12 +27,22 @@ const ImageInput: React.FC<ImageInputProps> = ({ onImageChange, images, classNam
 
     const imgToText = async () => {
         if(selectedImage!=null){
-            await (await worker).load();
-            await (await worker).loadLanguage('eng');
-            await (await worker).initialize('eng');
-            
-            const {data} = await (await worker).recognize(URL.createObjectURL(selectedImage));
-            onConvertToText(data.text)
+            if(!loading){
+                setLoading(true);
+                await (await worker).load();
+                await (await worker).loadLanguage('eng');
+                await (await worker).initialize('eng');
+                
+                const {data} = await (await worker).recognize(URL.createObjectURL(selectedImage));
+                onConvertToText(data.text)
+                worker.finally(()=>{
+                    setLoading(false)
+                })
+                worker.catch(()=>{
+                    setSelectedImage(null)
+                    setLoading(false)
+                })
+            }
         }
         else{console.log("No image")}
     }

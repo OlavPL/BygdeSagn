@@ -19,6 +19,8 @@ interface Props {
   className?: string;
 }
 
+
+
 const NewSagnForm = ({className}: Props) => {
   const [tags, setTags] = useState<Tag[]>([])
   const [images, setImages] = useState<FileList | null>(null)
@@ -30,9 +32,6 @@ const NewSagnForm = ({className}: Props) => {
       setImages(files)
     }
   }
-  
-
-
 
   const addTag= (value: Tag) => {
     setTags([...tags, value])
@@ -68,12 +67,21 @@ const NewSagnForm = ({className}: Props) => {
         {/* <TextArea 
           {...register("story", { required: true })}
           className=""
+          value={storyText}
+          onInput2={setStoryText}
           labelText="Historie"
           storyText={storyText}
-          onInput={(e:FormEvent<HTMLTextAreaElement>)=>{setStoryText(e.currentTarget.value), console.log(e.currentTarget.value)}}
+          // onInput={(e:FormEvent<HTMLTextAreaElement>)=>{setStoryText(e.currentTarget.value), console.log(e.currentTarget.value)}}
           error={errors.story && "Historien må skrives"}
         /> */}
-        <textarea className="w-full" value={storyText} {...register("story",{required:true})} onChange={(e)=>setStoryText(e.target.value)}></textarea>
+        <div className="relative">
+        <label className="absolute pointer-events-none -top-1 -left-2 transition-all scale-90 px-1 "
+          >
+          Historie
+        </label>
+          <textarea className="w-full col-end-auto outline-none p-2 mt-5" rows={10} placeholder="Skriv historie her..."
+              value={storyText} {...register("story",{required:true})} onChange={(e)=>setStoryText(e.target.value)}></textarea>
+        </div>
         <div className="flex flex-row space-x-2 place-content-between">
           <TagsDropBox key={tags.length} className="mt-2" list={tags} handleTag={addTag} propText={"Velg Tagger"} propTextEmpty={"Ikke fler Tagger"}/>
           <button
@@ -81,14 +89,14 @@ const NewSagnForm = ({className}: Props) => {
                   shadow shadow-emphasis-600/25 rounded-md hover:shadow-secondary-500"
               type="submit"
           >
-              Legg ut 
+              Publiser
           </button>
         </div>
         <SelectedTagsBox key={tags.length} removeTag={removeTag} tagList={tags} />
 
       </form>
       
-      <ImageInput onImageChange={onImageChange} onConvertToText={(text:string) => {setStoryText(storyText+text)}} images={images} className="mt-6"></ImageInput>
+      <ImageInput onImageChange={onImageChange} onConvertToText={(text:string) => {setStoryText(storyText+"\n"+text)}} images={images} className="mt-6"></ImageInput>
     </div>
   );
 };
