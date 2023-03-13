@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { FaUserAlt, FaPen } from 'react-icons/fa';
-
+import {useSession,signOut,getSession} from 'next-auth/react'
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
 

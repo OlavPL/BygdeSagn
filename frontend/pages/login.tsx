@@ -2,9 +2,9 @@ import { useState, ChangeEvent } from 'react';
 import Link from 'next/link';
 import React from 'react'
 import {useSession, signIn, signOut,getSession} from 'next-auth/react'
-import { Context } from 'vm';
+import {NextRouter, useRouter } from "next/router"
 
-const Login =()=> {
+const Login =(router: NextRouter)=> {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -27,14 +27,9 @@ const Login =()=> {
 
   const {data: session,status} = useSession()
 
-
   if(status==='authenticated') {
-    return(
-    <div>
-        <p>Welcome, {session.user?.email}</p>
-        <button onClick={()=> signOut()}>Sign out</button>
-      </div>
-    )
+    
+   
   }
   else {
     return (
