@@ -12,7 +12,15 @@ const Header = () => {
   const{data:session}=useSession();
   const handleClick = () => {
     setShowMenu(!showMenu);
+  
   };
+  const picstring=():string=>{
+    if(session){
+      return session.user?.image!
+    }
+    else{ return "https://www.citypng.com/public/uploads/preview/profile-user-round-red-icon-symbol-download-png-11639594337tco5j3n0ix.png"}
+
+  }
   
   return (
     <nav className=" w-full z-10">
@@ -44,7 +52,7 @@ const Header = () => {
 
 
             {/* USer Button */}
-            <Image src={session?.user?.image!} alt="" onClick={handleClick} width={35} height={0} />
+            <Image src={picstring()} alt="" onClick={handleClick} width={35} height={0} />
             <div className={`origin-top-right absolute right-0 mt-14 w-40 rounded-md shadow-lg  bg-white ${showMenu ? 'block' : 'hidden'}`}
                 role="menu"
                 aria-orientation="vertical"
