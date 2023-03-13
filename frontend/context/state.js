@@ -1,17 +1,17 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 
-const AppContext = createContext("");
+const AppContext = createContext(({
+  title: "Tittel",
+  setTitle: async (value) => null
+}));
 
 
 export function AppWrapper({ children }) {
-  let sharedState = {/* whatever you want */
-    title: "Velkommen til Bygdesagn ™"
-   
-}
+  const [title, setTitle] = useState("Velkommen til Bygdesagn ™");
   
 
   return (
-    <AppContext.Provider value={sharedState}>
+    <AppContext.Provider value={{title, setTitle}}>
       {children}
     </AppContext.Provider>
   );
@@ -19,4 +19,3 @@ export function AppWrapper({ children }) {
 export function useAppContext() {
   return useContext(AppContext);
 }
-

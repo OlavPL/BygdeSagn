@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Link from 'next/link';
 import { FaUserAlt, FaPen } from 'react-icons/fa';
 import { FontAwesomeIcon,  } from '@fortawesome/react-fontawesome';
@@ -8,6 +8,7 @@ import {useSession,signOut,getSession} from 'next-auth/react'
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const pageContext = useAppContext();
+  // const [title, setTitle] = useAppContext()
 
   const handleClick = () => {
     setShowMenu(!showMenu);
@@ -28,7 +29,7 @@ const Header = () => {
           </div>
 
           <div className="text-3xl  text-center font-bold">
-            {pageContext.title}
+            {/* {pageContext.title} */}
           </div>
 
         {/* Create Sagn Button */}
@@ -50,7 +51,7 @@ const Header = () => {
                 aria-labelledby="menu-button"
               >
               <div className="py-2" role="none">
-                  <Link href="/account" className="px-2 py-2 text-sm block" role="menuitem" id="menu-item-profile">
+                  <Link href="/profilePage" onClick={()=>{useContext}} className="px-2 py-2 text-sm block" role="menuitem" id="menu-item-profile">
                     Min Profil
                   </Link>
                   <Link href="#" className="px-2 py-2 text-sm block" role="menuitem" id="menu-item-2">
