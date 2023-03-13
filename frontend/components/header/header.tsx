@@ -9,7 +9,7 @@ import Image from 'next/image';
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const pageContext = useAppContext();
-
+  const{data:session}=useSession();
   const handleClick = () => {
     setShowMenu(!showMenu);
   };
