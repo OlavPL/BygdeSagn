@@ -1,39 +1,43 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { FaUserAlt, FaPen } from 'react-icons/fa';
+import { FontAwesomeIcon,  } from '@fortawesome/react-fontawesome';
+import { faPen, faUser } from '@fortawesome/free-solid-svg-icons';
+import { useAppContext } from '@/context/state';
 import {useSession,signOut,getSession} from 'next-auth/react'
 import Image from 'next/image';
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
-  const{data:session}=useSession();
-  var picture:string;
-  
+  const pageContext = useAppContext();
 
   const handleClick = () => {
     setShowMenu(!showMenu);
   };
   
   return (
-    
-    <nav className="shadow-sm w-full z-10">
-      <div className="flex items-center h-20 w-full bg-primary-300">
+    <nav className=" w-full z-10">
+      <div className="flex items-center h-20 w-full ">
         <div className="flex items-center mx-4 justify-between w-full">
           
           {/* Logo */}
           <div className="flex justify-center items-center flex-shrink-0">
             <Link href="/">
               <div className="font-bold text-4xl cursor-pointer">
-                Bygde<span className="text-blue-500">Sagn</span>
+              <span className="text-primary-90 ">Bygde</span><span className="drop-shaodw-md text-primary-400">Sagn</span>
               </div>
             </Link>
+          </div>
+
+          <div className="text-3xl  text-center font-bold">
+            {pageContext.title}
           </div>
 
         {/* Create Sagn Button */}
           <div className="ml-10 flex items-baseline space-x-8">
             <Link href={"/createSagn"}>
-              <button className="flex items-center space-x-1 font-medium text-white hover:text-blue-500 focus:outline-none bg-blue-500 rounded-md px-4 py-1.5">
-                <FaPen className="text-2xl w-6 h-6 cursor-pointer transition-colors duration-200 ease-in-out" />
-                <span className="text-lg underline">Post</span>
+              <button className="flex items-center space-x-1 font-medium text-white hover:text-secondary-800 focus:outline-none bg-blue-500 rounded-md px-4 py-1.5">
+                <FontAwesomeIcon icon={faPen} className="text-2xl w-6 h-6 cursor-pointer transition-colors duration-200 ease-in-out fa-lg" />
+                <span className="text-lg underline">Nytt Sagn</span>
               </button>
             </Link>
             

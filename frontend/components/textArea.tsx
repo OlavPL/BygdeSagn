@@ -1,14 +1,17 @@
-import React, { useRef } from "react";
+import React, { FormEvent, useRef } from "react";
 
 
 interface IProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   labelText?: string;
   className?: string;
   error?: string;
+  storyText: string;
+  onInput2: React.Dispatch<React.SetStateAction<string>>;
+  // onInput2: (e:React.ChangeEvent<HTMLTextAreaElement>)=>void;
 }
 // eslint-disable-next-line react/display-name
 const Input = React.forwardRef<HTMLTextAreaElement, IProps> (
-  ({ labelText, className, error, ...props }, ref) => {
+  ({ labelText, className, error, storyText, onInput2, ...props }, ref) => {
     return (
       <>
         <div
@@ -19,11 +22,13 @@ const Input = React.forwardRef<HTMLTextAreaElement, IProps> (
           `}
         >
           <textarea rows={6} cols={60}
-          required
+            required
+            value={storyText}
+            onChange={(e)=>{console.log(e.target.value)}}
             ref={ref}
             {...props}
             className="w-full pl-1 rounded-t focus:ring-0 outline-none border-transparent focus:border-transparent peer"
-            
+          
             placeholder=" "
           />
           <div className="border-sky-500 absolute top-full transition-all duration-300 bg-sky-500 w-0 h-0.5 peer-focus:w-full pointer"></div>

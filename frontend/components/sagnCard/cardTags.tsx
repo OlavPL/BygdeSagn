@@ -17,12 +17,12 @@ const CardTags = ({tags}: Tags) =>{
             {tagArr.map((tag, index) => {
                 return(
                 <div key={index}  className="self-center place-center">
-                    <p className="bg-secondary-300 rounded text-justify px-1 ">{tag}</p>
+                    <p className="bg-emphasis-300 rounded text-justify px-1 ">{tag}</p>
                 </div>
             )})}
 
             {tags.length > 3 &&
-                <div className="rounded bg-secondary-300 self-center">
+                <div className="rounded bg-emphasis-300 self-center">
                     <p className=" p-1 flex hover:cursor-pointer" onClick={openTags} >
                         <FontAwesomeIcon icon={faArrowsUpDown} className="h-7 w-5"/>
                     </p>
