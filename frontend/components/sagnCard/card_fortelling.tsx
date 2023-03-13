@@ -1,5 +1,5 @@
 import Link from "next/link"
-import CardTags from "./cardTags"
+// import CardTags from "./cardTags"
 import LikeDislikeButtons from "./likeDislikeButtons"
 
 interface Props {
@@ -28,7 +28,7 @@ const CardFortelling = (props: Props) => {
                     <LikeDislikeButtons likes={props.likes} dislikes={props.dislikes}/>
                 </div>
                 
-                <CardTags tags={props.tags}/>
+                {/* <CardTags tags={props.tags}/> */}
             </div>
         </div>
     )
