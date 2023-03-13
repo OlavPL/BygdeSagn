@@ -67,7 +67,7 @@ const Login =(router: NextRouter)=> {
               <button type="button" onClick={handleLogin} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-32">
                 Login
               </button>
-              <p className="text-sm text-gray-500">Don't have an account? <Link href="/register" className ="text-blue-500 hover:underline cursor-pointer">Register here</Link></p>
+              <p className="text-sm text-gray-500">Don&apos;t have an account? <Link href="/register" className ="text-blue-500 hover:underline cursor-pointer">Register here</Link></p>
             </div>
             <div className="my-4">
               <button onClick={handleGoogleLogin} className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow w-full">
