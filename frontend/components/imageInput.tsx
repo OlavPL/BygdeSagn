@@ -65,8 +65,8 @@ return (
                 > Hent tekst fra bilde
                 </button>
                 {images && (
-                    <button className=" transition duration-500 active:scale-95 py-2 px-4 bg-emphasis-300 hover:bg-emphasis-700
-                            text-textColor shadow shadow-primary-600/25 rounded-md hover:shadow-emphasis-600/75 justify-self-end"
+                    <button className=" transition duration-500 active:scale-95 py-2 px-4 bg-emphasis-300 hover:bg-emphasis-500
+                            text-textColor shadow shadow-primary-600/25 rounded-md hover:shadow-emphasis-400/75 justify-self-end"
                             onClick={imgToText}
                     > 
                         Omgjør til tekst 

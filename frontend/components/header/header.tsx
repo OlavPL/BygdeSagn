@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { FaUserAlt, FaPen } from 'react-icons/fa';
+import { FontAwesomeIcon,  } from '@fortawesome/react-fontawesome';
+import { faPen, faUser } from '@fortawesome/free-solid-svg-icons';
+import { useAppContext } from '@/context/state';
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const pageContext = useAppContext();
 
   const handleClick = () => {
     setShowMenu(!showMenu);
@@ -24,21 +28,22 @@ const Header = () => {
           </div>
 
           <div className="text-3xl  text-center font-bold">
-            Finn dine BygdeSagn ™ (Page tittel)
+            {pageContext.title}
           </div>
 
         {/* Create Sagn Button */}
           <div className="ml-10 flex items-baseline space-x-8">
             <Link href={"/createSagn"}>
-              <button className="flex items-center space-x-1 font-medium text-white hover:text-blue-500 focus:outline-none bg-blue-500 rounded-md px-4 py-1.5">
-                <FaPen className="text-2xl w-6 h-6 cursor-pointer transition-colors duration-200 ease-in-out" />
-                <span className="text-lg underline">Post</span>
+              <button className="flex items-center space-x-1 font-medium text-white hover:text-secondary-800 focus:outline-none bg-blue-500 rounded-md px-4 py-1.5">
+                <FontAwesomeIcon icon={faPen} className="text-2xl w-6 h-6 cursor-pointer transition-colors duration-200 ease-in-out fa-lg" />
+                <span className="text-lg underline">Nytt Sagn</span>
               </button>
             </Link>
 
 
-            {/* USer Button */}
-            <FaUserAlt onClick={handleClick} className="text-4xl hover:text-white rounded-full w-8 h-8 cursor-pointer transition-colors duration-200 ease-in-out"/>
+            {/* User Button */}
+            <FontAwesomeIcon icon={faUser} onClick={handleClick} className="text-4xl rounded-full w-8 h-8 cursor-pointer transition-colors duration-200 ease-in-out
+                  hover:textHover hover:drop-shadow-xl shadow-black"/>
             <div className={`origin-top-right absolute right-0 mt-14 w-40 rounded-md shadow-lg  bg-white ${showMenu ? 'block' : 'hidden'}`}
                 role="menu"
                 aria-orientation="vertical"
