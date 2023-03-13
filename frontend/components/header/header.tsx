@@ -2,14 +2,19 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { FaUserAlt, FaPen } from 'react-icons/fa';
 import {useSession,signOut,getSession} from 'next-auth/react'
+import Image from 'next/image';
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const{data:session}=useSession();
+  var picture:string;
+  
 
   const handleClick = () => {
     setShowMenu(!showMenu);
   };
-
+  
   return (
+    
     <nav className="shadow-sm w-full z-10">
       <div className="flex items-center h-20 w-full bg-primary-300">
         <div className="flex items-center mx-4 justify-between w-full">
@@ -31,10 +36,11 @@ const Header = () => {
                 <span className="text-lg underline">Post</span>
               </button>
             </Link>
+            
 
 
             {/* USer Button */}
-            <FaUserAlt onClick={handleClick} className="text-4xl hover:text-white rounded-full w-8 h-8 cursor-pointer transition-colors duration-200 ease-in-out"/>
+            <Image src={session?.user?.image!} alt="" onClick={handleClick} width={35} height={0} />
             <div className={`origin-top-right absolute right-0 mt-14 w-40 rounded-md shadow-lg  bg-white ${showMenu ? 'block' : 'hidden'}`}
                 role="menu"
                 aria-orientation="vertical"
