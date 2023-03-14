@@ -52,7 +52,7 @@ const Header = () => {
 
 
             {/* USer Button */}
-            <Image src={picstring()} alt="" onClick={handleClick} width={35} height={0} />
+            <Image src={picstring()} alt="" onClick={handleClick} width={40} height={0} className="rounded-full"  />
             <div className={`origin-top-right absolute right-0 mt-14 w-40 rounded-md shadow-lg  bg-white ${showMenu ? 'block' : 'hidden'}`}
                 role="menu"
                 aria-orientation="vertical"
