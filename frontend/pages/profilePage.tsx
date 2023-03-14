@@ -4,7 +4,7 @@ import {useSession,signOut,getSession} from 'next-auth/react'
 import { Context } from 'vm';
 
 
-const profilePage=()=> {
+const ProfilePage=()=> {
     const{data:session,status}= useSession({required:true});
     
     
@@ -23,7 +23,7 @@ const profilePage=()=> {
         }
     
 }
-export default profilePage;
+export default ProfilePage;
 /*
 export const getServerSideProps = async (context:Context)=>{
     const session = await getSession(context);

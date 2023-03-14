@@ -2,7 +2,7 @@ import Background from "@/components/background"
 import NewSagnForm from "@/components/newSagnForm"
 import {useSession,signOut,getSession} from 'next-auth/react'
 
-const createSagn = () =>{
+const CreateSagn = () =>{
     const{data:session,status}= useSession({required:true});
     return (
         <>
@@ -16,4 +16,4 @@ const createSagn = () =>{
     )
 }
 
-export default createSagn
+export default CreateSagn
