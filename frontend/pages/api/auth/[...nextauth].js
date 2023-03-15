@@ -12,5 +12,5 @@ export default NextAuth({
             return "/#"
         }
     },
-    secret:process.JWT_SECRET
+    secret:process.env.JWT_SECRET
 })
