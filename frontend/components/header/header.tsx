@@ -3,12 +3,12 @@ import Link from 'next/link';
 import { FaUserAlt, FaPen } from 'react-icons/fa';
 import { FontAwesomeIcon,  } from '@fortawesome/react-fontawesome';
 import { faPen, faUser } from '@fortawesome/free-solid-svg-icons';
-import { useAppContext } from '@/context/state';
+import { AppContext } from '@/pages/_app';
 import {useSession,signOut,getSession} from 'next-auth/react'
+
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
-  const pageContext = useAppContext();
-  // const [title, setTitle] = useAppContext()
+  const {title} = useContext(AppContext);
 
   const handleClick = () => {
     setShowMenu(!showMenu);
@@ -20,7 +20,7 @@ const Header = () => {
         <div className="flex items-center mx-4 justify-between w-full">
           
           {/* Logo */}
-          <div className="flex justify-center items-center flex-shrink-0">
+          <div className="flex justify-center items-center flex-shrink-0 w-64">
             <Link href="/">
               <div className="font-bold text-4xl cursor-pointer">
               <span className="text-primary-90 ">Bygde</span><span className="drop-shaodw-md text-primary-400">Sagn</span>
@@ -28,12 +28,12 @@ const Header = () => {
             </Link>
           </div>
 
-          <div className="text-3xl  text-center font-bold">
-            {/* {pageContext.title} */}
+          <div className="text-3xl text-center font-bold">
+            {title}
           </div>
 
         {/* Create Sagn Button */}
-          <div className="ml-10 flex items-baseline space-x-8">
+          <div className="flex items-baseline space-x-8 w-64">
             <Link href={"/createSagn"}>
               <button className="flex items-center space-x-1 font-medium text-white hover:text-secondary-800 focus:outline-none bg-blue-500 rounded-md px-4 py-1.5">
                 <FontAwesomeIcon icon={faPen} className="text-2xl w-6 h-6 cursor-pointer transition-colors duration-200 ease-in-out fa-lg" />

@@ -1,8 +1,12 @@
 import Background from "@/components/background"
 import NewSagnForm from "@/components/newSagnForm"
+import { useContext } from "react"
+import { AppContext } from "./_app"
 
 
-const createSagn = () =>{
+const CreateSagn = () =>{
+    const {title, setTitle} = useContext(AppContext);
+    setTitle("Lag nytt sagn")
     return (
         <>
         <div id="editor" className="mt-5">
@@ -15,4 +19,4 @@ const createSagn = () =>{
     )
 }
 
-export default createSagn
+export default CreateSagn
