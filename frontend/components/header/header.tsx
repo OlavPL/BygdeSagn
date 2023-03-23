@@ -28,7 +28,7 @@ const Header = () => {
         <div className="flex items-center mx-4 justify-between w-full">
           
           {/* Logo */}
-          <div className="flex justify-center items-center flex-shrink-0 w-64">
+          <div className="flex items-center flex-shrink-0 w-60">
             <Link href="/">
               <div className="font-bold text-4xl cursor-pointer">
               <span className="text-primary-90 ">Bygde</span><span className="drop-shaodw-md text-primary-400">Sagn</span>
@@ -41,7 +41,7 @@ const Header = () => {
           </div>
 
         {/* Create Sagn Button */}
-          <div className="flex items-baseline space-x-8 w-64">
+          <div className="flex items-baseline space-x-8 w-60 justify-end">
             <Link href={"/createSagn"}>
               <button className="flex items-center space-x-1 font-medium text-white hover:text-secondary-800 focus:outline-none bg-blue-500 rounded-md px-4 py-1.5">
                 <FontAwesomeIcon icon={faPen} className="text-2xl w-6 h-6 cursor-pointer transition-colors duration-200 ease-in-out fa-lg" />
@@ -52,8 +52,8 @@ const Header = () => {
 
 
             {/* USer Button */}
-            <Image src={picstring()} alt="" onClick={handleClick} width={40} height={0} className="rounded-full"  />
-            <div className={`origin-top-right absolute right-0 mt-14 w-40 rounded-md shadow-lg  bg-white ${showMenu ? 'block' : 'hidden'}`}
+            <Image src={picstring()} alt="" onClick={handleClick} width={40} height={0} className="rounded-full cursor-pointer"  />
+            <div className={`origin-top-right absolute right-0 mt-14 w-40 rounded-md shadow-lg bg-white ${showMenu ? 'block' : 'hidden'}`}
                 role="menu"
                 aria-orientation="vertical"
                 aria-labelledby="menu-button"

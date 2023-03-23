@@ -1,7 +1,7 @@
 
 import { Tag } from '@/types/tag'
 import React, { useEffect, useState } from 'react'
-import TagsDropBox from './tagsDropBox'
+import TagsDropBox from '../tagsDropBox'
 
 interface Props extends React.HTMLAttributes<HTMLDivElement>{
     className?: string

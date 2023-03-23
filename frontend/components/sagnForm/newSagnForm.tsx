@@ -1,6 +1,6 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import TagsDropBox from "./tagsDropBox";
+import TagsDropBox from "../tagsDropBox";
 import Input from "./input";
 import TextArea from "./textArea";
 import SelectedTagsBox from "./selectedTagsBox";

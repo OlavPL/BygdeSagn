@@ -1,5 +1,5 @@
 import Background from "@/components/background"
-import NewSagnForm from "@/components/newSagnForm"
+import NewSagnForm from "@/components/sagnForm/newSagnForm"
 import { useContext } from "react"
 import { AppContext } from "./_app"
 import {useSession,signOut,getSession} from 'next-auth/react'
