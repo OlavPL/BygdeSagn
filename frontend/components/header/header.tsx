@@ -5,15 +5,23 @@ import { FontAwesomeIcon,  } from '@fortawesome/react-fontawesome';
 import { faPen, faUser } from '@fortawesome/free-solid-svg-icons';
 import { AppContext } from '@/pages/_app';
 import {useSession,signOut,getSession} from 'next-auth/react'
-
+import Image from 'next/image';
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const {title} = useContext(AppContext);
-
+  const{data:session}=useSession();
   const handleClick = () => {
     setShowMenu(!showMenu);
+  
   };
+  const picstring=():string=>{
+    if(session){
+      return session.user?.image!
+    }
+    else{ return "https://www.citypng.com/public/uploads/preview/profile-user-round-red-icon-symbol-download-png-11639594337tco5j3n0ix.png"}
 
+  }
+  
   return (
     <nav className=" w-full z-10">
       <div className="flex items-center h-20 w-full ">
@@ -40,18 +48,18 @@ const Header = () => {
                 <span className="text-lg underline">Nytt Sagn</span>
               </button>
             </Link>
+            
 
 
-            {/* User Button */}
-            <FontAwesomeIcon icon={faUser} onClick={handleClick} className="text-4xl rounded-full w-8 h-8 cursor-pointer transition-colors duration-200 ease-in-out
-                  hover:textHover hover:drop-shadow-xl shadow-black"/>
+            {/* USer Button */}
+            <Image src={picstring()} alt="" onClick={handleClick} width={40} height={0} className="rounded-full"  />
             <div className={`origin-top-right absolute right-0 mt-14 w-40 rounded-md shadow-lg  bg-white ${showMenu ? 'block' : 'hidden'}`}
                 role="menu"
                 aria-orientation="vertical"
                 aria-labelledby="menu-button"
               >
               <div className="py-2" role="none">
-                  <Link href="/profilePage" onClick={()=>{useContext}} className="px-2 py-2 text-sm block" role="menuitem" id="menu-item-profile">
+                  <Link href="/profilePage" className="px-2 py-2 text-sm block" role="menuitem" id="menu-item-profile">
                     Min Profil
                   </Link>
                   <Link href="#" className="px-2 py-2 text-sm block" role="menuitem" id="menu-item-2">
