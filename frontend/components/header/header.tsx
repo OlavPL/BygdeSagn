@@ -16,9 +16,13 @@ const Header = () => {
   };
   const picstring=():string=>{
     if(session){
+
+      if(session.user?.image==null){
+        return("https://cdns.iconmonstr.com/wp-content/releases/preview/2018/240/iconmonstr-user-circle-thin.png")
+      }
       return session.user?.image!
     }
-    else{ return "https://www.citypng.com/public/uploads/preview/profile-user-round-red-icon-symbol-download-png-11639594337tco5j3n0ix.png"}
+    else{ return "https://cdn.icon-icons.com/icons2/2036/PNG/512/menu_circular_button_burger_icon_124214.png"}  
 
   }
   

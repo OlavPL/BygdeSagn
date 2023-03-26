@@ -1,5 +1,6 @@
 import { useState, ChangeEvent } from 'react';
 import SimpleCrypto from "simple-crypto-js"
+
 const Register =()=> {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -37,7 +38,7 @@ const Register =()=> {
       "email":email,
       "created": {
         "$date": new Date().setUTCHours(new Date().getUTCHours() + 1)
-      }
+      },
     };  
     const options:RequestInit={
       headers:{

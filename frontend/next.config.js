@@ -9,7 +9,11 @@ const nextConfig = {
       },
       {
         protocol:'https',
-        hostname:'www.citypng.com',
+        hostname:'cdns.iconmonstr.com',
+      },
+      {
+        protocol:'https',
+        hostname:'cdn.icon-icons.com',
       },
     ],
   },
