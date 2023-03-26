@@ -48,10 +48,10 @@ class SagnListController {
             return this.sagnList.slice().sort((a, b) => a.likes - b.likes);
           }
           case SortTypes.NEWFIRST:{
-            return this.sagnList.slice().sort((a, b) => a.postedAt.getMilliseconds() - b.postedAt.getMilliseconds());
+            return this.sagnList.slice().sort((a, b) => a.postedAt - b.postedAt);
           }
           case SortTypes.OLDFIRST:{
-            return this.sagnList.slice().sort((a, b) => b.postedAt.getMilliseconds() - a.postedAt.getMilliseconds());
+            return this.sagnList.slice().sort((a, b) => b.postedAt - a.postedAt);
           }
           default: this.sagnList
       }
