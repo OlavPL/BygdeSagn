@@ -1,4 +1,6 @@
 import Image from "next/image"
+import { useContext } from "react";
+import { AppContext } from "./_app";
 
 import {useSession,signOut,getSession} from 'next-auth/react'
 import { Context } from 'vm';
@@ -6,6 +8,8 @@ import { Context } from 'vm';
 
 const ProfilePage=()=> {
     const{data:session,status}= useSession({required:true});
+    const {title, setTitle} = useContext(AppContext);
+    setTitle("Min Profil")
     
     
         if(status==='authenticated'){
