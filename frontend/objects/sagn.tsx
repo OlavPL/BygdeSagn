@@ -26,7 +26,7 @@ interface SagnI{
     likes: number;
     dislikes: number;
     id?: string;
-    postedAt?: Date;
+    postedAt?: number;
 }
 class Sagn implements SagnI{
     title: string;
@@ -35,7 +35,7 @@ class Sagn implements SagnI{
     likes: number;
     dislikes: number;
     id: string;
-    postedAt: Date;
+    postedAt: number;
 
 
     constructor(_title: string, _text: string, _tags: Tag[], postedAt: number, _likes?: number, _dislikes?: number){
@@ -45,7 +45,7 @@ class Sagn implements SagnI{
         this.likes = _likes? _likes : 0
         this.dislikes = _dislikes? _dislikes : 0
         this.id = ""
-        this.postedAt = new Date(postedAt);
+        this.postedAt = postedAt;
     }
 }
 

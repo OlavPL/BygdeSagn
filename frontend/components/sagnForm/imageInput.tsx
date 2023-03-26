@@ -30,8 +30,8 @@ const ImageInput: React.FC<ImageInputProps> = ({ onImageChange, images, classNam
             if(!loading){
                 setLoading(true);
                 await (await worker).load();
-                await (await worker).loadLanguage('eng');
-                await (await worker).initialize('eng');
+                await (await worker).loadLanguage('nor');
+                await (await worker).initialize('nor');
                 
                 const {data} = await (await worker).recognize(URL.createObjectURL(selectedImage));
                 onConvertToText(data.text)

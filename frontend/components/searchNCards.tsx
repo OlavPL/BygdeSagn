@@ -3,13 +3,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import DisplaySagn from "./displaySagn"
 import SortListBox from "./sagnCard/sortListBox"
 import SagnListController, { SortTypes } from "./controller/sagnListController"
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import Sagn from "@/objects/sagn"
+import { AppContext } from "@/pages/_app"
 
 const SearchNCards = () => {
     const [sagnListController, setListController] = useState(new SagnListController([]))
     const [list, setList] = useState([] as Sagn[])
     const [isLoading, setLoading] = useState(false)
+    const {title, setTitle} = useContext(AppContext);
+    setTitle("Velkommen til Bygdesagn ™")
 
     const updateList = (e: SortTypes) =>{
         setList(sagnListController.sortSagn(e))
@@ -32,10 +35,6 @@ const SearchNCards = () => {
         <div className="w-full flex flex-col items-center text-textColor">
 
             <div className="pt-10 space-y-2 relative" >
-
-                <div className="text-3xl  text-center font-bold  mb-5">
-                            Velkommen til Bygdesagn ™
-                </div>
                 <form className='space-y-2 '>
                     <div className='flex  outline-2 bg-primary-100 focus-within:outline outline-blue-500 shadow-lg rounded w-96'>
                         <span className="p-2 rounded rounded-r-none border-r-0"> 

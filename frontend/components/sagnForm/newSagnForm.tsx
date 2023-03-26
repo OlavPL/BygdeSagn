@@ -1,6 +1,6 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import TagsDropBox from "./tagsDropBox";
+import TagsDropBox from "../tagsDropBox";
 import Input from "./input";
 import TextArea from "./textArea";
 import SelectedTagsBox from "./selectedTagsBox";
@@ -105,13 +105,13 @@ const NewSagnForm = ({className}: Props) => {
 
 const postSagn = async (data:Inputs, router: NextRouter )=>{
 
-  const JSOndata= {
+  const JSOndata = {
     "title":data.title,
     "text":data.story,
     "tags":data.tags,
     "likes":0,
     "dislikes":0,
-    "postedAt":new Date().setUTCHours(new Date().getUTCHours() + 1)
+    "postedAt": new Date().setUTCHours(new Date().getUTCHours() + 1 )
   }
 
   const options:RequestInit={
