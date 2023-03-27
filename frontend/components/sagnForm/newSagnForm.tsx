@@ -106,11 +106,12 @@ const NewSagnForm = ({className}: Props) => {
 const postSagn = async (data:Inputs, router: NextRouter )=>{
 
   const JSOndata = {
+    "post_id":0,
     "title":data.title,
     "text":data.story,
     "tags":data.tags,
-    "likes":0,
-    "dislikes":0,
+    "likes": [],
+    "dislikes":[],
     "postedAt": new Date().setUTCHours(new Date().getUTCHours() + 1 )
   }
 

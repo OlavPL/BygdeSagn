@@ -11,10 +11,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
     console.log(id)
     const updateDocument={
         $set:{
-            titel:req.body.titel,
-            content:req.body.content,
-            date:req.body.date,
-            dislikes:req.body.dislikes,
+            dislikes:res+ req.body.dislikes,
             likes:req.body.likes
         },
     };
