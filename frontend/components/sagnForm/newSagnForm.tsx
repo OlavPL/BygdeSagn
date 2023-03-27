@@ -7,12 +7,16 @@ import SelectedTagsBox from "./selectedTagsBox";
 import { Tag } from "@/types/tag";
 import { NextRouter, useRouter } from "next/router";
 import ImageInput from "./imageInput";
+import {useSession, signIn, signOut,getSession} from 'next-auth/react'
+import { Session } from "next-auth";
+
 
 
 interface Inputs {
   title: string;
   story: string;
   tags : Tag[];
+  owner:Session;
 }
 
 interface Props {
@@ -42,9 +46,11 @@ const NewSagnForm = ({className}: Props) => {
     var list = tags.filter(equalString)
     setTags(list)
   }
-
+  const{data:session}=useSession();
   const onSubmit: SubmitHandler<Inputs> = (data) =>{
+    
     data.tags = tags
+    data.owner= session!
     postSagn(data, router)
   };
   useForm()
@@ -110,6 +116,7 @@ const postSagn = async (data:Inputs, router: NextRouter )=>{
     "title":data.title,
     "text":data.story,
     "tags":data.tags,
+    "owner":data.owner.user?.name,
     "likes": [],
     "dislikes":[],
     "postedAt": new Date().setUTCHours(new Date().getUTCHours() + 1 )
