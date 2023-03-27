@@ -32,7 +32,7 @@ class SagnListController {
     constructor(data: SagnJSON[]){
       let newData: Sagn[] = []
       data.map(object => {
-        newData.push(new Sagn(object.title, object.text, object.tags, object.postedAt, object.likes, object.dislikes))
+        newData.push(new Sagn(object.title, object.text, object.tags, object.postedAt, object.likes.length, object.dislikes.length))
       })
       this.sagnList = newData;
       this.sortType = sortChoises[2]
