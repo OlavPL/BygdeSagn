@@ -12,7 +12,7 @@ export enum SortTypes{
 
 const sortChoises = [
   {id: 1, type: SortTypes.LIKES, text:'Mest likt'},
-  {id: 2, type: SortTypes.CONTROVERSIAL, text:'Kontroversielle'},
+  {id: 2, type: SortTypes.CONTROVERSIAL, text:'Minst likt'},
   {id: 3, type: SortTypes.NEWFIRST, text:'Nyest først'},
   {id: 4, type: SortTypes.OLDFIRST, text:'Eldst først'},
 ]

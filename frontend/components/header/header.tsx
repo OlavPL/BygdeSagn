@@ -31,7 +31,7 @@ const Header = () => {
           <div className="flex items-center flex-shrink-0 w-60">
             <Link href="/">
               <div className="font-bold text-4xl cursor-pointer">
-              <span className="text-primary-90 ">Bygde</span><span className="drop-shaodw-md text-primary-400">Sagn</span>
+              <span className="text-primary-90 ">Bygde</span><span className="drop-shadow-md text-primary-400">Sagn</span>
               </div>
             </Link>
           </div>
@@ -48,8 +48,6 @@ const Header = () => {
                 <span className="text-lg underline">Nytt Sagn</span>
               </button>
             </Link>
-            
-
 
             {/* USer Button */}
             <Image src={picstring()} alt="" onClick={handleClick} width={40} height={0} className="rounded-full cursor-pointer"  />
