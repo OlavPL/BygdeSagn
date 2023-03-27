@@ -1,5 +1,6 @@
 import { useState, ChangeEvent } from 'react';
-var simplecrypt = require("simplecrypt");
+import SimpleCrypto from "simple-crypto-js"
+
 const Register =()=> {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -25,17 +26,19 @@ const Register =()=> {
 
 
   const handleRegister = async ()=> {
+    const secretKey =  "my-secret-key"
+    const simpleCrypto = new SimpleCrypto(secretKey)
+
 
     if(password===repeatPassword){
-    var sc= simplecrypt();
-    var cryptpass = sc.encrypt(password)
+    const pass = simpleCrypto.encrypt(password)
     const JSOndata= {
       "name": username,
-      "password": cryptpass,
+      "password": pass,
       "email":email,
       "created": {
         "$date": new Date().setUTCHours(new Date().getUTCHours() + 1)
-      }
+      },
     };  
     const options:RequestInit={
       headers:{
