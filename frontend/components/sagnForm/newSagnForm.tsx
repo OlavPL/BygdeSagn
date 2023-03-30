@@ -111,7 +111,7 @@ const NewSagnForm = ({className}: Props) => {
 
       </form>
       
-      <ImageInput onImageChange={setImages} onConvertToText={(text:string) => {setStoryText(storyText+"\n"+text)}} images={images} className="mt-6"></ImageInput>
+      <ImageInput onImageChange={setImages} onConvertToText={(text:string) => {setStoryText(storyText+text)}} images={images} className="mt-6"></ImageInput>
     </div>
   );
 };
