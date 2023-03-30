@@ -2,12 +2,13 @@ import SagnCard from './sagnCard/sagnCard'
 import Sagn from '@/objects/sagn'
 interface Props{
     sagnList:   Sagn[]
+    className?: string
 }
 
-const DisplaySagn = ({sagnList}: Props) => {
+const DisplaySagn = ({sagnList, className}: Props) => {
     
     return(
-        <div className="flex flex-col w-full gap-5 sm:gap-x-5 items-center p-5">
+        <div className={`${className} flex flex-col w-full gap-5 sm:gap-x-5 items-center`}>
             {sagnList.map((sagn: Sagn, index) => (
                 <SagnCard
                     key={index}

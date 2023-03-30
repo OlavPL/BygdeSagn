@@ -1,6 +1,18 @@
 import React, { FormEvent, useRef } from "react";
 
 
+// Kode for å legge komponent til i newSagnForm om dette blir fikset videre på 
+{/* <TextArea 
+  {...register("story", { required: true })}
+  className=""
+  value={storyText}
+  onInput2={setStoryText}
+  labelText="Historie"
+  storyText={storyText}
+  // onInput={(e:FormEvent<HTMLTextAreaElement>)=>{setStoryText(e.currentTarget.value), console.log(e.currentTarget.value)}}
+  error={errors.story && "Historien må skrives"}
+/> */}
+
 interface IProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   labelText?: string;
   className?: string;

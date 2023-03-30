@@ -10,17 +10,14 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
 const Input = React.forwardRef<HTMLInputElement, IProps> (
   ({ labelText, className, error, ...props }, ref) => {
     return (
-      <>
         <div
           className={`
             ${className} 
-            ${error && "outline outline-2 outline-offset-1 outline-red-600 rounded-sm"}
             relative border-b-2 inline-flex 
-          `}
-        >
+            `}
+            >
           <input
             ref={ref}
-            required
             {...props}
             className="w-full pl-1 rounded-t focus:ring-0 outline-none border-transparent focus:border-transparent peer"
             type={"text"}
@@ -34,12 +31,6 @@ const Input = React.forwardRef<HTMLInputElement, IProps> (
             {labelText}
           </label>
         </div>
-        {/* {error && (
-          <p className={`${error && "animate-bounce"} text-red-500 mt-1`}>
-            {error}
-          </p>
-        )} */}
-      </>
     );
   }
 );
