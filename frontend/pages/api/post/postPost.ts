@@ -1,6 +1,8 @@
 import clientPromise from "@/lib/mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
 import { NextRouter, useRouter } from "next/router";
+
+// eslint-disable-next-line import/no-anonymous-default-export
 export default async (req:NextApiRequest, res:NextApiResponse) => {
    try {
        const client = await clientPromise;
