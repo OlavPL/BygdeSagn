@@ -5,6 +5,7 @@ import {useSession, signIn, signOut,getSession} from 'next-auth/react'
 import {NextRouter, useRouter } from "next/router"
 
 const Login =(router: NextRouter)=> {
+ //const{data}= useSession({required:true});
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 

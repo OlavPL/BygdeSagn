@@ -130,3 +130,4 @@ const postSagn = async (data:Inputs, router: NextRouter )=>{
 }
 
 export default NewSagnForm;
+

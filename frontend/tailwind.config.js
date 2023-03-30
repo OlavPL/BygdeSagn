@@ -225,6 +225,19 @@ coral = {
   '800': '#9d1d0f',
   '900': '#7e1b10',
 },
+como = {
+  '50': '#f5f8f6',
+  '100': '#dee9e3',
+  '200': '#bcd3c7',
+  '300': '#92b6a3',
+  '400': '#6b9680',
+  '500': '#56826d',
+  '600': '#3f6252',
+  '700': '#355044',
+  '800': '#2e4139',
+  '900': '#293831',
+},
+
 
 
 
@@ -264,7 +277,7 @@ module.exports = {
       },
       colors: {
         primary: aquaIsland,
-        secondary: nandor,
+        secondary: como,
         emphasis: coral,
         textColor: gray[800],
         plantation : {

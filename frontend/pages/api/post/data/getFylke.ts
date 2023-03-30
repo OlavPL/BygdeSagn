@@ -7,13 +7,12 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
        const client = await clientPromise;
        const db = client.db("App_Db");
        const post= await db
-           //.collection("testPosts")
-           .collection("posts")
+           .collection("fylker")
            .find({})
            .sort({ metacritic: -1 })
            .toArray()
        res.status(200).json(post);
-       console.log("Posts Fetched");
+       console.log("Fylker Fetched");
        
    } catch (e) {
        console.error(e);

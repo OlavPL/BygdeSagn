@@ -1,8 +1,19 @@
 import Background from "@/components/background"
-import NewSagnForm from "@/components/newSagnForm"
+import NewSagnForm from "@/components/sagnForm/newSagnForm"
+import { useContext, useEffect } from "react"
+import { AppContext } from "./_app"
+import {useSession,signOut,getSession} from 'next-auth/react'
 
 
-const createSagn = () =>{
+const CreateSagn = () =>{
+    const {title, setTitle} = useContext(AppContext);
+    const{data:session,status}= useSession({required:true});
+
+    useEffect(() => {
+      setTitle("Lag nytt sagn");
+    }, [setTitle])
+    
+    
     return (
         <>
         <div id="editor" className="mt-5">
@@ -15,4 +26,4 @@ const createSagn = () =>{
     )
 }
 
-export default createSagn
+export default CreateSagn
