@@ -137,6 +137,7 @@ const postSagn = async (data:Inputs, router: NextRouter ) =>{
     method:'POST',
     body:JSON.stringify(JSOndata),
   }
+  
   // console.log(JSOndata)
   const endpoint=("https://bop3000-app.vercel.app/api/post/postPost")
   const response = await fetch(endpoint,options).catch()

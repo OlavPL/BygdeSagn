@@ -42,9 +42,10 @@ const App = ({ Component, pageProps, session }: MyAppProps) => {
 
       <AppContext.Provider value={contextValue}>
         <div className=" bg-cover text-textColor min-h-screen bg-center relative">
-          <ToastContainer/>
           <Header/>
-          <Component {...pageProps} />
+          <Component {...pageProps} >
+            <ToastContainer/>
+          </Component>
         </div>
           {/* <Footer/> */}
       </AppContext.Provider>
