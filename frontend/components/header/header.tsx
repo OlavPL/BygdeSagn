@@ -54,7 +54,7 @@ const Header = () => {
             </Link>
 
             {/* USer Button */}
-            <Image src={picstring()} alt="" onClick={handleClick} width={40} height={0} className="rounded-full cursor-pointer"  />
+            {/* <Image src={picstring()} alt="" onClick={handleClick} width={40} height={0} className="rounded-full cursor-pointer"  />
             <div className={`origin-top-right absolute right-0 mt-14 w-40 rounded-md shadow-lg bg-white ${showMenu ? 'block' : 'hidden'}`}
                 role="menu"
                 aria-orientation="vertical"
@@ -64,14 +64,15 @@ const Header = () => {
                   <Link href="/profilePage" className="px-2 py-2 text-sm block" role="menuitem" id="menu-item-profile">
                     Min Profil
                   </Link>
-                  {/* <Link href="#" className="px-2 py-2 text-sm block" role="menuitem" id="menu-item-2">
+                   <Link href="#" className="px-2 py-2 text-sm block" role="menuitem" id="menu-item-2">
                     link2
-                  </Link> */}
+                  </Link> 
                   <Link href="/login" className="px-2 py-2 text-sm block text-black hover:text-blue-250" role="menuitem" id="menu-item-3">
                     Login
                   </Link>
               </div>
-            </div>
+            </div> */}
+            
           </div>
         </div>
       </div>

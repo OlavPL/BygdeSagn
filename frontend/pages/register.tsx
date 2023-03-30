@@ -26,7 +26,7 @@ const Register =()=> {
 
 
   const handleRegister = async ()=> {
-    const secretKey =  "my-secret-key"
+    const secretKey =  "h9#E6CAjvzfN9"
     const simpleCrypto = new SimpleCrypto(secretKey)
 
 

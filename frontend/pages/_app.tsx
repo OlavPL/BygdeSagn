@@ -46,7 +46,7 @@ const App = ({ Component, pageProps, session }: MyAppProps) => {
           <Header/>
           <Component {...pageProps} />
         </div>
-          <Footer/>
+          {/* <Footer/> */}
       </AppContext.Provider>
     </div>
     </SessionProvider>

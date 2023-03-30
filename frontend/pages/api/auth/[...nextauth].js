@@ -3,10 +3,14 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from 'next-auth/providers/google'
 import clientPromise from "@/lib/mongodb";
 import SimpleCrypto from "simple-crypto-js"
-const SECRET_KEY= "my-secret-key"
+const SECRET_KEY= "h9#E6CAjvzfN9"
 
 export default NextAuth({
-  
+
+    pages:{
+      signIn: '../../login'
+    },
+
     providers:[
         
     GoogleProvider({
