@@ -63,17 +63,7 @@ const NewSagnForm = ({className}: Props) => {
       toast.error("Ops! Ser ut som du ikke har skrevet ferdig", errorToastOptions);
       return 
     }
-    else{
-      toast.success("Sagn publisert", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: false,
-        progress: undefined,
-        theme: "light",
-    })
+    else{    
       data.tags = tags
       postSagn(data, router)
     }
@@ -135,7 +125,7 @@ const postSagn = async (data:Inputs, router: NextRouter ) =>{
     "title":data.title,
     "text":data.story,
     "tags":data.tags,
-    "owner":data.owner.user?.name,
+    // "owner":data.owner.user?.name,
     "likes": [],
     "dislikes":[],
     "postedAt": new Date().setUTCHours(new Date().getUTCHours() + 1 )
@@ -152,7 +142,7 @@ const postSagn = async (data:Inputs, router: NextRouter ) =>{
   const endpoint=("http://localhost:3000/api/post/postPost")
   const response = await fetch(endpoint,options).catch()
   const result = response.json;
-
+  
   toast.success("Sagn publisert", {
     position: "top-center",
     autoClose: 5000,
@@ -163,7 +153,7 @@ const postSagn = async (data:Inputs, router: NextRouter ) =>{
     progress: undefined,
     theme: "light",
     toastId: "succsessful post"
-},)
+  },)
 
   router.push("/#")
 }
