@@ -110,7 +110,7 @@ const NewSagnForm = ({className}: Props) => {
 
         <div className="flex flex-row space-x-2 place-content-between">
           <TagsDropBox key={tags.length} className="mt-2" list={tags} handleTag={addTag} propText={"Velg Tagger"} propTextEmpty={"Ikke fler Tagger"}/>
-          <button className="mt-2 transition duration-500 text-white font-semibold  active:scale-95 py-2 px-4 bg-secondary-600 
+          <button className="mt-2 transition duration-500 text-white font-semibold  active:scale-95 py-2 px-4 bg-secondary-500 
                            hover:bg-green-500 shadow shadow-emphasis-600/25 rounded-md hover:shadow-secondary-500"
                   type="submit"
           >
