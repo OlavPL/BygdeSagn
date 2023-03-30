@@ -35,7 +35,7 @@ const Header = () => {
           <div className="flex items-center flex-shrink-0 w-60">
             <Link href="/">
               <div className="font-bold text-4xl cursor-pointer">
-              <span className="text-primary-90 ">Bygde</span><span className="drop-shaodw-md text-primary-400">Sagn</span>
+              <span className="text-primary-90 ">Bygde</span><span className="drop-shadow-md text-primary-400">Sagn</span>
               </div>
             </Link>
           </div>
@@ -47,13 +47,11 @@ const Header = () => {
         {/* Create Sagn Button */}
           <div className="flex items-baseline space-x-8 w-60 justify-end">
             <Link href={"/createSagn"}>
-              <button className="flex items-center space-x-1 font-medium text-white hover:text-secondary-800 focus:outline-none bg-blue-500 rounded-md px-4 py-1.5">
+              <button className="flex items-center space-x-1 font-medium text-textColor hover:text-secondary-800 focus:outline-none bg-primary-200 hover:bg-primary-700 rounded-md px-4 py-1.5">
                 <FontAwesomeIcon icon={faPen} className="text-2xl w-6 h-6 cursor-pointer transition-colors duration-200 ease-in-out fa-lg" />
                 <span className="text-lg underline">Nytt Sagn</span>
               </button>
             </Link>
-            
-
 
             {/* USer Button */}
             <Image src={picstring()} alt="" onClick={handleClick} width={40} height={0} className="rounded-full cursor-pointer"  />

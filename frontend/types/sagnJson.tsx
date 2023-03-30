@@ -5,8 +5,8 @@ export  type SagnJSON = {
     title: string
     text: string;
     tags: Tag[];
-    likes: number;
-    dislikes: number;
+    likes: [];
+    dislikes: [];
     id?: string;
     postedAt: number;
 }
