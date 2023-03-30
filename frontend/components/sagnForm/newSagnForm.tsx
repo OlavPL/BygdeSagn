@@ -138,9 +138,9 @@ const postSagn = async (data:Inputs, router: NextRouter ) =>{
     body:JSON.stringify(JSOndata),
   }
   // console.log(JSOndata)
-  const endpoint=("https://bop3000-app.vercel.app/post/postPost")
-  // const response = await fetch(endpoint,options).catch()
-  // const result = response.json;
+  const endpoint=("https://bop3000-app.vercel.app/api/post/postPost")
+  const response = await fetch(endpoint,options).catch()
+  const result = response.json;
   
   toast.success("Sagn publisert", {
     position: "top-center",
