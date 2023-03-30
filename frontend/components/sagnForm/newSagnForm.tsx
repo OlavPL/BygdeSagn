@@ -52,7 +52,6 @@ const NewSagnForm = ({className}: Props) => {
   }
   const{data:session}=useSession();
   const onSubmit: SubmitHandler<Inputs> = (data) =>{
-    console.log(data.story)
     // Sjekk og varsel om blanke felt
     if(data.title.trim() == "" || data.story.trim() == ""){
       toast.error("Vennligst fyll ut alle felt", errorToastOptions);
@@ -138,10 +137,10 @@ const postSagn = async (data:Inputs, router: NextRouter ) =>{
     method:'POST',
     body:JSON.stringify(JSOndata),
   }
-  console.log(JSOndata)
+  // console.log(JSOndata)
   const endpoint=("https://bop3000-app.vercel.app/post/postPost")
-  const response = await fetch(endpoint,options).catch()
-  const result = response.json;
+  // const response = await fetch(endpoint,options).catch()
+  // const result = response.json;
   
   toast.success("Sagn publisert", {
     position: "top-center",
