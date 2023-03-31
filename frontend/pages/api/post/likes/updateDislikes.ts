@@ -14,7 +14,9 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
             likes:req.body.dislikes
         },
     };
+    // const result = await db.collection("posts").updateOne({post_id:id},updateDocument)
     const result = await db.collection("testPosts").updateOne({post_id:id},updateDocument)
+
     res.status(200).json("Dislikes Updated"+" id:"+ id)
 
     
