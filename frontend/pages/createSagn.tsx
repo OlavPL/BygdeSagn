@@ -7,7 +7,7 @@ import {useSession,signOut,getSession} from 'next-auth/react'
 
 const CreateSagn = () =>{
     const {title, setTitle} = useContext(AppContext);
-    const{data:session,status}= useSession({required:true});
+    // const{data:session,status}= useSession({required:true});
 
     useEffect(() => {
       setTitle("Lag nytt sagn");

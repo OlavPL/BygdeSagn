@@ -26,7 +26,7 @@ const Register =()=> {
 
 
   const handleRegister = async ()=> {
-    const secretKey =  "my-secret-key"
+    const secretKey =  "h9#E6CAjvzfN9"
     const simpleCrypto = new SimpleCrypto(secretKey)
 
 
@@ -48,8 +48,7 @@ const Register =()=> {
       body:JSON.stringify(JSOndata),
     }
     console.log(JSOndata)
-    const endpoint=("http://localhost:3000/api/user/registerUser")
-    const response = await fetch(endpoint,options).catch()
+    const response = await fetch("/api/user/registerUser",options).catch()
     const result =response.json;
     console.log(result)
    }else{
@@ -59,16 +58,16 @@ const Register =()=> {
   return (
     <div className="flex flex-col items-center mt-20 min-h-screen">
       <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full">
-        <h1 className="text-2xl font-bold mb-4">Register</h1>
+        <h1 className="text-2xl font-bold mb-4">Registrer deg</h1>
         <form>
           <div className="mb-4">
             <label htmlFor="username" className="block text-gray-700 font-bold mb-2">
-              Username
+              Brukernavn
             </label>
             <input
               id="username"
               type="text"
-              placeholder="Enter your username"
+              placeholder="Brukernavn..."
               value={username}
               onChange={handleUsernameChange}
               className="w-full p-2 border border-gray-400 rounded-md"
@@ -76,12 +75,12 @@ const Register =()=> {
           </div>
           <div className="mb-4">
             <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
-              Email
+              E-post
             </label>
             <input
               id="email"
               type="email"
-              placeholder="Enter your email"
+              placeholder="E-post..."
               value={email}
               onChange={handleEmailChange}
               className="w-full p-2 border border-gray-400 rounded-md"
@@ -89,12 +88,12 @@ const Register =()=> {
           </div>
           <div className="mb-4">
             <label htmlFor="password" className="block text-gray-700 font-bold mb-2">
-              Password
+              Passord
             </label>
             <input
               id="password"
               type="password"
-              placeholder="Enter your password"
+              placeholder="Passord..."
               value={password}
               onChange={handlePasswordChange}
               className="w-full p-2 border border-gray-400 rounded-md"
@@ -102,12 +101,12 @@ const Register =()=> {
           </div>
           <div className="mb-4">
             <label htmlFor="repeat-password" className="block text-gray-700 font-bold mb-2">
-              Repeat Password
+              Gjenta Passord
             </label>
             <input
               id="repeat-password"
               type="password"
-              placeholder="Repeat your password"
+              placeholder="Gjenta passord..."
               value={repeatPassword}
               onChange={handleRepeatPasswordChange}
               className="w-full p-2 border border-gray-400 rounded-md"
@@ -115,7 +114,7 @@ const Register =()=> {
           </div>
           <div className="flex justify-center">
             <button type="button" onClick={handleRegister} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-              Register
+              Registrer
             </button>
           </div>
         </form>

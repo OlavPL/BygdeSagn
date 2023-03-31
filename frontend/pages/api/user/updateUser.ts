@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { ObjectId } from "mongodb";
 
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default async (req:NextApiRequest, res:NextApiResponse) => {
    try {
     const client = await clientPromise;

@@ -1,3 +1,4 @@
+import Fylke from "./Fylke";
 import { Tag } from "./tag";
 
 
@@ -9,4 +10,8 @@ export  type SagnJSON = {
     dislikes: [];
     id?: string;
     postedAt: number;
+    happenedAt?: number;
+    author: string;
+    fylke: Fylke;
+    stedsnavn: string;
 }
