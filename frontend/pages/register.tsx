@@ -48,8 +48,7 @@ const Register =()=> {
       body:JSON.stringify(JSOndata),
     }
     console.log(JSOndata)
-    const endpoint=("http://localhost:3000/api/user/registerUser")
-    const response = await fetch(endpoint,options).catch()
+    const response = await fetch("/api/user/registerUser",options).catch()
     const result =response.json;
     console.log(result)
    }else{

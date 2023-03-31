@@ -116,8 +116,6 @@ const NewSagnForm = ({className}: Props) => {
   );
 };
 
-
-
 const postSagn = async (data:Inputs, router: NextRouter ) =>{
   const JSOndata = {
     "post_id":0,
@@ -139,8 +137,7 @@ const postSagn = async (data:Inputs, router: NextRouter ) =>{
   }
   
   // console.log(JSOndata)
-  const endpoint=("https://bop3000-app.vercel.app/api/post/postPost")
-  const response = await fetch(endpoint,options).catch()
+  const response = await fetch("/api/post/postPost",options).catch()
   const result = response.json;
   
   toast.success("Sagn publisert", {
