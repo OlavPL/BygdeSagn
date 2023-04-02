@@ -66,12 +66,12 @@ return (
         {/* <input type="file" accept='image/*' ref={hiddenFileInput} onChange={handleImageChange} className="invisible"/> */}
 
             <div className='flex felx-row space-x-5 py-2 justify-between w-full'>
-                <button onClick={handleSelectImage} className=" transition duration-500 active:scale-95 py-2 px-4 bg-primary-200 hover:bg-primary-700
+                <button onClick={handleSelectImage} type="button" className=" transition duration-500 active:scale-95 py-2 px-4 bg-primary-200 hover:bg-primary-700
                         text-textColor shadow shadow-primary-600/25 rounded-md hover:shadow-primary-600/75 justify-self-end opacity-100"
                 > Omgjør bilde til tekst
                 </button>
                 {images && (
-                    <button className=" transition duration-500 active:scale-95 py-2 px-4 bg-emphasis-300 hover:bg-emphasis-500
+                    <button type="button" className=" transition duration-500 active:scale-95 py-2 px-4 bg-emphasis-300 hover:bg-emphasis-500
                             text-textColor shadow shadow-primary-600/25 rounded-md hover:shadow-emphasis-400/75 justify-self-end"
                             onClick={handleOCR}
                     > 

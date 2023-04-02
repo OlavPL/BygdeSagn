@@ -1,3 +1,4 @@
+import Kommune from '@/types/Kommune';
 import { Tag } from '@/types/tag';
 import { useState, useEffect } from 'react'
 
@@ -11,7 +12,7 @@ interface SagnI{
     postedAt?: number;
     happenedAt?: number;
     author: string;
-    fylke: string;
+    kommune: Kommune;
     stedsnavn: string;
 }
 class Sagn implements SagnI{
@@ -24,11 +25,11 @@ class Sagn implements SagnI{
     postedAt: number;
     happenedAt?: number;
     author: string;
-    fylke: string;
+    kommune: Kommune;
     stedsnavn: string;
 
 
-    constructor(title: string, text: string, tags: Tag[], postedAt: number, fylke: string, stedsnavn: string, 
+    constructor(title: string, text: string, tags: Tag[], postedAt: number, kommune: Kommune, stedsnavn: string, 
                 likes?: number, dislikes?: number, happenedAt?: number, author?: string, id?: string
     ){
         this.title = title
@@ -40,7 +41,7 @@ class Sagn implements SagnI{
         this.postedAt = postedAt
         this.happenedAt = happenedAt
         this.author = author? author : "Ukjent"
-        this.fylke = fylke;
+        this.kommune = kommune;
         this.stedsnavn = stedsnavn;
     }
 }

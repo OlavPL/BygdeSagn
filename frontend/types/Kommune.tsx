@@ -1,5 +1,7 @@
 type Kommune = {
-    kommuneNavn: string
+    _id:string
+    kommunenavn: string
+    kommunenavnNorsk: string
     stedsnavn: string
 }
 
