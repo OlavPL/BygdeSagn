@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { FaUserAlt, FaPen } from 'react-icons/fa';
 import { FontAwesomeIcon,  } from '@fortawesome/react-fontawesome';
@@ -6,26 +6,44 @@ import { faPen, faUser } from '@fortawesome/free-solid-svg-icons';
 import { AppContext } from '@/pages/_app';
 import {useSession,signOut,getSession} from 'next-auth/react'
 import Image from 'next/image';
+
 const Header = () => {
-  const [showMenu, setShowMenu] = useState(false);
-  const {title} = useContext(AppContext);
-  const{data:session}=useSession();
-  const handleClick = () => {
-    setShowMenu(!showMenu);
+  const [showMenu, setShowMenu] = useState(false)
+  const {title} = useContext(AppContext)
+  const{data:session}=useSession()
+  const handleClick = () =>  setShowMenu(!showMenu)
   
-  };
+
+  const menuButtonRef = useRef<HTMLImageElement>(null);
+  const menuContainerRef = useRef<HTMLDivElement>(null);
+  
   const picstring=():string=>{
     if(session){
-
       if(session.user?.image==null){
         return("https://cdns.iconmonstr.com/wp-content/releases/preview/2018/240/iconmonstr-user-circle-thin.png")
       }
       return session.user?.image!
     }
     else{ return "https://cdn.icon-icons.com/icons2/2036/PNG/512/menu_circular_button_burger_icon_124214.png"}  
-
   }
   
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if(
+        showMenu &&
+        event.target instanceof Node &&
+        !menuButtonRef.current?.contains(event.target) &&
+        !menuContainerRef.current?.contains(event.target)
+      ){
+        setShowMenu(false);
+      }
+    }
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [showMenu])
+  
+  
+
   return (
     <nav className=" w-full z-10">
       <div className="flex items-center h-20 w-full ">
@@ -52,33 +70,33 @@ const Header = () => {
                 <span className="text-lg underline">Nytt Sagn</span>
               </button>
             </Link>
-            
-
-
+        
             {/* USer Button */}
-            <Image src={picstring()} alt="" onClick={handleClick} width={40} height={0} className="rounded-full cursor-pointer"  />
-            <div className={`origin-top-right absolute right-0 mt-14 w-40 rounded-md shadow-lg bg-white ${showMenu ? 'block' : 'hidden'}`}
-                role="menu"
-                aria-orientation="vertical"
-                aria-labelledby="menu-button"
-              >
+            <Image src={picstring()} alt="" ref={menuButtonRef} onClick={handleClick} width={40} height={0} className="rounded-full cursor-pointer"  />
+            <div
+            ref={menuContainerRef}
+            className={`origin-top-right absolute right-0 mt-14 w-40 rounded-md shadow-lg bg-white menu-container ${
+              showMenu ? 'block' : 'hidden'
+            }`}
+            role="menu"
+            aria-labelledby="menu-button">
               <div className="py-2" role="none">
-                  <Link href="/profilePage" className="px-2 py-2 text-sm block" role="menuitem" id="menu-item-profile">
-                    Min Profil
-                  </Link>
-                  <Link href="#" className="px-2 py-2 text-sm block" role="menuitem" id="menu-item-2">
-                    link2
-                  </Link>
-                  <Link href="/login" className="px-2 py-2 text-sm block text-black hover:text-blue-250" role="menuitem" id="menu-item-3">
-                    Login
-                  </Link>
+                <Link href="/profilePage" className="px-2 py-2 text-sm block" role="menuitem" id="menu-item-profile">
+                  Min Profil
+                </Link>
+                <Link href="profilePageNew" className="px-2 py-2 text-sm block" role="menuitem" id="menu-item-2">
+                  Faktisk profil side
+                </Link>
+                <Link href="/login" className="px-2 py-2 text-sm block text-black hover:text-blue-250" role="menuitem" id="menu-item-3">
+                  Login
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </div>
     </nav>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
