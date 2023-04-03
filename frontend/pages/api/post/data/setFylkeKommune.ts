@@ -34,7 +34,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 
         // const response = await fetch("/api/user/registerUser",options).catch()
 
-        let myPost = db.collection("Fylker3").insertMany(req.body);
+        let myPost = db.collection("fylker").insertMany(req.body);
         res.status(200).json(myPost);
 
        //let myPost = await db.collection("posts").insertOne(bodyObject);
