@@ -42,7 +42,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
        //metod to create index's
       // db.collection("fylker").createIndex({"sted":1},{unique:true})
       // res.status(200).json(myPost);
-       console.log("Sted Created")
+       console.log("Fylker Created")
        
    } catch (e) {
        console.error(e);
