@@ -7,12 +7,12 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
        const client = await clientPromise;
        const db = client.db("App_Db");
        const post= await db
-           .collection("komunner")
+           .collection("kommuner")
            .find({})
            .sort({ metacritic: -1 })
            .toArray()
        res.status(200).json(post);
-       console.log("Komunner Fetched");
+       console.log("Kommuner Fetched");
        
    } catch (e) {
        console.error(e);

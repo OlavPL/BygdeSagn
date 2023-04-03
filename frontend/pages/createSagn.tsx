@@ -15,14 +15,10 @@ const CreateSagn = () =>{
     
     
     return (
-        <>
-        <div id="editor" className="mt-5">
-            <div className="w-full max-w-lg p-2 m-auto border-solid rounded">
-                <h1 className="text-center font-semibold text-xl">Nytt Sagn</h1>
-                <NewSagnForm className="flex flex-col"/>
-            </div>
+        <div className="w-full mt-5 max-w-2xl p-2 m-auto border-solid rounded">
+            <h1 className="text-center font-semibold text-xl">Nytt Sagn</h1>
+            <NewSagnForm className=""/>
         </div>
-        </>
     )
 }
 

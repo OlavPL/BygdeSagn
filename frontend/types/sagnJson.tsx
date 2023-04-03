@@ -1,4 +1,5 @@
 import Fylke from "./Fylke";
+import Kommune from "./Kommune";
 import { Tag } from "./tag";
 
 
@@ -12,6 +13,6 @@ export  type SagnJSON = {
     postedAt: number;
     happenedAt?: number;
     author: string;
-    fylke: Fylke;
+    kommune: Kommune;
     stedsnavn: string;
 }
