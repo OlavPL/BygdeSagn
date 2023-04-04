@@ -17,6 +17,7 @@ const DisplaySagn = ({sagnList, className}: Props) => {
                     tags={sagn.tags}
                     likes={sagn.likes}
                     dislikes={sagn.dislikes}
+                    postID={sagn.postID}
                 />
             ))}
         </div>

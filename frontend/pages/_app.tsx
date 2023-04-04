@@ -44,7 +44,7 @@ const App = ({ Component, pageProps, session }: MyAppProps) => {
         <div className=" text-textColor min-h-screen bg-center relative">
           <Header/>
             <ToastContainer/>
-          <Component {...pageProps} />
+          <Component {...pageProps} ></Component>
         </div>
           {/* <Footer/> */}
       </AppContext.Provider>

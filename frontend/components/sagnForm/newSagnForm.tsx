@@ -164,29 +164,27 @@ const NewSagnForm = ({className}: Props) => {
 };
 
 const postSagn = async (data:Inputs, router: NextRouter ) =>{
-  const JSOndata = {
-    "title":data.title,
-    "text":data.story,
-    "tags":data.tags,
-    "happendAt":data.year,
-    "kommune": data.kommune,
-    "stedsnavn": data.stedsnavn? data.stedsnavn : "ukjent",
-    // "owner":data.owner.user?.name,
-    "likes": [],
-    "dislikes":[],
-    "postedAt": new Date().setUTCHours(new Date().getUTCHours() + 1 )
-  }
-
   const options:RequestInit={
     headers:{
       'Content-Type':'application/json',
     },
     method:'POST',
-    body:JSON.stringify(JSOndata),
+    body:JSON.stringify({
+      "title":data.title,
+      "text":data.story,
+      "tags":data.tags,
+      "happendAt":data.year,
+      "kommune": data.kommune,
+      "stedsnavn": data.stedsnavn? data.stedsnavn : "ukjent",
+      // "owner":data.owner.user?.name,
+      "likes": [],
+      "dislikes":[],
+      "postedAt": new Date().setUTCHours(new Date().getUTCHours() + 1 )
+    }),
   }
   
   // console.log(JSOndata)
-  const endpoint=("http://localhost:3000/api/post/postPost")
+  const endpoint=("api/post/postPost")
   const response = await fetch(endpoint,options).catch()
   const result = response.json;
   

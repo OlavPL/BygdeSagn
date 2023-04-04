@@ -9,7 +9,7 @@ import { AppContext } from "@/pages/_app"
 
 const SearchNCards = () => {
     const [sagnListController, setListController] = useState(new SagnListController([]))
-    const [list, setList] = useState([] as Sagn[])
+    const [list, setList] = useState<Sagn[]>(Array())
     const [isLoading, setLoading] = useState(false)
     const {title, setTitle} = useContext(AppContext);
 
@@ -34,7 +34,6 @@ const SearchNCards = () => {
 
     return (
         <div className="w-full flex flex-col items-center text-textColor">
-
             <div className="pt-10 space-y-2 relative" >
                 <form className='space-y-2 '>
                     <div className='flex  outline-2 bg-primary-100 focus-within:outline outline-blue-500 shadow-lg rounded w-96'>
