@@ -13,7 +13,7 @@ interface SagnI{
     happenedAt?: number;
     author: string;
     kommune: Kommune;
-    stedsnavn: string;
+    stedsnavn?: string;
 }
 class Sagn implements SagnI{
     title: string;
