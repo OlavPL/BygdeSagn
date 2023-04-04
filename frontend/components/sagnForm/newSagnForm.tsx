@@ -19,9 +19,9 @@ interface Inputs {
   title: string;
   story: string;
   tags : Tag[];
-  year: number;
+  year?: number;
   kommune: Kommune;
-  stedsnavn: string;
+  stedsnavn?: string;
   owner:Session;
 }
 
@@ -44,7 +44,10 @@ const NewSagnForm = ({className}: Props) => {
   const [tags, setTags] = useState<Tag[]>([])
   const [images, setImages] = useState<File | null>(null)
   const [storyText, setStoryText] = useState<string>("")
+  const [year, setYear] = useState<string>()
   const [kommuneListe, setKommuneListe] = useState<Kommune[]>([])
+  const [selectedKommune, setSelectedKommune] = useState<Kommune>({kommunenavn:"", kommunenavnNorsk:""} as Kommune)
+  const [stedsnavn, setStedsnavn] = useState<string>()
   const router = useRouter()
 
   const addTag= (value: Tag) => {
@@ -64,14 +67,26 @@ const NewSagnForm = ({className}: Props) => {
       return 
     }
     // Sjekk og varsel mot ekstermt kort tekst
-    if(data.title.trim().length < 4 || data.story.trim().length < 20 ){
-      toast.error("Ops! Ser ut som du ikke har skrevet ferdig", errorToastOptions);
+    if(data.title.trim().length < 3 || data.story.trim().length < 20 ){
+      toast.error("Ops! Ser ut som du ikke har skrevet ferdig tittelen", errorToastOptions);
       return 
     }
-    else{    
-      data.tags = tags
-      postSagn(data, router)
+
+    if(data.story.trim().length < 20 ){
+      toast.error("Ops! Ser ut som du ikke har skrevet ferdig sagnet", errorToastOptions);
+      return 
     }
+
+    if (selectedKommune.kommunenavnNorsk == "" || selectedKommune == undefined){
+      toast.error("Ops! Ser ut som du ikke har spesifisert kommune", errorToastOptions);
+      return
+    }
+        
+    data.tags = tags
+    data.kommune = selectedKommune
+    data.year = year == undefined ? undefined : Number(year)
+    data.stedsnavn = stedsnavn
+    postSagn(data, router)
   };
 
   useForm()
@@ -90,7 +105,6 @@ const NewSagnForm = ({className}: Props) => {
     .then((res) => res.json())
     .then((data) => {
         setKommuneListe(data)
-        console.log(data)
     })
     
   }
@@ -99,7 +113,8 @@ const NewSagnForm = ({className}: Props) => {
   return (
       <form onSubmit={handleSubmit(onSubmit, onError)} className={`${className} ${"space-y-4 w-full"} `}>
         <div className="flex flex-col space-x-0 sm:space-x-6 space sm:flex-row">
-          <div className="flex flex-col space-y-4 w-full">
+          <div className="flex flex-col space-y-4 w-full relative">
+
             <Input
               {...register("title") }
               className="mt-6 w-full my-auto"
@@ -114,27 +129,28 @@ const NewSagnForm = ({className}: Props) => {
                   value={storyText} {...register("story")} onChange={(e)=>setStoryText(e.target.value)}>
               </textarea>
             </div>
-            <div className="flex flex-col justify-between self-center 
-                            sm:flex-row sm:self-start sm:w-full">
-              <KommuneSearchBox kommuner={kommuneListe} className="items-center" />
-              <div className="flex flex-col">
-                <label>Stedsnavn</label>
-                <input type="string" className="w-52 p-1 rounded"></input>
-              </div>
-            </div>
-            
-            <div className="flex flex-col-reverse justify-between self-center 
-                            sm:flex-row sm:self-start sm:w-full ">
-              <TagsDropBox key={tags.length} className="mt-auto" list={tags} handleTag={addTag} propText={"Velg Tagger"} propTextEmpty={"Ikke fler Tagger"}/>
 
+            <div className="flex flex-col justify-between self-center sm:flex-row sm:self-start sm:w-full">
               <div className="flex flex-col mb-2 sm:mb-0">
                 <label>{"Årstall/ Århundre"}</label>
-                <input type="number" min={0} max={new Date().getFullYear()} className="w-52 p-1 rounded"></input>
+                <input type="number" min={0} max={new Date().getFullYear()} value={year} onChange={(e) => setYear(e.target.value)} className="w-52 p-1 rounded"></input>
               </div>
+
+              <KommuneSearchBox kommuner={kommuneListe} selectedKommune={selectedKommune} handleChange={(e: Kommune)=>setSelectedKommune(e)} className="items-center relative" />
+            </div>
+            
+            <div className="flex flex-col-reverse justify-between self-center sm:flex-row sm:self-start sm:w-full ">
+              <TagsDropBox key={tags.length} className="mt-auto" list={tags} handleTag={addTag} propText={"Velg Tagger"} propTextEmpty={"Ikke fler Tagger"}/>
+                           
+              <div className="flex flex-col">
+                <label>Stedsnavn</label>
+                <input type="string" className="w-52 p-1 rounded" value={stedsnavn} onChange={(e) => setStedsnavn(e.target.value)}></input>
+              </div>
+
             </div>
             <SelectedTagsBox key={tags.length} removeTag={removeTag} tagList={tags} />
 
-            <ImageInput onImageChange={setImages} onConvertToText={(text:string) => {setStoryText(storyText+text)}} images={images} className="mt-6"></ImageInput>
+            <ImageInput onImageChange={setImages} onConvertToText={ (text:string) => {setStoryText(storyText+text)} } images={images} className="mt-6"></ImageInput>
           </div>
           <button className="mt-4 sm:mb-auto sm:mt-2 p-2 sm:px-4 place-self-end transition duration-500 text-white font-semibold  active:scale-95  bg-secondary-500 
                   hover:bg-green-500 shadow shadow-emphasis-600/25 rounded-md hover:shadow-secondary-500"
