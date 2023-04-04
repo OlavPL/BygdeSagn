@@ -8,7 +8,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
        const db = client.db("App_Db");
        const post_Id= req.body.post_id;
        const search = await db
-           .collection("users")
+           .collection(process.env.POST_COLLECTION!)
            .find({post_Id})
            .sort({ metacritic: -1 })
            .toArray();
