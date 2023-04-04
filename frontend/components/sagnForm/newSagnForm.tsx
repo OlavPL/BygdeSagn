@@ -165,7 +165,6 @@ const NewSagnForm = ({className}: Props) => {
 
 const postSagn = async (data:Inputs, router: NextRouter ) =>{
   const JSOndata = {
-    "id":0,
     "title":data.title,
     "text":data.story,
     "tags":data.tags,

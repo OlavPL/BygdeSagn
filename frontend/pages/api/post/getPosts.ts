@@ -8,7 +8,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
        const db = client.db("App_Db");
        const post= await db
 
-           .collection("testPosts")
+           .collection(process.env.POST_COLLECTION!)
         //    .collection("posts")
 
            .find({})

@@ -18,7 +18,13 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 
         let myPost = db.collection("fylker").insertMany(req.body);
         res.status(200).json(myPost);
-       console.log("Sted Created")
+
+       //let myPost = await db.collection("posts").insertOne(bodyObject);
+      // let myPost = await db.collection("Fylker2").insertMany(bodyObject);
+       //metod to create index's
+      // db.collection("fylker").createIndex({"sted":1},{unique:true})
+      // res.status(200).json(myPost);
+       console.log("Fylker Created")
        
    } catch (e) {
        console.error(e);
