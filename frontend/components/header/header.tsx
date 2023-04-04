@@ -44,6 +44,7 @@ const Header = () => {
   
   
 
+
   return (
     <nav className=" w-full z-10">
       <div className="flex items-center h-20 w-full ">
@@ -63,7 +64,7 @@ const Header = () => {
           </div>
 
         {/* Create Sagn Button */}
-          <div className="flex items-baseline space-x-8 w-60 justify-end">
+          <div className="flex items-center space-x-8 w-60 justify-end">
             <Link href={"/createSagn"}>
               <button className="flex items-center space-x-1 font-medium text-textColor hover:text-secondary-800 focus:outline-none bg-primary-200 hover:bg-primary-700 rounded-md px-4 py-1.5">
                 <FontAwesomeIcon icon={faPen} className="text-2xl w-6 h-6 cursor-pointer transition-colors duration-200 ease-in-out fa-lg" />
@@ -75,12 +76,12 @@ const Header = () => {
             <Image src={picstring()} alt="" ref={menuButtonRef} onClick={handleClick} width={40} height={0} className="rounded-full cursor-pointer"  />
             <div
             ref={menuContainerRef}
-            className={`origin-top-right absolute right-0 mt-14 w-40 rounded-md shadow-lg bg-white menu-container ${
+            className={`origin-top-right absolute right-0 top-2 mt-14 w-40 rounded-md shadow-lg bg-white menu-container ${
               showMenu ? 'block' : 'hidden'
             }`}
             role="menu"
             aria-labelledby="menu-button">
-              <div className="py-2" role="none">
+              <div className="padd py-2" role="none" >
                 <Link href="/profilePage" className="px-2 py-2 text-sm block" role="menuitem" id="menu-item-profile">
                   Min Profil
                 </Link>
@@ -91,8 +92,7 @@ const Header = () => {
                   Login
                 </Link>
               </div>
-            </div> 
-            
+            </div>   
           </div>
         </div>
       </div>
