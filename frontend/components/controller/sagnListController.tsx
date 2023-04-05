@@ -34,7 +34,6 @@ class SagnListController {
     constructor(data: SagnJSON[]){
       let newData: Sagn[] = []
       data.map(object => {
-        console.log(object.likes)
         newData.push(new Sagn(
           object.title, object.text, object.tags, object.postedAt, object.kommune, object?.stedsnavn, object.postId, 
            object.likes, object.dislikes, object.happenedAt, object.author, 

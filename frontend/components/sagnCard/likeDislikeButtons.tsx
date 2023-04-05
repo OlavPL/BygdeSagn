@@ -21,10 +21,17 @@ const LikeDislikeButtons = ({likes, dislikes, postID}: Props) =>{
             if(userPresent != undefined)
                 return 
                 
-            if(dislikes.length >0){
-                userPresent = dislikes.find(user => user.email == session.data.user?.email)
-                if(userPresent == undefined ){
-                    removeLikeInteraction("Dislike")
+            // if(dislikes.length > 0){
+            //     userPresent = dislikes.find(user => user.email == session.data.user?.email)
+            //     if(userPresent != undefined ){
+            //         removeLikeInteraction("Dislike")
+            //     }
+            // }
+            if( dislikes.length > 0){
+                userPresent =  dislikes.find(user => user.email == session.data.user?.email)
+                if( userPresent != undefined ){
+                    console.log("Remove ")
+                    await removeLikeInteraction("Dislike")
                 }
             }
                 
@@ -33,7 +40,10 @@ const LikeDislikeButtons = ({likes, dislikes, postID}: Props) =>{
                 method:'PUT',
                 body:JSON.stringify({
                     "postId": postID,
-                    "user" : {name: session.data.user?.name, email: session.data.user?.email} as AppUser
+                    "user" : {
+                        name: session.data.user?.name,
+                        email: session.data.user?.email
+                    } as AppUser
                 }),
             }
             const response = await fetch("/api/post/likes/addLike",options).catch()
@@ -45,10 +55,12 @@ const LikeDislikeButtons = ({likes, dislikes, postID}: Props) =>{
             if(userPresent != undefined)
                 return 
                 
-            let userPresent1 = likes.find(user => user.email == session.data.user?.email)
-            if( userPresent1 == undefined && likes.length > 0){
-                console.log("Remove ")
-                removeLikeInteraction("Like")
+            if(likes.length > 0){
+                userPresent = likes.find(user => user.email == session.data.user?.email)
+                if(userPresent != undefined ){
+                    console.log("Remove ")
+                    await removeLikeInteraction("Like")
+                }
             }
                 
             const options:RequestInit={
@@ -68,10 +80,10 @@ const LikeDislikeButtons = ({likes, dislikes, postID}: Props) =>{
             headers:{
                 'Content-Type':'application/json',
             },
-            method:'PUSH',
+            method:'PUT',
             body:JSON.stringify({
                 "postId": postID,
-                "list" :session.data
+                "user" : {name: session?.data?.user?.name, email: session?.data?.user?.email} as AppUser
             }),
         }
         await fetch(`/api/post/likes/remove${type}`,options).catch()

@@ -177,8 +177,8 @@ const postSagn = async (data:Inputs, router: NextRouter ) =>{
       "kommune": data.kommune,
       "stedsnavn": data.stedsnavn? data.stedsnavn : "ukjent",
       // "owner":data.owner.user?.name,
-      "likes": [],
-      "dislikes":[],
+      "likes": Array(0),
+      "dislikes":Array(0),
       "postedAt": new Date().setUTCHours(new Date().getUTCHours() + 1 )
     }),
   }

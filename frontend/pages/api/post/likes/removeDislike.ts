@@ -10,13 +10,12 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
     const id = (req.body.postId)
     console.log(id)
     const updateDocument={
-        $push:{
-            dislikes:req.body.list
+        $pull:{
+            dislikes: req.body.user
         },
     };
     // const result = await db.collection("posts").updateOne({post_id:id},updateDocument)
     const result = await db.collection(process.env.POST_COLLECTION!).updateOne({postId:id},updateDocument)
-
     res.status(200).json("Dislikes Updated"+" id:"+ id)
 
     

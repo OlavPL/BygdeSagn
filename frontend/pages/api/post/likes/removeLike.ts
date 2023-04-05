@@ -11,7 +11,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
     console.log(id)
     const updateDocument={
         $pull:{
-            list:req.body.likes
+            likes: req.body.user
         },
     };
     // const result = await db.collection("posts").updateOne({post_id:id},updateDocument)
