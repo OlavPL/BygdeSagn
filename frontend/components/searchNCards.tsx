@@ -16,6 +16,31 @@ const SearchNCards = () => {
     const updateList = (e: SortTypes) =>{
         setList(sagnListController.sortSagn(e))
     }
+    const updateSagn = async (postID: number) => {
+        let newList = list.filter((sagn => sagn.postID != postID))
+        const options:RequestInit={
+            headers:{'Content-Type':'application/json',},
+            method:'PUT',
+            body:JSON.stringify({
+                "postId": postID
+            }),
+        }
+        await fetch("/api/post/getPost",options).catch()
+        .then((res) => res.json())
+        .then((data) => {
+            setList(data)
+            // console.log(data)
+            // newList.push(new Sagn(
+            //     data.title, data.text, data.tags, data.postedAt, data.kommune, data?.stedsnavn, data.postId, 
+            //      data.likes, data.dislikes, data.happenedAt, data.author, 
+            //   )
+            // )
+        })
+        console.log(newList)
+        
+        setList(newList)
+        console.log("Reload")
+    } 
 
     useEffect(() => {
         setLoading(true)
@@ -51,7 +76,7 @@ const SearchNCards = () => {
                         Nyeste Innlegg
                     </h2>
                     <SortListBox className= "place-self-end" sagnListController={sagnListController} updateList={updateList}/>
-                    <DisplaySagn sagnList={list} className="mt-5" />
+                    <DisplaySagn sagnList={list} controller={sagnListController} updateSagn={updateSagn} className="mt-5" />
                 </div>
             </div>
 

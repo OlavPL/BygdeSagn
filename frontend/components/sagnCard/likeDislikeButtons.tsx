@@ -8,10 +8,11 @@ interface Props {
     likes: AppUser[]
     dislikes: AppUser[]
     postID: number
+    updateSagn: (postID: number) => void
 }
 
 
-const LikeDislikeButtons = ({likes, dislikes, postID}: Props) =>{
+const LikeDislikeButtons = ({likes, dislikes, postID, updateSagn}: Props) =>{
     const session = useSession();
     
     const addLike = async () => {
@@ -21,16 +22,9 @@ const LikeDislikeButtons = ({likes, dislikes, postID}: Props) =>{
             if(userPresent != undefined)
                 return 
                 
-            // if(dislikes.length > 0){
-            //     userPresent = dislikes.find(user => user.email == session.data.user?.email)
-            //     if(userPresent != undefined ){
-            //         removeLikeInteraction("Dislike")
-            //     }
-            // }
             if( dislikes.length > 0){
                 userPresent =  dislikes.find(user => user.email == session.data.user?.email)
                 if( userPresent != undefined ){
-                    console.log("Remove ")
                     await removeLikeInteraction("Dislike")
                 }
             }
@@ -58,12 +52,11 @@ const LikeDislikeButtons = ({likes, dislikes, postID}: Props) =>{
             if(likes.length > 0){
                 userPresent = likes.find(user => user.email == session.data.user?.email)
                 if(userPresent != undefined ){
-                    console.log("Remove ")
                     await removeLikeInteraction("Like")
                 }
             }
                 
-            const options:RequestInit={
+            let options:RequestInit={
                 headers:{'Content-Type':'application/json',},
                 method:'PUT',
                 body:JSON.stringify({
@@ -71,7 +64,15 @@ const LikeDislikeButtons = ({likes, dislikes, postID}: Props) =>{
                     "user" : {name: session.data.user?.name, email: session.data.user?.email} as AppUser
                 }),
             }
-            const response = await fetch("/api/post/likes/addDislike",options).catch()
+            await fetch("/api/post/likes/addDislike",options).catch()
+            options = {
+                headers:{'Content-Type':'application/json',},
+                method:'GET',
+                body:JSON.stringify({
+                    "postId": postID
+                }),
+            }
+            updateSagn( postID ) 
         }
     }
 
