@@ -1,6 +1,6 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
-import TagsDropBox from "../tagsDropBox";
+import TagsDropBox from "./tagsDropBox";
 import Input from "./input";
 import TextArea from "./textArea";
 import SelectedTagsBox from "./selectedTagsBox";
@@ -11,7 +11,7 @@ import {useSession, signIn, signOut,getSession} from 'next-auth/react'
 import { Session } from "next-auth";
 import { toast, ToastOptions } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import KommuneSearchBox from "../KommuneSearchBox";
+import KommuneSearchBox from "./KommuneSearchBox";
 import Kommune from "@/types/Kommune";
 
 
