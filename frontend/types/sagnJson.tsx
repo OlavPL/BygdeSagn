@@ -9,7 +9,7 @@ export  type SagnJSON = {
     tags: Tag[];
     likes: [];
     dislikes: [];
-    id?: string;
+    postId: number;
     postedAt: number;
     happenedAt?: number;
     author: string;

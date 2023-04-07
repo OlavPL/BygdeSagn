@@ -35,8 +35,8 @@ class SagnListController {
       let newData: Sagn[] = []
       data.map(object => {
         newData.push(new Sagn(
-          object.title, object.text, object.tags, object.postedAt, object.kommune, object?.stedsnavn,
-           object.likes.length, object.dislikes.length, object.happenedAt, object.author, object.id
+          object.title, object.text, object.tags, object.postedAt, object.kommune, object.stedsnavn, object.postId,
+           object.likes.length, object.dislikes.length, object.happenedAt, object.author
         ))
       })
       this.sagnList = newData;
