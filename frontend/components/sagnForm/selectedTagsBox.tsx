@@ -12,11 +12,11 @@ interface Props extends React.HTMLAttributes<HTMLDivElement>{
  const SelectedTagsBox = ({className, removeTag, tagList}: Props) => {
 
   return (
-    <div className={`${className} ${"flex flex-row space-x-2"}`}>
+    <div className={`${className} ${"flex flex-wrap"}`}>
       {tagList.map((tag, index) =>{
         return (
           <div key={tag+index} className={""}>
-            <p onClick={(e:any) => removeTag(tag)} className="bg-emphasis-400 rounded text-justify px-1 font-semibold">{tag}</p>
+            <p onClick={(e:any) => removeTag(tag)} className="bg-emphasis-400 rounded text-justify px-1 font-semibold mb-2 ml-2">{tag}</p>
           </div>
         )
       })}

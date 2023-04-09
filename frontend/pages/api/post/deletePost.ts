@@ -9,7 +9,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
 
        //await.db.collection("posts").findOne({title:req.body.titel});
 
-        let myPost = await db.collection("testPosts").deleteOne({title:req.body.title});
+        let myPost = await db.collection(process.env.POST_COLLECTION!).deleteOne({title:req.body.title});
         // let myPost = await db.collection("posts").deleteOne({title:req.body.title});
 
        res.status(200).json(req.body.title+"is deleted");

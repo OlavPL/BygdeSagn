@@ -36,16 +36,15 @@ const App = ({ Component, pageProps, session }: MyAppProps) => {
   return (
     <SessionProvider session ={session}>
     <div className='bg-emphasis-100 text-textColor min-h-screen relative'>
-      <div className='absolute animate-float-slow pointer-events-none top-40' >
+      <div className='absolute animate-float-slow pointer-events-none top-20' >
         <img alt="" src="https://res.cloudinary.com/zsa-technology/image/upload/f_auto/q_auto/v1/zsa-io-refactor-prod/hot-swappable-waves.png?_a=ATCqVAA0" srcSet="https://res.cloudinary.com/zsa-technology/image/upload/f_auto/q_auto/c_scale,w_405/v1/zsa-io-refactor-prod/hot-swappable-waves.png?_a=ATCqVAA0 405w, https://res.cloudinary.com/zsa-technology/image/upload/f_auto/q_auto/c_scale,w_810/v1/zsa-io-refactor-prod/hot-swappable-waves.png?_a=ATCqVAA0 810w, https://res.cloudinary.com/zsa-technology/image/upload/f_auto/q_auto/c_scale,w_1215/v1/zsa-io-refactor-prod/hot-swappable-waves.png?_a=ATCqVAA0 1215w, https://res.cloudinary.com/zsa-technology/image/upload/f_auto/q_auto/c_scale,w_1621/v1/zsa-io-refactor-prod/hot-swappable-waves.png?_a=ATCqVAA0 1621w, https://res.cloudinary.com/zsa-technology/image/upload/f_auto/q_auto/c_scale,w_810/v1/zsa-io-refactor-prod/hot-swappable-waves.png?_a=ATCqVAA0 810w, https://res.cloudinary.com/zsa-technology/image/upload/f_auto/q_auto/c_scale,w_1620/v1/zsa-io-refactor-prod/hot-swappable-waves.png?_a=ATCqVAA0 1620w, https://res.cloudinary.com/zsa-technology/image/upload/f_auto/q_auto/c_scale,w_2430/v1/zsa-io-refactor-prod/hot-swappable-waves.png?_a=ATCqVAA0 2430w, https://res.cloudinary.com/zsa-technology/image/upload/f_auto/q_auto/c_scale,w_3242/v1/zsa-io-refactor-prod/hot-swappable-waves.png?_a=ATCqVAA0 3242w" sizes="(max-width: 1621px) 100vw, 1621px" loading="lazy"/>
       </div>
 
       <AppContext.Provider value={contextValue}>
-        <div className=" bg-cover text-textColor min-h-screen bg-center relative">
+        <div className=" text-textColor min-h-screen bg-center relative">
           <Header/>
-          <Component {...pageProps} >
             <ToastContainer/>
-          </Component>
+          <Component {...pageProps} />
         </div>
           {/* <Footer/> */}
       </AppContext.Provider>

@@ -11,7 +11,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
        let bodyObject =(req.body);
        
     //    let myPost = await db.collection("posts").insertOne(bodyObject);
-       let myPost = await db.collection("testPosts").insertOne(bodyObject);
+       let myPost = await db.collection(process.env.POST_COLLECTION!).insertOne(bodyObject);
 
        //metod to create index's
        //db.collection("posts").createIndex({"post_id":1},{unique:true})

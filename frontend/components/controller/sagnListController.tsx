@@ -6,9 +6,9 @@ export enum SortTypes{
     LIKES_DESC = 'Mest likt',
     LIKES_ASC = 'Minst likt',
     POST_DATE_DESC = 'Nyest innlegg',
-    POST_DATE_ASC = 'Eldst innlegg'
-    // HAPPENING_DATE_DESC = 'Nyest hendelse',
-    // HAPPENING_DATE_ASC = 'Nyest innlegg',
+    POST_DATE_ASC = 'Eldst innlegg',
+    HAPPENING_DATE_DESC = 'Nyest hendelse',
+    HAPPENING_DATE_ASC = 'Eldst hendelse',
 }
 
 const sortChoises = [
@@ -16,8 +16,8 @@ const sortChoises = [
   {id: 1, type: SortTypes.LIKES_ASC, text:'Minst likt'},
   {id: 2, type: SortTypes.POST_DATE_DESC, text:'Nyest innlegg'},
   {id: 3, type: SortTypes.POST_DATE_ASC, text:'Eldst innlegg'},
-  // {id: 4, type: SortTypes.HAPPENING_DATE_DESC, text:'Nyest hendelse'},
-  // {id: 5, type: SortTypes.HAPPENING_DATE_ASC, text:'Eldst hendelse'},
+  {id: 4, type: SortTypes.HAPPENING_DATE_DESC, text:'Nyest hendelse'},
+  {id: 5, type: SortTypes.HAPPENING_DATE_ASC, text:'Eldst hendelse'},
 ]
 
 export type SortValue = {
@@ -35,7 +35,7 @@ class SagnListController {
       let newData: Sagn[] = []
       data.map(object => {
         newData.push(new Sagn(
-          object.title, object.text, object.tags, object.postedAt, object.fylke?.fylkeNavn, object?.stedsnavn,
+          object.title, object.text, object.tags, object.postedAt, object.kommune, object?.stedsnavn,
            object.likes.length, object.dislikes.length, object.happenedAt, object.author, object.id
         ))
       })
@@ -58,12 +58,12 @@ class SagnListController {
           case SortTypes.POST_DATE_ASC:{
             return this.sagnList.slice().sort((a, b) => a.postedAt - b.postedAt);
           }
-          // case SortTypes.HAPPENING_DATE_DESC:{
-          //   return this.sagnList.slice().sort((a, b) => b.happendAt - a.happenedAt);
-          // }
-          // case SortTypes.HAPPENING_DATE_ASC:{
-          //   return this.sagnList.slice().sort((a, b) => a.happenedAt- b.happenedAt);
-          // }
+          case SortTypes.HAPPENING_DATE_DESC:{
+            return this.sagnList.slice().sort((a, b) => (b.happenedAt? b.happenedAt : 0)  - (a.happenedAt? a.happenedAt : 0));
+          }
+          case SortTypes.HAPPENING_DATE_ASC:{
+            return this.sagnList.slice().sort( (a, b) => (a.happenedAt? a.happenedAt : 0)  - (b.happenedAt? b.happenedAt : 0));
+          }
           default: this.sagnList
       }
       return this.sagnList
