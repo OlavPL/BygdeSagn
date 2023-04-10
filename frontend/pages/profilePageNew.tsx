@@ -6,6 +6,7 @@ import SagnListController, { SortTypes } from '@/components/controller/sagnListC
 import Sagn from '@/objects/sagn';
 import DisplaySagn from '@/components/Sagn/displaySagn';
 import SortListBox from '@/components/sortListBox';
+import DisplayUserSagn from '@/components/Sagn/displayUserSagn';
 
 const profilePageNew = ()=> {
     const{data:session}=useSession({required:true})
@@ -54,25 +55,7 @@ const profilePageNew = ()=> {
       getLiked();
     }, [session]);
 
-    // Metode for å delte posts, kan legges til ved siden av Display av brukerens Posts ?
-    const handleDelete = async (postId:number) => {
-      try {
-        const response = await fetch("/api/post/deletePost", {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ postId: postId }),
-        });
 
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data.message);
-        } else {
-          console.error("Failed to delete post:", response.statusText);
-        }
-      } catch (error) {
-        console.error("Failed to delete post:", error);
-      }
-    }
 
     const picstring=():string=>{
         if(session){
@@ -127,7 +110,7 @@ const profilePageNew = ()=> {
                         Nyeste Innlegg
                     </h2>
                     <SortListBox className= "place-self-end" sagnListController={sagnListController} updateList={updateList}/>
-                    <DisplaySagn sagnList={list} className="mt-5" />
+                    <DisplayUserSagn sagnList={list} className="mt-5" />
                 </div>
             </div>
             <div className="flex flex-col items-center justify-center">
