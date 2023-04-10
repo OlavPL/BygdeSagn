@@ -12,7 +12,7 @@ export default async function handler(
     const result = await client
       .db("App_Db")
       .collection(process.env.POST_COLLECTION!)
-      .find({ likes: { $in: [email] } })
+      .find({ "likes.email": email })
       .sort({ metacritic: -1 })
       .toArray()
 
