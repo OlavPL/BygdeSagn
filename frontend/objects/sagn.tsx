@@ -1,4 +1,4 @@
-import Kommune from '@/types/Kommune';
+import Kommune from '@/types/kommune';
 import { Tag } from '@/types/tag';
 import { useState, useEffect } from 'react'
 
@@ -6,8 +6,8 @@ interface SagnI{
     title: string
     text: string;
     tags: Tag[];
-    likes: User[];
-    dislikes: User[];
+    likes: LoginInfo[];
+    dislikes: LoginInfo[];
     postId: number;
     postedAt?: number;
     happenedAt?: number;
@@ -19,8 +19,8 @@ class Sagn implements SagnI{
     title: string;
     text: string;
     tags: Tag[];
-    likes: User[];
-    dislikes: User[];
+    likes: LoginInfo[];
+    dislikes: LoginInfo[];
     postId: number;
     postedAt: number;
     happenedAt?: number;
@@ -30,13 +30,13 @@ class Sagn implements SagnI{
 
 
     constructor(title: string, text: string, tags: Tag[], postedAt: number, kommune: Kommune, stedsnavn: string, postId: number, 
-                likes?: User[], dislikes?: User[], happenedAt?: number, author?: string
+                likes?: LoginInfo[], dislikes?: LoginInfo[], happenedAt?: number, author?: string
     ){
         this.title = title
         this.text = text
         this.tags = tags
-        this.likes = likes? likes : Array<User>()
-        this.dislikes = dislikes? dislikes : Array<User>()
+        this.likes = likes? likes : Array<LoginInfo>()
+        this.dislikes = dislikes? dislikes : Array<LoginInfo>()
         this.postId = postId
         this.postedAt = postedAt
         this.happenedAt = happenedAt

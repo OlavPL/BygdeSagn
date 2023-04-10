@@ -1,15 +1,14 @@
 import React from 'react';
 import {useSession,signOut,getSession} from 'next-auth/react'
 import Image from 'next/image';
-
+import clientPromise from '@/lib/mongodb';
 
 
   
 
-const profilePageNew =()=> {
-
-    const{data:session}=useSession()
-
+const profilePageNew = ()=> {
+    const{data:session}=useSession({required:true})
+    const user= session?.user;
 
     const picstring=():string=>{
         if(session){
@@ -20,6 +19,9 @@ const profilePageNew =()=> {
         }
         else{ return "https://cdn.icon-icons.com/icons2/2036/PNG/512/menu_circular_button_burger_icon_124214.png"}  
       }
+    const countPosts=()=>{
+        
+    }  
 
     return(
     <div className="shadow-shadow-500 shadow-3xl rounded-primary relative mx-auto flex h-full w-full max-w-[550px] flex-col items-center bg-cover bg-clip-border p-[16px]">
@@ -29,21 +31,20 @@ const profilePageNew =()=> {
             </div>
         </div>
         <div className="mt-16 flex flex-col items-center">
-            <h4 className="text-bluePrimary text-xl font-bold">John Ivar</h4>
-            <p className="text-lightSecondary text-base font-normal w-80">lorem lorem orem lorem orem lorem orem lorem orem lorem orem lorem orem loremorem lorem </p>
+            <h4 className="text-bluePrimary text-xl font-bold">{user?.name}</h4>
         </div>
         <div className="mt-6 mb-3 flex gap-4 md:!gap-14">
             <div className="flex flex-col items-center justify-center">
-            <h3 className="text-bluePrimary text-2xl font-bold">17</h3>
-            <p className="text-lightSecondary text-sm font-normal">Posts</p>
+                <h3 className="text-bluePrimary text-2xl font-bold">17</h3>
+                <p className="text-lightSecondary text-sm font-normal">Posts</p>
             </div>
             <div className="flex flex-col items-center justify-center">
-            <h3 className="text-bluePrimary text-2xl font-bold">9</h3>
-            <p className="text-lightSecondary text-sm font-normal">Comments</p>
+                <h3 className="text-bluePrimary text-2xl font-bold">9</h3>
+                <p className="text-lightSecondary text-sm font-normal">Comments</p>
             </div>
             <div className="flex flex-col items-center justify-center">
-            <h3 className="text-bluePrimary text-2xl font-bold">2023</h3>
-            <p className="text-lightSecondary text-sm font-normal">Joined</p>
+                <h3 className="text-bluePrimary text-2xl font-bold">2023</h3>
+                <p className="text-lightSecondary text-sm font-normal">Joined</p>
             </div>
         </div>
     </div>
@@ -51,3 +52,5 @@ const profilePageNew =()=> {
 }
 
 export default profilePageNew
+
+

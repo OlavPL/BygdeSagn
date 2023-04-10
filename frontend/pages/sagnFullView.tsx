@@ -1,5 +1,5 @@
-import Sagn from "@/objects/sagn";
-import Kommune from "@/types/Kommune";
+/*import Sagn from "@/objects/sagn";
+import Kommune from "@/types/kommune";
 
 interface Props {
     title: string
@@ -36,4 +36,4 @@ const SagnFullView = (sagn: Sagn ) =>{
     );
 };
 
-export default SagnFullView
+export default SagnFullView */

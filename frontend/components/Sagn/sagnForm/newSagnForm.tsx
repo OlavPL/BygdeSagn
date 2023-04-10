@@ -12,7 +12,7 @@ import { Session } from "next-auth";
 import { toast, ToastOptions } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import KommuneSearchBox from "./KommuneSearchBox";
-import Kommune from "@/types/Kommune";
+import Kommune from "@/types/kommune";
 
 
 interface Inputs {
