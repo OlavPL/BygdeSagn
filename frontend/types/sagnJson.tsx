@@ -1,5 +1,5 @@
 import Fylke from "./Fylke";
-import Kommune from "./Kommune";
+import Kommune from "./kommune";
 import { Tag } from "./tag";
 
 
@@ -9,7 +9,7 @@ export  type SagnJSON = {
     tags: Tag[];
     likes: [];
     dislikes: [];
-    id?: string;
+    postId: number;
     postedAt: number;
     happenedAt?: number;
     author: string;

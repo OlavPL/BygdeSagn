@@ -1,5 +1,5 @@
 import clientPromise from "@/lib/mongodb";
-import Kommune from "@/types/Kommune";
+import Kommune from "@/types/kommune";
 import { NextApiRequest, NextApiResponse } from "next";
 import { NextRouter, useRouter } from "next/router";
 
