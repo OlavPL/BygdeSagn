@@ -9,8 +9,7 @@ import Image from 'next/image';
 const profilePageNew =()=> {
 
     const{data:session}=useSession()
-
-
+        
     const picstring=():string=>{
         if(session){
           if(session.user?.image==null){

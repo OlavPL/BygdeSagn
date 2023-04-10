@@ -13,6 +13,7 @@ import { toast, ToastOptions } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import KommuneSearchBox from "../KommuneSearchBox";
 import Kommune from "@/types/Kommune";
+import AppUser from "@/types/AppUser";
 
 
 interface Inputs {
@@ -22,7 +23,7 @@ interface Inputs {
   year?: number;
   kommune: Kommune;
   stedsnavn?: string;
-  owner:Session;
+  owner:AppUser;
 }
 
 interface Props {
@@ -41,6 +42,7 @@ const errorToastOptions: ToastOptions<{}> = {
   }
 
 const NewSagnForm = ({className}: Props) => {
+  const session = useSession({required:true}); 
   const [tags, setTags] = useState<Tag[]>([])
   const [images, setImages] = useState<File | null>(null)
   const [storyText, setStoryText] = useState<string>("")
@@ -49,6 +51,7 @@ const NewSagnForm = ({className}: Props) => {
   const [selectedKommune, setSelectedKommune] = useState<Kommune>({kommunenavn:"", kommunenavnNorsk:""} as Kommune)
   const [stedsnavn, setStedsnavn] = useState<string>()
   const router = useRouter()
+  
 
   const addTag= (value: Tag) => {
     setTags([...tags, value])
@@ -59,7 +62,6 @@ const NewSagnForm = ({className}: Props) => {
     var list = tags.filter(equalString)
     setTags(list)
   }
-  const{data:session}=useSession();
   const onSubmit: SubmitHandler<Inputs> = (data) =>{
     // Sjekk og varsel om blanke felt
     if(data.title.trim() == "" || data.story.trim() == ""){
@@ -81,11 +83,13 @@ const NewSagnForm = ({className}: Props) => {
       toast.error("Ops! Ser ut som du ikke har spesifisert kommune", errorToastOptions);
       return
     }
-        
+      
     data.tags = tags
     data.kommune = selectedKommune
     data.year = year == undefined ? undefined : Number(year)
     data.stedsnavn = stedsnavn
+    data.owner = session.data?.user!
+  
     postSagn(data, router)
   };
 
@@ -164,6 +168,7 @@ const NewSagnForm = ({className}: Props) => {
 };
 
 const postSagn = async (data:Inputs, router: NextRouter ) =>{
+  console.log(data.owner)
   const options:RequestInit={
     headers:{
       'Content-Type':'application/json',
@@ -176,7 +181,7 @@ const postSagn = async (data:Inputs, router: NextRouter ) =>{
       "happendAt":data.year,
       "kommune": data.kommune,
       "stedsnavn": data.stedsnavn? data.stedsnavn : "ukjent",
-      // "owner":data.owner.user?.name,
+      "owner":data.owner.email,
       "likes": Array(0),
       "dislikes":Array(0),
       "postedAt": new Date().setUTCHours(new Date().getUTCHours() + 1 )
