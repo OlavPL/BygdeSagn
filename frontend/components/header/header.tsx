@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { FaUserAlt, FaPen } from 'react-icons/fa';
-import { FontAwesomeIcon,  } from '@fortawesome/react-fontawesome';
+
+import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome';
 import { faPen, faUser } from '@fortawesome/free-solid-svg-icons';
 import { AppContext } from '@/pages/_app';
 import {useSession,signOut,getSession} from 'next-auth/react'

@@ -29,7 +29,7 @@ const profilePageNew =()=> {
             </div>
         </div>
         <div className="mt-16 flex flex-col items-center">
-            <h4 className="text-bluePrimary text-xl font-bold">John Ivar</h4>
+            <h4 className="text-bluePrimary text-xl font-bold"> </h4>
             <p className="text-lightSecondary text-base font-normal w-80">lorem lorem orem lorem orem lorem orem lorem orem lorem orem lorem orem loremorem lorem </p>
         </div>
         <div className="mt-6 mb-3 flex gap-4 md:!gap-14">

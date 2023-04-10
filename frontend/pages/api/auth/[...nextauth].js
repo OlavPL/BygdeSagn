@@ -1,6 +1,7 @@
 import NextAuth from "next-auth/next"
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from 'next-auth/providers/google'
+
 import clientPromise from "@/lib/mongodb";
 import SimpleCrypto from "simple-crypto-js"
 const SECRET_KEY= "h9#E6CAjvzfN9"
@@ -8,18 +9,13 @@ const SECRET_KEY= "h9#E6CAjvzfN9"
 export default NextAuth({
   
     pages: {
-        signIn: '../../login',
+        signIn: '/login',
         signOut: '/auth/signout',
         error: '/auth/error', // Error code passed in query string as ?error=
         newUser: '../../register' // New users will be directed here on first sign in (leave the property out if not of interest)
       },
     providers:[
-        
-    GoogleProvider({
-        clientId: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET
-    }),
-    CredentialsProvider({
+      CredentialsProvider({
         name: "BygdeSagn Konto",
         credentials: {
           email: { label: "Email", type: "text", placeholder: "jsmith" },
@@ -52,6 +48,10 @@ export default NextAuth({
             // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
           }
         }
+      }),
+      GoogleProvider({
+          clientId: process.env.GOOGLE_CLIENT_ID,
+          clientSecret: process.env.GOOGLE_CLIENT_SECRET
       })
     ],
     callbacks:{
