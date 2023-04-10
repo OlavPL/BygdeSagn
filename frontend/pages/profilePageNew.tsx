@@ -1,6 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {useSession,signOut,getSession} from 'next-auth/react'
 import Image from 'next/image';
+import { AppContext } from "@/pages/_app"
+import SagnListController, { SortTypes } from '@/components/controller/sagnListController';
+import Sagn from '@/objects/sagn';
+import DisplaySagn from '@/components/Sagn/displaySagn';
+import SortListBox from '@/components/sortListBox';
 
 const profilePageNew = ()=> {
     const{data:session}=useSession({required:true})
@@ -38,7 +43,7 @@ const profilePageNew = ()=> {
       const getLiked= async () => {
         try {
           const res = await fetch(
-            `/api/post/getUserPosts?email=${session?.user?.email}`
+            `/api/post/likes/getUserLikedPosts?email=${session?.user?.email}`
           );
           const data = await res.json();
           setLiked(data.length);
@@ -50,13 +55,12 @@ const profilePageNew = ()=> {
     }, [session]);
 
     // Metode for å delte posts, kan legges til ved siden av Display av brukerens Posts ?
-    const [postId, setPostId] = useState("");
-    const handleDelete = async () => {
+    const handleDelete = async (postId:number) => {
       try {
         const response = await fetch("/api/post/deletePost", {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id: postId }),
+          body: JSON.stringify({ postId: postId }),
         });
 
         if (response.ok) {
@@ -80,6 +84,30 @@ const profilePageNew = ()=> {
         else{ return "https://cdn.icon-icons.com/icons2/2036/PNG/512/menu_circular_button_burger_icon_124214.png"}  
       }
      
+      const [sagnListController, setListController] = useState(new SagnListController([]))
+      const [list, setList] = useState([] as Sagn[])
+      const [isLoading, setLoading] = useState(false)
+      const {title, setTitle} = useContext(AppContext);
+  
+      const updateList = (e: SortTypes) =>{
+          setList(sagnListController.sortSagn(e))
+      }
+  
+      useEffect(() => {
+          setLoading(true)
+          fetch(`/api/post/getUserPosts?email=${session?.user?.email}`)
+          .then((res) => res.json())
+          .then((data) => {
+              console.log(data)
+              let slc = new SagnListController(data)
+              setListController(slc)
+              setList(slc.sortSagn(slc.sortType.type))
+              setLoading(false)
+          })
+          
+          setTitle("ProfilePage")
+        }
+        , [setTitle])  
     
 
     return(
@@ -93,6 +121,15 @@ const profilePageNew = ()=> {
             <h4 className="text-bluePrimary text-xl font-bold">{user?.name}</h4>
         </div>
         <div className="mt-6 mb-3 flex gap-4 md:!gap-14">
+          <div className="mt-5 mx-auto content-center">
+                <div className="flex flex-col md:max-w-screen-lg justify-center">
+                    <h2 className="text-lg font-bold text-center">
+                        Nyeste Innlegg
+                    </h2>
+                    <SortListBox className= "place-self-end" sagnListController={sagnListController} updateList={updateList}/>
+                    <DisplaySagn sagnList={list} className="mt-5" />
+                </div>
+            </div>
             <div className="flex flex-col items-center justify-center">
                 <h3 className="text-bluePrimary text-2xl font-bold">{count} </h3>
                 <p className="text-lightSecondary text-sm font-normal">Posts</p>
