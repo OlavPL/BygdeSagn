@@ -2,8 +2,9 @@ import { Tag } from "@/types/tag"
 import Link from "next/link"
 import CardTags from "./cardTags"
 import LikeDislikeButtons from "./likeDislikeButtons"
-import { Router, useRouter } from "next/router"
+import router, { Router, useRouter } from "next/router"
 import Sagn from "@/objects/sagn"
+import { toast } from "react-toastify"
 
 interface Props {
     title: String,
@@ -31,6 +32,18 @@ const Delete = async (postId:number) => {
     } catch (error) {
       console.error("Failed to delete post:", error);
     }
+    toast.success("Sagn Slettet", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: false,
+      progress: undefined,
+      theme: "light",
+      toastId: "succsessful post"
+    },)
+    router.push("/profilePageNew")
   }
 
 
