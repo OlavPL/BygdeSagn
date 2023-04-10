@@ -1,14 +1,14 @@
-import Kommune from '@/types/Kommune';
+import Kommune from '@/types/kommune';
 import { Tag } from '@/types/tag';
 import { useState, useEffect } from 'react'
 
 interface SagnI{
     title: string
     text: string;
-    tags: string[];
-    likes: number;
-    dislikes: number;
-    id?: string;
+    tags: Tag[];
+    likes: LoginInfo[];
+    dislikes: LoginInfo[];
+    postId: number;
     postedAt?: number;
     happenedAt?: number;
     author: string;
@@ -18,10 +18,10 @@ interface SagnI{
 class Sagn implements SagnI{
     title: string;
     text: string;
-    tags: string[];
-    likes: number;
-    dislikes: number;
-    id: string;
+    tags: Tag[];
+    likes: LoginInfo[];
+    dislikes: LoginInfo[];
+    postId: number;
     postedAt: number;
     happenedAt?: number;
     author: string;
@@ -29,15 +29,15 @@ class Sagn implements SagnI{
     stedsnavn: string;
 
 
-    constructor(title: string, text: string, tags: Tag[], postedAt: number, kommune: Kommune, stedsnavn: string, 
-                likes?: number, dislikes?: number, happenedAt?: number, author?: string, id?: string
+    constructor(title: string, text: string, tags: Tag[], postedAt: number, kommune: Kommune, stedsnavn: string, postId: number, 
+                likes?: LoginInfo[], dislikes?: LoginInfo[], happenedAt?: number, author?: string
     ){
         this.title = title
         this.text = text
         this.tags = tags
-        this.likes = likes? likes : 0
-        this.dislikes = dislikes? dislikes : 0
-        this.id = id? id : ""
+        this.likes = likes? likes : Array<LoginInfo>()
+        this.dislikes = dislikes? dislikes : Array<LoginInfo>()
+        this.postId = postId
         this.postedAt = postedAt
         this.happenedAt = happenedAt
         this.author = author? author : "Ukjent"
