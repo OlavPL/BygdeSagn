@@ -8,6 +8,7 @@ const profilePageNew = ()=> {
 
     const [count, setCount] = useState(0);
     const [comments,setComments]=useState(0);
+    const [liked,setLiked]=useState(0);
 
     useEffect(() => {
       const getCount = async () => {
@@ -34,6 +35,18 @@ const profilePageNew = ()=> {
         }
       };
       getComment();
+      const getLiked= async () => {
+        try {
+          const res = await fetch(
+            `/api/post/getUserPosts?email=${session?.user?.email}`
+          );
+          const data = await res.json();
+          setLiked(data.length);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getLiked();
     }, [session]);
 
     const picstring=():string=>{
@@ -68,8 +81,8 @@ const profilePageNew = ()=> {
                 <p className="text-lightSecondary text-sm font-normal">Comments</p>
             </div>
             <div className="flex flex-col items-center justify-center">
-                <h3 className="text-bluePrimary text-2xl font-bold">2023</h3>
-                <p className="text-lightSecondary text-sm font-normal">Joined</p>
+                <h3 className="text-bluePrimary text-2xl font-bold">{liked}</h3>
+                <p className="text-lightSecondary text-sm font-normal">Liked Posts</p>
             </div>
         </div>
     </div>
