@@ -1,14 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {useSession,signOut,getSession} from 'next-auth/react'
 import Image from 'next/image';
-import clientPromise from '@/lib/mongodb';
-
-
-  
 
 const profilePageNew = ()=> {
     const{data:session}=useSession({required:true})
     const user= session?.user;
+
+    const [count, setCount] = useState(0);
+    const [comments,setComments]=useState(0);
+
+    useEffect(() => {
+      const getCount = async () => {
+        try {
+          const res = await fetch(
+            `/api/post/getUserPosts?email=${session?.user?.email}`
+          );
+          const data = await res.json();
+          setCount(data.length);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getCount();
+      const getComment= async () => {
+        try {
+          const res = await fetch(
+            `/api/post/getUserPosts?email=${session?.user?.email}`
+          );
+          const data = await res.json();
+          setComments(data.length);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      getComment();
+    }, [session]);
 
     const picstring=():string=>{
         if(session){
@@ -19,9 +45,8 @@ const profilePageNew = ()=> {
         }
         else{ return "https://cdn.icon-icons.com/icons2/2036/PNG/512/menu_circular_button_burger_icon_124214.png"}  
       }
-    const countPosts=()=>{
-        
-    }  
+     
+    
 
     return(
     <div className="shadow-shadow-500 shadow-3xl rounded-primary relative mx-auto flex h-full w-full max-w-[550px] flex-col items-center bg-cover bg-clip-border p-[16px]">
@@ -35,11 +60,11 @@ const profilePageNew = ()=> {
         </div>
         <div className="mt-6 mb-3 flex gap-4 md:!gap-14">
             <div className="flex flex-col items-center justify-center">
-                <h3 className="text-bluePrimary text-2xl font-bold">17</h3>
+                <h3 className="text-bluePrimary text-2xl font-bold">{count} </h3>
                 <p className="text-lightSecondary text-sm font-normal">Posts</p>
             </div>
             <div className="flex flex-col items-center justify-center">
-                <h3 className="text-bluePrimary text-2xl font-bold">9</h3>
+                <h3 className="text-bluePrimary text-2xl font-bold">{comments}</h3>
                 <p className="text-lightSecondary text-sm font-normal">Comments</p>
             </div>
             <div className="flex flex-col items-center justify-center">
