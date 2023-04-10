@@ -54,7 +54,7 @@ export async function getServerSideProps(context: {params: { postId:number} }) {
         const db = client.db("App_Db");
 
         const response = await db
-        .collection("testPosts")
+        .collection(process.env.POST_COLLECTION!)
         .findOne({postId:Number(postId)})
 
         return {

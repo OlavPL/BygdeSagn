@@ -49,6 +49,27 @@ const profilePageNew = ()=> {
       getLiked();
     }, [session]);
 
+    // Metode for å delte posts, kan legges til ved siden av Display av brukerens Posts ?
+    const [postId, setPostId] = useState("");
+    const handleDelete = async () => {
+      try {
+        const response = await fetch("/api/post/deletePost", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: postId }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data.message);
+        } else {
+          console.error("Failed to delete post:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Failed to delete post:", error);
+      }
+    }
+
     const picstring=():string=>{
         if(session){
           if(session.user?.image==null){
