@@ -12,10 +12,12 @@ const Header = () => {
   const {title} = useContext(AppContext)
   const{data:session}=useSession()
   const handleClick = () =>  setShowMenu(!showMenu)
-  
+  const menuButtonRef = useRef<HTMLImageElement>(null)
+  const menuContainerRef = useRef<HTMLDivElement>(null)
 
-  const menuButtonRef = useRef<HTMLImageElement>(null);
-  const menuContainerRef = useRef<HTMLDivElement>(null);
+  const handleLogout = () => {
+    signOut()
+  }
   
   const picstring=():string=>{
     if(session){
@@ -42,9 +44,6 @@ const Header = () => {
     return () => document.removeEventListener('click', handleClickOutside);
   }, [showMenu])
   
-  
-
-
   return (
     <nav className=" w-full z-10">
       <div className="flex items-center h-20 w-full ">
@@ -88,9 +87,20 @@ const Header = () => {
                 <Link href="profilePageNew" className="px-2 py-2 text-sm block" role="menuitem" id="menu-item-2">
                   Faktisk profil side
                 </Link>
-                <Link href="/login" className="px-2 py-2 text-sm block text-black hover:text-blue-250" role="menuitem" id="menu-item-3">
-                  Login
-                </Link>
+                {session ? (
+                  <button
+                    onClick={handleLogout}
+                    className="px-2 py-2 text-sm block text-black hover:text-blue-250"
+                    role="menuitem"
+                    id="menu-item-logout"
+                  >
+                    Logout
+                  </button>
+                ) : (
+                  <Link href="/login" className="px-2 py-2 text-sm block text-black hover:text-blue-250" role="menuitem" id="menu-item-login">
+                    Login
+                  </Link>
+                )}
               </div>
             </div>   
           </div>
