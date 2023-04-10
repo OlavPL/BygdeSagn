@@ -65,13 +65,6 @@ const LikeDislikeButtons = ({likes, dislikes, postID, updateSagn}: Props) =>{
                 }),
             }
             await fetch("/api/post/likes/addDislike",options).catch()
-            options = {
-                headers:{'Content-Type':'application/json',},
-                method:'GET',
-                body:JSON.stringify({
-                    "postId": postID
-                }),
-            }
             updateSagn( postID ) 
         }
     }
