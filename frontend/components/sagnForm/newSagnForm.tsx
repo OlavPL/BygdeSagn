@@ -14,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import KommuneSearchBox from "../KommuneSearchBox";
 import Kommune from "@/types/Kommune";
 import AppUser from "@/types/AppUser";
+import { ToastType, getToastOptions } from "../controller/toastController";
 
 
 interface Inputs {
@@ -30,16 +31,16 @@ interface Props {
   className?: string;
 }
 
-const errorToastOptions: ToastOptions<{}> = {
-  position: "top-center",
-  autoClose: 5000,
-  hideProgressBar: false,
-  closeOnClick: true,
-  pauseOnHover: true,
-  draggable: false,
-  progress: undefined,
-  theme: "colored",
-  }
+// const errorToastOptions: ToastOptions<{}> = {
+//   position: "top-center",
+//   autoClose: 5000,
+//   hideProgressBar: false,
+//   closeOnClick: true,
+//   pauseOnHover: true,
+//   draggable: false,
+//   progress: undefined,
+//   theme: "colored",
+// }
 
 const NewSagnForm = ({className}: Props) => {
   const session = useSession({required:true}); 
@@ -65,22 +66,22 @@ const NewSagnForm = ({className}: Props) => {
   const onSubmit: SubmitHandler<Inputs> = (data) =>{
     // Sjekk og varsel om blanke felt
     if(data.title.trim() == "" || data.story.trim() == ""){
-      toast.error("Vennligst fyll ut alle felt", errorToastOptions);
+      toast.error("Vennligst fyll ut alle felt", getToastOptions(ToastType.colored));
       return 
     }
     // Sjekk og varsel mot ekstermt kort tekst
     if(data.title.trim().length < 3 || data.story.trim().length < 20 ){
-      toast.error("Ops! Ser ut som du ikke har skrevet ferdig tittelen", errorToastOptions);
+      toast.error("Ops! Ser ut som du ikke har skrevet ferdig tittelen", getToastOptions(ToastType.colored));
       return 
     }
 
     if(data.story.trim().length < 20 ){
-      toast.error("Ops! Ser ut som du ikke har skrevet ferdig sagnet", errorToastOptions);
+      toast.error("Ops! Ser ut som du ikke har skrevet ferdig sagnet", getToastOptions(ToastType.colored));
       return 
     }
 
     if (selectedKommune.kommunenavnNorsk == "" || selectedKommune == undefined){
-      toast.error("Ops! Ser ut som du ikke har spesifisert kommune", errorToastOptions);
+      toast.error("Ops! Ser ut som du ikke har spesifisert kommune", getToastOptions(ToastType.colored));
       return
     }
       
@@ -96,7 +97,7 @@ const NewSagnForm = ({className}: Props) => {
   useForm()
 
   const onError: SubmitErrorHandler<Inputs> = () => {
-    toast.error("Vennligs fyll ut alle felt", errorToastOptions);
+    toast.error("Vennligs fyll ut alle felt", getToastOptions(ToastType.colored));
   }
 
   const {

@@ -10,7 +10,7 @@ config.autoAddCss = false
 
 import { Session } from 'next-auth'
 import { createContext, useState } from 'react'
-import { ToastContainer } from 'react-toastify'
+import { ToastContainer, ToastOptions } from 'react-toastify'
 interface MyAppProps extends AppProps {
   session: Session
 }

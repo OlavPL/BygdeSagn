@@ -4,85 +4,91 @@ import {useSession, signIn, signOut,getSession} from 'next-auth/react'
 import { Session, User } from "next-auth";
 import AppUser from "@/types/AppUser";
 import { useState } from "react";
+import { ToastOptions, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastType, getToastOptions } from "../controller/toastController";
 
 interface Props {
     likes: AppUser[]
     dislikes: AppUser[]
     postID: number
-    updateSagn: (postID: number) => void
 }
 
-
-const LikeDislikeButtons = ({likes, dislikes, postID, updateSagn}: Props) =>{
+const LikeDislikeButtons = ({likes, dislikes, postID}: Props) =>{
     const [_likes, setLikes] = useState<AppUser[]>(likes)
     const [_dislikes, setDislikes] = useState<AppUser[]>(dislikes)
     const session = useSession();
     
     const addLike = async () => {
-        if(session.data != null){
-            
-            let userIsPresent = _likes.find(user => user.email == session.data.user?.email)
-            if(userIsPresent != undefined)
-                return 
-                
-            if( _dislikes.length > 0){
-                userIsPresent =  _dislikes.find(user => user.email == session.data.user?.email)
-                if( userIsPresent != undefined ){
-                    await removeLikeInteraction("Dislike")
-                }
-            }
-                
-            const options:RequestInit={
-                headers:{'Content-Type':'application/json',},
-                method:'PUT',
-                body:JSON.stringify({
-                    "postId": postID,
-                    "user" : {
-                        name: session.data.user?.name,
-                        email: session.data.user?.email
-                    } as AppUser
-                }),
-            }
-            await fetch("/api/post/likes/addLike",options).catch()
-
-            await fetch(`http://localhost:3000/api/post/getPost?postId=${postID}`).catch()
-            .then((res) => res.json())
-            .then((data) => {
-                setLikes(data.likes)
-                setDislikes(data.dislikes)
-            })
+        if(session.data == null ){
+            toast.error("Logg inn for å like", getToastOptions(ToastType.light) );
+            return
         }
+            
+        let userIsPresent = _likes.find(user => user.email == session.data.user?.email)
+        if(userIsPresent != undefined)
+            return 
+            
+        if( _dislikes.length > 0){
+            userIsPresent =  _dislikes.find(user => user.email == session.data.user?.email)
+            if( userIsPresent != undefined ){
+                await removeLikeInteraction("Dislike")
+            }
+        }
+            
+        const options:RequestInit={
+            headers:{'Content-Type':'application/json',},
+            method:'PUT',
+            body:JSON.stringify({
+                "postId": postID,
+                "user" : {
+                    name: session.data.user?.name,
+                    email: session.data.user?.email
+                } as AppUser
+            }),
+        }
+        await fetch("/api/post/likes/addLike",options).catch()
+
+        await fetch(`http://localhost:3000/api/post/getPost?postId=${postID}`).catch()
+        .then((res) => res.json())
+        .then((data) => {
+            setLikes(data.likes)
+            setDislikes(data.dislikes)
+        })
     }
     const addDislike = async () => {
-        if(session.data != null){
-            let userPresent = _dislikes.find(user => user.email == session.data.user?.email)
-            if(userPresent != undefined)
-                return 
-                
-            if(_likes.length > 0){
-                userPresent = _likes.find(user => user.email == session.data.user?.email)
-                if(userPresent != undefined ){
-                    await removeLikeInteraction("Like")
-                }
-            }
-                
-            let options:RequestInit={
-                headers:{'Content-Type':'application/json',},
-                method:'PUT',
-                body:JSON.stringify({
-                    "postId": postID,
-                    "user" : {name: session.data.user?.name, email: session.data.user?.email} as AppUser
-                }),
-            }
-            await fetch("/api/post/likes/addDislike",options).catch()
-            
-            await fetch(`http://localhost:3000/api/post/getPost?postId=${postID}`).catch()
-            .then((res) => res.json())
-            .then((data) => {
-                setLikes(data.likes)
-                setDislikes(data.dislikes)
-            })
+        if(session.data == null ){
+            toast.error("Logg inn for å like", getToastOptions(ToastType.light) );
+            return
         }
+
+        let userPresent = _dislikes.find(user => user.email == session.data.user?.email)
+        if(userPresent != undefined)
+            return 
+            
+        if(_likes.length > 0){
+            userPresent = _likes.find(user => user.email == session.data.user?.email)
+            if(userPresent != undefined ){
+                await removeLikeInteraction("Like")
+            }
+        }
+            
+        let options:RequestInit={
+            headers:{'Content-Type':'application/json',},
+            method:'PUT',
+            body:JSON.stringify({
+                "postId": postID,
+                "user" : {name: session.data.user?.name, email: session.data.user?.email} as AppUser
+            }),
+        }
+        await fetch("/api/post/likes/addDislike",options).catch()
+        
+        await fetch(`http://localhost:3000/api/post/getPost?postId=${postID}`).catch()
+        .then((res) => res.json())
+        .then((data) => {
+            setLikes(data.likes)
+            setDislikes(data.dislikes)
+        })
     }
 
     const removeLikeInteraction = async (type: string) => {
