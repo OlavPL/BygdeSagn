@@ -4,6 +4,9 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import clientPromise from "@/lib/mongodb";
 import CardTags from "@/components/Sagn/sagnCard/cardTags";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 
 interface Props {
     title: string
@@ -26,21 +29,28 @@ const SagnFullView = (props:any) =>{
   
     
     return (
-        <div className="flex flex-col p-4 rounded-md max-w-screen-2xl mx-auto mt-5 shadow-xl">
-            <h2 className="text-xl font-bold mb-2 ">{sagn.title}</h2>
-            <p className="text-lg mb-4">{sagn.text}</p>
-            <p className="text-gray-600 mb-4">{new Date(sagn.postedAt).toLocaleString("no")}</p>
-            {/* <p className="text-gray-600 mb-4">Tags: {sagn.tags[0]}</p> */}
-            <div className="flex space-x-4">
-                <p className="text-gray-600 mb-4">Kommune: {sagn.kommune.kommunenavnNorsk} {'->'} {sagn.stedsnavn}</p>
+        <div className="flex flex-col bg-emphasis-50 rounded-md max-w-screen-xl mx-2 lg:mx-auto mt-5 p-2 space-y-4 shadow-md font-semibold">
+            <h2 className="text-xl font-bold text-center sm:text-start">{sagn.title}</h2>
+            <p className="max-h-96 overflow-y-auto">{sagn.text}</p>
+            {/* <p className=" mb-4">Tags: {sagn.tags[0]}</p> */}
+            <div className="flex flex-col sm:flex-row w-full">
+                <div className="flex flex-row w-full sm:w-auto">
+                    <p ><FontAwesomeIcon className="w-5 mr-1" icon={faLocationDot} /></p>
+                    {sagn.stedsnavn && <p>{sagn.stedsnavn } i&nbsp;</p>}
+                    <p>{sagn.kommune.kommunenavnNorsk} {sagn.kommune.fylkesnavn && (", " + sagn.kommune.fylkesnavn)}</p>
+                </div>
+                <div className="flex flex-row w-full sm:w-auto">
+                    <p ><FontAwesomeIcon className="w-5 mr-1" icon={faCalendar} /></p>
+                    <p className="sm:ml-auto"> {sagn.happenedAt? new Date(sagn.happenedAt).toLocaleString() : "Ukjent"}</p>
+                </div>
             </div>
-            <CardTags tags={sagn.tags}/>            
+            <CardTags tags={sagn.tags}/>          
             <div className="flex space-x-4">
-                <p className="text-green-500 font-bold">Likes: {sagn.likes.length}</p>
-                <p className="text-red-500 font-bold">Dislikes: {sagn.dislikes.length}</p>
+                <p className="text-green-500 font-bold">Liker: {sagn.likes.length}</p>
+                <p className="text-red-500 font-bold">Liker ikke: {sagn.dislikes.length}</p>
             </div>
-            <p className="text-gray-600 mb-4">Skjedde i år {sagn.happenedAt? new Date(sagn.happenedAt).toLocaleString() : "Ukjent"}</p>
-            {/* <p className="text-gray-600">Author: {sagn.author.email}</p> */}
+            {/* {sagn.author?.email && <p className="">Author: {sagn.author.email}</p>} */}
+            <p>Opplastet: {new Date(sagn.postedAt).toLocaleString("no")}</p>
         </div>
     );
 };

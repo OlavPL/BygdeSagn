@@ -62,17 +62,17 @@ const NewSagnForm = ({className}: Props) => {
   const{data:session}=useSession();
   const onSubmit: SubmitHandler<Inputs> = (data) =>{
     // Sjekk og varsel om blanke felt
-    if(data.title.trim() == "" || data.story.trim() == ""){
+    if(data.title.trim() == "" || storyText.trim() == ""){
       toast.error("Vennligst fyll ut alle felt", errorToastOptions);
       return 
     }
     // Sjekk og varsel mot ekstermt kort tekst
-    if(data.title.trim().length < 3 || data.story.trim().length < 20 ){
+    if(data.title.trim().length < 3){
       toast.error("Ops! Ser ut som du ikke har skrevet ferdig tittelen", errorToastOptions);
       return 
     }
 
-    if(data.story.trim().length < 20 ){
+    if(storyText.trim().length < 20 ){
       toast.error("Ops! Ser ut som du ikke har skrevet ferdig sagnet", errorToastOptions);
       return 
     }
@@ -86,6 +86,7 @@ const NewSagnForm = ({className}: Props) => {
     data.kommune = selectedKommune
     data.year = year == undefined ? undefined : Number(year)
     data.stedsnavn = stedsnavn
+    data.story=storyText
     postSagn(data, router)
   };
 
@@ -150,7 +151,7 @@ const NewSagnForm = ({className}: Props) => {
             </div>
             <SelectedTagsBox key={tags.length} removeTag={removeTag} tagList={tags} />
 
-            <ImageInput onImageChange={setImages} onConvertToText={ (text:string) => {setStoryText(storyText+text)} } images={images} className="mt-6"></ImageInput>
+            <ImageInput onImageChange={setImages} onConvertToText={ (text:string) => {setStoryText(storyText.length>0? storyText+ " " +text : text)} } images={images} className="mt-6"></ImageInput>
           </div>
           <button className="mt-4 sm:mb-auto sm:mt-2 p-2 sm:px-4 place-self-end transition duration-500 text-white font-semibold  active:scale-95  bg-secondary-500 
                   hover:bg-green-500 shadow shadow-emphasis-600/25 rounded-md hover:shadow-secondary-500"
