@@ -1,4 +1,4 @@
-import Kommune from "@/types/Kommune";
+import Kommune from "@/types/kommune";
 
 const FylkeTing = () => (
   <div>

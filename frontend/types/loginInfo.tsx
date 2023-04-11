@@ -1,4 +1,4 @@
-type User = {
+type LoginInfo = {
     email:string,
     name: string
 }

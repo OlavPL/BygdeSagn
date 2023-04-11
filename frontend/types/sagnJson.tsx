@@ -1,5 +1,5 @@
 import Fylke from "./Fylke";
-import Kommune from "./Kommune";
+import Kommune from "./kommune";
 import { Tag } from "./tag";
 
 
