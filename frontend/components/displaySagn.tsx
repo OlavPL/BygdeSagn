@@ -5,10 +5,9 @@ interface Props{
     sagnList:   Sagn[]
     className?: string
     controller: SagnListController
-    updateSagn: (postID: number) => void
 }
 
-const DisplaySagn = ({sagnList, className, updateSagn}: Props) => {
+const DisplaySagn = ({sagnList, className}: Props) => {
 
 
     
@@ -18,14 +17,6 @@ const DisplaySagn = ({sagnList, className, updateSagn}: Props) => {
                 <SagnCard
                     sagn={sagn}
                     key={index}
-                    // title={sagn.title}
-                    // text={sagn.text}
-                    // tags={sagn.tags}
-                    // likes={sagn.likes}
-                    // dislikes={sagn.dislikes}
-                    // postID={sagn.postID}
-                    updateSagn = {updateSagn}
-
                 />
             ))}
         </div>

@@ -16,7 +16,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
     };
     // const result = await db.collection("posts").updateOne({post_id:id},updateDocument)
     const result = await db.collection(process.env.POST_COLLECTION!).updateOne({postId:id},updateDocument)
-    res.status(200).json("Likes Updated"+" id:"+ id)
+    res.status(200).json({message:"Likes Updated"+" id:"+ id, object:result})
 
     
    } catch (e) {

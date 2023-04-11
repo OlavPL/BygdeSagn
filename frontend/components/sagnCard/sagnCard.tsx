@@ -6,11 +6,9 @@ import Sagn from "@/objects/sagn"
 
 interface Props {
     sagn: Sagn
-    updateSagn: (postID: number) => void
 }
 
-const SagnCard = ({sagn, updateSagn}: Props) => {
-    // console.log(`"User: " ${likes[0].email}`)
+const SagnCard = ({sagn}: Props) => {
 
     return (
         <div className="w-full flex flex-col p-2 md:mx-0  bg-white rounded-md shadow-md text-textColor space-y-2">
@@ -22,12 +20,12 @@ const SagnCard = ({sagn, updateSagn}: Props) => {
                 </h1>
                 <div className="flex-row space-x-3 hidden lg:flex">
                     <CardTags tags={sagn.tags}/>
-                    <LikeDislikeButtons likes={sagn.likes} dislikes={sagn.dislikes} postID = {sagn.postID} updateSagn={updateSagn}/>
+                    <LikeDislikeButtons likes={sagn.likes} dislikes={sagn.dislikes} postID = {sagn.postID}/>
                 </div>
             </div>
             <p className="inline-block line-clamp-3"> {sagn.text} </p>
             <div className="flex flex-row-reverse space-x-reverse space-x-2 place-content-between p-2 lg:hidden">
-                <LikeDislikeButtons likes={sagn.likes} dislikes={sagn.dislikes} postID = {sagn.postID} updateSagn={updateSagn}/>
+                <LikeDislikeButtons likes={sagn.likes} dislikes={sagn.dislikes} postID = {sagn.postID}/>
                 <CardTags tags={sagn.tags}/>
             </div>
         </div>

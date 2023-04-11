@@ -3,6 +3,7 @@ import { faThumbsUp, faThumbsDown } from "@fortawesome/free-regular-svg-icons"
 import {useSession, signIn, signOut,getSession} from 'next-auth/react'
 import { Session, User } from "next-auth";
 import AppUser from "@/types/AppUser";
+import { useState } from "react";
 
 interface Props {
     likes: AppUser[]
@@ -13,18 +14,20 @@ interface Props {
 
 
 const LikeDislikeButtons = ({likes, dislikes, postID, updateSagn}: Props) =>{
+    const [_likes, setLikes] = useState<AppUser[]>(likes)
+    const [_dislikes, setDislikes] = useState<AppUser[]>(dislikes)
     const session = useSession();
     
     const addLike = async () => {
         if(session.data != null){
             
-            let userPresent = likes.find(user => user.email == session.data.user?.email)
-            if(userPresent != undefined)
+            let userIsPresent = _likes.find(user => user.email == session.data.user?.email)
+            if(userIsPresent != undefined)
                 return 
                 
-            if( dislikes.length > 0){
-                userPresent =  dislikes.find(user => user.email == session.data.user?.email)
-                if( userPresent != undefined ){
+            if( _dislikes.length > 0){
+                userIsPresent =  _dislikes.find(user => user.email == session.data.user?.email)
+                if( userIsPresent != undefined ){
                     await removeLikeInteraction("Dislike")
                 }
             }
@@ -40,17 +43,24 @@ const LikeDislikeButtons = ({likes, dislikes, postID, updateSagn}: Props) =>{
                     } as AppUser
                 }),
             }
-            const response = await fetch("/api/post/likes/addLike",options).catch()
+            await fetch("/api/post/likes/addLike",options).catch()
+
+            await fetch(`http://localhost:3000/api/post/getPost?postId=${postID}`).catch()
+            .then((res) => res.json())
+            .then((data) => {
+                setLikes(data.likes)
+                setDislikes(data.dislikes)
+            })
         }
     }
     const addDislike = async () => {
         if(session.data != null){
-            let userPresent = dislikes.find(user => user.email == session.data.user?.email)
+            let userPresent = _dislikes.find(user => user.email == session.data.user?.email)
             if(userPresent != undefined)
                 return 
                 
-            if(likes.length > 0){
-                userPresent = likes.find(user => user.email == session.data.user?.email)
+            if(_likes.length > 0){
+                userPresent = _likes.find(user => user.email == session.data.user?.email)
                 if(userPresent != undefined ){
                     await removeLikeInteraction("Like")
                 }
@@ -65,7 +75,13 @@ const LikeDislikeButtons = ({likes, dislikes, postID, updateSagn}: Props) =>{
                 }),
             }
             await fetch("/api/post/likes/addDislike",options).catch()
-            updateSagn( postID ) 
+            
+            await fetch(`http://localhost:3000/api/post/getPost?postId=${postID}`).catch()
+            .then((res) => res.json())
+            .then((data) => {
+                setLikes(data.likes)
+                setDislikes(data.dislikes)
+            })
         }
     }
 
@@ -80,18 +96,18 @@ const LikeDislikeButtons = ({likes, dislikes, postID, updateSagn}: Props) =>{
                 "user" : {name: session?.data?.user?.name, email: session?.data?.user?.email} as AppUser
             }),
         }
-        await fetch(`/api/post/likes/remove${type}`,options).catch()
+        const response = await fetch(`/api/post/likes/remove${type}`,options).catch()
     }
 
     return (
     <div className="flex flex-row">
         <button onClick={addLike} className="flex flex-row w-20 py-1 place-content-center self-center hover:bg-emphasis-200 rounded-l-full border-2 border-slate-500">
             <FontAwesomeIcon icon={faThumbsUp} className={"ml-3 fa-lg"} width={20} height={10} />
-            <div className=" text-center px-2 ">{likes.length}</div>
+            <div className=" text-center px-2 ">{_likes.length}</div>
         </button>
         <button onClick={addDislike} className="flex flex-row w-20 py-1 place-content-center self-center hover:bg-emphasis-200 rounded-r-full border-l-0 border-2 border-slate-500">
             <FontAwesomeIcon icon={faThumbsDown} className={"fa-lg place-self-end"} />
-            <div className=" text-center px-2 ">{dislikes.length}</div>
+            <div className=" text-center px-2 ">{_dislikes.length}</div>
         </button>
     </div>
     )
