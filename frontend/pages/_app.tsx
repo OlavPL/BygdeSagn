@@ -4,13 +4,12 @@ import Header from '@/components/header/header'
 import Footer from '@/components/footer/footer'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
-
 import{SessionProvider} from 'next-auth/react'
-config.autoAddCss = false
-
 import { Session } from 'next-auth'
 import { createContext, useState } from 'react'
 import { ToastContainer } from 'react-toastify'
+
+config.autoAddCss = false
 interface MyAppProps extends AppProps {
   session: Session
 }

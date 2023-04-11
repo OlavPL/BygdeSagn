@@ -6,10 +6,11 @@ import SagnListController, { SortTypes } from "../controller/sagnListController"
 import { useState, useEffect, useContext } from 'react'
 import Sagn from "@/objects/sagn"
 import { AppContext } from "@/pages/_app"
+import SagnCard from "./sagnCard/sagnCard"
 
-const SearchNCards = () => {
+const HomePage = () => {
     const [sagnListController, setListController] = useState(new SagnListController([]))
-    const [list, setList] = useState([] as Sagn[])
+    const [list, setList] = useState<Sagn[]>(Array())
     const [isLoading, setLoading] = useState(false)
     const {title, setTitle} = useContext(AppContext);
 
@@ -34,7 +35,6 @@ const SearchNCards = () => {
 
     return (
         <div className="w-full flex flex-col items-center text-textColor">
-
             <div className="pt-10 space-y-2 relative" >
                 <form className='space-y-2 '>
                     <div className='flex  outline-2 bg-primary-100 focus-within:outline outline-blue-500 shadow-lg rounded w-96'>
@@ -52,11 +52,18 @@ const SearchNCards = () => {
                         Nyeste Innlegg
                     </h2>
                     <SortListBox className= "place-self-end" sagnListController={sagnListController} updateList={updateList}/>
-                    <DisplaySagn sagnList={list} className="mt-5" />
+                    <div className={`flex flex-col w-full mt-5  gap-5 sm:gap-x-5 items-center`}>
+                        {list.map((sagn: Sagn, index) => (
+                            <SagnCard
+                                sagn={sagn}
+                                key={index}
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
 
         </div>
     )
 }
-export default SearchNCards
+export default HomePage

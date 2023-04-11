@@ -1,6 +1,5 @@
 import Kommune from '@/types/kommune';
 import { Tag } from '@/types/tag';
-import { useState, useEffect } from 'react'
 
 interface SagnI{
     title: string
@@ -14,6 +13,7 @@ interface SagnI{
     author: string;
     kommune: Kommune;
     stedsnavn?: string;
+    year?: number;
 }
 class Sagn implements SagnI{
     title: string;

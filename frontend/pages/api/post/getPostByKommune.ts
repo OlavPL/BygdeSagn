@@ -6,13 +6,15 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
-    const postId = parseInt(req.query.postId as string);
+    const kommune = req.query.kommune;
 
     const client = await clientPromise;
     const result = await client
       .db("App_Db")
       .collection(process.env.POST_COLLECTION!)
-      .findOne({ postId: postId });
+      .find({ 'kommune.kommunenavn': kommune })
+      .sort({ metacritic: -1 })
+      .toArray()
 
     if (result) {
       res.status(200).json(result);

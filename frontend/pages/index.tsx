@@ -1,13 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
-import SearchNCards from '@/components/Sagn/searchNCards';
+import HomePage from '@/components/Sagn/homePage';
 
 library.add(fas)
 
 const Home = () => (
   <>
-    <SearchNCards />
+    <HomePage />
   </>
 );
 

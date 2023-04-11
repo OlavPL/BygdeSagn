@@ -8,7 +8,7 @@ import DisplaySagn from '@/components/Sagn/displaySagn';
 import SortListBox from '@/components/sortListBox';
 import DisplayUserSagn from '@/components/Sagn/displayUserSagn';
 
-const profilePageNew = ()=> {
+const ProfilePageNew = ()=> {
     const{data:session}=useSession({required:true})
     const user= session?.user;
 
@@ -55,8 +55,6 @@ const profilePageNew = ()=> {
       getLiked();
     }, [session]);
 
-
-
     const picstring=():string=>{
         if(session){
           if(session.user?.image==null){
@@ -90,7 +88,8 @@ const profilePageNew = ()=> {
           
           setTitle("ProfilePage")
         }
-        , [setTitle])  
+        , [session?.user?.email, setTitle])  
+        // , [setTitle])  
     
 
     return(
@@ -130,6 +129,6 @@ const profilePageNew = ()=> {
     )
 }
 
-export default profilePageNew
+export default ProfilePageNew
 
 

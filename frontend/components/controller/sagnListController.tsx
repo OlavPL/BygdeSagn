@@ -35,9 +35,10 @@ class SagnListController {
       let newData: Sagn[] = []
       data.map(object => {
         newData.push(new Sagn(
-          object.title, object.text, object.tags, object.postedAt, object.kommune, object.stedsnavn, object.postId,
-           object.likes.length, object.dislikes.length, object.happenedAt, object.author
+          object.title, object.text, object.tags, object.postedAt, object.kommune, object?.stedsnavn, object.postId, 
+           object.likes, object.dislikes, object.happenedAt, object.author, 
         ))
+        
       })
       this.sagnList = newData;
       this.sortType = sortChoises[2]
@@ -47,10 +48,10 @@ class SagnListController {
      sortSagn(sortType: SortTypes): Sagn[] {
       switch(sortType){
           case SortTypes.LIKES_DESC:{
-            return this.sagnList.slice().sort((a, b) => b.likes - a.likes);
+            return this.sagnList.slice().sort((a, b) => b.likes.length - a.likes.length);
           }
           case SortTypes.LIKES_ASC:{
-            return this.sagnList.slice().sort((a, b) => a.likes - b.likes);
+            return this.sagnList.slice().sort((a, b) => a.likes.length - b.likes.length);
           }
           case SortTypes.POST_DATE_DESC:{
             return this.sagnList.slice().sort((a, b) => b.postedAt - a.postedAt);
