@@ -65,12 +65,12 @@ const Header = () => {
         {/* Create Sagn Button */}
           <div className="flex items-center space-x-8 w-60 justify-end">
             <Link href={"/createSagn"}>
-              <button className="flex items-center space-x-1 font-medium text-textColor hover:text-secondary-800 focus:outline-none bg-primary-200 hover:bg-primary-700 rounded-md px-4 py-1.5">
+              <button className="hidden md:block flex items-center space-x-1 font-medium text-textColor hover:text-secondary-800 focus:outline-none bg-primary-200 hover:bg-primary-700 rounded-md px-4 py-1.5">
                 <FontAwesomeIcon icon={faPen} className="text-2xl w-6 h-6 cursor-pointer transition-colors duration-200 ease-in-out fa-lg" />
                 <span className="text-lg underline">Nytt Sagn</span>
               </button>
             </Link>
-        
+
             {/* USer Button */}
             <Image src={picstring()} alt="" ref={menuButtonRef} onClick={handleClick} width={40} height={0} className="rounded-full cursor-pointer"  />
             <div
@@ -81,6 +81,9 @@ const Header = () => {
             role="menu"
             aria-labelledby="menu-button">
               <div className="padd py-2" role="none" >
+              <Link href="/createSagn" className="block md:hidden px-2 py-2 text-sm block" role="menuitem" id="menu-item-create-sagn">
+      Nytt Sagn
+    </Link>
                 <Link href="/profilePage" className="px-2 py-2 text-sm block" role="menuitem" id="menu-item-profile">
                   Min Profil
                 </Link>
