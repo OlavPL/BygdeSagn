@@ -1,6 +1,6 @@
 import { User } from "next-auth";
-import Fylke from "./Fylke";
-import Kommune from "./kommune";
+import Fylke from "./typFylke";
+import Kommune from "./typKommune";
 import { Tag } from "./tag";
 import AppUser from '@/types/AppUser';
 
@@ -8,8 +8,8 @@ export  type SagnJSON = {
     title: string
     text: string;
     tags: Tag[];
-    likes: AppUser[];
-    dislikes: AppUser[];
+    likes: LoginInfo[];
+    dislikes: LoginInfo[];
     postId: number;
     postedAt: number;
     happenedAt?: number;

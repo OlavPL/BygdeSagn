@@ -1,4 +1,4 @@
-import Kommune from '@/types/kommune';
+import Kommune from '@/types/typKommune';
 import { Tag } from '@/types/tag';
 
 interface SagnI{

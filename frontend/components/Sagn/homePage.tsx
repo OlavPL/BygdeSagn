@@ -37,7 +37,7 @@ const HomePage = () => {
         <div className="w-full flex flex-col items-center text-textColor">
             <div className="pt-10 space-y-2 relative" >
                 <form className='space-y-2 '>
-                    <div className='flex  outline-2 bg-primary-100 focus-within:outline outline-blue-500 shadow-lg rounded w-96'>
+                    <div className='flex  outline-2 bg-primary-100 focus-within:outline outline-blue-500 shadow-lg rounded w-80'>
                         <span className="p-2 rounded rounded-r-none border-r-0"> 
                             <FontAwesomeIcon icon={faLocationDot} />
                         </span>

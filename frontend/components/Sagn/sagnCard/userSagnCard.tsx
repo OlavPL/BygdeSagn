@@ -9,7 +9,7 @@ import { toast } from "react-toastify"
 interface Props {
     title: String,
     text: string,
-    tags: string[],
+    tags: Tag[],
     sagn: Sagn
 
 }

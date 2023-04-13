@@ -6,7 +6,7 @@ export enum ToastType{
     colored
 }
 
-export const getToastOptions = (type:ToastType) =>{
+export const getToastOptions = (type:ToastType, id?: string) =>{
     switch (type) {
         case ToastType.colored:
             return {
@@ -18,6 +18,7 @@ export const getToastOptions = (type:ToastType) =>{
                 draggable: false,
                 progress: undefined,
                 theme: "colored",
+                toastId:id
             } as ToastOptions<{}> 
             break;
         
@@ -31,6 +32,7 @@ export const getToastOptions = (type:ToastType) =>{
                 draggable: false,
                 progress: undefined,
                 theme: "light",
+                toastId:id
             } as ToastOptions<{}> 
             break;
 
@@ -44,6 +46,7 @@ export const getToastOptions = (type:ToastType) =>{
                 draggable: false,
                 progress: undefined,
                 theme: "dark",
+                toastId:id
             } as ToastOptions<{}> 
             break;
     
@@ -57,6 +60,7 @@ export const getToastOptions = (type:ToastType) =>{
                 draggable: false,
                 progress: undefined,
                 theme: "light",
+                toastId:id
             } as ToastOptions<{}> 
             break;
     }

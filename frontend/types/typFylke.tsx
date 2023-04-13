@@ -1,4 +1,4 @@
-import Kommune from "./kommune"
+import Kommune from "./typKommune"
 
 type Fylke = {
     fylkeNavn: string

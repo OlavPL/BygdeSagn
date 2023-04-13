@@ -21,7 +21,7 @@ const LikeDislikeButtons = ({likes, dislikes, postID}: Props) =>{
     
     const addLike = async () => {
         if(session.data == null ){
-            toast.error("Logg inn for å like", getToastOptions(ToastType.light) );
+            toast.error("Dette krever å være innlogget", getToastOptions(ToastType.light, "loginToInteract") );
             return
         }
             
@@ -58,7 +58,7 @@ const LikeDislikeButtons = ({likes, dislikes, postID}: Props) =>{
     }
     const addDislike = async () => {
         if(session.data == null ){
-            toast.error("Logg inn for å like", getToastOptions(ToastType.light) );
+            toast.error("Dette krever å være innlogget", getToastOptions(ToastType.light, "loginToInteract") );
             return
         }
 

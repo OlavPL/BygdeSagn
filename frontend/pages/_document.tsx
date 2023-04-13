@@ -13,8 +13,9 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head></Head>
-        <body>
+        <Head>
+        </Head>
+        <body className='min-w-screen'>
           <Main />
           <NextScript />
         </body>

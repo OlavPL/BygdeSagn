@@ -1,5 +1,5 @@
 import Sagn from "@/objects/sagn";
-import Kommune from "@/types/kommune";
+import Kommune from "@/types/typKommune";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import clientPromise from "@/lib/mongodb";

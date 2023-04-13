@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle} from '@fortawesome/free-brands-svg-icons'
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons"
 
-export default function login({ providers, csrfToken }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Login({ providers, csrfToken }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
