@@ -3,7 +3,7 @@ import Kommune from "@/types/typKommune";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import clientPromise from "@/lib/mongodb";
-import CardTags from "@/components/Sagn/sagnCard/cardTags";
+import CardTags from "@/components/omSagn/sagnCard/cardTags";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
