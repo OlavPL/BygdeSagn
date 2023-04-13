@@ -4,9 +4,9 @@ import Image from 'next/image';
 import { AppContext } from "@/pages/_app"
 import SagnListController, { SortTypes } from '@/components/controller/sagnListController';
 import Sagn from '@/objects/sagn';
-import DisplaySagn from '@/components/Sagn/displaySagn';
+import DisplaySagn from '@/components/sagn/displaySagn';
 import SortListBox from '@/components/sortListBox';
-import DisplayUserSagn from '@/components/Sagn/displayUserSagn';
+import DisplayUserSagn from '@/components/sagn/displayUserSagn';
 
 const ProfilePageNew = ()=> {
     const{data:session}=useSession({required:true})
