@@ -1,6 +1,7 @@
 import Kommune from '@/types/typKommune';
 import { Tag } from '@/types/tag';
 import AppUser from '@/types/AppUser';
+import { LoginInfo } from '@/types/loginInfo';
 
 export type SagnJSON = {
     title: string
