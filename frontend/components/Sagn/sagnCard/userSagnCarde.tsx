@@ -1,7 +1,6 @@
 import { Tag } from "@/types/tag"
 import Link from "next/link"
 import CardTags from "./cardTags"
-import LikeDislikeButtons from "./likeDislikeButtons"
 import router, { Router, useRouter } from "next/router"
 import Sagn from "@/objects/sagn"
 import { toast } from "react-toastify"

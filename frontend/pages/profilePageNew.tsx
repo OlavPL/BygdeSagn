@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { AppContext } from "@/pages/_app"
 import SagnListController, { SortTypes } from '@/components/controller/sagnListController';
 import Sagn from '@/objects/sagn';
-import DisplayUserSagn from '@/components/Sagn/displayUserSagn';
+import DisplayUserSagn from '@/components/Sagn/displayUserSagne';
 import exp from 'constants';
 import { faAnglesDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
