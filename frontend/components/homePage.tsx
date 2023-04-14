@@ -5,7 +5,7 @@ import SagnListController, { SortTypes } from "./controller/sagnListController"
 import { useState, useEffect, useContext } from 'react'
 import Sagn from "@/objects/sagn"
 import { AppContext } from "@/pages/_app"
-import SagnCard from "./sagn/sagnCard/sagnCard"
+import SagnCard from "./sagn1/sagnCard/sagnCard"
 
 const HomePage = () => {
     const [sagnListController, setListController] = useState(new SagnListController([]))

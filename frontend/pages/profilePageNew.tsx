@@ -4,11 +4,12 @@ import Image from 'next/image';
 import { AppContext } from "@/pages/_app"
 import SagnListController, { SortTypes } from '@/components/controller/sagnListController';
 import Sagn from '@/objects/sagn';
-import DisplayUserSagn from '@/components/Sagn/displayUserSagn';
+import DisplaySagn from '@/components/sagn1/displaySagn';
 import exp from 'constants';
 import { faAnglesDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import DisplayUserSagn from '@/components/sagn1/displayUserSagn';
 
 const ProfilePageNew = ()=> {
   const{data:session}=useSession({required:true})
