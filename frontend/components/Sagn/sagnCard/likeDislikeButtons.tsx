@@ -12,9 +12,10 @@ interface Props {
     likes: AppUser[]
     dislikes: AppUser[]
     postID: number
+    className?: string
 }
 
-const LikeDislikeButtons = ({likes, dislikes, postID}: Props) =>{
+const LikeDislikeButtons = ({likes, dislikes, postID, className}: Props) =>{
     const [_likes, setLikes] = useState<AppUser[]>(likes)
     const [_dislikes, setDislikes] = useState<AppUser[]>(dislikes)
     const session = useSession();
@@ -106,7 +107,7 @@ const LikeDislikeButtons = ({likes, dislikes, postID}: Props) =>{
     }
 
     return (
-    <div className="flex flex-row">
+    <div className={`flex flex-row ${className}`} >
         <button onClick={addLike} className="flex flex-row w-20 py-1 place-content-center self-center hover:bg-emphasis-200 rounded-l-full border-2 border-slate-500">
             <FontAwesomeIcon icon={faThumbsUp} className={"ml-3 fa-lg"} width={20} height={10} />
             <div className=" text-center px-2 ">{_likes.length}</div>

@@ -1,6 +1,5 @@
 import Sagn from "@/objects/sagn";
-import { SagnJSON } from "@/types/sagnJson";
-import SagnType from "@/types/sagnType";
+import { SagnJSON } from "@/objects/sagn";
 
 export enum SortTypes{
     LIKES_DESC = 'Mest likt',
@@ -36,7 +35,7 @@ class SagnListController {
       data.map(object => {
         newData.push(new Sagn(
           object.title, object.text, object.tags, object.postedAt, object.kommune, object?.stedsnavn, object.postId, 
-           object.likes, object.dislikes, object.happenedAt, object.author, 
+           object.likes, object.dislikes, object.happenedAt, object.owner, 
         ))
         
       })

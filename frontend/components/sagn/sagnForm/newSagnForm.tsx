@@ -181,18 +181,16 @@ const postSagn = async (data:Inputs, router: NextRouter ) =>{
       "title":data.title,
       "text":data.story,
       "tags":data.tags,
-      "happendAt":data.year,
+      "happenedAt":data.year,
       "kommune": data.kommune,
-      "stedsnavn": data.stedsnavn? data.stedsnavn : "ukjent",
-      // "owner":data.owner.user?.email,
-      "owner":data.owner.email,
+      "stedsnavn": data.stedsnavn? data.stedsnavn : "Ukjent",
+      "owner":data.owner,
       "likes": Array(0),
       "dislikes":Array(0),
       "postedAt": new Date().setUTCHours(new Date().getUTCHours() + 1 )
     }),
   }
   
-  // console.log(JSOndata)
   const endpoint=("api/post/postPost")
   const response = await fetch(endpoint,options).catch()
   const result = response.json;

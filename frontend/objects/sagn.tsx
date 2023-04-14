@@ -1,5 +1,20 @@
 import Kommune from '@/types/typKommune';
 import { Tag } from '@/types/tag';
+import AppUser from '@/types/AppUser';
+
+export type SagnJSON = {
+    title: string
+    text: string;
+    tags: Tag[];
+    likes: LoginInfo[];
+    dislikes: LoginInfo[];
+    postId: number;
+    postedAt: number;
+    happenedAt?: number;
+    owner: AppUser;
+    kommune: Kommune;
+    stedsnavn: string;
+}
 
 interface SagnI{
     title: string
@@ -10,10 +25,9 @@ interface SagnI{
     postId: number;
     postedAt?: number;
     happenedAt?: number;
-    author: string;
+    owner: AppUser;
     kommune: Kommune;
     stedsnavn?: string;
-    year?: number;
 }
 class Sagn implements SagnI{
     title: string;
@@ -24,13 +38,13 @@ class Sagn implements SagnI{
     postId: number;
     postedAt: number;
     happenedAt?: number;
-    author: string;
+    owner: AppUser;
     kommune: Kommune;
     stedsnavn: string;
 
 
     constructor(title: string, text: string, tags: Tag[], postedAt: number, kommune: Kommune, stedsnavn: string, postId: number, 
-                likes?: LoginInfo[], dislikes?: LoginInfo[], happenedAt?: number, author?: string
+                likes?: LoginInfo[], dislikes?: LoginInfo[], happenedAt?: number, owner: AppUser
     ){
         this.title = title
         this.text = text
@@ -40,7 +54,7 @@ class Sagn implements SagnI{
         this.postId = postId
         this.postedAt = postedAt
         this.happenedAt = happenedAt
-        this.author = author? author : "Ukjent"
+        this.owner = owner 
         this.kommune = kommune;
         this.stedsnavn = stedsnavn;
     }
