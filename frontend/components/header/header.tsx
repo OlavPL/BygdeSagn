@@ -45,7 +45,7 @@ const Header = () => {
   }, [showMenu])
   
   return (
-    <nav className=" w-full z-10">
+    <nav className=" w-full z-10 relative">
       <div className="flex items-center h-20 w-full ">
         <div className="flex items-center mx-4 justify-between w-full">
           
@@ -57,13 +57,13 @@ const Header = () => {
               </div>
             </Link>
           </div>
-
-          <div className="text-3xl text-center font-bold">
+        
+        {/*:}  <div className="text-3xl text-center font-bold">
             {title}
           </div>
 
         {/* Create Sagn Button */}
-          <div className="flex items-center space-x-8 w-60 justify-end">
+          <div className="flex items-center space-x-8 w-50 justify-end">
             <Link href={"/createSagn"}>
               <button className="flex items-center hidden md:block space-x-1 font-medium text-textColor hover:text-secondary-800 focus:outline-none bg-primary-200 hover:bg-primary-700 rounded-md px-4 py-1.5">
                 <FontAwesomeIcon icon={faPen} className="text-2xl w-6 h-6 cursor-pointer transition-colors duration-100 ease-in-out fa-lg" />

@@ -1,9 +1,6 @@
-import Background from "@/components/background"
 import NewSagnForm from "@/components/Sagn/sagnForm/newSagnForm"
 import { useContext, useEffect } from "react"
 import { AppContext } from "./_app"
-import {useSession,signOut,getSession} from 'next-auth/react'
-
 
 const CreateSagn = () =>{
     const {title, setTitle} = useContext(AppContext);

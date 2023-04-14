@@ -59,7 +59,7 @@ const UserSagnCard = ({title, text, tags, sagn}: Props) => {
                 </Link>
                 <div className="flex-row space-x-3 hidden lg:flex">
                     <CardTags tags={tags}/>
-                    <button onClick={() => Delete(sagn.postId)}>Delete</button>
+                    <button onClick={() => Delete(sagn.postId)}>Slett</button>
                     
                 </div>
             </div>
