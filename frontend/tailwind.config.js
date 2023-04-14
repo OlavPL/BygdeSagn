@@ -249,6 +249,9 @@ module.exports = {
     ],
   theme: {
     extend: {
+      screens: {
+        xs: '480px',
+      },
       keyframes: {
         float: {
           '0%, 100%': {

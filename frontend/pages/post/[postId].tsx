@@ -5,9 +5,10 @@ import { useEffect, useState } from "react";
 import clientPromise from "@/lib/mongodb";
 import CardTags from "@/components/sagn1/sagnCard/cardTags";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faCircleUser, faClock, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 import LikeDislikeButtons from "@/components/sagn1/sagnCard/likeDislikeButtons";
+import { format } from "date-fns";
 
 const SagnFullView = (props:any) =>{
     const sagnProp = props.sagn
@@ -15,24 +16,35 @@ const SagnFullView = (props:any) =>{
   
     
     return (
-        <div className="flex flex-col bg-emphasis-50 rounded-md max-w-screen-xl mx-2 lg:mx-auto mt-5 p-2 space-y-4 shadow-md font-semibold">
+        <div className="flex flex-col bg-emphasis-50 rounded-md max-w-screen-xl mx-2 lg:mx-auto mt-5 p-2 space-y-4 shadow-md">
             <h2 className="text-xl font-bold text-center sm:text-start">{sagn.title}</h2>
             <p className="max-h-96 overflow-y-auto">{sagn.text}</p>
-            <div className="flex flex-col sm:flex-row w-full">
-                <div className="flex flex-row w-full sm:w-auto">
-                    <p ><FontAwesomeIcon className="w-5 mr-1" icon={faLocationDot} /></p>
-                    {sagn.stedsnavn && <p>{sagn.stedsnavn } i&nbsp;</p>}
-                    <p>{sagn.kommune.kommunenavnNorsk} {sagn.kommune.fylkesnavn && (", " + sagn.kommune.fylkesnavn)}</p>
+            <div className="flex flex-col xs:flex-row w-full">
+                <div className="flex flex-row">
+                    <div className="flex flex-row mr-5">
+                        <p ><FontAwesomeIcon className="w-5 mr-1 text-primary-600" icon={faClock} /> År:&nbsp;</p>
+                        <p className=""> {sagn.happenedAt? sagn.happenedAt : "Ukjent"}</p>
+                    </div>
+
+                    <div className="flex flex-row mr-5">
+                        <p ><FontAwesomeIcon className="w-5 mr-1 text-emphasis-600" icon={faLocationDot} /></p>
+                        {sagn.stedsnavn && <p>{sagn.stedsnavn } i&nbsp;</p>}
+                        <p>{sagn.kommune.kommunenavnNorsk} {sagn.kommune.fylkesnavn && (", " + sagn.kommune.fylkesnavn)}</p>
+                    </div>
                 </div>
-                <div className="flex flex-row w-full sm:w-auto">
-                    <p ><FontAwesomeIcon className="w-5 mr-1" icon={faCalendar} /></p>
-                    <p className="sm:ml-auto"> {sagn.happenedAt? sagn.happenedAt : "Ukjent"}</p>
+                <CardTags className="xs:ml-auto mt-2" tags={sagn.tags}/>
+            </div>
+
+
+            <div className="flex flex-col sm:flex-row-reverse">
+                <LikeDislikeButtons likes={sagn.likes} dislikes={sagn.dislikes} postID={0} ></LikeDislikeButtons>
+                
+                <div className="flex flex-row w-auto mr-auto">
+                    <span><FontAwesomeIcon className="w-5 mr-1" icon={faCircleUser} /></span>
+                    <span> {sagn.owner? sagn.owner.name : "Ukjent"}</span>
+                    <span>, { format(new Date(sagn.postedAt), 'dd/MM/yy HH:MM')}</span>
                 </div>
             </div>
-            <CardTags tags={sagn.tags}/>
-            <LikeDislikeButtons likes={sagn.likes} dislikes={sagn.dislikes} postID={0} ></LikeDislikeButtons>
-            {sagn.owner && <p className="">Author: {sagn.owner.name}</p>}
-            <p>Opplastet: { new Date(sagn.postedAt).toLocaleString("no")}</p>
         </div>
     );
 };

@@ -6,16 +6,17 @@ import { Tag, tagList } from "@/types/tag"
 
 interface Tags{
     tags: Tag[]
+    className?: string
 }
 
-const CardTags = ({tags}: Tags) =>{
+const CardTags = ({tags, className}: Tags) =>{
     var tagArr: String[] = tags
     if (tags.length > 3){
         tagArr = [tags[0], tags[1]]
     }
 
     return(
-        <div className = "flex flex-row space-x space-x-2 text-textColor font-semibold">
+        <div className = {`flex flex-row space-x space-x-2 text-textColor font-semibold ${className}`}>
             {tagArr.map((tag, index) => {
                 return(
                 <div key={index}  className="self-center place-center">

@@ -19,7 +19,7 @@ const Header = () => {
     signOut()
   }
   
-  const picstring=():string=>{
+  const picstring= ():string=>{
     if(session){
       if(session.user?.image==null){
         return("https://cdns.iconmonstr.com/wp-content/releases/preview/2018/240/iconmonstr-user-circle-thin.png")
@@ -65,7 +65,7 @@ const Header = () => {
         {/* Create Sagn Button */}
           <div className="flex items-center space-x-8 w-50 justify-end">
             <Link href={"/createSagn"}>
-              <button className="flex items-center hidden md:block space-x-1 font-medium text-textColor hover:text-secondary-800 focus:outline-none bg-primary-200 hover:bg-primary-700 rounded-md px-4 py-1.5">
+              <button className="hidden items-center  md:block space-x-1 font-medium text-textColor hover:text-secondary-800 focus:outline-none bg-primary-200 hover:bg-primary-700 rounded-md px-4 py-1.5">
                 <FontAwesomeIcon icon={faPen} className="text-2xl w-6 h-6 cursor-pointer transition-colors duration-100 ease-in-out fa-lg" />
                 <span className="text-lg underline">Nytt Sagn</span>
               </button>

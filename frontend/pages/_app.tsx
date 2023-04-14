@@ -9,6 +9,11 @@ import { SessionProvider } from 'next-auth/react'
 import { Session } from 'next-auth'
 import { createContext, useState } from 'react'
 import { ToastContainer } from 'react-toastify'
+import { setDefaultOptions } from 'date-fns'
+import { nb } from 'date-fns/locale'
+
+const getDefaultOptions = require('date-fns/getDefaultOptions')
+setDefaultOptions({locale: nb })
 
 config.autoAddCss = false
 interface MyAppProps extends AppProps {

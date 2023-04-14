@@ -27,12 +27,12 @@ const SagnCard = ({sagn}: Props) => {
                 <div className="flex flex-row ">
                     { sagn.happenedAt && 
                         <div className="flex flex-row mr-5">
-                            <p ><FontAwesomeIcon className="w-5 mr-1 text-blue-500" icon={faClock} /> År:&nbsp;</p>
+                            <p ><FontAwesomeIcon className="w-5 mr-1 text-primary-600" icon={faClock} /> År:&nbsp;</p>
                             <p className=""> {sagn.happenedAt? sagn.happenedAt : "Ukjent"}</p>
                         </div>
                     }
                     <div className="flex flex-row">
-                        <p ><FontAwesomeIcon className="w-5 mr-1 text-red-500" icon={faLocationDot} /></p>
+                        <p ><FontAwesomeIcon className="w-5 mr-1 text-emphasis-600" icon={faLocationDot} /></p>
                         {sagn.stedsnavn && <p>{sagn.stedsnavn } i&nbsp;</p>}
                         <p>{sagn.kommune.kommunenavnNorsk} {sagn.kommune.fylkesnavn && (", " + sagn.kommune.fylkesnavn)}</p>
                     </div>
