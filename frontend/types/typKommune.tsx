@@ -3,7 +3,7 @@ type Kommune = {
     kommunenavn: string
     kommunenavnNorsk: string
     kommunenummer: string
-    stedsnavn: string
+    stedsnavn: string[]
     fylkesnavn: string
     fylkesnummer: string
 }

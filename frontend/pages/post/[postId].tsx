@@ -10,7 +10,7 @@ import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 
 const SagnFullView = (props:any) =>{
     const sagnProp = props.sagn
-    const sagn:Sagn = new Sagn(props.sagn.title, sagnProp.text, sagnProp.tags, sagnProp.postedAt, sagnProp.kommune, sagnProp.stedsnavn, sagnProp.postId, sagnProp.likes, sagnProp.dislikes, sagnProp.happenedAt, sagnProp.owner)
+    const sagn:Sagn = new Sagn(props.sagn.title, sagnProp.text, sagnProp.tags, sagnProp.postedAt, sagnProp.kommune, sagnProp.stedsnavn, sagnProp.postId, sagnProp.owner, sagnProp.likes, sagnProp.dislikes, sagnProp.happenedAt)
   
     
     return (

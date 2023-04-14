@@ -43,8 +43,8 @@ class Sagn implements SagnI{
     stedsnavn: string;
 
 
-    constructor(title: string, text: string, tags: Tag[], postedAt: number, kommune: Kommune, stedsnavn: string, postId: number, 
-                likes?: LoginInfo[], dislikes?: LoginInfo[], happenedAt?: number, owner: AppUser
+    constructor(title: string, text: string, tags: Tag[], postedAt: number, kommune: Kommune, stedsnavn: string, postId: number, owner: AppUser, 
+                likes?: LoginInfo[], dislikes?: LoginInfo[], happenedAt?: number
     ){
         this.title = title
         this.text = text

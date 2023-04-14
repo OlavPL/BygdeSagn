@@ -26,14 +26,15 @@ interface KommuneI {
 
     let fylkeArr: FylkeI[] = Array()
     data.forEach((fylke:any) => {
-        let kommuner: KommuneI[] = Array()
+        let kommuner: Kommune[] = Array()
         fylke.kommuner.forEach((e:Kommune) =>{
             let kommune = {
                 fylkesnavn:  e.fylkesnavn,
                 fylkesnummer: e.fylkesnummer,
                 kommunenavn: e.kommunenavn,
                 kommunenavnNorsk: e.kommunenavnNorsk,
-                kommunenummer:e.kommunenummer
+                kommunenummer:e.kommunenummer,
+                stedsnavn: Array<string>(0)
             }
             kommuner.push(kommune)
         })
