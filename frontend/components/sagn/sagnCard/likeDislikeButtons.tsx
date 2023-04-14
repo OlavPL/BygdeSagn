@@ -120,5 +120,4 @@ const LikeDislikeButtons = ({likes, dislikes, postID, className}: Props) =>{
     )
 }
 
-
 export default LikeDislikeButtons

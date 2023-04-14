@@ -66,22 +66,22 @@ const NewSagnForm = ({className}: Props) => {
   const onSubmit: SubmitHandler<Inputs> = (data) =>{
     // Sjekk og varsel om blanke felt
     if(data.title.trim() == "" || storyText.trim() == ""){
-      toast.error("Vennligst fyll ut alle felt", getToastOptions(ToastType.colored));
+      toast.error("Vennligst fyll ut alle felt", getToastOptions(ToastType.colored, "fill fields"));
       return 
     }
     // Sjekk og varsel mot ekstermt kort tekst
     if(data.title.trim().length < 3){
-      toast.error("Ops! Ser ut som du ikke har skrevet ferdig tittelen", getToastOptions(ToastType.colored));
+      toast.error("Ops! Ser ut som du ikke har skrevet ferdig tittelen", getToastOptions(ToastType.colored, "fill title"));
       return 
     }
 
     if(storyText.trim().length < 20 ){
-      toast.error("Ops! Ser ut som du ikke har skrevet ferdig sagnet", getToastOptions(ToastType.colored));
+      toast.error("Ops! Ser ut som du ikke har skrevet ferdig sagnet", getToastOptions(ToastType.colored, "fill text body"));
       return 
     }
 
     if (selectedKommune.kommunenavnNorsk == "" || selectedKommune == undefined){
-      toast.error("Ops! Ser ut som du ikke har spesifisert kommune", getToastOptions(ToastType.colored));
+      toast.error("Ops! Ser ut som du ikke har spesifisert kommune", getToastOptions(ToastType.colored, "choose kommune"));
       return
     }
       
@@ -89,9 +89,7 @@ const NewSagnForm = ({className}: Props) => {
     data.kommune = selectedKommune
     data.year = year == undefined ? undefined : Number(year)
     data.stedsnavn = stedsnavn
-    // data.owner = session.data!
-    data.owner = session.data?.user!
-  
+    data.owner = session.data?.user!  
     data.story=storyText
     postSagn(data, router)
   };
@@ -146,8 +144,8 @@ const NewSagnForm = ({className}: Props) => {
               <KommuneSearchBox kommuner={kommuneListe} selectedKommune={selectedKommune} handleChange={(e: Kommune)=>setSelectedKommune(e)} className="items-center relative" />
             </div>
             
-            <div className="flex flex-col-reverse justify-between self-center sm:flex-row sm:self-start sm:w-full ">
-              <TagsDropBox key={tags.length} className="mt-auto" list={tags} handleTag={addTag} propText={"Velg Tagger"} propTextEmpty={"Ikke fler Tagger"}/>
+            <div className="flex flex-col-reverse justify-between self-center sm:flex-row sm:self-start sm:w-full  ">
+              <TagsDropBox key={tags.length} className="mt-5 sm:mt-auto " list={tags} handleTag={addTag} propText={"Velg Tagger"} propTextEmpty={"Ikke fler Tagger"}/>
                            
               <div className="flex flex-col">
                 <label>Stedsnavn</label>
@@ -159,11 +157,11 @@ const NewSagnForm = ({className}: Props) => {
 
             <ImageInput onImageChange={setImages} onConvertToText={ (text:string) => {setStoryText(storyText.length>0? storyText+ " " +text : text)} } images={images} className="mt-6"></ImageInput>
           </div>
-          <button className="mt-4 sm:mb-auto sm:mt-2 p-2 sm:px-4 place-self-end transition duration-500 text-white font-semibold  active:scale-95  bg-secondary-500 
+          <button className="mt-4 p-2 place-self-center sm:place-self-end sm:mb-auto sm:mt-2 sm:px-4 transition duration-500 text-white font-semibold  active:scale-95  bg-secondary-500 
                   hover:bg-green-500 shadow shadow-emphasis-600/25 rounded-md hover:shadow-secondary-500"
                   type="submit"
           >
-              Publiser
+            Publiser
           </button>
         </div>
       </form>
@@ -183,7 +181,7 @@ const postSagn = async (data:Inputs, router: NextRouter ) =>{
       "tags":data.tags,
       "happenedAt":data.year,
       "kommune": data.kommune,
-      "stedsnavn": data.stedsnavn? data.stedsnavn : "Ukjent",
+      "stedsnavn": data.stedsnavn,
       "owner":data.owner,
       "likes": Array(0),
       "dislikes":Array(0),
@@ -195,17 +193,7 @@ const postSagn = async (data:Inputs, router: NextRouter ) =>{
   const response = await fetch(endpoint,options).catch()
   const result = response.json;
   
-  toast.success("Sagn publisert", {
-    position: "top-center",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: false,
-    progress: undefined,
-    theme: "light",
-    toastId: "succsessful post"
-  },)
+  toast.success("Sagn publisert", getToastOptions(ToastType.light, "succsessful post"))
 
   router.push("/#")
 }

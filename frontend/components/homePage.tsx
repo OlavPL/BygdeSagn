@@ -51,7 +51,7 @@ const HomePage = () => {
                         Nyeste Innlegg
                     </h2>
                     <SortListBox className= "place-self-end" sagnListController={sagnListController} updateList={updateList}/>
-                    <div className={`flex flex-col w-full mt-5  gap-5 sm:gap-x-5 items-center`}>
+                    <div className={`flex flex-col w-full mt-3 p-2 gap-3 sm:gap-x-5 items-center`}>
                         {list.map((sagn: Sagn, index) => (
                             <SagnCard
                                 sagn={sagn}
