@@ -56,16 +56,16 @@ const UserSagnCard = ({title, text, tags, sagn}: Props) => {
                     {title}
                 </h1>
                 </Link>
-                <div className="flex-row space-x-3 hidden lg:flex">
+                <div className="flex-row space-x-3 flex">
                     <CardTags tags={tags}/>
-                    <button onClick={() => Delete(sagn.postId)}>Slett</button>
+                    <button className="flex items-center space-x-1 font-medium bg-red-200 hover:bg-red-400 w-full focus:outline-none rounded-md px-4 py-1.5"
+                             onClick={() => Delete(sagn.postId)}>
+                              Slett
+                    </button>
                     
                 </div>
             </div>
             <p className="inline-block line-clamp-3"> {text} </p>
-            <div className="flex flex-row-reverse space-x-reverse space-x-2 place-content-between p-2 lg:hidden">
-                <CardTags tags={tags}/>
-            </div>
         </div>
     )
 }

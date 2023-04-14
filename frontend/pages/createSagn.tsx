@@ -1,4 +1,4 @@
-import NewSagnForm from "@/components/Sagn/sagnForm/newSagnForm"
+import NewSagnForm from "@/components/sagn1/sagnForm/newSagnForm";
 import { useContext, useEffect } from "react"
 import { AppContext } from "./_app"
 

@@ -4,8 +4,7 @@ import Image from 'next/image';
 import { AppContext } from "@/pages/_app"
 import SagnListController, { SortTypes } from '@/components/controller/sagnListController';
 import Sagn from '@/objects/sagn';
-import DisplaySagn from '@/components/sagn1/displaySagn';
-import exp from 'constants';
+
 import { faAnglesDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
@@ -106,7 +105,7 @@ const ProfilePageNew = ()=> {
           console.log(error);
           setLoading(false);
         });
-    }, 1000); // Refresh every 5 seconds
+    }, 1000); 
 
     return () => clearInterval(intervalId);
   }, [session?.user?.email, setTitle]);
