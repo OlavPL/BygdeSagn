@@ -33,8 +33,7 @@ const ProfilePageNew = ()=> {
         console.log(error)
       }
     }
-      
-    getCount()
+    
     const getComment= async () => {
       try {
         const res = await fetch(
@@ -47,7 +46,6 @@ const ProfilePageNew = ()=> {
       }
     }
       
-    getComment();
     const getLiked= async () => {
       try {
         const res = await fetch(
@@ -57,10 +55,19 @@ const ProfilePageNew = ()=> {
         setLiked(data.length)
       } catch (error) {
         console.log(error)
+      }
     }
-  }   
-  getLiked()
+    getCount()
+    getComment()
+    getLiked()
+    const interval = setInterval(() => {
+      getCount()
+      getComment()
+      getLiked()
+    }, 1000)
+    return () => clearInterval(interval)
   }, [session])
+  
 
   const picstring=():string=>{
     if(session){
@@ -82,21 +89,27 @@ const ProfilePageNew = ()=> {
       }
   
       useEffect(() => {
-          setLoading(true)
-          fetch(`/api/post/getUserPosts?email=${session?.user?.email}`)
-          .then((res) => res.json())
-          .then((data) => {
-              console.log(data)
-              let slc = new SagnListController(data)
-              setListController(slc)
-              setList(slc.sortSagn(slc.sortType.type))
-              setLoading(false)
-          })
-          
-          setTitle("ProfilePage")
-        }
-        , [session?.user?.email, setTitle])  
-        // , [setTitle])  
+    setLoading(true);
+
+    const intervalId = setInterval(() => {
+      fetch(`/api/post/getUserPosts?email=${session?.user?.email}`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          let slc = new SagnListController(data);
+          setListController(slc);
+          setList(slc.sortSagn(slc.sortType.type));
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          setLoading(false);
+        });
+    }, 1000); // Refresh every 5 seconds
+
+    return () => clearInterval(intervalId);
+  }, [session?.user?.email, setTitle]);
+
     
   return(
     <div className="shadow-shadow-500 shadow-3xl rounded-primary relative mx-auto flex h-full w-full max-w-[550px] flex-col items-center bg-cover bg-clip-border p-[16px]">
