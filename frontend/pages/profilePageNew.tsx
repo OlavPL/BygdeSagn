@@ -147,7 +147,7 @@ const ProfilePageNew = ()=> {
           Nyeste Innlegg
         </h2> 
           {expended && (
-              <DisplayUserSagn sagnList={list} className="mt-5" />
+            <DisplayUserSagn sagnList={list} className="mt-5" />
           )}
         </div>
       </div>

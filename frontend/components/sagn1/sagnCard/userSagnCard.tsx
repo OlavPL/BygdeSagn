@@ -4,6 +4,7 @@ import CardTags from "./cardTags"
 import router, { Router, useRouter } from "next/router"
 import Sagn from "@/objects/sagn"
 import { toast } from "react-toastify"
+import { ToastType, getToastOptions } from "@/components/controller/toastController"
 
 interface Props {
     title: String,
@@ -31,23 +32,12 @@ const Delete = async (postId:number) => {
     } catch (error) {
       console.error("Failed to delete post:", error);
     }
-    toast.success("Sagn Slettet", {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: false,
-      progress: undefined,
-      theme: "light",
-      toastId: "succsessful post"
-    },)
+    toast.success("Sagn Slettet", getToastOptions(ToastType.light, "sagn deleted"),)
     router.push("/profilePageNew")
   }
 
 
 const UserSagnCard = ({title, text, tags, sagn}: Props) => {
-
     return (
         <div className="w-full flex flex-col p-2 md:mx-0  bg-white rounded-md shadow-md text-textColor space-y-2">
             <div className="flex flex-row justify-between w-full">
@@ -56,16 +46,15 @@ const UserSagnCard = ({title, text, tags, sagn}: Props) => {
                     {title}
                 </h1>
                 </Link>
-                <div className="flex-row space-x-3 hidden lg:flex">
-                    <CardTags tags={tags}/>
-                    <button onClick={() => Delete(sagn.postId)}>Slett</button>
-                    
+                <div className="flex-row space-x-3">
+                    <button className="flex items-center space-x-1 font-medium bg-red-200 hover:bg-red-400 w-full focus:outline-none rounded-md px-4 py-1.5"
+                            onClick={() => Delete(sagn.postId)}
+                    >
+                      Slett
+                    </button>
                 </div>
             </div>
             <p className="inline-block line-clamp-3"> {text} </p>
-            <div className="flex flex-row-reverse space-x-reverse space-x-2 place-content-between p-2 lg:hidden">
-                <CardTags tags={tags}/>
-            </div>
         </div>
     )
 }
