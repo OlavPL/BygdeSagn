@@ -106,11 +106,13 @@ const NewSagnForm = ({className}: Props) => {
   } = useForm<Inputs>();
 
   useEffect(() => {
-    fetch('/api/post/data/getKommuner')
-    .then((res) => res.json())
-    .then((data) => {
-        setKommuneListe(data)
-    })
+    const getKommuner = async () =>{
+      await fetch('/api/post/data/getKommuner')
+      .then((res) => res.json())
+      .then((data) => {
+          setKommuneListe(data)
+      })
+    }
     
   }
   , [setKommuneListe])

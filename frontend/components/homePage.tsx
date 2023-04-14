@@ -45,13 +45,13 @@ const HomePage = () => {
                 </form>
             </div>
 
-            <div className="mt-5 mx-auto content-center">
-                <div className="flex flex-col md:max-w-screen-lg justify-center">
+            <div className="mt-5 mx-auto content-center w-full sm:w-auto ">
+                <div className="flex flex-col sm:min-w-[600px] md:min-w-[668px] md:max-w-screen-lg justify-center">
                     <h2 className="text-lg font-bold text-center">
                         Nyeste Innlegg
                     </h2>
                     <SortListBox className= "place-self-end" sagnListController={sagnListController} updateList={updateList}/>
-                    <div className={`flex flex-col w-full mt-3 p-2 gap-3 sm:gap-x-5 items-center`}>
+                    <div className={`flex flex-col w-full mt-3 p-2 gap-3 sm:gap-x-5 items-center `}>
                         {list.map((sagn: Sagn, index) => (
                             <SagnCard
                                 sagn={sagn}
