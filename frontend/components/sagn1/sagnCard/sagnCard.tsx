@@ -3,7 +3,7 @@ import CardTags from "./cardTags"
 import LikeDislikeButtons from "./likeDislikeButtons"
 import Sagn from "@/objects/sagn"
 import Link from "next/link"
-import { faCalendar, faCircleUser,faLocationDot, } from "@fortawesome/free-solid-svg-icons"
+import { faCalendar, faCalendarAlt, faCalendarDays, faCircleUser,faClock,faLocationDot, } from "@fortawesome/free-solid-svg-icons"
 
 interface Props {
     sagn: Sagn
@@ -24,15 +24,15 @@ const SagnCard = ({sagn}: Props) => {
             </div>
             <p className="inline-block line-clamp-3"> {sagn.text} </p>
             <div className="flex flex-col md:flex-row">
-                <div className="flex flex-row font-semibold ">
+                <div className="flex flex-row ">
                     { sagn.happenedAt && 
                         <div className="flex flex-row mr-5">
-                            <p ><FontAwesomeIcon className="w-5 mr-1" icon={faCalendar} /></p>
+                            <p ><FontAwesomeIcon className="w-5 mr-1 text-blue-500" icon={faClock} /> År:&nbsp;</p>
                             <p className=""> {sagn.happenedAt? sagn.happenedAt : "Ukjent"}</p>
                         </div>
                     }
                     <div className="flex flex-row">
-                        <p ><FontAwesomeIcon className="w-5 mr-1" icon={faLocationDot} /></p>
+                        <p ><FontAwesomeIcon className="w-5 mr-1 text-red-500" icon={faLocationDot} /></p>
                         {sagn.stedsnavn && <p>{sagn.stedsnavn } i&nbsp;</p>}
                         <p>{sagn.kommune.kommunenavnNorsk} {sagn.kommune.fylkesnavn && (", " + sagn.kommune.fylkesnavn)}</p>
                     </div>

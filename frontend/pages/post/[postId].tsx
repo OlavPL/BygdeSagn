@@ -7,6 +7,7 @@ import CardTags from "@/components/sagn1/sagnCard/cardTags";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
+import LikeDislikeButtons from "@/components/sagn1/sagnCard/likeDislikeButtons";
 
 const SagnFullView = (props:any) =>{
     const sagnProp = props.sagn
@@ -28,11 +29,8 @@ const SagnFullView = (props:any) =>{
                     <p className="sm:ml-auto"> {sagn.happenedAt? sagn.happenedAt : "Ukjent"}</p>
                 </div>
             </div>
-            <CardTags tags={sagn.tags}/>          
-            <div className="flex space-x-4">
-                <p className="text-green-500 font-bold">Liker: {sagn.likes.length}</p>
-                <p className="text-red-500 font-bold">Liker ikke: {sagn.dislikes.length}</p>
-            </div>
+            <CardTags tags={sagn.tags}/>
+            <LikeDislikeButtons likes={sagn.likes} dislikes={sagn.dislikes} postID={0} ></LikeDislikeButtons>
             {sagn.owner && <p className="">Author: {sagn.owner.name}</p>}
             <p>Opplastet: { new Date(sagn.postedAt).toLocaleString("no")}</p>
         </div>

@@ -142,7 +142,7 @@ const NewSagnForm = ({className}: Props) => {
                 <label>{"Årstall/ Århundre"}</label>
                 <input type="number" min={0} max={new Date().getFullYear()} value={year} onChange={(e) => setYear(e.target.value)} className="w-52 p-1 rounded"></input>
               </div>
-
+              
               <KommuneSearchBox kommuner={kommuneListe} selectedKommune={selectedKommune} handleChange={(e: Kommune)=>setSelectedKommune(e)} className="items-center relative" />
             </div>
             
