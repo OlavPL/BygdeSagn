@@ -16,9 +16,13 @@ interface Props {
 }
 
 const LikeDislikeButtons = ({likes, dislikes, postID, className}: Props) =>{
-    const [_likes, setLikes] = useState<AppUser[]>(likes)
+    const [_likes, setLikes] = useState<AppUser[]>(likes as AppUser[])
     const [_dislikes, setDislikes] = useState<AppUser[]>(dislikes)
     const session = useSession();
+
+    // console.log(likes)
+    // console.log(_likes)
+    console.log(postID)
     
     const addLike = async () => {
         if(session.data == null ){
