@@ -33,7 +33,7 @@ const Delete = async (postId:number) => {
       console.error("Failed to delete post:", error);
     }
     toast.success("Sagn Slettet", getToastOptions(ToastType.light, "sagn deleted"),)
-    router.push("/profilePageNew")
+    router.push("/profilePage")
   }
 
 
