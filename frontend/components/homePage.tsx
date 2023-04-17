@@ -34,15 +34,13 @@ const HomePage = () => {
 
     return (
         <div className="w-full flex flex-col items-center text-textColor">
-            <div className="pt-10 space-y-2 relative" >
-                <form className='space-y-2 '>
-                    <div className='flex  outline-2 bg-primary-100 focus-within:outline outline-blue-500 shadow-lg rounded w-80'>
-                        <span className="p-2 rounded rounded-r-none border-r-0"> 
-                            <FontAwesomeIcon icon={faLocationDot} />
-                        </span>
-                        <input className="grow rounded-l-none bg-primary-100 focus:outline-none border-l-0 rounded placeholder-textColor " placeholder='Søk på sted...'/>
-                    </div>
-                </form>
+            <div className="pt-10 space-y-2 relative hidden" >
+                <div className='flex  outline-2 bg-primary-100 focus-within:outline outline-blue-500 shadow-lg rounded w-80'>
+                    <span className="p-2 rounded rounded-r-none border-r-0"> 
+                        <FontAwesomeIcon icon={faLocationDot} />
+                    </span>
+                    <input className="grow rounded-l-none bg-primary-100 focus:outline-none border-l-0 rounded placeholder-textColor " placeholder='Søk på sted...'/>
+                </div>
             </div>
 
             <div className="mt-5 mx-auto content-center w-full sm:w-auto ">
