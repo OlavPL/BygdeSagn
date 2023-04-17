@@ -10,12 +10,12 @@ import LikeDislikeButtons from "@/components/sagn1/sagnCard/likeDislikeButtons";
 import { format } from "date-fns";
 
 const SagnFullView = (props:any) =>{
-    const [sagn, setSagn] = useState<Sagn>() 
+    const sagnProp = props.sagn
+    const [sagn, setSagn] = useState<Sagn>(new Sagn(props.sagn.title, sagnProp.text, sagnProp.tags, sagnProp.postedAt, sagnProp.kommune, sagnProp.stedsnavn, sagnProp.postId, sagnProp.owner, sagnProp.likes, sagnProp.dislikes, sagnProp.happenedAt)) 
+    // setSagn(new Sagn(props.sagn.title, sagnProp.text, sagnProp.tags, sagnProp.postedAt, sagnProp.kommune, sagnProp.stedsnavn, sagnProp.postId, sagnProp.owner, sagnProp.likes, sagnProp.dislikes, sagnProp.happenedAt))
+
   
-    useEffect(() => {
-        const sagnProp = props.sagn
-        setSagn(new Sagn(props.sagn.title, sagnProp.text, sagnProp.tags, sagnProp.postedAt, sagnProp.kommune, sagnProp.stedsnavn, sagnProp.postId, sagnProp.owner, sagnProp.likes, sagnProp.dislikes, sagnProp.happenedAt))
-    }, [props.sagn])
+    // useEffect(() => {}, [props.sagn])
     
     
     return (
