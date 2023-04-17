@@ -38,8 +38,8 @@ const SagnCard = ({sagn}: Props) => {
                 </div>
 
                 <div className="flex flex-row w-auto md:ml-auto">
-                        <p ><FontAwesomeIcon className="w-5 mr-1" icon={faCircleUser} /></p>
-                        <p > {sagn.owner? sagn.owner.name : "Ukjent"}</p>
+                    <p ><FontAwesomeIcon className="w-5 mr-1" icon={faCircleUser} /></p>
+                    <p > {sagn.owner? sagn.owner.name : "Ukjent"}</p>
                 </div>
                 
                 <div className="flex flex-row-reverse place-content-between md:hidden ">
