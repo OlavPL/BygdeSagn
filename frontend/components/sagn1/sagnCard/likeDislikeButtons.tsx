@@ -28,7 +28,7 @@ const LikeDislikeButtons = ({likes, dislikes, postID, className}: Props) =>{
             
         let userIsPresent = _likes.find(user => user.email == session.data.user?.email)
         if(userIsPresent != undefined)
-            return 
+            return
             
         if( _dislikes.length > 0){
             userIsPresent =  _dislikes.find(user => user.email == session.data.user?.email)

@@ -3,14 +3,13 @@ import CardTags from "./cardTags"
 import LikeDislikeButtons from "./likeDislikeButtons"
 import Sagn from "@/objects/sagn"
 import Link from "next/link"
-import { faCalendar, faCalendarAlt, faCalendarDays, faCircleUser,faClock,faLocationDot, } from "@fortawesome/free-solid-svg-icons"
+import { faCircleUser,faClock,faLocationDot, } from "@fortawesome/free-solid-svg-icons"
 
 interface Props {
     sagn: Sagn
 }
 
 const SagnCard = ({sagn}: Props) => {
-    console.log(sagn.owner)
     return (
         <div className="w-full flex flex-col p-2 md:mx-0 bg-white rounded-md shadow-md text-textColor space-y-2">
             <div className="flex flex-row justify-between w-full">
@@ -45,7 +44,7 @@ const SagnCard = ({sagn}: Props) => {
                 
                 <div className="flex flex-row-reverse place-content-between md:hidden ">
                     <LikeDislikeButtons className={"ml-2"} likes={sagn.likes} dislikes={sagn.dislikes} postID = {sagn.postId}/>
-                    <CardTags tags={sagn.tags}/>
+                    <CardTags tags={sagn.tags} minimize={true}/>
                 </div>
             </div>
         </div>
