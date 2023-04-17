@@ -113,7 +113,7 @@ const Header = () => {
                   <Link href="/login" className="block hover:bg-primary-200" role="menuitem" id="menu-item-login">
                     <button className="flex items-center space-x-1 font-medium focus:outline-none rounded-md px-4 py-1.5">
                       <FontAwesomeIcon icon={faRightFromBracket} className="text-2xl w-6 h-6 cursor-pointer transition-colors ease-in-out fa-lg" />
-                      <span className="text-lg underline">Login</span>
+                      <span className="text-lg underline">Logg inn</span>
                     </button>
                   </Link>
                 )}

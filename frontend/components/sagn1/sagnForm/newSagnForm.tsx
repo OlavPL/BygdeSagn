@@ -47,10 +47,10 @@ const NewSagnForm = ({className}: Props) => {
   const [tags, setTags] = useState<Tag[]>([])
   const [images, setImages] = useState<File | null>(null)
   const [storyText, setStoryText] = useState<string>("")
-  const [year, setYear] = useState<string>()
+  const [year, setYear] = useState<string|undefined>()
   const [kommuneListe, setKommuneListe] = useState<Kommune[]>([])
   const [selectedKommune, setSelectedKommune] = useState<Kommune>({kommunenavn:"", kommunenavnNorsk:""} as Kommune)
-  const [stedsnavn, setStedsnavn] = useState<string>()
+  const [stedsnavn, setStedsnavn] = useState<string|undefined>()
   const router = useRouter()
   
 
@@ -113,6 +113,7 @@ const NewSagnForm = ({className}: Props) => {
           setKommuneListe(data)
       })
     }
+    getKommuner()
     
   }
   , [setKommuneListe])
@@ -171,7 +172,6 @@ const NewSagnForm = ({className}: Props) => {
 };
 
 const postSagn = async (data:Inputs, router: NextRouter ) =>{
-  console.log(data.owner)
   const options:RequestInit={
     headers:{
       'Content-Type':'application/json',

@@ -7,12 +7,16 @@ import { Tag, tagList } from "@/types/tag"
 interface Tags{
     tags: Tag[]
     className?: string
+    minimize?: boolean
 }
 
-const CardTags = ({tags, className}: Tags) =>{
-    var tagArr: String[] = tags
-    if (tags.length > 3){
+const CardTags = ({tags, className, minimize}: Tags) =>{
+    var tagArr: Tag[] = tags
+    if (tags.length > 3 && minimize){
         tagArr = [tags[0], tags[1]]
+    }
+    else {
+        tagArr = tags
     }
 
     return(
@@ -24,7 +28,7 @@ const CardTags = ({tags, className}: Tags) =>{
                 </div>
             )})}
 
-            {tags.length > 3 &&
+            {tags.length > 3 && minimize &&
                 <Popover className="relative rounded bg-emphasis-300 self-center">
                 <Popover.Button>
                     <p className=" p-1 flex hover:cursor-pointer" >

@@ -7,7 +7,6 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
     const client = await clientPromise;
     const db = client.db("App_Db");
     const id = (req.body.post_id)
-    console.log(id)
     const updateDocument={
         $set:{
             dislikes:res+ req.body.dislikes,
