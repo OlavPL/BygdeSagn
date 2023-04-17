@@ -1,12 +1,15 @@
 import { useState, ChangeEvent } from 'react';
+import { useRouter } from 'next/router';
 import SimpleCrypto from "simple-crypto-js"
+import { toast } from 'react-toastify';
+import { ToastType, getToastOptions } from '@/components/controller/toastController';
 
 const Register =()=> {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
-
+  const router = useRouter();
 
   const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -24,17 +27,25 @@ const Register =()=> {
     setRepeatPassword(event.target.value);
   };
 
-
   const handleRegister = async ()=> {
     const secretKey =  "h9#E6CAjvzfN9"
     const simpleCrypto = new SimpleCrypto(secretKey)
 
+    if (!username || !email || !password || !repeatPassword) {
+      toast.error("Venligst fyll ut alle felt", getToastOptions(ToastType.light, "error ikke fylt ut felt"))
+      return;
+    }
 
-    if(password===repeatPassword){
-    const pass = simpleCrypto.encrypt(password)
-    const JSOndata= {
+    if(password !== repeatPassword) {
+      toast.error("Passord er ikke like", getToastOptions(ToastType.light, "error passord stemmer ikke overens"))
+      return;
+    }
+
+    const encryptedPassword = simpleCrypto.encrypt(password);
+
+    const JSOndata = {
       "name": username,
-      "password": pass,
+      "password": encryptedPassword,
       "email":email,
       "created": {
         "$date": new Date().setUTCHours(new Date().getUTCHours() + 1)
@@ -47,13 +58,16 @@ const Register =()=> {
       method:'POST',
       body:JSON.stringify(JSOndata),
     }
-    console.log(JSOndata)
-    const response = await fetch("/api/user/registerUser",options).catch()
-    const result =response.json;
-    console.log(result)
-   }else{
-    alert("Passwords does not match")
-   }
+
+    const response = await fetch("/api/user/registerUser",options);
+    const result = await response.json();
+
+    if (response.ok) {
+      router.push('/login'); // redirect to login page if registration is successful
+      toast.success("Registrering fullført", getToastOptions(ToastType.light, "brukerRegistrering fullført"))
+    } else {
+      alert('Registration failed');
+    }
   }
   return (
     <div className="flex flex-col items-center mt-20 min-h-screen">
@@ -113,7 +127,7 @@ const Register =()=> {
             />
           </div>
           <div className="flex justify-center">
-            <button type="button" onClick={handleRegister} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+            <button type="button" onClick={handleRegister} className="w-full text-white bg-primary-400 hover:bg-secondary-800 py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 my-2">
               Registrer
             </button>
           </div>
