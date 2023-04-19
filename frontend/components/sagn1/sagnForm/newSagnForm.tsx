@@ -191,13 +191,13 @@ const postSagn = async (data:Inputs, router: NextRouter ) =>{
     }),
   }
   
-  const endpoint=("api/post/postPost")
-  const response = await fetch(endpoint,options).catch()
-  const result = response.json;
+  const response = await fetch("api/post/postPost",options).catch()
+  .finally(()=>{
+    toast.success("Sagn publisert", getToastOptions(ToastType.light, "succsessful post"))
+    router.push("/#")
+  })
   
-  toast.success("Sagn publisert", getToastOptions(ToastType.light, "succsessful post"))
 
-  router.push("/#")
 }
 
 export default NewSagnForm;
