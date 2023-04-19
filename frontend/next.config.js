@@ -19,7 +19,6 @@ const nextConfig = {
   },
   
   webpack: (config) => {
-    // modify the webpack configuration object here
     config.resolve.fallback = { fs: false };
     return config;
   },

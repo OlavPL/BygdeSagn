@@ -37,6 +37,25 @@ export default async function handler(
       console.error(e);
       return res.status(301);
     }
+  } else if (req.method === "PUT") {
+    try {
+      const client = await clientPromise;
+      const db = client.db("App_Db");
+      const id = req.body.post_id;
+
+      const result = await db.collection(process.env.POST_COLLECTION!).updateOne(
+        { post_id: id },
+        {
+          $set: {
+            ...req.body, 
+          },
+        }
+      );
+
+      res.status(200).json("Document Updated" + " id:" + id);
+    } catch (e) {
+      console.error(e);
+    }
   } else {
     res.status(405).json({ message: "Method not allowed" });
   }

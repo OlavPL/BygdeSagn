@@ -36,8 +36,6 @@ const Register =()=> {
   const handleRepeatPasswordChange = (event: ChangeEvent<HTMLInputElement>) => setRepeatPassword(event.target.value)
   
   const handleRegister = async ()=> {
-    const secretKey =  "h9#E6CAjvzfN9"
-    const simpleCrypto = new SimpleCrypto(secretKey)
 
     if (!username || !email || !password || !repeatPassword) {
       toast.error("Venligst fyll ut alle felt", getToastOptions(ToastType.light, "error ikke fylt ut felt"))
@@ -49,11 +47,9 @@ const Register =()=> {
       return
     }
 
-    const encryptedPassword = simpleCrypto.encrypt(password)
-
     const JSOndata = {
       "name": username,
-      "password": encryptedPassword,
+      "password": password,
       "email":email,
       "created": {
         "$date": new Date().setUTCHours(new Date().getUTCHours() + 1)
@@ -67,7 +63,7 @@ const Register =()=> {
       body:JSON.stringify(JSOndata),
     }
 
-    const response = await fetch("/api/user/registerUser",options)
+    const response = await fetch("/api/user",options)
     const result = await response.json()
 
     if (response.ok) {
