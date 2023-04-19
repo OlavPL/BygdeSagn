@@ -68,7 +68,7 @@ const Register =()=> {
     const result = await response.json()
 
     if (response.ok) {
-      router.push('/login'); // redirect to login page if registration is successful
+      router.push('/login'); 
       toast.success("Registrering fullført", getToastOptions(ToastType.light, "brukerRegistrering fullført"))
     } else {
       alert('Registration failed')
