@@ -35,3 +35,5 @@ next-env.d.ts
 
 #Visual Studio
 .vs
+
+.env
