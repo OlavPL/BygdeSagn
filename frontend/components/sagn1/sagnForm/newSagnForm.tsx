@@ -191,7 +191,7 @@ const postSagn = async (data:Inputs, router: NextRouter ) =>{
     }),
   }
   
-  const endpoint=("api/post/postPost")
+  const endpoint=("api/post/Post")
   const response = await fetch(endpoint,options).catch()
   const result = response.json;
   

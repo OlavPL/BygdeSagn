@@ -95,7 +95,6 @@ const ProfilePageNew = ()=> {
       fetch(`/api/post/getUserPosts?email=${session?.user?.email}`)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           let slc = new SagnListController(data);
           setListController(slc);
           setList(slc.sortSagn(slc.sortType.type));
