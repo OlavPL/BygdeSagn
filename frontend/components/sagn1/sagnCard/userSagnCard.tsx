@@ -15,23 +15,23 @@ interface Props {
 }
 // Metode for å delte posts, kan legges til ved siden av Display av brukerens Posts ?
 const Delete = async (postId:number) => {
-    try {
-        const response = await fetch("/api/post/deletePost", {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ postId: postId }),
-        });
-        
+  try {
+    const response = await fetch(`/api/post/Post?postId=${postId}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    });
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data.message);
-      } else {
-        console.error("Failed to delete post:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Failed to delete post:", error);
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data.message);
+      toast.success("Sagn Slettet", getToastOptions(ToastType.light, "sagn deleted"));
+      router.push("/profilePage");
+    } else {
+      console.error("Failed to delete post:", response.statusText);
     }
+  } catch (error) {
+    console.error("Failed to delete post:", error);
+  }
     toast.success("Sagn Slettet", getToastOptions(ToastType.light, "sagn deleted"),)
     router.push("/profilePage")
   }
