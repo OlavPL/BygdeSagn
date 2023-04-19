@@ -3,9 +3,11 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from 'next-auth/providers/google';
 import clientPromise from "@/lib/mongodb";
 import SimpleCrypto from "simple-crypto-js";
+import * as dotenv from 'dotenv'
+dotenv.config()
 
-//const SECRET_KEY = "h9#E6CAjvzfN9";
-const SECRET_KEY= process.env.SECRET_KEY
+
+
 export default NextAuth({
   pages: {
     signIn: '/login',
@@ -29,7 +31,7 @@ export default NextAuth({
         const db = client.db("App_Db");
         const user = await db.collection("users").findOne({ email: credentials.email });
         if (user) {
-          const sc = new SimpleCrypto(SECRET_KEY);
+          const sc = new SimpleCrypto(process.env.SECRET_KEY);
           const decryptedPassword = sc.decrypt(user.password);
           if (credentials.password == decryptedPassword) {
             console.log("User logged in");

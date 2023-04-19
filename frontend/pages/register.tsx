@@ -5,7 +5,10 @@ import { toast } from 'react-toastify';
 import { ToastType, getToastOptions } from '@/components/controller/toastController';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope, faLock, faCheck, faTimes  } from '@fortawesome/free-solid-svg-icons';
+import path from 'path';
+import dotenv from 'dotenv';
 
+dotenv.config({ path: path.join(__dirname, '../.env') });
 
 const Register =()=> {
   const [username, setUsername] = useState('')
