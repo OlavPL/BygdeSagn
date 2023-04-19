@@ -22,7 +22,7 @@ const LikeDislikeButtons = ({likes, dislikes, postID, className}: Props) =>{
 
     // console.log(likes)
     // console.log(_likes)
-    console.log(postID)
+    //console.log(postID)
     
     const addLike = async () => {
         if(session.data == null ){

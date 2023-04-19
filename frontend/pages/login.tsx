@@ -7,26 +7,7 @@ import { faGoogle} from '@fortawesome/free-brands-svg-icons'
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons"
 
 export default function Login({ providers, csrfToken }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.target.value)
-  }
-
-  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value)
-  }
-  
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    await signIn('credentials', {
-      redirect: false,
-      email: username,
-      password: password,
-    })
-  }
-
+ 
   return (
     <div className="flex flex-col items-center mt-20 min-h-screen">
       <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full ">
@@ -34,7 +15,7 @@ export default function Login({ providers, csrfToken }: InferGetServerSidePropsT
             <span className="text-primary-90 ">Bygde</span><span className="drop-shadow-md text-primary-400">Sagn</span>
         </div>
         <form method="post" action="/api/auth/callback/credentials">
-          <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+          <input name="csrfToken" type="hidden" defaultValue={csrfToken}/>
             <label className="block text-gray-700 font-bold mb-2 w-full relative ">
               Email
               <div className="flex border border-gray-400 rounded w-full focus-within:border-blue-500 border-2">
@@ -59,7 +40,7 @@ export default function Login({ providers, csrfToken }: InferGetServerSidePropsT
                   className="grow rounded-l-none bg-white focus:outline-none border-l-0 rounded placeholder-textColor placeholder-opacity-50 w-full"
                   name="password"
                   type="password"
-                  placeholder="Enter your password..."
+                  placeholder="Skriv inn Passord"
                 />
               </div>
             </label>
