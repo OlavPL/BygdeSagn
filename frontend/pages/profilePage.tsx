@@ -9,6 +9,9 @@ import { faAnglesDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import DisplayUserSagn from '@/components/sagn1/displayUserSagn';
+import { ToastType, getToastOptions } from '@/components/controller/toastController';
+import { toast } from 'react-toastify';
+import router from 'next/router';
 
 const ProfilePageNew = () => {
   const { data: session } = useSession({ required: true });
@@ -20,40 +23,69 @@ const ProfilePageNew = () => {
 
   const handleClick = () => setExpanded(!expanded);
 
+  const getCount = async () => {
+    try {
+      const res = await fetch(`/api/post/getUserPosts?email=${user?.email}`);
+      const data = await res.json();
+      setCount(data.length);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getComment = async () => {
+    try {
+      const res = await fetch(`/api/post/getUserPosts?email=${user?.email}`);
+      const data = await res.json();
+      setComments(data.length);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getLiked = async () => {
+    try {
+      const res = await fetch(`/api/post/likes/getUserLikedPosts?email=${user?.email}`);
+      const data = await res.json();
+      setLiked(data.length);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    const getCount = async () => {
-      try {
-        const res = await fetch(`/api/post/getUserPosts?email=${session?.user?.email}`);
-        const data = await res.json();
-        setCount(data.length);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    const getComment = async () => {
-      try {
-        const res = await fetch(`/api/post/getUserPosts?email=${session?.user?.email}`);
-        const data = await res.json();
-        setComments(data.length);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    const getLiked = async () => {
-      try {
-        const res = await fetch(`/api/post/likes/getUserLikedPosts?email=${session?.user?.email}`);
-        const data = await res.json();
-        setLiked(data.length);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     getCount();
     getComment();
     getLiked();
-  }, [session]);
+  }, [user]);
+
+  const handleDelete = async (postId: number) => {
+    try {
+      const response = await fetch(`/api/post/Post?postId=${postId}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data.message);
+        const toastOptions = getToastOptions(ToastType.light, "sagn deleted");
+        toast.success("Sagn Slettet", toastOptions);
+        getCount();
+        getComment();
+        getLiked();
+        setList((prevList) => prevList.filter((sagn) => sagn.postId !== postId));
+      } else {
+        console.error("Failed to delete post:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Failed to delete post:", error);
+    }
+    const toastOptions = getToastOptions(ToastType.light, "sagn deleted");
+    toast.success("Sagn Slettet", toastOptions);
+    router.push("/profilePage");
+  };
+  
 
   const picstring = (): string => {
     if (session) {
@@ -77,7 +109,8 @@ const ProfilePageNew = () => {
 
   useEffect(() => {
     setLoading(true);
-
+    
+  
     fetch(`/api/post/getUserPosts?email=${session?.user?.email}`)
       .then((res) => res.json())
       .then((data) => {
@@ -90,7 +123,8 @@ const ProfilePageNew = () => {
         console.log(error);
         setLoading(false);
       });
-  }, [session?.user?.email, setTitle, setListController, list]);
+  }, [session?.user?.email, setTitle, setListController]);
+  
 
     
   return(
@@ -129,7 +163,7 @@ const ProfilePageNew = () => {
           Dine Innlegg
         </h2> 
           {expanded && (
-            <DisplayUserSagn sagnList={list} className="mt-5" />
+            <DisplayUserSagn sagnList={list} className="mt-5" onDelete={handleDelete} />
           )}
         </div>
       </div>
