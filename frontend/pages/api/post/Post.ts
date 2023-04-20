@@ -15,6 +15,7 @@ export default async function handler(
     } else {
       res.status(404).json({ message: "No posts found" });
     }
+
   } else if (req.method === "DELETE") {
     const postId = parseInt(req.query.postId as string);
     const result = await collection.deleteOne({ postId: postId });
@@ -24,6 +25,7 @@ export default async function handler(
     } else {
       res.status(404).json({ message: "Post not found" });
     }
+
   } else if (req.method === "POST") {
     try {
       const client = await clientPromise;
@@ -37,6 +39,7 @@ export default async function handler(
       console.error(e);
       return res.status(301);
     }
+
   } else if (req.method === "PUT") {
     try {
       const client = await clientPromise;
@@ -56,6 +59,7 @@ export default async function handler(
     } catch (e) {
       console.error(e);
     }
+    
   } else {
     res.status(405).json({ message: "Method not allowed" });
   }

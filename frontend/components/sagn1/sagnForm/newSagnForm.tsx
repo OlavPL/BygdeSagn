@@ -192,9 +192,16 @@ const postSagn = async (data:Inputs, router: NextRouter ) =>{
   }
   
   const response = await fetch("api/post/Post",options).catch()
-  .finally(()=>{
-    toast.success("Sagn publisert", getToastOptions(ToastType.light, "succsessful post"))
-    router.push("/#")
+  .then((res)=>{
+    console.log(res)
+    if(res.status == 200){
+      toast.success("Sagn publisert", getToastOptions(ToastType.light, "succsessful post"))
+      router.push("/#")
+    }
+    else {
+      toast.error("Det skjedde en feil under publisering av sagn",getToastOptions(ToastType.colored, "failed_post"))
+      console.log(res.status)
+    }
   })
   
 
