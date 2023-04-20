@@ -11,15 +11,12 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
     const user = req.body.user;
     
     if (req.method === 'PUT') {
-        // Check if the post already has the user's like
         const existingDocument = await db.collection(process.env.POST_COLLECTION!).findOne({_id: id, likes: user});
         if (existingDocument) {
-            // User has already liked the post, send response to client
             res.status(409).json({message: "User has already liked this post"});
             return;
         }
         
-        // Add the user's like to the post
         const updateDocument = {
             $push: {
                 likes: user
@@ -27,20 +24,21 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
         };
         await db.collection(process.env.POST_COLLECTION!).updateOne({_id:id},updateDocument);
         
-        // code from the second snippet
         const updateDocument2 = {
             $pull: {
                 dislikes: req.body.user
             },
         };
         const result = await db.collection(process.env.POST_COLLECTION!).updateOne({_id:id},updateDocument2);
-        
+        const returnDocument = await db.collection(process.env.POST_COLLECTION!).findOne({_id:id});
         res.status(200).json({
             message: "Likes updated and removed",
             _id: id,
             user: user,
-            object: result
+            object: result,
+            document:returnDocument
         });
+        console.log(returnDocument)
     } else if (req.method === 'DELETE') {
         const updateDocument = {
             $pull: {

@@ -53,10 +53,10 @@ export default async function handler(
     try {
       const client = await clientPromise;
       const db = client.db("App_Db");
-      const id = req.body.post_id;
+      const id = req.body._id;
 
       const result = await db.collection(process.env.POST_COLLECTION!).updateOne(
-        { post_id: id },
+        { _id: id },
         {
           $set: {
             ...req.body, 

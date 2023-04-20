@@ -35,7 +35,7 @@ const ProfilePageNew = () => {
 
   const getComment = async () => {
     try {
-      const res = await fetch(`/api/post/getUserPosts?email=${user?.email}`);
+      const res = await fetch(`/api/post/comments?email=${user?.email}`);
       const data = await res.json();
       setComments(data.length);
     } catch (error) {
@@ -142,12 +142,12 @@ const ProfilePageNew = () => {
       <div className="mt-6 mb-3 flex gap-4 md:!gap-14">
         <div className="flex flex-col items-center justify-center">
           <h3 className="text-bluePrimary text-2xl font-bold">{count} </h3>
-          <p className="text-lightSecondary text-sm font-normal">Posts</p>
+          <p className="text-lightSecondary text-sm font-normal">Sagn</p>
         </div>
 
         <div className="flex flex-col items-center justify-center">
           <h3 className="text-bluePrimary text-2xl font-bold">{comments}</h3>
-          <p className="text-lightSecondary text-sm font-normal">Comments</p>
+          <p className="text-lightSecondary text-sm font-normal">Kommentarer</p>
         </div>
 
         <div className="flex flex-col items-center justify-center">
