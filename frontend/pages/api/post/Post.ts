@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "@/lib/mongodb";
+import { ObjectId } from "mongodb";
 
 export default async function handler(
   req: NextApiRequest,
@@ -17,8 +18,7 @@ export default async function handler(
     }
 
   } else if (req.method === "DELETE") {
-    const postId = parseInt(req.query.postId as string);
-    const result = await collection.deleteOne({ postId: postId });
+    const result = await collection.deleteOne({ _id: new ObjectId(req.query._id?.toString()) });
 
     if (result.deletedCount === 1) {
       res.status(200).json({ message: "Post deleted successfully" });
@@ -33,7 +33,7 @@ export default async function handler(
 
       let myPost = await db.collection(process.env.POST_COLLECTION!).insertOne(req.body);
       return res.status(200).json(myPost);
-      
+
     } catch (e) {
       console.error(e);
       return res.status(301);

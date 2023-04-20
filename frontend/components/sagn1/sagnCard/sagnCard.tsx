@@ -13,12 +13,12 @@ const SagnCard = ({sagn}: Props) => {
     return (
         <div className="w-full flex flex-col p-2 md:mx-0 bg-white rounded-md shadow-md text-textColor space-y-2">
             <div className="flex flex-row justify-between w-full">
-                <Link href={`/post/${encodeURIComponent(sagn.postId)}`} className=" box-content text-xl font-semibold line-clamp-1 md:max-w-x text-textColor">
+                <Link href={`/post/${encodeURIComponent(sagn._id)}`} className=" box-content text-xl font-semibold line-clamp-1 md:max-w-x text-textColor">
                     <h1 className="font-semibold text-lg">{sagn.title}</h1>
                 </Link>
                 <div className="flex-row space-x-3 hidden md:flex">
                     <CardTags tags={sagn.tags}/>
-                    <LikeDislikeButtons likes={sagn.likes} dislikes={sagn.dislikes} postID = {sagn.postId}/>
+                    <LikeDislikeButtons likes={sagn.likes} dislikes={sagn.dislikes} _id = {sagn._id}/>
                 </div>
             </div>
             <p className="inline-block line-clamp-3"> {sagn.text} </p>
@@ -43,7 +43,7 @@ const SagnCard = ({sagn}: Props) => {
                 </div>
                 
                 <div className="flex flex-row-reverse place-content-between md:hidden ">
-                    <LikeDislikeButtons className={"ml-2"} likes={sagn.likes} dislikes={sagn.dislikes} postID = {sagn.postId}/>
+                    <LikeDislikeButtons className={"ml-2"} likes={sagn.likes} dislikes={sagn.dislikes} _id = {sagn._id}/>
                     <CardTags tags={sagn.tags} minimize={true}/>
                 </div>
             </div>

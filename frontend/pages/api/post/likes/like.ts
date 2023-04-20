@@ -1,4 +1,5 @@
 import clientPromise from "@/lib/mongodb";
+import { ObjectId } from "mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -6,12 +7,12 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
    try {
     const client = await clientPromise;
     const db = client.db("App_Db");
-    const id = req.body.postId;
+    const id = new ObjectId(req.body._id);
     const user = req.body.user;
     
     if (req.method === 'PUT') {
         // Check if the post already has the user's like
-        const existingDocument = await db.collection(process.env.POST_COLLECTION!).findOne({postId: id, likes: user});
+        const existingDocument = await db.collection(process.env.POST_COLLECTION!).findOne({_id: id, likes: user});
         if (existingDocument) {
             // User has already liked the post, send response to client
             res.status(409).json({message: "User has already liked this post"});
@@ -24,7 +25,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
                 likes: user
             }
         };
-        await db.collection(process.env.POST_COLLECTION!).updateOne({postId:id},updateDocument);
+        await db.collection(process.env.POST_COLLECTION!).updateOne({_id:id},updateDocument);
         
         // code from the second snippet
         const updateDocument2 = {
@@ -32,11 +33,11 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
                 dislikes: req.body.user
             },
         };
-        const result = await db.collection(process.env.POST_COLLECTION!).updateOne({postId:id},updateDocument2);
+        const result = await db.collection(process.env.POST_COLLECTION!).updateOne({_id:id},updateDocument2);
         
         res.status(200).json({
             message: "Likes updated and removed",
-            postId: id,
+            _id: id,
             user: user,
             object: result
         });
@@ -46,11 +47,11 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
                 likes: user
             }
         };
-        await db.collection(process.env.POST_COLLECTION!).updateOne({postId:id},updateDocument);
+        await db.collection(process.env.POST_COLLECTION!).updateOne({_id:id},updateDocument);
 
         res.status(200).json({
             message: "Likes removed",
-            postId: id,
+            _id: id,
             user: user
         });
     } else {

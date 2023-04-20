@@ -11,12 +11,12 @@ import { ToastType, getToastOptions } from "@/components/controller/toastControl
 interface Props {
     likes: AppUser[]
     dislikes: AppUser[]
-    postID: number
+    _id: string
     className?: string
 }
 
-const LikeDislikeButtons = ({likes, dislikes, postID, className}: Props) =>{
-    const [_likes, setLikes] = useState<AppUser[]>(likes as AppUser[])
+const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
+    const [_likes, setLikes] = useState<AppUser[]>(likes )
     const [_dislikes, setDislikes] = useState<AppUser[]>(dislikes)
     const session = useSession();
 
@@ -45,7 +45,7 @@ const LikeDislikeButtons = ({likes, dislikes, postID, className}: Props) =>{
             headers:{'Content-Type':'application/json',},
             method:'PUT',
             body:JSON.stringify({
-                "postId": postID,
+                "_id": _id,
                 "user" : {
                     name: session.data.user?.name,
                     email: session.data.user?.email
@@ -54,7 +54,7 @@ const LikeDislikeButtons = ({likes, dislikes, postID, className}: Props) =>{
         }
         await fetch("/api/post/likes/like",options).catch()
 
-        await fetch(`/api/post/getOnePost?postId=${postID}`).catch()
+        await fetch(`/api/post/getOnePost?_id=${_id}`).catch()
         .then((res) => res.json())
         .then((data) => {
             setLikes(data.likes)
@@ -82,13 +82,13 @@ const LikeDislikeButtons = ({likes, dislikes, postID, className}: Props) =>{
             headers:{'Content-Type':'application/json',},
             method:'PUT',
             body:JSON.stringify({
-                "postId": postID,
+                "_id": _id,
                 "user" : {name: session.data.user?.name, email: session.data.user?.email} as AppUser
             }),
         }
         await fetch("/api/post/likes/dislike",options).catch()
         
-        await fetch(`/api/post/getOnePost?postId=${postID}`).catch()
+        await fetch(`/api/post/getOnePost?_id=${_id}`).catch()
         .then((res) => res.json())
         .then((data) => {
             setLikes(data.likes)

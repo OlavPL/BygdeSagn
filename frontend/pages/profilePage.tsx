@@ -23,7 +23,7 @@ const ProfilePageNew = () => {
 
   const handleClick = () => setExpanded(!expanded);
 
-  const getCount = async () => {
+  const getPostCount = async () => {
     try {
       const res = await fetch(`/api/post/getUserPosts?email=${user?.email}`);
       const data = await res.json();
@@ -54,14 +54,14 @@ const ProfilePageNew = () => {
   };
 
   useEffect(() => {
-    getCount();
+    getPostCount();
     getComment();
     getLiked();
   }, [user]);
 
-  const handleDelete = async (postId: number) => {
+  const handleDelete = async (_id: string) => {
     try {
-      const response = await fetch(`/api/post/Post?postId=${postId}`, {
+      const response = await fetch(`/api/post/Post?_id=${_id}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });
@@ -71,10 +71,10 @@ const ProfilePageNew = () => {
         console.log(data.message);
         const toastOptions = getToastOptions(ToastType.light, "sagn deleted");
         toast.success("Sagn Slettet", toastOptions);
-        getCount();
+        getPostCount();
         getComment();
         getLiked();
-        setList((prevList) => prevList.filter((sagn) => sagn.postId !== postId));
+        setList((prevList) => prevList.filter((sagn) => sagn._id !== _id));
       } else {
         console.error("Failed to delete post:", response.statusText);
       }
@@ -163,6 +163,7 @@ const ProfilePageNew = () => {
           Dine Innlegg
         </h2> 
           {expanded && (
+            list.length === 0 ? <p> Du har ikke publisert noen sagn enda</p> :
             <DisplayUserSagn sagnList={list} className="mt-5" onDelete={handleDelete} />
           )}
         </div>

@@ -1,18 +1,17 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "@/lib/mongodb";
+import { ObjectId } from "mongodb";
 //Hente et enkelt innlegg
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
-    const postId = parseInt(req.query.postId as string);
-
     const client = await clientPromise;
     const result = await client
       .db("App_Db")
       .collection(process.env.POST_COLLECTION!)
-      .findOne({ postId: postId });
+      .findOne({ _id: new ObjectId(req.query._id!.toString()) });
 
     if (result) {
       res.status(200).json(result);
