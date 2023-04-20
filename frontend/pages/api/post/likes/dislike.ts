@@ -16,6 +16,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
             res.status(409).json({message: "User has already disliked this post"});
             return;
         }
+        
         const updateDocument = {
             $push: {
                 dislikes: user
