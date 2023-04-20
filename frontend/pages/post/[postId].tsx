@@ -54,10 +54,10 @@ const SagnFullView = (props:any) =>{
                 <div className="flex flex-col xs:flex-row-reverse">
                     <LikeDislikeButtons likes={sagn.likes} dislikes={sagn.dislikes} _id={sagn._id} ></LikeDislikeButtons>
                     
-                    <div className="flex flex-row w-auto mr-auto max-w-[290px]">
+                    <div className="flex flex-row w-auto mr-auto my-auto max-w-[290px]">
                         <span><FontAwesomeIcon className="w-5 mr-1" icon={faCircleUser} /></span>
-                        <span> {sagn.owner? sagn.owner.name : "Ukjent"}</span>
-                        <span className="text-gray-500">,{ format(new Date(sagn.postedAt),'dd. MMMM /yy HH:MM')}</span>
+                        <span className=""> {sagn.owner? sagn.owner.name : "Ukjent"}</span>
+                        <span className="text-gray-500 mr-2">, { format(new Date(sagn.postedAt),'dd. MMMM /yy HH:MM')}</span>
                     </div>
                 </div>
             </div>

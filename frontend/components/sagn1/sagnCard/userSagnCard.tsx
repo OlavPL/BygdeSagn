@@ -20,8 +20,8 @@ const UserSagnCard = ({ title, _id, onDelete }: Props) => {
   return (
     <div className="w-full flex flex-col p-2 md:mx-0  bg-white rounded-md shadow-md text-textColor space-y-2">
       <div className="flex flex-row justify-between w-full">
-        <Link href={`/post/${encodeURIComponent(_id)}`} className=" box-content text-xl font-semibold line-clamp-1 md:max-w-x text-textColor">
-          <h1 className="font-semibold text-lg">
+        <Link href={`/post/${encodeURIComponent(_id)}`} className="flex my-auto text-xl font-semibold line-clamp-1 md:max-w-x text-textColor">
+          <h1 className="font-semibold text-lg text-center mr-4">
             {title}
           </h1>
         </Link>
