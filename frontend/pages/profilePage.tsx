@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {useSession,signOut,getSession} from 'next-auth/react'
+import { useSession, signOut, getSession } from 'next-auth/react';
 import Image from 'next/image';
-import { AppContext } from "@/pages/_app"
+import { AppContext } from '@/pages/_app';
 import SagnListController, { SortTypes } from '@/components/controller/sagnListController';
 import Sagn from '@/objects/sagn';
 
@@ -10,104 +10,87 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import DisplayUserSagn from '@/components/sagn1/displayUserSagn';
 
-const ProfilePageNew = ()=> {
-  const{data:session}=useSession({required:true})
-  const user= session?.user
-  const [expended, setExpanded] = useState(false)
-  const [count, setCount] = useState(0)
-  const [comments,setComments]=useState(0)
-  const [liked,setLiked]=useState(0)
+const ProfilePageNew = () => {
+  const { data: session } = useSession({ required: true });
+  const user = session?.user;
+  const [expanded, setExpanded] = useState(false);
+  const [count, setCount] = useState(0);
+  const [comments, setComments] = useState(0);
+  const [liked, setLiked] = useState(0);
 
-  const handleClick = () => setExpanded(!expended)
-  
+  const handleClick = () => setExpanded(!expanded);
 
   useEffect(() => {
     const getCount = async () => {
       try {
-        const res = await fetch(
-          `/api/post/getUserPosts?email=${session?.user?.email}`
-        );
-        const data = await res.json()
-        setCount(data.length)
+        const res = await fetch(`/api/post/getUserPosts?email=${session?.user?.email}`);
+        const data = await res.json();
+        setCount(data.length);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    }
-    
-    const getComment= async () => {
-      try {
-        const res = await fetch(
-          `/api/post/getUserPosts?email=${session?.user?.email}`
-        );
-        const data = await res.json()
-        setComments(data.length)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-      
-    const getLiked= async () => {
-      try {
-        const res = await fetch(
-          `/api/post/likes/getUserLikedPosts?email=${session?.user?.email}`
-        )
-        const data = await res.json()
-        setLiked(data.length)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getCount()
-    getComment()
-    getLiked()
-    const interval = setInterval(() => {
-      getCount()
-      getComment()
-      getLiked()
-    }, 1000)
-    return () => clearInterval(interval)
-  }, [session])
-  
+    };
 
-  const picstring=():string=>{
-    if(session){
-      if(session.user?.image==null){
-        return("https://cdns.iconmonstr.com/wp-content/releases/preview/2018/240/iconmonstr-user-circle-thin.png")
-        }
-        return session.user?.image!
+    const getComment = async () => {
+      try {
+        const res = await fetch(`/api/post/getUserPosts?email=${session?.user?.email}`);
+        const data = await res.json();
+        setComments(data.length);
+      } catch (error) {
+        console.log(error);
       }
-        else{return "https://cdn.icon-icons.com/icons2/2036/PNG/512/menu_circular_button_burger_icon_124214.png"}  
+    };
+
+    const getLiked = async () => {
+      try {
+        const res = await fetch(`/api/post/likes/getUserLikedPosts?email=${session?.user?.email}`);
+        const data = await res.json();
+        setLiked(data.length);
+      } catch (error) {
+        console.log(error);
       }
-     
-      const [sagnListController, setListController] = useState(new SagnListController([]))
-      const [list, setList] = useState([] as Sagn[])
-      const [isLoading, setLoading] = useState(false)
-      const {title, setTitle} = useContext(AppContext)
-  
-      const updateList = (e: SortTypes) =>{
-          setList(sagnListController.sortSagn(e))
+    };
+    getCount();
+    getComment();
+    getLiked();
+  }, [session]);
+
+  const picstring = (): string => {
+    if (session) {
+      if (session.user?.image == null) {
+        return 'https://cdns.iconmonstr.com/wp-content/releases/preview/2018/240/iconmonstr-user-circle-thin.png';
       }
-  
-      useEffect(() => {
+      return session.user?.image!;
+    } else {
+      return 'https://cdn.icon-icons.com/icons2/2036/PNG/512/menu_circular_button_burger_icon_124214.png';
+    }
+  };
+
+  const [sagnListController, setListController] = useState(new SagnListController([]));
+  const [list, setList] = useState([] as Sagn[]);
+  const [isLoading, setLoading] = useState(false);
+  const { title, setTitle } = useContext(AppContext);
+
+  const updateList = (e: SortTypes) => {
+    setList(sagnListController.sortSagn(e));
+  };
+
+  useEffect(() => {
     setLoading(true);
 
-    const intervalId = setInterval(() => {
-      fetch(`/api/post/getUserPosts?email=${session?.user?.email}`)
-        .then((res) => res.json())
-        .then((data) => {
-          let slc = new SagnListController(data);
-          setListController(slc);
-          setList(slc.sortSagn(slc.sortType.type));
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.log(error);
-          setLoading(false);
-        });
-    }, 1000); 
-
-    return () => clearInterval(intervalId);
-  }, [session?.user?.email, setTitle]);
+    fetch(`/api/post/getUserPosts?email=${session?.user?.email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        let slc = new SagnListController(data);
+        setListController(slc);
+        setList(slc.sortSagn(slc.sortType.type));
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
+  }, [session?.user?.email, setTitle, setListController, list]);
 
     
   return(
@@ -142,10 +125,10 @@ const ProfilePageNew = ()=> {
       <div className="mt-5 mx-auto content-center">
         <div className="flex flex-col md:max-w-screen-lg justify-center">
         <h2 className="text-lg font-bold text-center cursor-pointer text-blue-600 hover:text-primary-200 transition-all duration-300 ease-in-out" onClick={handleClick}>
-          <FontAwesomeIcon icon={expended ? faAngleUp : faAngleDown} />
-          Nyeste Innlegg
+          <FontAwesomeIcon icon={expanded ? faAngleUp : faAngleDown} />
+          Dine Innlegg
         </h2> 
-          {expended && (
+          {expanded && (
             <DisplayUserSagn sagnList={list} className="mt-5" />
           )}
         </div>

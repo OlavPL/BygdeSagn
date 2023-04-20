@@ -191,7 +191,7 @@ const postSagn = async (data:Inputs, router: NextRouter ) =>{
     }),
   }
   
-  const response = await fetch("api/post/postPost",options).catch()
+  const response = await fetch("api/post/Post",options).catch()
   .finally(()=>{
     toast.success("Sagn publisert", getToastOptions(ToastType.light, "succsessful post"))
     router.push("/#")
