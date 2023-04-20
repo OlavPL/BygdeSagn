@@ -37,7 +37,7 @@ const LikeDislikeButtons = ({likes, dislikes, postID, className}: Props) =>{
         if( _dislikes.length > 0){
             userIsPresent =  _dislikes.find(user => user.email == session.data.user?.email)
             if( userIsPresent != undefined ){
-                await removeLikeInteraction("Dislike")
+                //await removeLikeInteraction("Dislike")
             }
         }
             
@@ -52,7 +52,7 @@ const LikeDislikeButtons = ({likes, dislikes, postID, className}: Props) =>{
                 } as AppUser
             }),
         }
-        await fetch("/api/post/likes/addLike",options).catch()
+        await fetch("/api/post/likes/like",options).catch()
 
         await fetch(`/api/post/getOnePost?postId=${postID}`).catch()
         .then((res) => res.json())
@@ -74,7 +74,7 @@ const LikeDislikeButtons = ({likes, dislikes, postID, className}: Props) =>{
         if(_likes.length > 0){
             userPresent = _likes.find(user => user.email == session.data.user?.email)
             if(userPresent != undefined ){
-                await removeLikeInteraction("Like")
+               // await removeLikeInteraction("Like")
             }
         }
             
@@ -86,7 +86,7 @@ const LikeDislikeButtons = ({likes, dislikes, postID, className}: Props) =>{
                 "user" : {name: session.data.user?.name, email: session.data.user?.email} as AppUser
             }),
         }
-        await fetch("/api/post/likes/addDislike",options).catch()
+        await fetch("/api/post/likes/dislike",options).catch()
         
         await fetch(`/api/post/getOnePost?postId=${postID}`).catch()
         .then((res) => res.json())
@@ -95,7 +95,7 @@ const LikeDislikeButtons = ({likes, dislikes, postID, className}: Props) =>{
             setDislikes(data.dislikes)
         })
     }
-
+/*
     const removeLikeInteraction = async (type: string) => {
         const options:RequestInit={
             headers:{
@@ -107,8 +107,8 @@ const LikeDislikeButtons = ({likes, dislikes, postID, className}: Props) =>{
                 "user" : {name: session?.data?.user?.name, email: session?.data?.user?.email} as AppUser
             }),
         }
-        const response = await fetch(`/api/post/likes/remove${type}`,options).catch()
-    }
+        const response = await fetch(`/api/post/likes/remove`,options).catch()
+    } */
 
     return (
     <div className={`flex flex-row ${className}`} >
