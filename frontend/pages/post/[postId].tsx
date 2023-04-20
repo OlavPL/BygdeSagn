@@ -24,7 +24,7 @@ const SagnFullView = (props:any) =>{
         <div className="flex flex-col">
         {!sagn && 
             <div>
-                <p>Kunne ikke finne sagn</p>
+                <p className="text-center">Kunne ikke finne sagn</p>
             </div>
         }
         {sagn && 

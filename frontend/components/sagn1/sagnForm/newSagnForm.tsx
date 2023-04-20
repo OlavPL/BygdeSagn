@@ -27,22 +27,7 @@ interface Inputs {
   owner:AppUser;
 }
 
-interface Props {
-  className?: string;
-}
-
-// const errorToastOptions: ToastOptions<{}> = {
-//   position: "top-center",
-//   autoClose: 5000,
-//   hideProgressBar: false,
-//   closeOnClick: true,
-//   pauseOnHover: true,
-//   draggable: false,
-//   progress: undefined,
-//   theme: "colored",
-// }
-
-const NewSagnForm = ({className}: Props) => {
+const NewSagnForm = (className:string) => {
   const session = useSession({required:true}); 
   const [tags, setTags] = useState<Tag[]>([])
   const [images, setImages] = useState<File | null>(null)
@@ -52,7 +37,6 @@ const NewSagnForm = ({className}: Props) => {
   const [selectedKommune, setSelectedKommune] = useState<Kommune>({kommunenavn:"", kommunenavnNorsk:""} as Kommune)
   const [stedsnavn, setStedsnavn] = useState<string|undefined>()
   const router = useRouter()
-  
 
   const addTag= (value: Tag) => {
     setTags([...tags, value])
@@ -64,18 +48,13 @@ const NewSagnForm = ({className}: Props) => {
     setTags(list)
   }
   const onSubmit: SubmitHandler<Inputs> = (data) =>{
-    // Sjekk og varsel om blanke felt
-    if(data.title.trim() == "" || storyText.trim() == ""){
-      toast.error("Vennligst fyll ut alle felt", getToastOptions(ToastType.colored, "fill fields"));
-      return 
-    }
-    // Sjekk og varsel mot ekstermt kort tekst
-    if(data.title.trim().length < 3){
+    // Sjekk og varsel mot ekstermt kort tittel
+    if(data.title.trim() == "" || data.title.trim().length < 3){
       toast.error("Ops! Ser ut som du ikke har skrevet ferdig tittelen", getToastOptions(ToastType.colored, "fill title"));
       return 
     }
-
-    if(storyText.trim().length < 20 ){
+    // Sjekk og varsel mot ekstermt kort tittel
+    if(storyText.trim().length < 20 || storyText.trim() == ""){
       toast.error("Ops! Ser ut som du ikke har skrevet ferdig sagnet", getToastOptions(ToastType.colored, "fill text body"));
       return 
     }
@@ -90,14 +69,14 @@ const NewSagnForm = ({className}: Props) => {
     data.year = year == undefined ? undefined : Number(year)
     data.stedsnavn = stedsnavn
     data.owner = session.data?.user!  
-    data.story=storyText
+    data.story = storyText
     postSagn(data, router)
   };
 
   useForm()
 
   const onError: SubmitErrorHandler<Inputs> = () => {
-    toast.error("Vennligs fyll ut alle felt", getToastOptions(ToastType.colored));
+    toast.error("Vennligs fyll ut alle felt med stjerne", getToastOptions(ToastType.colored));
   }
 
   const {
@@ -171,7 +150,7 @@ const NewSagnForm = ({className}: Props) => {
   );
 };
 
-const postSagn = async (data:Inputs, router: NextRouter ) =>{
+async function postSagn (data:Inputs, router: NextRouter ){
   const options:RequestInit={
     headers:{
       'Content-Type':'application/json',
@@ -191,18 +170,21 @@ const postSagn = async (data:Inputs, router: NextRouter ) =>{
     }),
   }
   
-  const response = await fetch("api/post/Post",options).catch()
+  await fetch("api/post/Post", options).catch()
   .then((res)=>{
-    console.log(res)
     if(res.status == 200){
       toast.success("Sagn publisert", getToastOptions(ToastType.light, "succsessful post"))
       router.push("/#")
     }
     else {
-      toast.error("Det skjedde en feil under publisering av sagn",getToastOptions(ToastType.colored, "failed_post"))
+      toast.error("Det skjedde en feil under publisering av sagn", getToastOptions(ToastType.colored, "failed_post"))
       console.log(res.status)
     }
   })
+  // .finally(() => {
+  //   toast.success("Sagn publisert", getToastOptions(ToastType.light, "succsessful post"))
+  //   router.push("/#")
+  // })
   
 
 }

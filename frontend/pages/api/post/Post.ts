@@ -31,10 +31,9 @@ export default async function handler(
       const client = await clientPromise;
       const db = client.db("App_Db");
 
-      let bodyObject = req.body;
-
-      let myPost = await db.collection(process.env.POST_COLLECTION!).insertOne(bodyObject);
+      let myPost = await db.collection(process.env.POST_COLLECTION!).insertOne(req.body);
       return res.status(200).json(myPost);
+      
     } catch (e) {
       console.error(e);
       return res.status(301);
