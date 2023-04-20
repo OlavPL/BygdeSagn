@@ -10,11 +10,21 @@ export default async function handler(
   const collection = client.db("App_Db").collection(process.env.POST_COLLECTION!);
 
   if (req.method === "GET") {
-    const result = await collection.find().toArray();
-    if (result.length > 0) {
-      res.status(200).json(result);
-    } else {
+    let result
+    if(!req.query._id || req.query._id == null){
+      result = await collection.find().toArray();
+    }
+    else {
+      result = await client
+      .db("App_Db")
+      .collection(process.env.POST_COLLECTION!)
+      .findOne({ _id: new ObjectId(req.query._id!.toString()) });
+    }
+    
+    if (result === null || result.length <= 0) {
       res.status(404).json({ message: "No posts found" });
+    } else {
+      res.status(200).json(result);
     }
 
   } else if (req.method === "DELETE") {

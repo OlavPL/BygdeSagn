@@ -54,7 +54,7 @@ const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
         }
         await fetch("/api/post/likes/like",options).catch()
 
-        await fetch(`/api/post/getOnePost?_id=${_id}`).catch()
+        await fetch(`/api/post/Post?_id=${_id}`).catch()
         .then((res) => res.json())
         .then((data) => {
             setLikes(data.likes)
@@ -88,7 +88,7 @@ const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
         }
         await fetch("/api/post/likes/dislike",options).catch()
         
-        await fetch(`/api/post/getOnePost?_id=${_id}`).catch()
+        await fetch(`/api/post/Post?_id=${_id}`).catch()
         .then((res) => res.json())
         .then((data) => {
             setLikes(data.likes)
