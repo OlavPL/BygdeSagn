@@ -30,7 +30,7 @@ const LikeDislikeButtons = ({likes, dislikes, postID, className}: Props) =>{
             return
         }
             
-        let userIsPresent = _likes.find(user => user.email == session.data.user?.email)
+        /*let userIsPresent = _likes.find(user => user.email == session.data.user?.email)
         if(userIsPresent != undefined)
             return
             
@@ -39,7 +39,7 @@ const LikeDislikeButtons = ({likes, dislikes, postID, className}: Props) =>{
             if( userIsPresent != undefined ){
                 //await removeLikeInteraction("Dislike")
             }
-        }
+        } */
             
         const options:RequestInit={
             headers:{'Content-Type':'application/json',},
@@ -66,7 +66,7 @@ const LikeDislikeButtons = ({likes, dislikes, postID, className}: Props) =>{
             toast.error("Dette krever å være innlogget", getToastOptions(ToastType.light, "loginToInteract") );
             return
         }
-
+        /*
         let userPresent = _dislikes.find(user => user.email == session.data.user?.email)
         if(userPresent != undefined)
             return 
@@ -76,7 +76,7 @@ const LikeDislikeButtons = ({likes, dislikes, postID, className}: Props) =>{
             if(userPresent != undefined ){
                // await removeLikeInteraction("Like")
             }
-        }
+        } */
             
         let options:RequestInit={
             headers:{'Content-Type':'application/json',},
