@@ -9,7 +9,7 @@ import { faCircleUser, faClock, faLocationDot } from "@fortawesome/free-solid-sv
 import LikeDislikeButtons from "@/components/sagn1/sagnCard/likeDislikeButtons";
 import { format } from "date-fns";
 import { ObjectId } from "mongodb";
-
+import Comments from "@/components/comments";
 const SagnFullView = (props:any) =>{
     const [sagn, setSagn] = useState<Sagn>() 
   
@@ -59,6 +59,9 @@ const SagnFullView = (props:any) =>{
                         <span className=""> {sagn.owner? sagn.owner.name : "Ukjent"}</span>
                         <span className="text-gray-500 mr-2">, { format(new Date(sagn.postedAt),'dd. MMMM /yy HH:MM')}</span>
                     </div>
+                </div>
+                <div className="inline-flex">
+                    <Comments />
                 </div>
             </div>
         }
