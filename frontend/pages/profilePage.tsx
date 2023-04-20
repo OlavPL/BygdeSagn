@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {useSession,signOut,getSession} from 'next-auth/react'
+import { useSession, signOut, getSession } from 'next-auth/react';
 import Image from 'next/image';
-import { AppContext } from "@/pages/_app"
+import { AppContext } from '@/pages/_app';
 import SagnListController, { SortTypes } from '@/components/controller/sagnListController';
 import Sagn from '@/objects/sagn';
 
@@ -9,106 +9,122 @@ import { faAnglesDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import DisplayUserSagn from '@/components/sagn1/displayUserSagn';
+import { ToastType, getToastOptions } from '@/components/controller/toastController';
+import { toast } from 'react-toastify';
+import router from 'next/router';
 
-const ProfilePageNew = ()=> {
-  const{data:session}=useSession({required:true})
-  const user= session?.user
-  const [expended, setExpanded] = useState(false)
-  const [count, setCount] = useState(0)
-  const [comments,setComments]=useState(0)
-  const [liked,setLiked]=useState(0)
+const ProfilePageNew = () => {
+  const { data: session } = useSession({ required: true });
+  const user = session?.user;
+  const [expanded, setExpanded] = useState(false);
+  const [count, setCount] = useState(0);
+  const [comments, setComments] = useState(0);
+  const [liked, setLiked] = useState(0);
 
-  const handleClick = () => setExpanded(!expended)
-  
+  const handleClick = () => setExpanded(!expanded);
+
+  const getPostCount = async () => {
+    try {
+      const res = await fetch(`/api/post/getUserPosts?email=${user?.email}`);
+      const data = await res.json();
+      setCount(data.length);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getComment = async () => {
+    try {
+      const res = await fetch(`/api/post/comments?email=${user?.email}`);
+      const data = await res.json();
+      setComments(data.length);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getLiked = async () => {
+    try {
+      const res = await fetch(`/api/post/likes/getUserLikedPosts?email=${user?.email}`);
+      const data = await res.json();
+      setLiked(data.length);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    const getCount = async () => {
-      try {
-        const res = await fetch(
-          `/api/post/getUserPosts?email=${session?.user?.email}`
-        );
-        const data = await res.json()
-        setCount(data.length)
-      } catch (error) {
-        console.log(error)
+    getPostCount();
+    getComment();
+    getLiked();
+  }, [user]);
+
+  const handleDelete = async (_id: string) => {
+    try {
+      const response = await fetch(`/api/post/Post?_id=${_id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data.message);
+        const toastOptions = getToastOptions(ToastType.light, "sagn deleted");
+        toast.success("Sagn Slettet", toastOptions);
+        getPostCount();
+        getComment();
+        getLiked();
+        setList((prevList) => prevList.filter((sagn) => sagn._id !== _id));
+      } else {
+        console.error("Failed to delete post:", response.statusText);
       }
+    } catch (error) {
+      console.error("Failed to delete post:", error);
     }
-    
-    const getComment= async () => {
-      try {
-        const res = await fetch(
-          `/api/post/getUserPosts?email=${session?.user?.email}`
-        );
-        const data = await res.json()
-        setComments(data.length)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-      
-    const getLiked= async () => {
-      try {
-        const res = await fetch(
-          `/api/post/likes/getUserLikedPosts?email=${session?.user?.email}`
-        )
-        const data = await res.json()
-        setLiked(data.length)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getCount()
-    getComment()
-    getLiked()
-    const interval = setInterval(() => {
-      getCount()
-      getComment()
-      getLiked()
-    }, 1000)
-    return () => clearInterval(interval)
-  }, [session])
+    const toastOptions = getToastOptions(ToastType.light, "sagn deleted");
+    toast.success("Sagn Slettet", toastOptions);
+    router.push("/profilePage");
+  };
   
 
-  const picstring=():string=>{
-    if(session){
-      if(session.user?.image==null){
-        return("https://cdns.iconmonstr.com/wp-content/releases/preview/2018/240/iconmonstr-user-circle-thin.png")
-        }
-        return session.user?.image!
+  const picstring = (): string => {
+    if (session) {
+      if (session.user?.image == null) {
+        return 'https://cdns.iconmonstr.com/wp-content/releases/preview/2018/240/iconmonstr-user-circle-thin.png';
       }
-        else{return "https://cdn.icon-icons.com/icons2/2036/PNG/512/menu_circular_button_burger_icon_124214.png"}  
-      }
-     
-      const [sagnListController, setListController] = useState(new SagnListController([]))
-      const [list, setList] = useState([] as Sagn[])
-      const [isLoading, setLoading] = useState(false)
-      const {title, setTitle} = useContext(AppContext)
-  
-      const updateList = (e: SortTypes) =>{
-          setList(sagnListController.sortSagn(e))
-      }
-  
-      useEffect(() => {
+      return session.user?.image!;
+    } else {
+      return 'https://cdn.icon-icons.com/icons2/2036/PNG/512/menu_circular_button_burger_icon_124214.png';
+    }
+  };
+
+  const [sagnListController, setListController] = useState(new SagnListController([]));
+  const [list, setList] = useState([] as Sagn[]);
+  const [isLoading, setLoading] = useState(false);
+  const { title, setTitle } = useContext(AppContext);
+
+  const updateList = (e: SortTypes) => {
+    setList(sagnListController.sortSagn(e));
+  };
+
+  useEffect(() => {
     setLoading(true);
-
-    const intervalId = setInterval(() => {
-      fetch(`/api/post/getUserPosts?email=${session?.user?.email}`)
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          let slc = new SagnListController(data);
-          setListController(slc);
-          setList(slc.sortSagn(slc.sortType.type));
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.log(error);
-          setLoading(false);
-        });
-    }, 1000); 
-
-    return () => clearInterval(intervalId);
-  }, [session?.user?.email, setTitle]);
+    
+  
+    fetch(`/api/post/getUserPosts?email=${session?.user?.email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        let slc = new SagnListController(data);
+        setListController(slc);
+        setList(slc.sortSagn(slc.sortType.type));
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
+  }, [session?.user?.email, setTitle, setListController]);
+  
 
     
   return(
@@ -126,12 +142,12 @@ const ProfilePageNew = ()=> {
       <div className="mt-6 mb-3 flex gap-4 md:!gap-14">
         <div className="flex flex-col items-center justify-center">
           <h3 className="text-bluePrimary text-2xl font-bold">{count} </h3>
-          <p className="text-lightSecondary text-sm font-normal">Posts</p>
+          <p className="text-lightSecondary text-sm font-normal">Sagn</p>
         </div>
 
         <div className="flex flex-col items-center justify-center">
           <h3 className="text-bluePrimary text-2xl font-bold">{comments}</h3>
-          <p className="text-lightSecondary text-sm font-normal">Comments</p>
+          <p className="text-lightSecondary text-sm font-normal">Kommentarer</p>
         </div>
 
         <div className="flex flex-col items-center justify-center">
@@ -143,11 +159,12 @@ const ProfilePageNew = ()=> {
       <div className="mt-5 mx-auto content-center">
         <div className="flex flex-col md:max-w-screen-lg justify-center">
         <h2 className="text-lg font-bold text-center cursor-pointer text-blue-600 hover:text-primary-200 transition-all duration-300 ease-in-out" onClick={handleClick}>
-          <FontAwesomeIcon icon={expended ? faAngleUp : faAngleDown} />
-          Nyeste Innlegg
+          <FontAwesomeIcon icon={expanded ? faAngleUp : faAngleDown} />
+          Dine Innlegg
         </h2> 
-          {expended && (
-            <DisplayUserSagn sagnList={list} className="mt-5" />
+          {expanded && (
+            list.length === 0 ? <p> Du har ikke publisert noen sagn enda</p> :
+            <DisplayUserSagn sagnList={list} className="mt-5" onDelete={handleDelete} />
           )}
         </div>
       </div>

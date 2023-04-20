@@ -74,19 +74,23 @@ const Header = () => {
               <Image src={picstring()} alt="" ref={menuButtonRef} onClick={handleClick} width={40} height={0} className="rounded-full cursor-pointer mr-2"/>
               <div
                 ref={menuContainerRef}
-                className={`origin-top-right absolute right-0 top-2 mt-14 w-40 rounded-md shadow-lg bg-white menu-container ${
+                className={`origin-top-right absolute right-0 top-2 mt-14 w-40 rounded-md shadow-lg bg-white menu-container z-10 ${
                   showMenu ? 'block' : 'hidden'
                 }`}
                 role="menu"
                 aria-labelledby="menu-button"
               >
-                <div className="padd py-2" role="none" >
-                  {/* <Link href="/profilePage" className="px-2 py-2 text-sm block" role="menuitem" id="menu-item-profile">
-                    Min Profil
-                  </Link>
-                  <Link href="profilePageNew" className="px-2 py-2 text-sm block" role="menuitem" id="menu-item-2">
-                    Faktisk profil side
-                  </Link> */}
+                <div className="padd py-2 relative" role="none" >
+
+                  {/*
+                   <Link href="/profilePage" className="px-2 py-2 text-sm block" role="menuitem" id="menu-item-profile">
+                      Min Profil
+                    </Link>
+                    <Link href="profilePageNew" className="px-2 py-2 text-sm block" role="menuitem" id="menu-item-2">
+                      Faktisk profil side
+                    </Link> 
+                  */}
+
                   <Link href={"../profilePage"} className="block hover:bg-primary-200">
                   <button className="flex items-center space-x-1 font-medium text-textColor focus:outline-none rounded-md px-4 py-1.5">
                     <FontAwesomeIcon icon={faUser} className="text-2xl w-6 h-6 cursor-pointer ease-in-out fa-lg" />

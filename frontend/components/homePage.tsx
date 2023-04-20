@@ -19,7 +19,7 @@ const HomePage = () => {
 
     useEffect(() => {
         setLoading(true)
-        fetch('/api/post/getPosts')
+        fetch('/api/post/Post')
         .then((res) => res.json())
         .then((data) => {
             let slc = new SagnListController(data)
