@@ -27,7 +27,11 @@ interface Inputs {
   owner:AppUser;
 }
 
-const NewSagnForm = (className:string) => {
+interface Props{
+  className?:string
+}
+
+const NewSagnForm = ({className}:Props) => {
   const session = useSession({required:true}); 
   const [tags, setTags] = useState<Tag[]>([])
   const [images, setImages] = useState<File | null>(null)
