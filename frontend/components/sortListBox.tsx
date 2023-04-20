@@ -22,7 +22,7 @@ const SortListBox = ({sagnListController, updateList, className}: Props ) => {
 
   return (
     <Listbox as="div" value={selected} by="id" onChange={(e:SortValue) => {handleChange(e)}}
-      className={`${className} w-44 py-1 rounded-md space-y-2 bg-primary-100 justify-center shadow-md`}
+      className={`${className} w-44 py-1 rounded-md space-y-2 bg-primary-100 justify-center shadow-md z-1`}
     >
       <Listbox.Button className="flex w-full items-center relative">
         <span className='px-2 truncate'>
