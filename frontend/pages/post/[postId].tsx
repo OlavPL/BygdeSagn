@@ -60,7 +60,7 @@ const SagnFullView = (props:any) =>{
                         <span className="text-gray-500 mr-2">, { format(new Date(sagn.postedAt),'dd. MMMM /yy HH:MM')}</span>
                     </div>
                 </div>
-                <div className="inline-flex">
+                <div className="flex flex-col">
                     <Comments />
                 </div>
             </div>
