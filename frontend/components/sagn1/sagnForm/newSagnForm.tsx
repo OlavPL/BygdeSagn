@@ -59,7 +59,7 @@ const NewSagnForm = ({className}:Props) => {
     }
     // Sjekk og varsel mot ekstermt kort tittel
     if(storyText.trim().length < 20 || storyText.trim() == ""){
-      toast.error("Ops! Ser ut som du ikke har skrevet ferdig sagnet", getToastOptions(ToastType.colored, "fill text body"));
+      toast.error("Ops! Sagnet er for kort, sikker på at du har skrive fgerdig?", getToastOptions(ToastType.colored, "fill text body"));
       return 
     }
 
