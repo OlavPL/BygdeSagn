@@ -61,7 +61,7 @@ const SagnFullView = (props:any) =>{
                     </div>
                 </div>
                 <div className="inline-flex">
-                    <Comments />
+                    <Comments _id={sagn._id} />
                 </div>
             </div>
         }

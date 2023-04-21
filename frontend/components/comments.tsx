@@ -1,39 +1,59 @@
-import { useState } from "react"
+import { useState, useEffect } from 'react';
 
-const Comment =()=> {
-    const [showComment, setShowComment] = useState(false)
-    
-    const comments = [
-        'Olav liker hest',
-        'Hesten liker Olav',
-        'Liker hest Olav?',
-        'Hest Olav liker',
-    ]
+const Comment = (props: any) => {
+  interface CommentsProps {
+    comments?: string[],
+    _id: string
+  }
 
+  const [showComment, setShowComment] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState('');
 
-    const handleClick =()=> {
-        setShowComment(!showComment)
+  useEffect(() => {
+    async function fetchComments() {
+      const response = await fetch(`/api/posts?_id=${props._id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const data = await response.json();
+
+      setComments(data.comments);
     }
+    fetchComments();
+  }, []);
 
-    return(
-        <div className="w-full max-w-md mx-auto">
-            <button className = "bg-emphasis-50 rounded-xl p-2 shadow-md ml-auto border border-gray-500 hover:bg-emphasis-200 rounded"
-                    onClick = {handleClick}
-            >
-                {showComment ? 'Skjul kommentar' : 'Vis kommentar'}
-            </button>
+  const handleClick = () => {
+    setShowComment(!showComment);
+  };
 
-            {showComment && (
-                <ul className="mt-4 space-y-4 text-lg">
-                    {comments.map((comments, index) => (
-                        <li key={index} className="p-2 bg-gray-100 rounded shadow-md">    
-                            {comments}
-                        </li>
-                    ))}
-                </ul>
-            )}
+  const handleNewComment = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewComment(event.target.value);
+  };
+
+
+
+  return (
+    <div className="mt-8">
+      <button className="mb-4 text-gray-400" onClick={handleClick}>
+        {showComment ? 'Hide Comments' : 'Show Comments'}
+      </button>
+      {showComment && (
+        <div>
+          <ul className="mt-4 space-y-4 text-lg">
+            {comments.map((comment, index) => (
+              <li key={index} className="p-2 bg-gray-100 rounded shadow-md">
+                {comment}
+              </li>
+            ))}
+          </ul>
+          
         </div>
-    )
-}
+      )}
+    </div>
+  );
+};
 
-export default Comment
+export default Comment;

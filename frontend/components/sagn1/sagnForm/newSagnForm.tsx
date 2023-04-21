@@ -170,6 +170,7 @@ async function postSagn (data:Inputs, router: NextRouter ){
       "owner":data.owner,
       "likes": Array(0),
       "dislikes":Array(0),
+      "comments":Array(0),
       "postedAt": new Date().setUTCHours(new Date().getUTCHours() + 1 )
     }),
   }
