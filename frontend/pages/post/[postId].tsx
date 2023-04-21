@@ -73,7 +73,6 @@ export async function getServerSideProps(context: {params: { postId:string} }) {
     try {
         const {params} = context
         const postId = params.postId
-        console.log(postId)
         const client = await clientPromise;
         const db = client.db("App_Db");
 

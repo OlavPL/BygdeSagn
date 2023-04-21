@@ -12,7 +12,7 @@ const Comment = (props: any) => {
 
   useEffect(() => {
     async function fetchComments() {
-      const response = await fetch(`/api/posts?_id=${props._id}`, {
+      const response = await fetch(`/api/post/Post?_id=${props._id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
