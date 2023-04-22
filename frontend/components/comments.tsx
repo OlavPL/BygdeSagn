@@ -39,7 +39,7 @@ const Comment = (props: any) => {
     
     const handleSubmit = () => {
         if (newComment) {
-          setComments([...comments, newComment])
+          setComments((prevComments) => [...(prevComments || []), newComment]);
             setNewComment('')
         }
     }
@@ -53,23 +53,23 @@ const Comment = (props: any) => {
             </button>
             
             {showComment && (
-                <>
-                    <PostComment
-                        userText={newComment}
-                        handleInputChange={handleInputChange}
-                        handleSubmit={handleSubmit}
-                    />
-                    <ul className="mt-4 space-y-4 text-lg">
-                        {comments.map((comments, index) => (
-                            <li key={index} className="p-2 bg-gray-100 rounded shadow-md">  
-                                {comments}
-                                <span className="text-gray-500 mr-2">, { format(new Date(),'dd. MMMM /yy HH:MM')}</span>
-                            </li>
-                        ))}
-                    </ul>
-                </>
+              <>
+                <PostComment
+                    userText={newComment}
+                    handleInputChange={handleInputChange}
+                    handleSubmit={handleSubmit}
+                />
+                <ul className="mt-4 space-y-4 text-lg">
+                  {(comments || []).map((comment, index) => (
+                    <li key={index} className="p-2 bg-gray-100 rounded shadow-md break-words">
+                      <span className="text-gray-500 mr-2"> {format(new Date(), "dd. MMMM yy HH:MM")}</span>
+                      <br/>
+                      {comment}
+                    </li>
+                  ))}
+                </ul>
+              </>
             )}
-            
         </div>
       )}
 
