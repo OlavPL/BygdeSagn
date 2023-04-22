@@ -1,5 +1,5 @@
 // PostComment.tsx
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
 interface PostCommentProps {
   userText: string;
@@ -23,18 +23,19 @@ const PostComment: React.FC<PostCommentProps> = ({
         rows={4}
         
       ></textarea>
-     
-      <div className="absolute bottom-0 right-0 mb-3 mr-3 text-xs text-gray-400">
-        {userText.length}/500
+
+      <div className="flex justify-end items-center mt-2">
+        <div className="text-center mr-3 text-xs text-gray-600">
+          {userText.length}/500
+        </div>
+        
+        <button
+          className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+          onClick={handleSubmit}
+        >
+          Send
+        </button>
       </div>
-      
-      <button
-        className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-2"
-        onClick={handleSubmit}
-      >
-        Send
-      </button>
-     
     </div>
   )
 }
