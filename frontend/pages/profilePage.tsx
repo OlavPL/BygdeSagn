@@ -20,7 +20,7 @@ const ProfilePageNew = () => {
   const [count, setCount] = useState(0);
   const [comments, setComments] = useState(0);
   const [liked, setLiked] = useState(0);
-
+ 
   const handleClick = () => setExpanded(!expanded);
 
   const getPostCount = async () => {
@@ -118,6 +118,7 @@ const ProfilePageNew = () => {
         setListController(slc);
         setList(slc.sortSagn(slc.sortType.type));
         setLoading(false);
+        setTitle("ProfilSide")
       })
       .catch((error) => {
         console.log(error);
