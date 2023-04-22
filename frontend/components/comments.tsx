@@ -41,7 +41,7 @@ const Comment = (props: any) => {
     }
 
     return(
-        <div className="flex flex-col justify-start">
+        <div className="flex flex-col w-full">
             <button className = "bg-emphasis-50 rounded-xl p-2 shadow-md ml-auto border border-gray-500 hover:bg-emphasis-200 rounded"
                 onClick = {handleClick}
             >
