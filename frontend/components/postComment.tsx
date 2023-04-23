@@ -1,17 +1,43 @@
-// PostComment.tsx
+import { useSession } from 'next-auth/react';
 import React, { ChangeEvent, useState } from 'react';
 
 interface PostCommentProps {
-  userText: string;
-  handleInputChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  handleSubmit: () => void;
+  _id: string;
+
 }
 
-const PostComment: React.FC<PostCommentProps> = ({
-  userText,
-  handleInputChange,
-  handleSubmit,
-}) => {
+const PostComment: React.FC<PostCommentProps> = ({_id }) => {
+
+  const [userText, setUserText] = useState("");
+  const session = useSession();
+  const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setUserText(event.target.value);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const url = `/api/post/comments/comment/`;
+      const options: RequestInit = {
+        headers: { 'Content-Type': 'application/json' },
+        method: 'PUT',
+        body: JSON.stringify({ "_id": _id,comment: { text: userText, user: { name:session.data?.user?.name, email: session.data?.user?.email} } }),
+      };
+      
+      const response = await fetch(url, options);
+      
+      if (!response.ok) {
+        throw new Error(`Failed to post comment: ${response.statusText}`);
+      }
+      
+      setUserText("");
+    } catch (error) {
+      console.error(`Failed to post comment`);
+    }
+  };
+  
+  
+
+
   return (
     <div className="mt-4 relative">
       <textarea
@@ -21,7 +47,6 @@ const PostComment: React.FC<PostCommentProps> = ({
         value={userText}
         onChange={handleInputChange}
         rows={4}
-        
       ></textarea>
 
       <div className="flex justify-end items-center mt-2">

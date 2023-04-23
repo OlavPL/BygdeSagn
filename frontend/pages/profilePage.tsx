@@ -143,7 +143,7 @@ const ProfilePageNew = () => {
       <div className="mt-6 mb-3 flex gap-4 md:!gap-14">
         <div className="flex flex-col items-center justify-center">
           <h3 className="text-bluePrimary text-2xl font-bold">{count} </h3>
-          <p className="text-lightSecondary text-sm font-normal">Sagn</p>
+          <p className="text-lightSecondary text-sm font-normal">publiserte Sagn</p>
         </div>
 
         <div className="flex flex-col items-center justify-center">
@@ -153,7 +153,7 @@ const ProfilePageNew = () => {
 
         <div className="flex flex-col items-center justify-center">
           <h3 className="text-bluePrimary text-2xl font-bold">{liked}</h3>
-          <p className="text-lightSecondary text-sm font-normal">Liked Posts</p>
+          <p className="text-lightSecondary text-sm font-normal">likte Sagn</p>
         </div>
       </div>
 

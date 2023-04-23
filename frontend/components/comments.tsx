@@ -1,18 +1,26 @@
 import { useState, useEffect } from 'react';
-import { useSession, signOut, getSession } from 'next-auth/react';
-import { format } from "date-fns";
+import { useSession } from 'next-auth/react';
+import { format } from 'date-fns';
 import PostComment from './postComment';
-import { comment } from 'postcss';
+
+interface CommentData {
+  text: string;
+  user: {
+    name: string;
+    email: string;
+    postedAt: string;
+  }
+}
 
 interface CommentsProps {
-  comments?: string[],
+  comments?: CommentData[],
   _id: string
 }
 
-const Comment = (props: any) => {
+const Comment = (props: CommentsProps) => {
   const [showComment, setShowComment] = useState(false);
-  const [comments, setComments] = useState<string[]>([]);
-  const [newComment, setNewComment] = useState('');
+  const [comments, setComments] = useState<CommentData[]>([]);
+  const { data: session } = useSession();
 
   useEffect(() => {
     async function fetchComments() {
@@ -27,51 +35,36 @@ const Comment = (props: any) => {
       setComments(data.comments);
     }
     fetchComments();
-  }, []);
+  }, [props._id]);
 
-  const handleClick = () => {
+  const handleToggleComment = () => {
     setShowComment(!showComment);
   }
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setNewComment(event.target.value)
-    }
-    
-    const handleSubmit = () => {
-        if (newComment) {
-          setComments((prevComments) => [...(prevComments || []), newComment]);
-            setNewComment('')
-        }
-    }
+  return(
+    <div className="flex flex-col w-full">
+      <button className="bg-emphasis-50 rounded-xl p-2 shadow-md ml-auto border border-gray-500 hover:bg-emphasis-200 rounded" onClick={handleToggleComment}>
+        {showComment ? 'Skjul kommentar' : 'Vis kommentar'}
+      </button>
 
-    return(
-        <div className="flex flex-col w-full">
-            <button className = "bg-emphasis-50 rounded-xl p-2 shadow-md ml-auto border border-gray-500 hover:bg-emphasis-200 rounded"
-                onClick = {handleClick}
-            >
-                {showComment ? 'Skjul kommentar' : 'Vis kommentar'}
-            </button>
-            
-            {showComment && (
-              <>
-                <PostComment
-                    userText={newComment}
-                    handleInputChange={handleInputChange}
-                    handleSubmit={handleSubmit}
-                />
-                <ul className="mt-4 space-y-4 text-lg">
-                  {(comments || []).map((comment, index) => (
-                    <li key={index} className="p-2 bg-gray-100 rounded shadow-md break-words">
-                      <span className="text-gray-500 mr-2"> {format(new Date(), "dd. MMMM yy HH:MM")}</span>
-                      <br/>
-                      {comment}
-                    </li>
-                  ))}
-                </ul>
-              </>
-            )}
-        </div>
+      {showComment && (
+        <>
+          <PostComment
+              _id={props._id}
+          />
+          <ul className="mt-4 space-y-4 text-lg">
+            {(comments || []).map((comment: CommentData, index: number) => (
+              <li key={index} className="p-2 bg-gray-100 rounded shadow-md break-words">
+                <span className="text-gray-500 mr-2">{comment.user.postedAt}</span>
+                <br/>
+                {comment.text}
+              </li>
+            ))}
+          </ul>
+        </>
       )}
-
+    </div>
+  )
+}
 
 export default Comment;
