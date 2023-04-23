@@ -1,19 +1,29 @@
+import { ObjectId } from "mongodb";
 import clientPromise from "@/lib/mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === "POST") {
+  if (req.method === "PUT") {
     const client = await clientPromise;
     const db = client.db("App_Db");
-    const id = req.body._id;
-    const newComment = req.body.comment;
+    const id = new ObjectId(req.body._id as string);
+    
+    const newComment = {
+      text: req.body.comment.text,
+      owner: req.body.comment.user.email,
+      postedAt: new Date()
+    };
     const updateDocument = {
       $push: {
-        comments: newComment
+        comments: {
+          $each: [newComment],
+          $position: 0
+        }
       },
     };
     const result = await db.collection(process.env.POST_COLLECTION!).updateOne({ _id: id }, updateDocument);
-    res.status(200).json("Comments Updated" + " postId:" + id);
+    console.log(result)
+    res.status(200).json("Comments Updated" + " _id:" + id);
   } else if (req.method === "DELETE") {
     const client = await clientPromise;
     const db = client.db("App_Db");
