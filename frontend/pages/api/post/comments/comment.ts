@@ -8,9 +8,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const db = client.db("App_Db");
     const id = new ObjectId(req.body._id as string);
     const newComment = {
+      _id:new ObjectId().toString(),
       text: req.body.comment.text,
       owner: req.body.comment.user.name,
-      postedAt: new Date().setUTCHours(new Date().getUTCHours() + 1 )
+      postedAt: new Date()
+
     };
     const updateDocument = {
       $push: {
@@ -24,16 +26,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   } else if (req.method === "DELETE") {
     const client = await clientPromise;
     const db = client.db("App_Db");
-    const id = req.body._id;
-    const commentId = req.body.commentId;
+    const doc_id = new ObjectId(req.query.postId as string);
+    const commentId = new ObjectId(req.query.commentId as string);
+    
+    const query = { _id: doc_id };
     const updateDocument = {
       $pull: {
-        comments: [{ id: commentId }]
-      },
+        comments: {
+          _id: commentId
+        }
+      }
     };
-    const result = await db.collection(process.env.POST_COLLECTION!).updateOne({ _id: id }, updateDocument);
-    res.status(200).json("Dislikes Updated" + " id:" + id);
-
+    
+    const result = await db.collection(process.env.POST_COLLECTION!).updateOne(query, updateDocument);
+    
+    if (result.modifiedCount === 1) {
+      res.status(200).json({ message: "Comment Deleted", _id: commentId });
+    } else {
+      res.status(404).json({ message: "Comment not found" });
+    }
     //GET brukeren sine kommentarer
   } else if (req.method === "GET") {
     const email = req.query.email as string;
