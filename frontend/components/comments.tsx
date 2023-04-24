@@ -34,33 +34,28 @@ const Comment = (props: CommentsProps) => {
     fetchComments();
   }, [props._id]);
 
-  const handleToggleComment = () => {
-    setShowComment(!showComment);
-  }
-
+  const handleToggleComment = () => setShowComment(!showComment)
+  
   return(
-    <div className="flex flex-col w-full">
-      <button className="bg-emphasis-50 rounded-xl p-2 shadow-md ml-auto border border-gray-500 hover:bg-emphasis-200 rounded" onClick={handleToggleComment}>
+    <div className = "flex flex-col w-full">
+      <button className = "bg-emphasis-50 rounded-xl p-2 shadow-md ml-auto border border-gray-500 hover:bg-emphasis-200 rounded" onClick={handleToggleComment}>
         {showComment ? 'Skjul kommentar' : 'Vis kommentar'}
       </button>
 
       {showComment && (
         <>
           <PostComment
-              _id={props._id}
+              _id = {props._id}
           />
-          <ul className="mt-4 space-y-4 text-lg">
+          <ul className = "mt-4 space-y-4 text-lg">
             {(comments || []).map((comment: CommentData, index: number) => (
-              <li key={index} className="p-2 bg-gray-100 rounded shadow-md break-words">
-                <span className="text-gray-500 mr-2">{comment.owner}</span>
-                <br/>
-                { format(new Date(comment.postedAt),'dd. MMMM /yy HH:MM')}
-                <br/>
+              <li key={index} className="flex flex-col p-2 bg-gray-100 rounded shadow-md break-words">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-500">{comment.owner}</span>
+                  <span>{format(new Date(comment.postedAt), 'dd.MM.yyyy')}</span>
+                </div>
                 <span>{comment.text}</span>
-          
-                
-             
-              </li>
+            </li>
             ))}
           </ul>
         </>
@@ -69,4 +64,4 @@ const Comment = (props: CommentsProps) => {
   )
 }
 
-export default Comment;
+export default Comment
