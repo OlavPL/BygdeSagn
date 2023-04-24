@@ -1,6 +1,6 @@
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import SortListBox from "./sortListBox"
+import SortListBox from "./sagnSortListBox"
 import SagnListController, { SortTypes } from "./controller/sagnListController"
 import { useState, useEffect, useContext } from 'react'
 import Sagn from "@/objects/sagn"

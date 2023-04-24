@@ -19,27 +19,12 @@ const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
     const [_likes, setLikes] = useState<AppUser[]>(likes )
     const [_dislikes, setDislikes] = useState<AppUser[]>(dislikes)
     const session = useSession();
-
-    // console.log(likes)
-    // console.log(_likes)
-    //console.log(postID)
     
     const addLike = async () => {
         if(session.data == null ){
             toast.error("Dette krever å være innlogget", getToastOptions(ToastType.light, "loginToInteract") );
             return
         }
-            
-        /*let userIsPresent = _likes.find(user => user.email == session.data.user?.email)
-        if(userIsPresent != undefined)
-            return
-            
-        if( _dislikes.length > 0){
-            userIsPresent =  _dislikes.find(user => user.email == session.data.user?.email)
-            if( userIsPresent != undefined ){
-                //await removeLikeInteraction("Dislike")
-            }
-        } */
             
         const options:RequestInit={
             headers:{'Content-Type':'application/json',},
@@ -53,33 +38,22 @@ const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
             }),
         }
         await fetch("/api/post/likes/like",options).catch()
-        .then((res)=>{
+        // .then((res)=>{
             
-        })
-
-        // await fetch(`/api/post/Post?_id=${_id}`).catch()
-        // .then((res) => res.json())
-        // .then((data) => {
-        //     setLikes(data.likes)
-        //     setDislikes(data.dislikes)
         // })
+
+        await fetch(`/api/post/Post?_id=${_id}`).catch()
+        .then((res) => res.json())
+        .then((data) => {
+            setLikes(data.likes)
+            setDislikes(data.dislikes)
+        })
     }
     const addDislike = async () => {
         if(session.data == null ){
             toast.error("Dette krever å være innlogget", getToastOptions(ToastType.light, "loginToInteract") );
             return
         }
-        /*
-        let userPresent = _dislikes.find(user => user.email == session.data.user?.email)
-        if(userPresent != undefined)
-            return 
-            
-        if(_likes.length > 0){
-            userPresent = _likes.find(user => user.email == session.data.user?.email)
-            if(userPresent != undefined ){
-               // await removeLikeInteraction("Like")
-            }
-        } */
             
         let options:RequestInit={
             headers:{'Content-Type':'application/json',},
@@ -98,20 +72,6 @@ const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
             setDislikes(data.dislikes)
         })
     }
-/*
-    const removeLikeInteraction = async (type: string) => {
-        const options:RequestInit={
-            headers:{
-                'Content-Type':'application/json',
-            },
-            method:'PUT',
-            body:JSON.stringify({
-                "postId": postID,
-                "user" : {name: session?.data?.user?.name, email: session?.data?.user?.email} as AppUser
-            }),
-        }
-        const response = await fetch(`/api/post/likes/remove`,options).catch()
-    } */
 
     return (
     <div className={`flex flex-row ${className}`} >
