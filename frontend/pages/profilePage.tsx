@@ -35,7 +35,7 @@ const ProfilePageNew = () => {
 
   const getComment = async () => {
     try {
-      const res = await fetch(`/api/post/comments?email=${user?.email}`);
+      const res = await fetch(`/api/post/comments/getUserComments?name=${user?.name}`);
       const data = await res.json();
       setComments(data.length);
     } catch (error) {
