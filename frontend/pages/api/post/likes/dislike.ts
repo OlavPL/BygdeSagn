@@ -13,7 +13,13 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
     if (req.method === 'PUT') {
         const existingDocument = await db.collection(process.env.POST_COLLECTION!).findOne({_id: id, dislikes: user});
         if (existingDocument) {
-            res.status(409).json({message: "User has already disliked this post"});
+            const updateDocument = {
+                $pull: {
+                    dislikes: user
+                }
+            };
+            await db.collection(process.env.POST_COLLECTION!).updateOne({_id:id},updateDocument);
+            res.status(200).json({message: "User has already disliked this post"});
             return;
         }
         
