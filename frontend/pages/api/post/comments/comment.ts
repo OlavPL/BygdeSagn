@@ -10,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     
     const newComment = {
       text: req.body.comment.text,
-      owner: req.body.comment.user.email,
+      owner: req.body.comment.user.name,
       postedAt: new Date().setUTCHours(new Date().getUTCHours() + 1 )
     };
     const updateDocument = {
