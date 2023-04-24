@@ -73,7 +73,7 @@ const PostComment: React.FC<PostCommentProps> = ({_id }) => {
         </div>
         
         <button
-          className="bg-green-500 hover:bg-primary-200 text-white font-bold py-2 px-4 rounded"
+          className="bg-secondary-500 hover:bg-green-500 text-white font-bold py-2 px-4 rounded"
           onClick={handleSubmit}
         >
           Send

@@ -81,7 +81,7 @@ const Comment = (props: CommentsProps) => {
                 <span>{comment.text}</span>
                 {session?.user?.name === comment.owner && (
                   <button
-                    className="mt-2 text-sm font-medium text-red-500"
+                    className="mt-2 text-sm font-medium text-red-500 ml-auto"
                     onClick={() => handleDeleteComment(comment._id)}
                   >
                     Delete
