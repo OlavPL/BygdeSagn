@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const { gray } = require('tailwindcss/colors')
+const { gray, blue } = require('tailwindcss/colors')
 const colors = require('tailwindcss/colors')
 
 const brandy = {
@@ -283,6 +283,7 @@ module.exports = {
         secondary: como,
         emphasis: coral,
         textColor: gray[800],
+        textLink: blue[500],
         plantation : {
           '50': '#f1f8f5',
           '100': '#dcefe5',

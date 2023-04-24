@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Combobox } from '@headlessui/react'
-import { Kommune } from '@/types/typKommune'
+import { Kommune } from '@/types/kommune'
 
 interface KommuneSearchBoxI{
     kommuner: Kommune[]

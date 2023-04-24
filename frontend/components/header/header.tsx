@@ -67,7 +67,7 @@ const Header = () => {
             {/* Create Sagn Button */}
             <div className="flex items-center space-x-8 w-50 justify-end mx-2 mt-1">
               <Link href={"/createSagn"} className='hidden md:block'>
-                <button className="items-center space-x-1 font-medium text-textColor hover:text-secondary-800 focus:outline-none bg-primary-200 hover:bg-primary-700 rounded-md px-4 py-1.5">
+                <button className="items-center space-x-1 font-medium text-textColor hover:text-secondary-800 focus:outline-none bg-primary-200 hover:bg-primary-400 rounded-md px-4 py-1.5">
                   <FontAwesomeIcon icon={faPen} className="text-2xl w-6 h-6 cursor-pointer transition-colors duration-100 ease-in-out fa-lg" />
                   <span className="text-lg underline">Nytt Sagn</span>
                 </button>

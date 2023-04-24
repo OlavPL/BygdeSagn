@@ -12,7 +12,7 @@ import { Session } from "next-auth";
 import { toast, ToastOptions } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import KommuneSearchBox from "./KommuneSearchBox";
-import { Kommune } from "@/types/typKommune";
+import { Kommune } from "@/types/kommune";
 import AppUser from "@/types/AppUser";
 import { ToastType, getToastOptions } from "@/components/controller/toastController";
 
@@ -59,7 +59,7 @@ const NewSagnForm = ({className}:Props) => {
     }
     // Sjekk og varsel mot ekstermt kort tittel
     if(storyText.trim().length < 20 || storyText.trim() == ""){
-      toast.error("Ops! Ser ut som du ikke har skrevet ferdig sagnet", getToastOptions(ToastType.colored, "fill text body"));
+      toast.error("Ops! Sagnet er for kort, sikker på at du har skrive fgerdig?", getToastOptions(ToastType.colored, "fill text body"));
       return 
     }
 
