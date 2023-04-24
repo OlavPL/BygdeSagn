@@ -33,7 +33,6 @@ const SagnFullView = (props:any) =>{
             <div className="flex flex-col bg-emphasis-50 rounded-md max-w-screen-xl mx-2 mt-5 p-2 space-y-4 shadow-md self-center">
                 <h2 className="text-xl font-bold text-center sm:text-start">{sagn.title}</h2>
                 <p className="max-h-96 overflow-y-auto">{sagn.text}</p>
-                <p className="max-h-96 overflow-y-auto">{sagn._id}</p>
                 <div className="flex flex-col sm:flex-row w-full">
                     <div className="flex flex-row">
                         <div className="flex flex-row mr-5">
