@@ -22,7 +22,6 @@ interface ServersideProps {
   fylkeList: Fylke[]
   kommuneList:Kommune[]
   stedsnavnList:Stedsnavn[]
-  // kommuneSet, stedsnavnSet
 }
 
 const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps) => {
@@ -30,6 +29,7 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
   const [list, setList] = useState<Sagn[]>(Array())
   const [isLoading, setLoading] = useState(false)
   const {title, setTitle} = useContext(AppContext);  
+  const [query, setQuery] = useState<(string)>("")
 
   useEffect(() => {
     setList(sagnListController.sortSagn(sagnListController.sortType.type))
@@ -37,17 +37,27 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
     setTitle("Velkommen til Bygdesagn ™")
   }, [sagnListController, setTitle])
 
-  const filterSagn = async (value:(Fylke|Kommune|Stedsnavn)) => {
-    console.log("Filter start")
-    let filteredList = Array<Sagn>()
-    console.log(value)
+  const resetSearch = () => {
+    setList(sagnListController.sagnList)
+    setQuery("")
+  }
 
+  const filterSagn = async (value:(Fylke|Kommune|Stedsnavn)) => {
     if(value.fylkenavn != null){
-      await fetch(`api/post/posts?fylkenavn=${value.fylkenavn}`)
+      const response = await fetch(`api/post/getPostByFylkenavn?fylkenavn=${value.fylkenavn}`)
+      if(response.ok){
+        const data = await response.json()
+        if(data !== undefined && data !== null && data.length > 0)
+            setList(data)
+      }
+      else{
+        setList([])
+      }
+
     }
     else if(value.kommunenavnNorsk != null){
       console.log("kommune")
-      await fetch(`api/post/post?kommune.kommunenummer=${value.kommunenummer}`)
+      await fetch(`api/post/Post?kommune.kommunenummer=${value.kommunenummer}`)
       .then(data=>{
         console.log(data)
         // filteredList = Array<Sagn>(data)
@@ -55,7 +65,7 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
       console.log("kommune instance")
     }
     else if (value.stedsnavn != null ){
-      await fetch(`api/post/posts?kommune.kommunenummer=${value.stedsnavn}`)
+      await fetch(`api/post/Post?kommune.kommunenummer=${value.stedsnavn}`)
       console.log("stedsnavn instance")
     }
 
@@ -71,13 +81,16 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
                       <FontAwesomeIcon icon={faLocationDot} />
                   </span>
                   <FylkeSortListBox 
-                    className="grow rounded-l-none bg-primary-100 focus:outline-none border-l-0 rounded placeholder-textColor" 
+                    className="grow my-auto rounded-l-none bg-primary-100 focus:outline-none border-l-0 rounded placeholder-textColor" 
                     // filterSagn = {filterSagn}
                     fylkeList={fylkeList}
                     kommuneList={kommuneList}
                     stedsnavnList={stedsnavnList}
                     handleChange={filterSagn}
+                    query={query}
+                    setQuery={setQuery}
                   />
+                  <button className='p-1 my-auto mx-2 rounded bg-secondary-200' onClick={resetSearch}>Nullstill</button>
                   {/* <input className="grow rounded-l-none bg-primary-100 focus:outline-none border-l-0 rounded placeholder-textColor " placeholder='Søk på sted...'/> */}
               </div>
           </div>

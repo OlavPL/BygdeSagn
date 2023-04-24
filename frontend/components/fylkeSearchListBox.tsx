@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { Combobox } from '@headlessui/react'
 import { Kommune } from '@/types/kommune';
 import { Fylke } from '@/types/fylke';
@@ -11,11 +11,12 @@ interface Props{
   kommuneList: Kommune[] 
   stedsnavnList: Stedsnavn[]
   className?: string
+  query: string
+  setQuery: (value: string) => void
 
 }
 
-const FylkeSortListBox = ({ handleChange, fylkeList, kommuneList, stedsnavnList, className}: Props ) => {
-  const [query, setQuery] = useState<(string)>()
+const FylkeSortListBox = ({ handleChange, fylkeList, kommuneList, stedsnavnList, className, query, setQuery}: Props ) => {
   const [selected, setSelected] = useState<(Fylke|Kommune|Stedsnavn)>()
   const [queriedPlaces2, setQueriedPlaces2] = useState<(Fylke|Kommune|Stedsnavn)>()
   const [queriedPlaces, setQueriedPlaces] = useState(Array())
