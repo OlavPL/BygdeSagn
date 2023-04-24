@@ -1,6 +1,8 @@
 import { useSession } from 'next-auth/react';
+import router from 'next/router';
 import React, { ChangeEvent, useState } from 'react';
-
+import { toast } from 'react-toastify';
+import { ToastType, getToastOptions } from '@/components/controller/toastController';
 interface PostCommentProps {
   _id: string;
 
@@ -24,8 +26,13 @@ const PostComment: React.FC<PostCommentProps> = ({_id }) => {
       };
       
       const response = await fetch(url, options);
-      
+      if(response.ok){
+        const toastOptions = getToastOptions(ToastType.light, "Kommentar Pubisert");
+        toast.success("Kommentar Publisert", toastOptions);
+      }
       if (!response.ok) {
+        const toastOptions = getToastOptions(ToastType.light, "Kommentar ikke publisert");
+        toast.success("Kommentar ble ikke publsiert", toastOptions);
         throw new Error(`Failed to post comment: ${response.statusText}`);
       }
       

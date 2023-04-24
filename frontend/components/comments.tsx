@@ -32,7 +32,7 @@ const Comment = (props: CommentsProps) => {
       setComments(data.comments);
     }
     fetchComments();
-  }, [props._id]);
+  }, [props._id, comments]);
 
   const handleToggleComment = () => {
     setShowComment(!showComment);

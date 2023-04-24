@@ -7,7 +7,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const client = await clientPromise;
     const db = client.db("App_Db");
     const id = new ObjectId(req.body._id as string);
-    
     const newComment = {
       text: req.body.comment.text,
       owner: req.body.comment.user.name,
@@ -21,7 +20,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       },
     };
     const result = await db.collection(process.env.POST_COLLECTION!).updateOne({ _id: id }, updateDocument);
-    console.log(result)
     res.status(200).json("Comments Updated" + " _id:" + id);
   } else if (req.method === "DELETE") {
     const client = await clientPromise;
