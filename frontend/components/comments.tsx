@@ -5,11 +5,8 @@ import PostComment from './postComment';
 
 interface CommentData {
   text: string;
-  user: {
-    name: string;
-    email: string;
-    postedAt: string;
-  }
+  owner:string;
+  postedAt: string;
 }
 
 interface CommentsProps {
@@ -55,9 +52,14 @@ const Comment = (props: CommentsProps) => {
           <ul className="mt-4 space-y-4 text-lg">
             {(comments || []).map((comment: CommentData, index: number) => (
               <li key={index} className="p-2 bg-gray-100 rounded shadow-md break-words">
-                <span className="text-gray-500 mr-2">{comment.user.postedAt}</span>
+                <span className="text-gray-500 mr-2">{comment.owner}</span>
                 <br/>
-                {comment.text}
+                { format(new Date(comment.postedAt),'dd. MMMM /yy HH:MM')}
+                <br/>
+                <span>{comment.text}</span>
+          
+                
+             
               </li>
             ))}
           </ul>

@@ -11,13 +11,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const newComment = {
       text: req.body.comment.text,
       owner: req.body.comment.user.email,
-      postedAt: new Date()
+      postedAt: new Date().setUTCHours(new Date().getUTCHours() + 1 )
     };
     const updateDocument = {
       $push: {
         comments: {
           $each: [newComment],
-          $position: 0
         }
       },
     };
