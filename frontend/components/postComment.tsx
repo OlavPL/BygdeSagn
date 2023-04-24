@@ -1,20 +1,29 @@
 import { useSession } from 'next-auth/react';
 import router from 'next/router';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState, useRef } from 'react';
 import { toast } from 'react-toastify';
 import { ToastType, getToastOptions } from '@/components/controller/toastController';
 interface PostCommentProps {
   _id: string;
-
 }
 
 const PostComment: React.FC<PostCommentProps> = ({_id }) => {
+  const [userText, setUserText] = useState("")
+  const session = useSession()
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const [userText, setUserText] = useState("");
-  const session = useSession();
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setUserText(event.target.value);
+    setUserText(event.target.value)
+  }
+
+  const handleClick = () => {
+    if (textareaRef.current) {
+      textareaRef.current.rows = 4;
+      textareaRef.current.classList.add('border-blue-500');
+      textareaRef.current.classList.remove('border-black');
+    }
   };
+
 
   const handleSubmit = async () => {
     try {
@@ -42,18 +51,20 @@ const PostComment: React.FC<PostCommentProps> = ({_id }) => {
     }
   };
   
-  
-
-
   return (
     <div className="mt-4 relative">
       <textarea
-        className="shadow-md appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline whitespace-pre-wrap break-words resize-none"
+        className="shadow-md appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline whitespace-pre-wrap break-words resize-none ${
+          isFocused ? 'border-blue-600 focus:border-blue-500 focus:ring-1' : 'border-black'"
         placeholder="Skriv melding ..."
         required maxLength={500}
         value={userText}
+        rows = {1}
+        ref={textareaRef}
         onChange={handleInputChange}
-        rows={4}
+        onClick={handleClick}
+        
+        
       ></textarea>
 
       <div className="flex justify-end items-center mt-2">
@@ -62,7 +73,7 @@ const PostComment: React.FC<PostCommentProps> = ({_id }) => {
         </div>
         
         <button
-          className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+          className="bg-green-500 hover:bg-primary-200 text-white font-bold py-2 px-4 rounded"
           onClick={handleSubmit}
         >
           Send

@@ -3,6 +3,7 @@ import { useSession } from 'next-auth/react';
 import { format } from 'date-fns';
 import PostComment from './postComment';
 
+
 interface CommentData {
   _id: string;
   text: string;
@@ -60,21 +61,23 @@ const Comment = (props: CommentsProps) => {
 };
 
   return(
-    <div className="flex flex-col w-full">
-      <button className="bg-emphasis-50 rounded-xl p-2 shadow-md ml-auto border border-gray-500 hover:bg-emphasis-200 rounded" onClick={handleToggleComment}>
+    <div className = "flex flex-col w-full">
+      <button className = "bg-emphasis-50 rounded-xl p-2 shadow-md ml-auto border border-gray-500 hover:bg-emphasis-200 rounded" onClick={handleToggleComment}>
         {showComment ? 'Skjul kommentar' : 'Vis kommentar'}
       </button>
 
       {showComment && (
         <>
-          <PostComment _id={props._id} />
-          <ul className="mt-4 space-y-4 text-lg">
+          <PostComment
+              _id = {props._id}
+          />
+          <ul className = "mt-4 space-y-4 text-lg">
             {(comments || []).map((comment: CommentData, index: number) => (
-              <li key={comment._id} className="p-2 bg-gray-100 rounded shadow-md break-words">
-                <span className="text-gray-500 mr-2">{comment.owner}</span>
-                <br />
-                {format(new Date(comment.postedAt), 'dd. MMMM /yy HH:mm')}
-                <br />
+              <li key={index} className="flex flex-col p-2 bg-gray-100 rounded shadow-md break-words">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-500">{comment.owner}</span>
+                  <span>{format(new Date(comment.postedAt), 'dd.MM.yyyy')}</span>
+                </div>
                 <span>{comment.text}</span>
                 {session?.user?.name === comment.owner && (
                   <button
@@ -84,7 +87,7 @@ const Comment = (props: CommentsProps) => {
                     Delete
                   </button>
                 )}
-              </li>
+            </li>
             ))}
           </ul>
         </>
@@ -93,4 +96,4 @@ const Comment = (props: CommentsProps) => {
   )
 }
 
-export default Comment;
+export default Comment
