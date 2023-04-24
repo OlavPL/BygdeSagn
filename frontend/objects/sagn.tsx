@@ -1,4 +1,4 @@
-import { Kommune } from '@/types/typKommune';
+import { Kommune } from '@/types/kommune';
 import { Tag } from '@/types/tag';
 import AppUser from '@/types/AppUser';
 import { LoginInfo } from '@/types/loginInfo';

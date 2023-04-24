@@ -11,7 +11,7 @@ interface Props{
   className?: string
 }
 
-const SortListBox = ({sagnListController, updateList, className}: Props ) => {
+const SagnSortListBox = ({sagnListController, updateList, className}: Props ) => {
   const [selected, setSelected] = useState(sagnListController.sortType)
   
   const handleChange = (e: SortValue) =>{
@@ -22,7 +22,7 @@ const SortListBox = ({sagnListController, updateList, className}: Props ) => {
 
   return (
     <Listbox as="div" value={selected} by="id" onChange={(e:SortValue) => {handleChange(e)}}
-      className={`${className} w-44 py-1 rounded-md space-y-2 bg-primary-100 justify-center shadow-md z-1`}
+      className={`${className} w-44 py-1 rounded-md space-y-2 bg-primary-100 justify-center shadow-md z-1  hover:bg-primary-400`}
     >
       <Listbox.Button className="flex w-full items-center relative">
         <span className='px-2 truncate'>
@@ -57,4 +57,4 @@ const SortListBox = ({sagnListController, updateList, className}: Props ) => {
   )
 }
 
-export default SortListBox
+export default SagnSortListBox
