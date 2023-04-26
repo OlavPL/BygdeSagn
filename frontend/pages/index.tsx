@@ -112,7 +112,7 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
                   <h2 className="text-lg font-bold text-center">
                       Nyeste Innlegg
                   </h2>
-                  <SagnSortListBox className= "place-self-end" sagnListController={sagnListController} updateList={(e:SortTypes) => setList(sagnListController.sortSagn(e))}/>
+                  <SagnSortListBox className= "place-self-end mr-2" sagnListController={sagnListController} updateList={(e:SortTypes) => setList(sagnListController.sortSagn(e))}/>
                   <div className={`flex flex-col w-full mt-3 p-2 gap-3 sm:gap-x-5 items-center `}>
                       {list.map((sagn: Sagn, index) => (
                           <SagnCard
@@ -129,12 +129,14 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
 }
 
 export async function getServerSideProps() {
+
   interface FylkeI extends WithId<Document>{
     document: WithId<Document>
     &{
       fylke:Fylke
     }
   }
+
   try {
       const client = await clientPromise;
       const db = client.db("App_Db");
