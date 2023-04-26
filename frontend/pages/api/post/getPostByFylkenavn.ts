@@ -32,7 +32,7 @@ export default async function handler(
     posts.forEach(post => {
       kommuner.forEach((kommune:Kommune) => {
         if( kommune.kommunenummer === post.kommune.kommunenummer ){
-          console.log(kommune.kommunenummer, post.kommune.kommunenummer)
+         // console.log(kommune.kommunenummer, post.kommune.kommunenummer)
           outKommuner.push(post)
           return
         }

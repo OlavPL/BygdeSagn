@@ -45,7 +45,6 @@ const Comment = (props: CommentsProps) => {
   };
 
   const handleDeleteComment = async (commentId: string) => {
-    console.log("1" + commentId)
     const response = await fetch(`/api/post/comments/comment?postId=${props._id}&commentId=${commentId}`, {
         method: 'DELETE',
         headers: {
