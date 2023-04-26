@@ -23,28 +23,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     };
     const result = await db.collection(process.env.POST_COLLECTION!).updateOne({ _id: id }, updateDocument);
     res.status(200).json("Comments Updated" + " _id:" + id);
-  } else if (req.method === "DELETE") {
-    const client = await clientPromise;
-    const db = client.db("App_Db");
-    const doc_id = new ObjectId(req.query.postId as string);
-    const commentId = new ObjectId(req.query.commentId as string);
-    
-    const query = { _id: doc_id };
-    const updateDocument = {
-      $pull: {
-        comments: {
-          _id: commentId
-        }
-      }
-    };
-    
-    const result = await db.collection(process.env.POST_COLLECTION!).updateOne(query, updateDocument);
-    
-    if (result.modifiedCount === 1) {
-      res.status(200).json({ message: "Comment Deleted", _id: commentId });
-    } else {
-      res.status(404).json({ message: "Comment not found" });
-    }
     //GET brukeren sine kommentarer
   } else if (req.method === "GET") {
     const email = req.query.email as string;
@@ -59,7 +37,32 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     } else {
       res.status(404).json({ message: "No comments found for user" });
     }
+  } else if (req.method === "DELETE") {
+    const  postId= req.query.postId;
+    const  commentId= req.query.commentId;
+    if (!postId || !commentId) {
+      res.status(400).json({ message: "postId and commentId are required" });
+      return;
+    }
+    try {
+      const client = await clientPromise;
+      const db = client.db("App_Db");
+      const doc_id = new ObjectId(postId as string);
+      const result = await db.collection(process.env.POST_COLLECTION!).updateOne(
+        { _id: doc_id },
+        { $pull: { comments: { _id: commentId } } }
+      );
+      if (result.modifiedCount === 0) {
+        res.status(404).json({ message: "Comment not found" });
+        return;
+      }
+      res.status(200).json({ message: "Comment deleted successfully" });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Error deleting comment" });
+    }
   } else {
     res.status(405).json({ message: "Method not allowed" });
   }
+  
 }
