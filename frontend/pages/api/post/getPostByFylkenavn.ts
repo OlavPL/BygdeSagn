@@ -25,7 +25,6 @@ export default async function handler(
       .db("App_Db")
       .collection(process.env.POST_COLLECTION!)
       .find()
-      // .project(kommune.kommunenavnNorsk,  )
       .sort({ metacritic: -1 })
       .toArray()
 

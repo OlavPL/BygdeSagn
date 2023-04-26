@@ -42,41 +42,53 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
     setQuery("")
   }
 
-  const filterSagn = async (value:(Fylke|Kommune|Stedsnavn)) => {
+
+
+  const filterSagn = async (value:any) => {
+    
+    let filteredSagn = Array<Sagn>()
+
     if(value.fylkenavn != null){
-      const response = await fetch(`api/post/getPostByFylkenavn?fylkenavn=${value.fylkenavn}`)
-      if(response.ok){
-        const data = await response.json()
-        if(data !== undefined && data !== null && data.length > 0)
-            setList(data)
-      }
-      else{
-        setList([])
-      }
-
-    }
-    else if(value.kommunenavnNorsk != null){
-      console.log("kommune")
-      await fetch(`api/post/Post?kommune.kommunenummer=${value.kommunenummer}`)
-      .then(data=>{
-        console.log(data)
-        // filteredList = Array<Sagn>(data)
+      fylkeList.forEach((fylke: Fylke) =>{
+        if(fylke.fylkenavn === value.fylkenavn){
+          fylke.kommuner.forEach((kommune:Kommune) => {
+            sagnListController.sagnList.forEach(post => {
+              if( kommune.kommunenummer === post.kommune.kommunenummer ){
+                filteredSagn.push(post)
+              }
+            })
+          })
+        }
       })
-      console.log("kommune instance")
+      setList(filteredSagn)
+
     }
-    else if (value.stedsnavn != null ){
-      await fetch(`api/post/Post?kommune.kommunenummer=${value.stedsnavn}`)
-      console.log("stedsnavn instance")
+    else if (value.kommunenummer != null) {
+      sagnListController.sagnList.forEach( post => {
+        if( post.kommune.kommunenummer === value.kommunenummer ) {
+          filteredSagn.push( post )
+        }
+      })
+      setList(filteredSagn)
     }
 
-    // let filter = (element: Sagn) => element.kommune.kommunenavnNorsk.localeCompare()
-    let test = sagnListController.sagnList.filter((sagn:Sagn) => sagn )
+    else if (value.stedsnavn != null ){
+      sagnListController.sagnList.forEach( post => {
+        if( post.stedsnavn === value.stedsnavn ) {
+          filteredSagn.push( post )
+        }
+      })
+      setList(filteredSagn)
+    }
+
+    // if(filterSagn.length > 0)
+    //   setList( sagnListController.sortSagn(filteredSagn) )
   }
 
   return (
       <div className="w-full flex flex-col items-center text-textColor">
-          <div className="pt-10 space-y-2 relative " >
-              <div className='flex  outline-2 bg-primary-100 focus-within:outline outline-blue-500 shadow-lg rounded w-80'>
+          <div className="flex flex-row pt-10 relative " >
+              <div className='flex outline-2 bg-primary-100 focus-within:outline outline-blue-500 shadow-lg rounded w-80'>
                   <span className="p-2 rounded rounded-r-none border-r-0"> 
                       <FontAwesomeIcon icon={faLocationDot} />
                   </span>
@@ -90,8 +102,8 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
                     query={query}
                     setQuery={setQuery}
                   />
-                  <button className='p-1 my-auto mx-2 rounded bg-secondary-200' onClick={resetSearch}>Nullstill</button>
                   {/* <input className="grow rounded-l-none bg-primary-100 focus:outline-none border-l-0 rounded placeholder-textColor " placeholder='Søk på sted...'/> */}
+              <button className='p-1 mx-2 my-auto rounded bg-primary-300 hover:bg-primary-500 drop-shadow-m' onClick={resetSearch}>Nullstill</button>
               </div>
           </div>
 
@@ -134,16 +146,6 @@ export async function getServerSideProps() {
       const fylkeListFull:WithId<Document>[] = await db
       .collection("fylker")
       .find().toArray()
-
-      // const fylkeListFiltered = fylkeListFull.map((doc:WithId<Document>) => {
-      //   return {fylkeNavn: doc.fylkkenavn, kommuner:
-      //     doc.kommuner != null?
-      //     doc.value.kommuner.map((kommune:Kommune)=> {
-      //         return { kommunenavnNorsk: kommune.kommunenavnNorsk, stedsnavn: kommune.stedsnavn }
-      //     })
-      //     :Array<string>()
-      //   }
-      // })
 
       const fylkeSet = new Array()
       const kommuneSet = new Array()

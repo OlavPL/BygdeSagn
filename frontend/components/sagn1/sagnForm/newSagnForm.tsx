@@ -52,12 +52,12 @@ const NewSagnForm = ({className}:Props) => {
     setTags(list)
   }
   const onSubmit: SubmitHandler<Inputs> = (data) =>{
-    // Sjekk og varsel mot ekstermt kort tittel
+    // Sjekk og varsel mot ekstremt kort tittel
     if(data.title.trim() == "" || data.title.trim().length < 3){
       toast.error("Ops! Ser ut som du ikke har skrevet ferdig tittelen", getToastOptions(ToastType.colored, "fill title"));
       return 
     }
-    // Sjekk og varsel mot ekstermt kort tittel
+    // Sjekk og varsel mot ekstremt kort tittel
     if(storyText.trim().length < 20 || storyText.trim() == ""){
       toast.error("Ops! Sagnet er for kort, sikker på at du har skrive fgerdig?", getToastOptions(ToastType.colored, "fill text body"));
       return 
@@ -186,12 +186,6 @@ async function postSagn (data:Inputs, router: NextRouter ){
       console.log(res.status)
     }
   })
-  // .finally(() => {
-  //   toast.success("Sagn publisert", getToastOptions(ToastType.light, "succsessful post"))
-  //   router.push("/#")
-  // })
-  
-
 }
 
 export default NewSagnForm;

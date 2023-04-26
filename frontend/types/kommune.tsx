@@ -4,7 +4,7 @@ interface IKommune{
     kommunenavn: string;
     kommunenavnNorsk: string;
     kommunenummer: string;
-    stedsnavn: Stedsnavn[];
+    stedsnavnList: Stedsnavn[];
     fylkesnavn: string;
     fylkesnummer: string;
 }
@@ -13,7 +13,7 @@ export class Kommune implements IKommune{
     kommunenavn: string;
     kommunenavnNorsk: string;
     kommunenummer: string;
-    stedsnavn: Stedsnavn[];
+    stedsnavnList: Stedsnavn[];
     fylkesnavn: string;
     fylkesnummer: string;
 
@@ -21,7 +21,7 @@ export class Kommune implements IKommune{
         this.kommunenavn = kommunenavn;
         this.kommunenavnNorsk = kommunenavnNorsk;
         this.kommunenummer = kommunenummer;
-        this.stedsnavn = stedsnavn;
+        this.stedsnavnList = stedsnavn;
         this.fylkesnavn = fylkesnavn;
         this.fylkesnummer = fylkesnummer;
     }
