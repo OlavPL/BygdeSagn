@@ -2,6 +2,7 @@ import NewSagnForm from "@/components/sagn1/sagnForm/newSagnForm";
 import { useContext, useEffect } from "react"
 import { AppContext } from "./_app"
 
+
 const CreateSagn = () =>{
     const {title, setTitle} = useContext(AppContext);
     // const{data:session,status}= useSession({required:true});

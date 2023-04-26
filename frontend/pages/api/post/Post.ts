@@ -42,6 +42,19 @@ export default async function handler(
       const db = client.db("App_Db");
 
       let myPost = await db.collection(process.env.POST_COLLECTION!).insertOne(req.body);
+
+        const existsDocument = await db.collection("fylker").findOne({fylkenummer: req.body, dislikes: user});
+        if (existsDocument) {
+            const updateDocument = {
+                $pull: {
+                    dislikes: user
+                }
+            };
+            await db.collection(process.env.POST_COLLECTION!).updateOne({_id:id},updateDocument);
+            res.status(200).json({message: "User has already disliked this post"});
+            return;
+        }
+      await db.collection("fylker").updateOne()
       return res.status(200).json(myPost);
 
     } catch (e) {
