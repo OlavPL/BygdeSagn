@@ -5,9 +5,10 @@ import { toast } from 'react-toastify';
 import { ToastType, getToastOptions } from '@/components/controller/toastController';
 interface PostCommentProps {
   _id: string;
+  fetchComments: () => void;
 }
 
-const PostComment: React.FC<PostCommentProps> = ({_id }) => {
+const PostComment: React.FC<PostCommentProps> = ({_id, fetchComments}) => {
   const [userText, setUserText] = useState("")
   const session = useSession()
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -38,6 +39,7 @@ const PostComment: React.FC<PostCommentProps> = ({_id }) => {
       if(response.ok){
         const toastOptions = getToastOptions(ToastType.light, "Kommentar Pubisert");
         toast.success("Kommentar Publisert", toastOptions);
+        fetchComments();
       }
       if (!response.ok) {
         const toastOptions = getToastOptions(ToastType.light, "Kommentar ikke publisert");

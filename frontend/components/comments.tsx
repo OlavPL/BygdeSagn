@@ -21,24 +21,24 @@ const Comment = (props: CommentsProps) => {
   const [comments, setComments] = useState<CommentData[]>([]);
   const { data: session } = useSession();
 
-  useEffect(() => {
-    async function fetchComments() {
-      const response = await fetch(`/api/post/Post?_id=${props._id}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      const data = await response.json();
-    
-      if (data.comments === undefined || data.comments === null) {
-        setComments([]);
-      } else {
-        setComments(data.comments);
+  async function fetchComments() {
+    const response = await fetch(`/api/post/Post?_id=${props._id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
       }
+    });
+    const data = await response.json();
+  
+    if (data.comments === undefined || data.comments === null) {
+      setComments([]);
+    } else {
+      setComments(data.comments);
     }
+  }
+  useEffect(() => {
     fetchComments();
-  }, [props._id, comments]);
+  }, [props._id]);
 
   const handleToggleComment = () => {
     setShowComment(!showComment);
@@ -55,6 +55,7 @@ const Comment = (props: CommentsProps) => {
 
     if (response.ok) {
         setComments(comments.filter(comment => comment._id !== commentId));
+        fetchComments();
     } else {
         console.log(response);
     }
@@ -68,8 +69,9 @@ const Comment = (props: CommentsProps) => {
 
       {showComment && (
         <>
-          <PostComment
+          <PostComment 
               _id = {props._id}
+              fetchComments={fetchComments}
           />
           <ul className = "mt-4 space-y-4 text-lg">
             {(comments || []).map((comment: CommentData, index: number) => (
