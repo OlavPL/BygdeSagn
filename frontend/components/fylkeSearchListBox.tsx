@@ -64,14 +64,14 @@ const FylkeSortListBox = ({ handleChange, fylkeList, kommuneList, stedsnavnList,
     setQueriedPlaces(filteredPlaces)
   }
 
-  const handleSelect = (e: Fylke | Kommune | Stedsnavn) =>{
+  const handleSelect = (e: any) =>{
     setSelected(e)
     setQuery(e.fylkenavn != undefined ? e.fylkenavn : (e.kommunenavnNorsk != undefined ? e.kommunenavnNorsk : e.stedsnavn))
     handleChange(e)
   }
 
   const updateQuery = (e: string) => {
-    let filteredPlaces: (Fylke|Kommune|Stedsnavn)[] = Array<Fylke|Kommune|Stedsnavn>()
+    let filteredPlaces: (any)[] = Array<any>()
     const search = e.trimStart().toLowerCase()
 
     if(search.length < 1)
@@ -88,7 +88,7 @@ const FylkeSortListBox = ({ handleChange, fylkeList, kommuneList, stedsnavnList,
       filteredPlaces.push(kommune)
     })
 
-    stedsnavnList.forEach(sted => {
+    stedsnavnList.forEach((sted:Stedsnavn) => {
       if(sted.stedsnavn.toLowerCase().includes(search)) 
       filteredPlaces.push(sted)
     })
@@ -101,7 +101,7 @@ const FylkeSortListBox = ({ handleChange, fylkeList, kommuneList, stedsnavnList,
       <Combobox as={"div"} value={query} onChange={handleSelect} className={" relative "}>
         <Combobox.Input onChange={(event) => updateQuery(event.target.value)}  className={"m-0 rounded p-1"} />
         <Combobox.Options className={"absolute w-52 top-9 rounded-md bg-white shadow-md overflow-y-auto max-h-52"}>
-          {queriedPlaces.map((object:(Fylke|Kommune|Stedsnavn), index) => (
+          {queriedPlaces.map((object:(any), index) => (
             <Combobox.Option key={index} value={object} 
             className={"p-1 hover:bg-primary-50 hover:text-primary-900 ui-active:text-white ui-active ui-not-active:bg-white ui-not-active:text-black z-100"}
             >

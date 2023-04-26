@@ -49,7 +49,7 @@ export default async function handler(
           { fylkenummer: req.body.kommune.fylkesnummer },
           {
             $addToSet: {
-               "kommuner.$[kommune].stedsnavnList":  req.body.stedsnavn 
+               "kommuner.$[kommune].stedsnavnList":  {kommune:req.body.kommune.kommunenummer ,stedsnavn: req.body.stedsnavn}
             }
           },
           { arrayFilters: [ { "kommune.kommunenummer": req.body.kommune.kommunenummer } ] }
