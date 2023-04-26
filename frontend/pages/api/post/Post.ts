@@ -42,38 +42,18 @@ export default async function handler(
       const db = client.db("App_Db");
 
       let myPost = await db.collection(process.env.POST_COLLECTION!).insertOne(req.body);
+      console.log(req.body.kommune.fylkesnummer)
       if(req.body.stedsnavn){
-        
 
-
-        // const existsDocument = await db.collection("fylker").find({"kommuner": {"$elemMatch": {kommunenummer: req.body.kommune.kommunenummer, stedsnavnList: req.body.stedsnavn}}});
-        // const existsDocument = await db.collection("fylker").find({
-        //   "kommuner": {
-        //     "$elemMatch": {
-        //       "stedsnavnList": {
-        //         "$in": [req.body.stedsnavn]
-        //       }
-        //     }
-        //   }}).toArray()
-
-
-        // if (existsDocument.length === 0) {
-        //   console.log("Linebreak")
-        //   console.log("Stedsnavn Not Exists in kommune")
-        //   console.log("Linebreak")
-        //     const updateDocument = {
-        //         $push: {
-        //             stedsnavnList: req.body.stedsnavn
-        //         }
-        //     };
-            // await db.collection("fylker").updateOne({fylkenummer: req.body.fylkenummer},updateDocument);
-        }
-        else{
-          console.log("Linebreak")
-          // console.log("Stedsnavn Exist")
-          console.log(existsDocument)
-          console.log("Linebreak")
-        }
+        await db.collection("fylker").updateOne(
+          { fylkenummer: req.body.kommune.fylkesnummer },
+          {
+            $addToSet: {
+               "kommuner.$[kommune].stedsnavnList":  req.body.stedsnavn 
+            }
+          },
+          { arrayFilters: [ { "kommune.kommunenummer": req.body.kommune.kommunenummer } ] }
+        )
       }
       return res.status(200).json(myPost);
 

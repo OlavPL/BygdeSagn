@@ -170,6 +170,7 @@ async function postSagn (data:Inputs, router: NextRouter ){
       }),
     }
     
+    console.log(data.kommune)
     await fetch("api/post/Post", options).catch()
     .then((res)=>{
       if(res.status == 200){
