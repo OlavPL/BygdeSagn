@@ -42,19 +42,39 @@ export default async function handler(
       const db = client.db("App_Db");
 
       let myPost = await db.collection(process.env.POST_COLLECTION!).insertOne(req.body);
+      if(req.body.stedsnavn){
+        
 
-      //   const existsDocument = await db.collection("fylker").findOne({fylkenummer: req.body, dislikes: user});
-      //   if (existsDocument) {
-      //       const updateDocument = {
-      //           $pull: {
-      //               dislikes: user
-      //           }
-      //       };
-      //       await db.collection(process.env.POST_COLLECTION!).updateOne({_id:id},updateDocument);
-      //       res.status(200).json({message: "User has already disliked this post"});
-      //       return;
-      //   }
-      // await db.collection("fylker").updateOne()
+
+        // const existsDocument = await db.collection("fylker").find({"kommuner": {"$elemMatch": {kommunenummer: req.body.kommune.kommunenummer, stedsnavnList: req.body.stedsnavn}}});
+        // const existsDocument = await db.collection("fylker").find({
+        //   "kommuner": {
+        //     "$elemMatch": {
+        //       "stedsnavnList": {
+        //         "$in": [req.body.stedsnavn]
+        //       }
+        //     }
+        //   }}).toArray()
+
+
+        // if (existsDocument.length === 0) {
+        //   console.log("Linebreak")
+        //   console.log("Stedsnavn Not Exists in kommune")
+        //   console.log("Linebreak")
+        //     const updateDocument = {
+        //         $push: {
+        //             stedsnavnList: req.body.stedsnavn
+        //         }
+        //     };
+            // await db.collection("fylker").updateOne({fylkenummer: req.body.fylkenummer},updateDocument);
+        }
+        else{
+          console.log("Linebreak")
+          // console.log("Stedsnavn Exist")
+          console.log(existsDocument)
+          console.log("Linebreak")
+        }
+      }
       return res.status(200).json(myPost);
 
     } catch (e) {

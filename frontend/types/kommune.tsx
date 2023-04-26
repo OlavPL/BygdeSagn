@@ -1,5 +1,6 @@
 import { Stedsnavn } from "./stedsnavn";
 
+
 interface IKommune{
     kommunenavn: string;
     kommunenavnNorsk: string;
