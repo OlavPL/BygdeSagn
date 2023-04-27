@@ -74,7 +74,7 @@ const Header = () => {
               </Link>
           
               {/* USer Button */}
-              <Image src={picstring()} alt="" ref={menuButtonRef} width={40} height={0} className="rounded-full cursor-pointer mr-2"/>
+              <Image src={picstring()} alt="" onClick = {handleClick} ref={menuButtonRef} width={40} height={0} className="rounded-full cursor-pointer mr-2"/>
               <div
                 ref={menuContainerRef}
                 onClick = {handleClick}
