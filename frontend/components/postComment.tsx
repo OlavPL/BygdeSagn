@@ -27,6 +27,10 @@ const PostComment: React.FC<PostCommentProps> = ({_id, fetchComments}) => {
 
 
   const handleSubmit = async () => {
+    if(userText.length < 1) {
+      toast.error("Du må først skrive en kommentar.", getToastOptions(ToastType.light))
+      return
+    }
     try {
       const url = `/api/post/comments/comment/`;
       const options: RequestInit = {
@@ -36,6 +40,7 @@ const PostComment: React.FC<PostCommentProps> = ({_id, fetchComments}) => {
       };
       
       const response = await fetch(url, options);
+      
       if(response.ok){
         const toastOptions = getToastOptions(ToastType.light, "Kommentar Pubisert");
         toast.success("Kommentar Publisert", toastOptions);
@@ -56,8 +61,8 @@ const PostComment: React.FC<PostCommentProps> = ({_id, fetchComments}) => {
   return (
     <div className="mt-4 relative">
       <textarea
-        className="shadow-md appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline whitespace-pre-wrap break-words resize-none ${
-          isFocused ? 'border-blue-600 focus:border-blue-500 focus:ring-1' : 'border-black'"
+        className="shadow-md appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline whitespace-pre-wrap break-words resize-none 
+        ${isFocused ? 'border-blue-600 focus:border-blue-500 focus:ring-1' : 'border-black'"
         placeholder="Skriv melding ..."
         required maxLength={500}
         value={userText}
@@ -65,15 +70,11 @@ const PostComment: React.FC<PostCommentProps> = ({_id, fetchComments}) => {
         ref={textareaRef}
         onChange={handleInputChange}
         onClick={handleClick}
-        
-        
       ></textarea>
-
       <div className="flex justify-end items-center mt-2">
         <div className="text-center mr-3 text-xs text-gray-600">
           {userText.length}/500
         </div>
-        
         <button
           className="bg-secondary-500 hover:bg-green-500 text-white font-bold py-2 px-4 rounded"
           onClick={handleSubmit}

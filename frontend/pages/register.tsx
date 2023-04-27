@@ -38,7 +38,7 @@ const Register =()=> {
       toast.error("Venligst fyll ut alle felt", getToastOptions(ToastType.light, "error ikke fylt ut felt"))
       return
     }
-    if  (password.length<10 || repeatPassword.length<10) {
+    if  (password.length<10) {
       toast.error("Passord kan ikke være under 10 karakterer ", getToastOptions(ToastType.light, "lengde er kan ikke være under 10 "))
       return
     }
