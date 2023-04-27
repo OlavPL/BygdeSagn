@@ -5,10 +5,7 @@ import { toast } from 'react-toastify';
 import { ToastType, getToastOptions } from '@/components/controller/toastController';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope, faLock, faCheck, faTimes  } from '@fortawesome/free-solid-svg-icons';
-import path from 'path';
-import dotenv from 'dotenv';
 
-dotenv.config({ path: path.join(__dirname, '../.env') });
 
 const Register =()=> {
   const [username, setUsername] = useState('')
@@ -41,9 +38,13 @@ const Register =()=> {
       toast.error("Venligst fyll ut alle felt", getToastOptions(ToastType.light, "error ikke fylt ut felt"))
       return
     }
+    if  (password.length<10 || repeatPassword.length<10) {
+      toast.error("Passord kan ikke være under 10 karakterer ", getToastOptions(ToastType.light, "lengde er kan ikke være under 10 "))
+      return
+    }
 
     if(password !== repeatPassword) {
-      toast.error("Passord er ikke like", getToastOptions(ToastType.light, "error passord stemmer ikke overens"))
+      toast.error("Passord er ikke like", getToastOptions(ToastType.light,"Passord stemmer ikke overens"))
       return
     }
 
@@ -52,7 +53,7 @@ const Register =()=> {
       "password": password,
       "email":email,
       "created": {
-        "$date": new Date().setUTCHours(new Date().getUTCHours() + 1)
+        "$date": new Date(new Date().setUTCHours(new Date().getUTCHours() + 1))
       },
     }
     const options:RequestInit={
@@ -68,7 +69,7 @@ const Register =()=> {
 
     if (response.ok) {
       router.push('/login'); 
-      toast.success("Registrering fullført", getToastOptions(ToastType.light, "brukerRegistrering fullført"))
+      toast.success("Registrering fullført", getToastOptions(ToastType.light, "BrukerRegistrering fullført"))
     } else {
       alert('Registration failed')
     }

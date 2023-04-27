@@ -3,6 +3,7 @@ import SimpleCrypto from "simple-crypto-js";
 import { NextApiRequest, NextApiResponse } from "next";
 import dotenv from "dotenv";
 import { ObjectId } from "mongodb";
+import validator from 'validator';
 
 dotenv.config();
 
@@ -20,6 +21,15 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
       const simpleCrypto = new SimpleCrypto(SECRET_KEY);
       const encryptedPassword = simpleCrypto.encrypt(bodyObject.password);
       bodyObject.password = encryptedPassword;
+
+      // Validation
+      if (!validator.isEmail(bodyObject.email)) {
+        return res.status(400).json({ error: "Invalid email" });
+      }
+
+      if (!validator.isStrongPassword(bodyObject.password)) {
+        return res.status(400).json({ error: "Password must be at least 8 characters long and contain a combination of uppercase and lowercase letters, numbers, and symbols" });
+      }
 
       const myPost = await db.collection("users").insertOne(bodyObject);
       res.status(200).json(myPost);
@@ -48,6 +58,20 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
           password: req.body.password
         }
       };
+      
+      // Validation
+      if (!validator.isMongoId(id)) {
+        return res.status(400).json({ error: "Invalid ID" });
+      }
+
+      if (req.body.email && !validator.isEmail(req.body.email)) {
+        return res.status(400).json({ error: "Invalid email" });
+      }
+
+      if (req.body.password && !validator.isStrongPassword(req.body.password)) {
+        return res.status(400).json({ error: "Password must be at least 8 characters long and contain a combination of uppercase and lowercase letters, numbers, and symbols" });
+      }
+
       const result = await db.collection("users").updateOne({user_id: new ObjectId(id)}, updateDocument);
       res.status(200).json(`Document Updated, id: ${id}`);
       console.log("User updated");
