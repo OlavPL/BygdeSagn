@@ -81,13 +81,17 @@ const Comment = (props: CommentsProps) => {
                 </div>
                 <span>{comment.text}</span>
                 {session?.user?.name === comment.owner && (
-                  <button
-                    className="mt-2 text-sm font-medium text-red-500 ml-auto"
-                    onClick={() => handleDeleteComment(comment._id)}
-                  >
-                    Delete
-                  </button>
-                )}
+                <button
+                  className="mt-2 text-sm font-medium text-red-500 ml-auto"
+                  onClick={() => {
+                    if (window.confirm('Er du sikker på at du vil slette meldingen?')) {
+                      handleDeleteComment(comment._id);
+                    }
+                  }}
+                >
+                  Delete
+                </button>
+              )}
             </li>
             ))}
           </ul>
