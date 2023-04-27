@@ -77,6 +77,7 @@ const Header = () => {
               <Image src={picstring()} alt="" ref={menuButtonRef} onClick={handleClick} width={40} height={0} className="rounded-full cursor-pointer mr-2"/>
               <div
                 ref={menuContainerRef}
+                onClick = {handleClick}
                 className={`origin-top-right absolute right-0 top-2 mt-14 w-40 rounded-md shadow-lg bg-white menu-container z-10 ${
                   showMenu ? 'block' : 'hidden'
                 }`}
