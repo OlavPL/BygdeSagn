@@ -27,7 +27,6 @@ export type SortValue = {
 
 class SagnListController {
     sagnList: Sagn[]
-    sagnListFiltered: Sagn[]
     sortType: SortValue 
     sortObjects: SortValue[]
 
@@ -41,34 +40,33 @@ class SagnListController {
         
       })
       this.sagnList = newData;
-      this.sagnListFiltered = this.sagnList
       this.sortType = sortChoises[2]
       this.sortObjects = sortChoises
     }
 
-     sortSagn(sortType: SortTypes): Sagn[] {
+     sortSagn(sagnList: Sagn[] ,sortType: SortTypes): Sagn[] {
       switch(sortType){
           case SortTypes.LIKES_DESC:{
-            return this.sagnListFiltered.slice().sort((a, b) => b.likes.length - a.likes.length);
+            return sagnList.slice().sort((a, b) => b.likes.length - a.likes.length);
           }
           case SortTypes.LIKES_ASC:{
-            return this.sagnListFiltered.slice().sort((a, b) => a.likes.length - b.likes.length);
+            return sagnList.slice().sort((a, b) => a.likes.length - b.likes.length);
           }
           case SortTypes.POST_DATE_DESC:{
-            return this.sagnListFiltered.slice().sort((a, b) => b.postedAt - a.postedAt);
+            return sagnList.slice().sort((a, b) => b.postedAt - a.postedAt);
           }
           case SortTypes.POST_DATE_ASC:{
-            return this.sagnListFiltered.slice().sort((a, b) => a.postedAt - b.postedAt);
+            return sagnList.slice().sort((a, b) => a.postedAt - b.postedAt);
           }
           case SortTypes.HAPPENING_DATE_DESC:{
-            return this.sagnListFiltered.slice().sort((a, b) => (b.happenedAt? b.happenedAt : 0)  - (a.happenedAt? a.happenedAt : 0));
+            return sagnList.slice().sort((a, b) => (b.happenedAt? b.happenedAt : 0)  - (a.happenedAt? a.happenedAt : 0));
           }
           case SortTypes.HAPPENING_DATE_ASC:{
-            return this.sagnListFiltered.slice().sort( (a, b) => (a.happenedAt? a.happenedAt : 0)  - (b.happenedAt? b.happenedAt : 0));
+            return sagnList.slice().sort( (a, b) => (a.happenedAt? a.happenedAt : 0)  - (b.happenedAt? b.happenedAt : 0));
           }
-          default: this.sagnListFiltered
+          default: sagnList
       }
-      return this.sagnList
+      return sagnList
     }
 }
 

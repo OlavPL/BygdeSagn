@@ -32,7 +32,7 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
   const [query, setQuery] = useState<(string)>("")
 
   useEffect(() => {
-    setList(sagnListController.sortSagn(sagnListController.sortType.type))
+    // setList(sagnListController.sortSagn(sagnListController.sagnList, sagnListController.sortType.type))
       
     setTitle("Velkommen til Bygdesagn ™")
   }, [sagnListController, setTitle])
@@ -60,29 +60,23 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
           })
         }
       })
-      setList(filteredSagn)
 
     }
     else if (value.kommunenummer != null) {
       sagnListController.sagnList.forEach( post => {
         if( post.kommune.kommunenummer === value.kommunenummer ) {
-          filteredSagn.push( post )
         }
       })
-      setList(filteredSagn)
     }
-
     else if (value.stedsnavn != null ){
       sagnListController.sagnList.forEach( post => {
         if( post.stedsnavn === value.stedsnavn ) {
           filteredSagn.push( post )
         }
       })
-      setList(filteredSagn)
     }
-
-    // if(filterSagn.length > 0)
-    //   setList( sagnListController.sortSagn(filteredSagn) )
+    
+    setList(sagnListController.sortSagn(filteredSagn, sagnListController.sortType.type))
   }
 
   return (
@@ -93,8 +87,8 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
                       <FontAwesomeIcon icon={faLocationDot} />
                   </span>
                   <FylkeSortListBox 
-                    className="grow my-auto rounded-l-none bg-primary-100 focus:outline-none border-l-0 rounded placeholder-textColor" 
-                    // filterSagn = {filterSagn}
+                    className="grow my-auto rounded-l-none focus:outline-none border-l-0 rounded placeholder-textColor " 
+                    placeholder='Søk på sted...'
                     fylkeList={fylkeList}
                     kommuneList={kommuneList}
                     stedsnavnList={stedsnavnList}
@@ -112,7 +106,14 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
                   <h2 className="text-lg font-bold text-center">
                       Nyeste Innlegg
                   </h2>
-                  <SagnSortListBox className= "place-self-end mr-2" sagnListController={sagnListController} updateList={(e:SortTypes) => setList(sagnListController.sortSagn(e))}/>
+                  <SagnSortListBox 
+                    className= "place-self-end" 
+                    sagnListController={sagnListController} 
+                    updateList={(e:SortTypes) => {
+                      sagnListController.sortType = 
+                      setList(sagnListController.sortSagn(list, e))
+                    }}
+                  />
                   <div className={`flex flex-col w-full mt-3 p-2 gap-3 sm:gap-x-5 items-center `}>
                       {list.map((sagn: Sagn, index) => (
                           <SagnCard
@@ -129,14 +130,12 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
 }
 
 export async function getServerSideProps() {
-
   interface FylkeI extends WithId<Document>{
     document: WithId<Document>
     &{
       fylke:Fylke
     }
   }
-
   try {
       const client = await clientPromise;
       const db = client.db("App_Db");
