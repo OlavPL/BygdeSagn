@@ -19,7 +19,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
                 }
             };
             await db.collection(process.env.POST_COLLECTION!).updateOne({_id:id},updateDocument);
-            res.status(200).json({message: "User has already liked this post"});
+            res.status(201).json({message: "User has already liked this post"});
             return;
         }
         

@@ -18,12 +18,31 @@ interface Props {
 const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
     const [_likes, setLikes] = useState<AppUser[]>(likes)
     const [_dislikes, setDislikes] = useState<AppUser[]>(dislikes)
+    const [userLikeStatus, setUserLikeStatus] = useState<number>()
     const session = useSession();
 
     useEffect(() => {
-      setLikes(likes)
-      setDislikes(dislikes)
-    }, [dislikes, likes])
+        if(userLikeStatus === undefined){
+            let hasInteracted = false
+            likes.forEach(like => {
+                if(like.email === session.data?.user?.email){
+                    hasInteracted = true
+                    setUserLikeStatus(1)
+                }
+            })
+            if(hasInteracted === false){
+                dislikes.forEach(dislike => {
+                    if(dislike.email === session.data?.user?.email){
+                        hasInteracted = true
+                        setUserLikeStatus(-1)
+                    }
+                })
+            }
+        }
+
+        setLikes(likes)
+        setDislikes(dislikes)
+    }, [dislikes, likes, session.data?.user?.email, userLikeStatus])
     
     
     const addLike = async () => {
@@ -44,9 +63,12 @@ const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
             }),
         }
         await fetch("/api/post/likes/like",options).catch()
-        // .then((res)=>{
-            
-        // })
+        .then((res)=>{
+            if(res.status === 200)
+                setUserLikeStatus(1)
+            else if(res.status === 201)
+                setUserLikeStatus(0)
+        })
 
         await fetch(`/api/post/Post?_id=${_id}`).catch()
         .then((res) => res.json())
@@ -70,6 +92,12 @@ const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
             }),
         }
         await fetch("/api/post/likes/dislike",options).catch()
+        .then((res)=>{
+            if(res.status === 200)
+                setUserLikeStatus(-1)
+            else if(res.status ===201)
+                setUserLikeStatus(0)
+        })
         
         await fetch(`/api/post/Post?_id=${_id}`).catch()
         .then((res) => res.json())
@@ -81,12 +109,18 @@ const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
 
     return (
     <div className={`flex flex-row ${className}`} >
-        <button onClick={addLike} className="flex flex-row w-20 py-1 place-content-center self-center hover:bg-emphasis-200 rounded-l-full border-2 border-slate-500">
-            <FontAwesomeIcon icon={faThumbsUp} className={"ml-3 fa-lg"} width={20} height={10} />
+        <button onClick={addLike} className="flex flex-row w-20 py-1 place-content-center self-center hover:bg-primary-200 rounded-l-full border-2 border-slate-500">
+            <FontAwesomeIcon 
+                icon={faThumbsUp} 
+                className={`ml-3 fa-lg ${userLikeStatus! > 0 ? "text-primary-500" : "text-textColor"}`} 
+            />
             <div className=" text-center px-2 ">{_likes.length}</div>
         </button>
-        <button onClick={addDislike} className="flex flex-row w-20 py-1 place-content-center self-center hover:bg-emphasis-200 rounded-r-full border-l-0 border-2 border-slate-500">
-            <FontAwesomeIcon icon={faThumbsDown} className={"fa-lg place-self-end"} />
+        <button onClick={addDislike} className="flex flex-row w-20 py-1 place-content-center self-center hover:bg-red-200 rounded-r-full border-l-0 border-2 border-slate-500">
+            <FontAwesomeIcon 
+                icon={faThumbsDown} 
+                className={`fa-lg place-self-end ${userLikeStatus! < 0 ? "text-emphasis-600" : "text-textColor"}`} 
+            />
             <div className=" text-center px-2 ">{_dislikes.length}</div>
         </button>
     </div>
