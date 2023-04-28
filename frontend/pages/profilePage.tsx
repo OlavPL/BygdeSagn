@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useSession, signOut, getSession } from 'next-auth/react';
 import Image from 'next/image';
 import { AppContext } from '@/pages/_app';
-import SagnListController, { SortTypes } from '@/components/controller/sagnListController';
+import SagnListController, { SortType } from '@/components/controller/sagnListController';
 import Sagn from '@/objects/sagn';
 
 import { faAnglesDown } from '@fortawesome/free-solid-svg-icons';
@@ -103,8 +103,8 @@ const ProfilePageNew = () => {
   const [isLoading, setLoading] = useState(false);
   const { title, setTitle } = useContext(AppContext);
 
-  const updateList = (e: SortTypes) => {
-    setList(sagnListController.sortSagn(e));
+  const updateList = (e: SortType) => {
+    setList(sagnListController.sortSagn(list,e));
   };
 
   useEffect(() => {
@@ -116,7 +116,7 @@ const ProfilePageNew = () => {
       .then((data) => {
         let slc = new SagnListController(data);
         setListController(slc);
-        setList(slc.sortSagn(slc.sortType.type));
+        setList(slc.sortSagn(slc.sagnList, slc.sortType));
         setLoading(false);
         setTitle("ProfilSide")
       })

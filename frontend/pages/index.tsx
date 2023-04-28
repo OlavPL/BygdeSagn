@@ -8,7 +8,7 @@ import Sagn, { SagnJSON } from "@/objects/sagn"
 import { AppContext } from "@/pages/_app"
 import SagnCard from '@/components/sagn1/sagnCard/sagnCard'
 import clientPromise from '@/lib/mongodb'
-import { Document, ObjectId, WithId } from 'mongodb'
+import { Document, WithId } from 'mongodb'
 import { Kommune } from '@/types/kommune'
 import FylkeSortListBox from '@/components/fylkeSearchListBox'
 import SagnSortListBox from '@/components/sagnSortListBox'
