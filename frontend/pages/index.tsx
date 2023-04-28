@@ -35,7 +35,7 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
 
   useEffect(() => {
     if(currentSagnList === undefined)
-      setCurrentSagnList(sagnList)
+      setCurrentSagnList(sagnListController.sortSagn(sagnList, sagnListController.sortType))
       
     setTitle("Velkommen til Bygdesagn ™")
   }, [currentSagnList, sagnList, sagnListController, setTitle])
