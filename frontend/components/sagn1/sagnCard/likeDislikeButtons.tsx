@@ -3,7 +3,7 @@ import { faThumbsUp, faThumbsDown } from "@fortawesome/free-regular-svg-icons"
 import {useSession, signIn, signOut,getSession} from 'next-auth/react'
 import { Session, User } from "next-auth";
 import AppUser from "@/types/AppUser";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ToastOptions, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastType, getToastOptions } from "@/components/controller/toastController";
@@ -16,9 +16,15 @@ interface Props {
 }
 
 const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
-    const [_likes, setLikes] = useState<AppUser[]>(likes )
+    const [_likes, setLikes] = useState<AppUser[]>(likes)
     const [_dislikes, setDislikes] = useState<AppUser[]>(dislikes)
     const session = useSession();
+
+    useEffect(() => {
+      setLikes(likes)
+      setDislikes(dislikes)
+    }, [dislikes, likes])
+    
     
     const addLike = async () => {
         if(session.data == null ){

@@ -2,31 +2,30 @@ import { useContext, useState } from 'react'
 import { Listbox } from '@headlessui/react'
 import { faArrowRight, faArrowsUpDown, faCheck, faSortAmountAsc } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import SagnListController, { SortTypes } from './controller/sagnListController';
-import { SortValue } from './controller/sagnListController';
+import SagnListController, { SortType, sortChoises } from './controller/sagnListController';
 
 interface Props{
   sagnListController: SagnListController
-  updateList: (e: SortTypes) => void
+  updateList: (e: SortType) => void
   className?: string
 }
 
 const SagnSortListBox = ({sagnListController, updateList, className}: Props ) => {
   const [selected, setSelected] = useState(sagnListController.sortType)
   
-  const handleChange = (e: SortValue) =>{
+  const handleChange = (e: SortType) =>{
     setSelected(e)
-    updateList(e.type)
+    updateList(e)
   }
 
 
   return (
-    <Listbox as="div" value={selected} by="id" onChange={(e:SortValue) => {handleChange(e)}}
+    <Listbox as="div" value={selected} by="id" onChange={(e:SortType) => {handleChange(e)}}
       className={`${className} w-44 py-1 rounded-md space-y-2 bg-primary-100 justify-center shadow-md z-1  hover:bg-primary-400`}
     >
       <Listbox.Button className="flex w-full items-center relative">
         <span className='px-2 truncate'>
-          {selected.type}
+          {selected}
         </span>
         <span className="absolute inset-y-0 right-0 flex items-center pr-2">
           <FontAwesomeIcon icon={faSortAmountAsc} className="h-10 w-10"/>
@@ -34,10 +33,10 @@ const SagnSortListBox = ({sagnListController, updateList, className}: Props ) =>
       </Listbox.Button>
 
       <Listbox.Options className="flex flex-col w-44 absolute rounded-md bg-white shadow-md">
-        {sagnListController.sortObjects.map((sort) => (
+        {sortChoises.map((sort) => (
           <Listbox.Option 
             key={sort.id}
-            value={sort}
+            value={sort.type}
             className="hover:bg-primary-50 hover:text-primary-900 ui-active:text-white ui-active ui-not-active:bg-white ui-not-active:text-black"
           >
 
@@ -46,7 +45,7 @@ const SagnSortListBox = ({sagnListController, updateList, className}: Props ) =>
               <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                 { selected && <FontAwesomeIcon icon={faArrowRight} /> }
               </span>
-              <span className='truncate'>{sort.type}</span>
+              <span className='truncate'>{sort.text}</span>
             </div>
           )}
 
