@@ -30,7 +30,7 @@ const TagsDropBox = ({list, handleTag, className, propText, propTextEmpty}: Prop
 
   return (
     <Listbox as="div" value={selected} by="id" onChange={(e:Tag) => {handleChange(e)}}
-      className={`${className} w-44 p-2 rounded-md space-y-2 bg-primary-200 shadow-md relative`}
+      className={`${className} w-44 p-2 rounded-md space-y-2 duration-300 bg-primary-200 hover:bg-primary-400 shadow-md relative`}
     >
       <Listbox.Button className="flex w-full items-center relative">
         <span className='px-2 truncate'>

@@ -159,7 +159,7 @@ const ProfilePageNew = () => {
 
       <div className="mt-5 mx-auto content-center">
         <div className="flex flex-col md:max-w-screen-lg justify-center">
-        <h2 className="text-lg font-bold text-center cursor-pointer text-blue-600 hover:text-primary-200 transition-all duration-300 ease-in-out" onClick={handleClick}>
+        <h2 className="text-lg font-bold text-center cursor-pointer text-blue-600 hover:text-primary-200 transition-all duration-300 ease-in-out select-none" onClick={handleClick}>
           <FontAwesomeIcon icon={expanded ? faAngleUp : faAngleDown} />
           Dine Innlegg
         </h2> 

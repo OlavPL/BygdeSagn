@@ -46,10 +46,12 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
   }
 
 
-  // tar inn Fylke/ Kommune/ Stedsnavn og filtrerer deretter
+    // Sjekker om objektet har spesifikke verdier for å sjekke type og sortere, 
+    // siden metoden kan motta tre forskjellige objekttyper (Fylke, Kommune og Stedsnavn)
   const filterSagn = async (value:any ) => {
     
     let filteredSagn = Array<Sagn>()
+
 
     if(value.fylkenavn != null){
       fylkeList.forEach((fylke: Fylke) =>{
@@ -110,7 +112,7 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
                       Nyeste Innlegg
                   </h2>
                   <SagnSortListBox 
-                    className= "place-self-end" 
+                    className= "place-self-end mr-2" 
                     sagnListController={sagnListController} 
                     updateList={(e:SortType) => {
                       sagnListController.sortType = e
