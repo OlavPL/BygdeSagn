@@ -2,7 +2,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import SagnListController, { SortTypes } from '@/components/controller/sagnListController'
+import SagnListController, { SortType } from '@/components/controller/sagnListController'
 import { useState, useEffect, useContext } from 'react'
 import Sagn, { SagnJSON } from "@/objects/sagn"
 import { AppContext } from "@/pages/_app"
@@ -26,25 +26,28 @@ interface ServersideProps {
 
 const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps) => {
   const [sagnListController, setListController] = useState(new SagnListController(sagnList))
-  const [list, setList] = useState<Sagn[]>(Array())
-  const [isLoading, setLoading] = useState(false)
+
+  // list: Nåverende og stadig oppdatert liste av sagn som skal vises
+  const [currentSagnList, setCurrentSagnList] = useState<Sagn[]>()
+  const [searchQuery, setSearchQuery] = useState<(string)>("")
+
   const {title, setTitle} = useContext(AppContext);  
-  const [query, setQuery] = useState<(string)>("")
 
   useEffect(() => {
-    // setList(sagnListController.sortSagn(sagnListController.sagnList, sagnListController.sortType.type))
+    if(currentSagnList === undefined)
+      setCurrentSagnList(sagnList)
       
     setTitle("Velkommen til Bygdesagn ™")
-  }, [sagnListController, setTitle])
+  }, [currentSagnList, sagnList, sagnListController, setTitle])
 
   const resetSearch = () => {
-    setList(sagnListController.sagnList)
-    setQuery("")
+    setCurrentSagnList(sagnListController.sagnList)
+    setSearchQuery("")
   }
 
 
-
-  const filterSagn = async (value:any) => {
+  // tar inn Fylke/ Kommune/ Stedsnavn og filtrerer deretter
+  const filterSagn = async (value:any ) => {
     
     let filteredSagn = Array<Sagn>()
 
@@ -76,7 +79,7 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
       })
     }
     
-    setList(sagnListController.sortSagn(filteredSagn, sagnListController.sortType.type))
+    setCurrentSagnList(sagnListController.sortSagn(filteredSagn, sagnListController.sortType))
   }
 
   return (
@@ -93,8 +96,8 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
                     kommuneList={kommuneList}
                     stedsnavnList={stedsnavnList}
                     handleChange={filterSagn}
-                    query={query}
-                    setQuery={setQuery}
+                    query={searchQuery}
+                    setQuery={setSearchQuery}
                   />
                   {/* <input className="grow rounded-l-none bg-primary-100 focus:outline-none border-l-0 rounded placeholder-textColor " placeholder='Søk på sted...'/> */}
               <button className='p-1 mx-2 my-auto rounded bg-primary-300 hover:bg-primary-500 drop-shadow-m' onClick={resetSearch}>Nullstill</button>
@@ -109,13 +112,13 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
                   <SagnSortListBox 
                     className= "place-self-end" 
                     sagnListController={sagnListController} 
-                    updateList={(e:SortTypes) => {
-                      sagnListController.sortType = 
-                      setList(sagnListController.sortSagn(list, e))
+                    updateList={(e:SortType) => {
+                      sagnListController.sortType = e
+                      setCurrentSagnList(sagnListController.sortSagn(currentSagnList === undefined? sagnList : currentSagnList , e))
                     }}
                   />
                   <div className={`flex flex-col w-full mt-3 p-2 gap-3 sm:gap-x-5 items-center `}>
-                      {list.map((sagn: Sagn, index) => (
+                      {currentSagnList?.map((sagn: Sagn, index) => (
                           <SagnCard
                               sagn={sagn}
                               key={index}
@@ -130,12 +133,6 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
 }
 
 export async function getServerSideProps() {
-  interface FylkeI extends WithId<Document>{
-    document: WithId<Document>
-    &{
-      fylke:Fylke
-    }
-  }
   try {
       const client = await clientPromise;
       const db = client.db("App_Db");
