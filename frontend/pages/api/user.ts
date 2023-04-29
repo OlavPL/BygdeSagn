@@ -45,9 +45,17 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
       res.status(200).json(user);
       //Delete User
     } else if (req.method === "DELETE") {
-      const myPost = await db.collection("users").deleteOne({name:req.body.name});
-      res.status(200).json(myPost);
-      console.log(myPost);
+      try {
+        const user = await db.collection("users").deleteOne({name: req.body.name});
+        if (user.deletedCount === 1) {
+          res.status(200).json({ message: `User ${req.body.name} has been deleted` });
+        } else {
+          res.status(404).json({ error: `User ${req.body.name} not found` });
+        }
+      } catch (error) {
+        console.error('Error deleting user:', error);
+        res.status(500).json({ error: 'Server error deleting user' });
+      }
       //Update User
     } else if (req.method === "PUT") {
       const id = req.body.user_id;

@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '@/pages/_app';
+import Link from 'next/link';
 
 interface FaqData {
   question: string;
@@ -22,10 +23,6 @@ const Faq: NextPage = () => {
       {
         question: 'Hvem er eierne av BygdeSagn?',
         answer: 'Bygde Sagn er laget og eid av Herman Simonsen, Olav Pålerud Lille-Østerholt og John Ivar Lilleøren Hagene. ',
-      },
-      {
-          question: 'Jeg ønsker å slette brukeren min, hvordan gjør jeg dette?',
-          answer: 'Det er leit å høre at du ønsker å slette brukeren din, her er lenke: LINK HER ',
       },
       {
           question: 'Hvordan bruker dere cookies?',
