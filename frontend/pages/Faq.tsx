@@ -12,7 +12,7 @@ const Faq: NextPage = () => {
 
     const faqData: FaqData[] = [
       {
-        question: 'Hva slags type lagrer dere og hva brukes den til?',
+        question: 'Hva slags type informasjon lagrer dere og hva brukes den til?',
         answer: "Vi lagrer all informasjon som blir fylt inn når et sagn blir publisert, publiserte kommentarer og brukerens passord, epost og fornavn. Vi bruker sagn dataen for å kunne dele sagnene dine med resten av verden, bruker data brukes kun til å drifte tjenesten og selges ikke videre til tredjepart",
       },
       {
@@ -26,13 +26,17 @@ const Faq: NextPage = () => {
       {
           question: 'Jeg ønsker å slette brukeren min, hvordan gjør jeg dette?',
           answer: 'Det er leit å høre at du ønsker å slette brukeren din, her er lenke: LINK HER ',
-        },
+      },
+      {
+          question: 'Hvordan bruker dere cookies?',
+          answer: "Vi bruker cookies til å huske innloggingsinformasjon og preferanser for å gjøre det lettere å bruke tjenesten vår. Du kan velge å blokkere eller slette cookies gjennom nettleserinnstillingene dine.",
+      },
     ];
   
     const [dropdownIndex, setDropdownIndex] = useState(-1);
     
     useEffect(() => {
-      setTitle("Faq");
+      setTitle("FAQ");
     }, [setTitle]);
     
     return (
