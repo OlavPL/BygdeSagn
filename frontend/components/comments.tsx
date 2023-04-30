@@ -89,7 +89,7 @@ const Comment = (props: CommentsProps) => {
                     }
                   }}
                 >
-                  Delete
+                  Slett
                 </button>
               )}
             </li>
