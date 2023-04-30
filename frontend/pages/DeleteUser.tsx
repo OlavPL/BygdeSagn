@@ -10,16 +10,19 @@ const DeleteUser: NextPage = () => {
   const { data: session } = useSession({ required: true });
   const handleDeleteUser = async () => {    
     try {
-      const response = await fetch('/api/users', {
+      const email = session?.user?.email  
+      const response = await fetch('/api/user', {
         method: 'DELETE',
-        body: JSON.stringify({ name:session?.user?.name }),
+        body: JSON.stringify({ "email":email}),
         headers: {
           'Content-Type': 'application/json'
         },
         credentials: 'include',
       });
       if (response.ok) {
-        router.push('/');
+        await router.push('/');
+        await  signOut()
+        
       } else {
         console.error('Error deleting user:', response.statusText);
       }
