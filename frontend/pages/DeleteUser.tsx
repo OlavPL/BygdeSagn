@@ -29,7 +29,7 @@ const DeleteUser: NextPage = () => {
   };
   
   useEffect(() => {
-    setTitle('Delete User');
+    setTitle('Slett bruker');
   }, [setTitle]);
 
   return (

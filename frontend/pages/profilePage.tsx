@@ -169,6 +169,12 @@ const ProfilePageNew = () => {
           )}
         </div>
       </div>
+       <a href="/DeleteUser">
+        <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full mt-5 mb-3 border-b-4 border-red-700">
+         Slett Bruker
+       </button>
+      </a>
+
     </div>
   )
 }
