@@ -43,11 +43,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
         .sort({ metacritic: -1 })
         .toArray();
       res.status(200).json(user);
-      //Delete User
-    } else if (req.method === "DELETE") {
-      const myPost = await db.collection("users").deleteOne({name:req.body.name});
-      res.status(200).json(myPost);
-      console.log(myPost);
+      
       //Update User
     } else if (req.method === "PUT") {
       const id = req.body.user_id;
@@ -75,8 +71,40 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
       const result = await db.collection("users").updateOne({user_id: new ObjectId(id)}, updateDocument);
       res.status(200).json(`Document Updated, id: ${id}`);
       console.log("User updated");
+
+      // Delete User
+    } else if (req.method === "DELETE") {
+      const email = req.body.email;
+      
+      // Find user by email
+      const user = await db.collection("users").findOneAndDelete({email});
+      
+      if (user) {
+        // Delete all posts by user
+        await db.collection("posts").deleteMany({owner: email});
+        
+        // Delete all comments by user
+        const posts = await db.collection(process.env.POST_COLLECTION!).find({ "comments.owner.email": email }).toArray();
+
+        for (const post of posts) {
+          await db.collection(process.env.POST_COLLECTION!).updateOne({ _id: post._id }, { $pull: { comments: { owner: { email } } } });
+        }
+      
+      if (posts) {
+        console.log(`Deleted ${posts} comments by user ${email}`);
+      } else {
+        console.log(`No comments found for user ${email}`);
+      }
+      
+        
+        
+        res.status(200).json({ message: `User ${email} and all related posts and comments have been deleted` });
+      } else {
+        res.status(404).json({ error: `User ${email} not found` });
+      }
+      console.log("User and related posts and comments deleted");
     }
   } catch (e) {
     console.error(e);
   }
-}
+};

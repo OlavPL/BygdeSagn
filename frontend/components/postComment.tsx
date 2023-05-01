@@ -27,36 +27,43 @@ const PostComment: React.FC<PostCommentProps> = ({_id, fetchComments}) => {
 
 
   const handleSubmit = async () => {
-    if(userText.length < 1) {
-      toast.error("Du må først skrive en kommentar.", getToastOptions(ToastType.light))
-      return
+    if (!session.data?.user) {
+      toast.error("Du må være logget inn for å legge til en kommentar", getToastOptions(ToastType.light));
+      return;
     }
+  
+    if (userText.length < 1) {
+      toast.error("Du må først skrive en kommentar", getToastOptions(ToastType.light));
+      return;
+    }
+  
     try {
       const url = `/api/post/comments/comment/`;
       const options: RequestInit = {
         headers: { 'Content-Type': 'application/json' },
         method: 'PUT',
-        body: JSON.stringify({ "_id": _id,comment: { text: userText, user: { name:session.data?.user?.name, email: session.data?.user?.email} } }),
+        body: JSON.stringify({ "_id": _id, comment: { text: userText, user: { name: session.data?.user?.name, email: session.data?.user?.email } } }),
       };
-      
+        
       const response = await fetch(url, options);
-      
-      if(response.ok){
-        const toastOptions = getToastOptions(ToastType.light, "Kommentar Pubisert");
-        toast.success("Kommentar Publisert", toastOptions);
+        
+      if (response.ok) {
+        const toastOptions = getToastOptions(ToastType.light, "Comment posted");
+        toast.success("Comment posted", toastOptions);
         fetchComments();
       }
       if (!response.ok) {
-        const toastOptions = getToastOptions(ToastType.light, "Kommentar ikke publisert");
-        toast.success("Kommentar ble ikke publsiert", toastOptions);
+        const toastOptions = getToastOptions(ToastType.light, "Comment not posted");
+        toast.success("Comment not posted", toastOptions);
         throw new Error(`Failed to post comment: ${response.statusText}`);
       }
-      
+        
       setUserText("");
     } catch (error) {
       console.error(`Failed to post comment`);
     }
   };
+  
   
   return (
     <div className="mt-4 relative">
