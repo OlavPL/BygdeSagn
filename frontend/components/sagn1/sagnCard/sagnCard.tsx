@@ -17,7 +17,7 @@ const SagnCard = ({sagn}: Props) => {
                     <h1 className="font-semibold text-lg">{sagn.title}</h1>
                 </Link>
                 <div className="flex-row space-x-3 hidden md:flex">
-                    <CardTags tags={sagn.tags}/>
+                    <CardTags tags={sagn.tags} minimize={true}/>
                     <LikeDislikeButtons likes={sagn.likes} dislikes={sagn.dislikes} _id = {sagn._id}/>
                 </div>
             </div>
