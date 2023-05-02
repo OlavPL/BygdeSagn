@@ -81,7 +81,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
       
       if (user) {
         // Delete all posts by user
-        await db.collection("posts").deleteMany({owner: email});
+        await db.collection(process.env.POST_COLLECTION!).deleteMany({"owner.email": email});
         
         // Delete all comments by user
         const posts = await db.collection(process.env.POST_COLLECTION!).find({ "comments.owner.email": email }).toArray();

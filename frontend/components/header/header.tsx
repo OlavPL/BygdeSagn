@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome';
-import { faArrowRightFromBracket, faKey, faPen, faQuestionCircle, faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faCookie, faKey, faPen, faQuestionCircle, faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons';
 import { AppContext } from '@/pages/_app';
 import {useSession,signOut,getSession} from 'next-auth/react'
 import Image from 'next/image';
@@ -85,15 +85,6 @@ const Header = () => {
                 aria-labelledby="menu-button"
               >
                 <div className="padd py-2 relative" role="none" >
-
-                  {/*
-                   <Link href="/profilePage" className="px-2 py-2 text-sm block" role="menuitem" id="menu-item-profile">
-                      Min Profil
-                    </Link>
-                    <Link href="profilePageNew" className="px-2 py-2 text-sm block" role="menuitem" id="menu-item-2">
-                      Faktisk profil side
-                    </Link> 
-                  */}
                   {session && 
                   <Link href={"../profilePage"} className="block hover:bg-primary-200">
                   <button className="flex items-center space-x-1 font-medium text-textColor focus:outline-none rounded-md px-4 py-1.5">
@@ -114,6 +105,13 @@ const Header = () => {
                       <span className="text-lg underline">FAQ</span>
                     </button>
                   </Link>
+                  <Link href="/cookies" className="block hover:bg-primary-200">
+                    <button className="flex items-center space-x-1 font-medium text-textColor focus:outline-none rounded-md px-4 py-1.5">
+                      <FontAwesomeIcon icon={faCookie} className="text-2xl w-6 h-6 cursor-pointer ease-in-out fa-lg" />
+                      <span className="text-lg underline">Cookies</span>
+                    </button>
+                  </Link>
+                                    
                   {session ? (
                     <button
                       onClick={handleLogout}

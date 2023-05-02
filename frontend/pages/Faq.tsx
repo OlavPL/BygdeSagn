@@ -26,7 +26,7 @@ const Faq: NextPage = () => {
       },
       {
           question: 'Hvordan bruker dere cookies?',
-          answer: "Vi bruker cookies til å huske innloggingsinformasjon og preferanser for å gjøre det lettere å bruke tjenesten vår. Du kan velge å blokkere eller slette cookies gjennom nettleserinnstillingene dine.",
+          answer: 'Vi bruker cookies til å huske innloggingsinformasjon og preferanser for å gjøre det lettere å bruke tjenesten vår. Du kan velge å blokkere eller slette cookies gjennom nettleserinnstillingene dine. Du kan lese mere om Cookies på vår Cookies side',
       },
     ];
   

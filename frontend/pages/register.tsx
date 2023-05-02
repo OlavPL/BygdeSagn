@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope, faLock, faCheck, faTimes  } from '@fortawesome/free-solid-svg-icons';
 
 
+
 const Register =()=> {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
@@ -17,6 +18,7 @@ const Register =()=> {
   const [passwordLengthValid, setPasswordLengthValid] = useState(false)
   const [passwordNumberValid, setPasswordNumberValid] = useState(false)
   const [isPasswordFocused, setIsPasswordFocused] = useState(false)
+  
   
   const handlePasswordFocus = () => setIsPasswordFocused(true)
   const handlePasswordBlur = () => setIsPasswordFocused(false)
@@ -74,6 +76,7 @@ const Register =()=> {
       alert('Registration failed')
     }
   }
+  
 
   return (
     <div className="flex flex-col items-center mt-20 min-h-screen">
