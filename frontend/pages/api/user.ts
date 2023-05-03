@@ -35,14 +35,17 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
       res.status(200).json(myPost);
       console.log("User posted");
       //Login
-    } else if (req.method === "GET") {
-      const userId= req.body.user_id;
+    } else if (req.method === 'GET') {
+      const { email } = req.query;
       const user = await db
-        .collection("users")
-        .find({userId})
-        .sort({ metacritic: -1 })
-        .toArray();
-      res.status(200).json(user);
+        .collection('users')
+        .findOne({ email });
+  
+      if (user) {
+        res.status(200).json({ exists: true });
+      } else {
+        res.status(200).json({ exists: false });
+      }
       
       //Update User
     } else if (req.method === "PUT") {

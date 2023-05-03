@@ -34,48 +34,58 @@ const Register =()=> {
 
   const handleRepeatPasswordChange = (event: ChangeEvent<HTMLInputElement>) => setRepeatPassword(event.target.value)
   
-  const handleRegister = async ()=> {
-
+  const handleRegister = async () => {
     if (!username || !email || !password || !repeatPassword) {
       toast.error("Venligst fyll ut alle felt", getToastOptions(ToastType.light, "error ikke fylt ut felt"))
       return
     }
-    if  (password.length<10) {
+  
+    if (password.length < 10) {
       toast.error("Passord kan ikke være under 10 karakterer ", getToastOptions(ToastType.light, "lengde er kan ikke være under 10 "))
       return
     }
-
-    if(password !== repeatPassword) {
-      toast.error("Passord er ikke like", getToastOptions(ToastType.light,"Passord stemmer ikke overens"))
+  
+    if (password !== repeatPassword) {
+      toast.error("Passord er ikke like", getToastOptions(ToastType.light, "Passord stemmer ikke overens"))
       return
     }
-
+  
+    // Check if email already exists in the database
+    const emailCheckResponse = await fetch(`/api/user/?email=${email}`)
+    const emailCheckResult = await emailCheckResponse.json()
+  
+    if (emailCheckResult.exists === true) {
+      toast.error("E-postadresse allerede registrert", getToastOptions(ToastType.light, "E-postadresse allerede registrert"))
+      return
+    }
+  
     const JSOndata = {
       "name": username,
       "password": password,
-      "email":email,
+      "email": email,
       "created": {
         "$date": new Date(new Date().setUTCHours(new Date().getUTCHours() + 1))
       },
     }
-    const options:RequestInit={
-      headers:{
-        'Content-Type':'application/json',
+    const options = {
+      headers: {
+        'Content-Type': 'application/json',
       },
-      method:'POST',
-      body:JSON.stringify(JSOndata),
+      method: 'POST',
+      body: JSON.stringify(JSOndata),
     }
-
-    const response = await fetch("/api/user",options)
+  
+    const response = await fetch("/api/user", options)
     const result = await response.json()
-
+  
     if (response.ok) {
-      router.push('/login'); 
+      router.push('/login');
       toast.success("Registrering fullført", getToastOptions(ToastType.light, "BrukerRegistrering fullført"))
     } else {
       alert('Registration failed')
     }
   }
+  
   
 
   return (

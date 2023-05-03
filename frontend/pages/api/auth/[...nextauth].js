@@ -47,7 +47,35 @@ export default NextAuth({
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    }),
+      idToken: true,
+      authorizationUrl: 'https://accounts.google.com/o/oauth2/v2/auth?prompt=consent&access_type=offline&response_type=code',
+      profileUrl: 'https://www.googleapis.com/oauth2/v3/userinfo',
+      async profile(profile) {
+        const client = await clientPromise;
+        const db = client.db("App_Db");
+        const user = await db.collection("users").findOne({ email: profile.email });
+        if (!user) {
+          const newUser = {
+            email: profile.email,
+            name: profile.name,
+            created: {
+              $date: new Date(new Date().setUTCHours(new Date().getUTCHours() + 1))
+            },
+
+            
+          };
+          await db.collection("users").insertOne(newUser);
+        }
+        return {
+          id: profile.sub, // Use sub field as id
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture,
+        };
+      },
+    })
+    
+
   ],
   callbacks: {
     async redirect(url, baseUrl) {
