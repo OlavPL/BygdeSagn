@@ -20,7 +20,7 @@ const ProfilePageNew = () => {
   const [count, setCount] = useState(0);
   const [comments, setComments] = useState(0);
   const [liked, setLiked] = useState(0);
- 
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const handleClick = () => setExpanded(!expanded);
 
   const getPostCount = async () => {
@@ -50,6 +50,28 @@ const ProfilePageNew = () => {
       setLiked(data.length);
     } catch (error) {
       console.log(error);
+    }
+  };
+  const handleDeleteUser = async () => {    
+    try {
+      const email = session?.user?.email  
+      const response = await fetch('/api/user', {
+        method: 'DELETE',
+        body: JSON.stringify({ "email":email}),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+      });
+      if (response.ok) {
+        await router.push('/');
+        await  signOut()
+        
+      } else {
+        console.error('Error deleting user:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error deleting user:', error);
     }
   };
 
@@ -169,11 +191,34 @@ const ProfilePageNew = () => {
           )}
         </div>
       </div>
-       <a href="/DeleteUser">
-        <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full mt-5 mb-3 border-b-4 border-red-700">
-         Slett Bruker
-       </button>
-      </a>
+      <button
+        className="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded"
+        onClick={() => setShowConfirmation(true)}
+      >
+        Slett bruker
+      </button>
+      {showConfirmation && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center">
+          <div className="bg-white rounded-md p-6">
+            <p className="text-xl mb-4">Er du sikker på at du vil slette brukeren din?</p>
+            <p className="text-gray-600 mb-4">Denne handlingen kan ikke tilbake stilles og brukeren vil bli permanent slettet.</p>
+            <div className="flex justify-end">
+              <button
+                className="bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded mr-2"
+                onClick={() => setShowConfirmation(false)}
+              >
+                Angre
+              </button>
+              <button
+                className="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded"
+                onClick={handleDeleteUser}
+              >
+                Slett bruker
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   )
