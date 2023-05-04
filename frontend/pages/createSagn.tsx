@@ -108,7 +108,7 @@ const CreateSagn = ({kommuneList}: IProps) =>{
 
             <div className="relative">
               <label className="absolute pointer-events-none -top-1 -left-1 transition-all scale-100 px-1 ">
-                Historie <span className="text-red-500"> *</span>
+                Sagn <span className="text-red-500"> *</span>
               </label>
               <textarea className={"w-full col-end-auto outline-none p-2 mt-5 rounded-t" } rows={10} placeholder="Skriv historie her..."
                   value={storyText} {...register("story")} onChange={(e)=>setStoryText(e.target.value)}>

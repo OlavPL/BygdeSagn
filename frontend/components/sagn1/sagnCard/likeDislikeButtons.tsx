@@ -22,7 +22,7 @@ const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
     const session = useSession();
 
     useEffect(() => {
-        if(userLikeStatus === undefined){
+        // if(userLikeStatus === undefined){
             let hasInteracted = false
             likes.forEach(like => {
                 if(like.email === session.data?.user?.email){
@@ -38,7 +38,7 @@ const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
                     }
                 })
             }
-        }
+        // }
 
         setLikes(likes)
         setDislikes(dislikes)

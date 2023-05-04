@@ -1,5 +1,4 @@
 export enum Tag{
-    SAGN = "Sagn",
     HUMOR = "Humor",
     EPISK = "Episk", 
     INFOMRATIV = "Informativ", 
@@ -15,5 +14,4 @@ export const tagList: Tag[] = [
     Tag.INFOMRATIV,
     Tag.SPENNENDE,
     Tag.SERIØS,
-    Tag.SAGN
 ]

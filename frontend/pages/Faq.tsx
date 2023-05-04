@@ -13,6 +13,10 @@ const Faq: NextPage = () => {
 
     const faqData: FaqData[] = [
       {
+        question: 'Hva er BygdeSagn?',
+        answer: "Bygdesagn er en paltform som ønsker å gjøre sagn og historier fra lokalmiljøene tilgjengelig og synelig for alle på en enkel og brukervennlig måte",
+      },
+      {
         question: 'Hva slags type informasjon lagrer dere og hva brukes den til?',
         answer: "Vi lagrer all informasjon som blir fylt inn når et sagn blir publisert, publiserte kommentarer og brukerens passord, epost og fornavn. Vi bruker sagn dataen for å kunne dele sagnene dine med resten av verden, bruker data brukes kun til å drifte tjenesten og selges ikke videre til tredjepart",
       },
@@ -21,11 +25,11 @@ const Faq: NextPage = () => {
         answer: 'Det er ikke mulig å publisere bilder og videoer',
       },
       {
-        question: 'Hvem er eierne av BygdeSagn?',
-        answer: 'Bygde Sagn er laget og eid av Herman Simonsen, Olav Pålerud Lille-Østerholt og John Ivar Lilleøren Hagene. ',
+        question: 'Hvorfor vi lagde BygdeSagn?',
+        answer: 'BygdeSagn er et bachelor prosjekt laget og eid av Herman Simonsen, Olav Pålerud Lille-Østerholt og John Ivar Lilleøren Hagene.',
       },
       {
-          question: 'Hvordan bruker dere cookies?',
+          question: 'Hvordan bruker vi cookies?',
           answer: 'Vi bruker cookies til å huske innloggingsinformasjon og preferanser for å gjøre det lettere å bruke tjenesten vår. Du kan velge å blokkere eller slette cookies gjennom nettleserinnstillingene dine. Du kan lese mere om Cookies på vår Cookies side',
       },
     ];

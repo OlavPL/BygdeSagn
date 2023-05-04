@@ -13,22 +13,15 @@ export enum SortType{
 export const sortChoises = [
   {id: 0, type: SortType.LIKES_DESC, text:'Mest likt'},
   {id: 1, type: SortType.LIKES_ASC, text:'Minst likt'},
-  {id: 2, type: SortType.POST_DATE_DESC, text:'Nyest innlegg'},
-  {id: 3, type: SortType.POST_DATE_ASC, text:'Eldst innlegg'},
+  {id: 2, type: SortType.POST_DATE_DESC, text:'Nyest opplastet'},
+  {id: 3, type: SortType.POST_DATE_ASC, text:'Eldst opplastet'},
   {id: 4, type: SortType.HAPPENING_DATE_DESC, text:'Nyest hendelse'},
   {id: 5, type: SortType.HAPPENING_DATE_ASC, text:'Eldst hendelse'},
 ]
 
-// export type SortValue = {
-//   id: number
-//   type: SortTypes
-// }
-
-
 class SagnListController {
     sagnList: Sagn[]
     sortType: SortType
-    // sortObjects: SortValue[]
 
     constructor(data: SagnJSON[]){
       let newData: Sagn[] = []
@@ -41,7 +34,6 @@ class SagnListController {
       })
       this.sagnList = newData;
       this.sortType = SortType.POST_DATE_DESC
-      // this.sortObjects = sortChoises
     }
 
      sortSagn(sagnList: Sagn[] ,sortType: SortType): Sagn[] {
