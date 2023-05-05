@@ -6,7 +6,7 @@ import AppUser from "@/types/AppUser";
 import { useEffect, useState } from "react";
 import { ToastOptions, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastType, getToastOptions } from "@/components/controller/toastController";
+import { ToastType, getToastOptions } from "@/controllers/toastController";
 
 interface Props {
     likes: AppUser[]
@@ -20,8 +20,11 @@ const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
     const [_dislikes, setDislikes] = useState<AppUser[]>(dislikes)
     const [userLikeStatus, setUserLikeStatus] = useState<number>()
     const session = useSession();
+    const [isLoading, setLoading] = useState(false)
 
     useEffect(() => {
+        
+        //Funksjon for å håndtere indikasjon på like status ved ny innlastning
         // if(userLikeStatus === undefined){
             let hasInteracted = false
             likes.forEach(like => {
@@ -46,65 +49,78 @@ const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
     
     
     const addLike = async () => {
-        if(session.data == null ){
-            toast.error("Dette krever å være innlogget", getToastOptions(ToastType.light, "loginToInteract") );
-            return
-        }
-            
-        const options:RequestInit={
-            headers:{'Content-Type':'application/json',},
-            method:'PUT',
-            body:JSON.stringify({
-                "_id": _id,
-                "user" : {
-                    name: session.data.user?.name,
-                    email: session.data.user?.email
-                } as AppUser
-            }),
-        }
-        await fetch("/api/post/likes/like",options).catch()
-        .then((res)=>{
-            if(res.status === 200)
-                setUserLikeStatus(1)
-            else if(res.status === 201)
-                setUserLikeStatus(0)
-        })
+        if(!isLoading) {
+            setLoading(true)
+            if(session.data == null ){
+                toast.error("Dette krever å være innlogget", getToastOptions(ToastType.light, "loginToInteract") );
+                return
+            }
+                
+            const options:RequestInit={
+                headers:{'Content-Type':'application/json',},
+                method:'PUT',
+                body:JSON.stringify({
+                    "_id": _id,
+                    "user" : {
+                        name: session.data.user?.name,
+                        email: session.data.user?.email
+                    } as AppUser
+                }),
+            }
 
-        await fetch(`/api/post/Post?_id=${_id}`).catch()
-        .then((res) => res.json())
-        .then((data) => {
-            setLikes(data.likes)
-            setDislikes(data.dislikes)
-        })
+            // Sender like request
+            await fetch("/api/post/likes/like",options).catch()
+            .then((res)=>{
+                if(res.status === 200)
+                    setUserLikeStatus(1)
+                else if(res.status === 201)
+                    setUserLikeStatus(0)
+            })
+
+            // Henter like og dislikes for å oppdatere visuellt. Skal slåes sammen med metoden over.
+            await fetch(`/api/post/Post?_id=${_id}`).catch()
+            .then((res) => res.json())
+            .then((data) => {
+                setLikes(data.likes)
+                setDislikes(data.dislikes)
+            })
+            setLoading(false)
+        }
     }
     const addDislike = async () => {
-        if(session.data == null ){
-            toast.error("Dette krever å være innlogget", getToastOptions(ToastType.light, "loginToInteract") );
-            return
-        }
+        if(!isLoading) {
+            setLoading(true)
+            if(session.data == null ){
+                toast.error("Dette krever å være innlogget", getToastOptions(ToastType.light, "loginToInteract") );
+                return
+            }
+                
+            let options:RequestInit={
+                headers:{'Content-Type':'application/json',},
+                method:'PUT',
+                body:JSON.stringify({
+                    "_id": _id,
+                    "user" : {name: session.data.user?.name, email: session.data.user?.email} as AppUser
+                }),
+            }
+            // Sender dislike request
+            await fetch("/api/post/likes/dislike",options).catch()
+            .then((res)=>{
+                if(res.status === 200)
+                    setUserLikeStatus(-1)
+                else if(res.status ===201)
+                    setUserLikeStatus(0)
+            })
             
-        let options:RequestInit={
-            headers:{'Content-Type':'application/json',},
-            method:'PUT',
-            body:JSON.stringify({
-                "_id": _id,
-                "user" : {name: session.data.user?.name, email: session.data.user?.email} as AppUser
-            }),
+            // Henter like og dislikes for å oppdatere visuellt. Skal slåes sammen med metoden over.
+            await fetch(`/api/post/Post?_id=${_id}`).catch()
+            .then((res) => res.json())
+            .then((data) => {
+                setLikes(data.likes)
+                setDislikes(data.dislikes)
+            })
+            setLoading(false)
         }
-        await fetch("/api/post/likes/dislike",options).catch()
-        .then((res)=>{
-            if(res.status === 200)
-                setUserLikeStatus(-1)
-            else if(res.status ===201)
-                setUserLikeStatus(0)
-        })
-        
-        await fetch(`/api/post/Post?_id=${_id}`).catch()
-        .then((res) => res.json())
-        .then((data) => {
-            setLikes(data.likes)
-            setDislikes(data.dislikes)
-        })
     }
 
     return (

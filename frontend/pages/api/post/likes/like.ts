@@ -44,7 +44,6 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
             object: result,
             document:returnDocument
         });
-        console.log(returnDocument)
     } else if (req.method === 'DELETE') {
         const updateDocument = {
             $pull: {

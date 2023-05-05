@@ -17,19 +17,6 @@ export type SagnJSON = {
     stedsnavn: string;
 }
 
-// interface SagnI{
-//     _id: string
-//     title: string
-//     text: string;
-//     tags: Tag[];
-//     likes: LoginInfo[];
-//     dislikes: LoginInfo[];
-//     postedAt?: number;
-//     happenedAt?: number;
-//     owner: AppUser;
-//     kommune: Kommune;
-//     stedsnavn?: string;
-// }
 class Sagn {
     _id: string
     title: string;
@@ -42,10 +29,11 @@ class Sagn {
     owner: AppUser;
     kommune: Kommune;
     stedsnavn: string;
+    dislikeRatioFlagged?: boolean
 
 
     constructor(_id: string, title: string, text: string, tags: Tag[], postedAt: number, kommune: Kommune, stedsnavn: string, owner: AppUser, 
-                likes?: LoginInfo[], dislikes?: LoginInfo[], happenedAt?: number
+                likes?: LoginInfo[], dislikes?: LoginInfo[], happenedAt?: number, dislikeRationFlagged?: boolean
     ){
         this._id = _id
         this.title = title
@@ -58,6 +46,7 @@ class Sagn {
         this.owner = owner 
         this.kommune = kommune;
         this.stedsnavn = stedsnavn;
+        this.dislikeRatioFlagged = dislikeRationFlagged
     }
 }
 

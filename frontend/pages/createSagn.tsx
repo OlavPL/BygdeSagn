@@ -11,11 +11,12 @@ import SelectedTagsBox from "@/components/sagn1/sagnForm/selectedTagsBox";
 import ImageInput from "@/components/sagn1/sagnForm/imageInput";
 import Input from "@/components/sagn1/sagnForm/input";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
-import { ToastType, getToastOptions } from "@/components/controller/toastController";
+import { ToastType, getToastOptions } from "@/controllers/toastController";
 import { toast } from "react-toastify";
 import { Document, WithId } from 'mongodb'
 import clientPromise from "@/lib/mongodb";
 import { Fylke } from "@/types/fylke";
+import { filterBadWords } from "@/controllers/automod";
 
 interface Inputs {
     title: string;
@@ -156,8 +157,8 @@ async function postSagn (data:Inputs, router: NextRouter ){
       },
       method:'POST',
       body:JSON.stringify({
-        "title":data.title,
-        "text":data.story,
+        "title": filterBadWords(data.title),
+        "text": filterBadWords(data.story) ,
         "tags":data.tags,
         "happenedAt":data.year,
         "kommune": data.kommune,

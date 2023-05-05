@@ -4,7 +4,7 @@ import CardTags from "./cardTags"
 import router, { Router, useRouter } from "next/router"
 import Sagn from "@/objects/sagn"
 import { toast } from "react-toastify"
-import { ToastType, getToastOptions } from "@/components/controller/toastController"
+import { ToastType, getToastOptions } from "@/controllers/toastController"
 
 interface Props {
   title: String,

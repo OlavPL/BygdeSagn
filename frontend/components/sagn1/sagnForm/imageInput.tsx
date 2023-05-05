@@ -87,7 +87,6 @@ return (
                             <Image src={URL.createObjectURL(images)} width={100} height={100} alt={`image`} />
                     </div>
             )}
-            
 
             {/* progress bar */}
         { 

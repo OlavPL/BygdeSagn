@@ -2,7 +2,7 @@ import { useSession } from 'next-auth/react';
 import router from 'next/router';
 import React, { ChangeEvent, useState, useRef } from 'react';
 import { toast } from 'react-toastify';
-import { ToastType, getToastOptions } from '@/components/controller/toastController';
+import { ToastType, getToastOptions } from '@/controllers/toastController';
 interface PostCommentProps {
   _id: string;
   fetchComments: () => void;

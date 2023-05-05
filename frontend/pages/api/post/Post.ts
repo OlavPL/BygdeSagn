@@ -42,7 +42,6 @@ export default async function handler(
       const db = client.db("App_Db");
 
       let myPost = await db.collection(process.env.POST_COLLECTION!).insertOne(req.body);
-      console.log(req.body.kommune.fylkesnummer)
       if(req.body.stedsnavn){
 
         await db.collection("fylker").updateOne(

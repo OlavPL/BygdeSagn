@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent } from 'react';
 import { useRouter } from 'next/router';
 import SimpleCrypto from "simple-crypto-js"
 import { toast } from 'react-toastify';
-import { ToastType, getToastOptions } from '@/components/controller/toastController';
+import { ToastType, getToastOptions } from '@/controllers/toastController';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope, faLock, faCheck, faTimes  } from '@fortawesome/free-solid-svg-icons';
 

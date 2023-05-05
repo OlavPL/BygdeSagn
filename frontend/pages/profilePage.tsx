@@ -2,14 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useSession, signOut, getSession } from 'next-auth/react';
 import Image from 'next/image';
 import { AppContext } from '@/pages/_app';
-import SagnListController, { SortType } from '@/components/controller/sagnListController';
+import SagnListController, { SortType } from '@/controllers/sagnListController';
 import Sagn from '@/objects/sagn';
 
 import { faAnglesDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import DisplayUserSagn from '@/components/sagn1/displayUserSagn';
-import { ToastType, getToastOptions } from '@/components/controller/toastController';
+import { ToastType, getToastOptions } from '@/controllers/toastController';
 import { toast } from 'react-toastify';
 import router from 'next/router';
 

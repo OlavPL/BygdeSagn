@@ -2,7 +2,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import SagnListController, { SortType } from '@/components/controller/sagnListController'
+import SagnListController, { SortType } from '@/controllers/sagnListController'
 import { useState, useEffect, useContext } from 'react'
 import Sagn, { SagnJSON } from "@/objects/sagn"
 import { AppContext } from "@/pages/_app"
