@@ -7,10 +7,12 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 import 'react-toastify/dist/ReactToastify.css';
 import { SessionProvider } from 'next-auth/react'
 import { Session } from 'next-auth'
-import { createContext, useState } from 'react'
+import { Suspense, createContext, useState } from 'react'
 import { ToastContainer } from 'react-toastify'
 import { setDefaultOptions } from 'date-fns'
 import { nb } from 'date-fns/locale'
+import CookiePopup from '@/components/cookiePopup'
+import Cookies from 'js-cookie'
 
 const getDefaultOptions = require('date-fns/getDefaultOptions')
 setDefaultOptions({locale: nb })
@@ -47,8 +49,9 @@ const App = ({ Component, pageProps, session }: MyAppProps) => {
 
       <AppContext.Provider value={contextValue}>
         <div className=" text-textColor min-h-screen bg-center relative">
+          <CookiePopup />
           <Header/>
-            <ToastContainer/>
+            <ToastContainer />
           <Component {...pageProps} />
         </div>
           {/* <Footer/> */}
@@ -58,6 +61,6 @@ const App = ({ Component, pageProps, session }: MyAppProps) => {
   )
 }
 
-export { AppContext};
+export { AppContext };
 
 export default App

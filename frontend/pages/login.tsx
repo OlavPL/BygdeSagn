@@ -1,12 +1,16 @@
 import type { GetServerSidePropsContext, InferGetServerSidePropsType } from "next"
 import Link from 'next/link'
 import { getProviders, signIn, getCsrfToken } from "next-auth/react"
-import { useState, ChangeEvent, FormEvent } from 'react'
+import { useState, ChangeEvent, FormEvent, FormEventHandler } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle} from '@fortawesome/free-brands-svg-icons'
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons"
 
 export default function Login({ providers, csrfToken }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+
+  const handleLogin = (event: FormEventHandler<HTMLFormElement>) => {
+
+  }
  
   return (
     <div className="flex flex-col items-center mt-20 min-h-screen">

@@ -95,58 +95,58 @@ const CreateSagn = ({kommuneList}: IProps) =>{
     
     
     return (
-        <div className="w-full mt-5 max-w-2xl p-2 m-auto border-solid rounded">
-            <h1 className="text-center font-semibold text-xl">Nytt Sagn</h1>
-            <form onSubmit={handleSubmit(onSubmit, onError)} className="space-y-4 w-full">
-        <div className="flex flex-col space-x-0 sm:space-x-6 space sm:flex-row">
-          <div className="flex flex-col space-y-4 w-full relative">
+      <div className="w-full mt-5 max-w-2xl p-2 m-auto border-solid rounded">
+        <h1 className="text-center font-semibold text-xl">Nytt Sagn</h1>
+        <form onSubmit={handleSubmit(onSubmit, onError)} className="space-y-4 w-full">
+          <div className="flex flex-col space-x-0 sm:space-x-6 space sm:flex-row">
+            <div className="flex flex-col space-y-4 w-full relative">
 
-            <Input
-              {...register("title") }
-              className="mt-6 w-full my-auto"
-              labelText="Tittel"
-            />
+              <Input
+                {...register("title") }
+                className="mt-6 w-full my-auto"
+                labelText="Tittel"
+              />
 
-            <div className="relative">
-              <label className="absolute pointer-events-none -top-1 -left-1 transition-all scale-100 px-1 ">
-                Sagn <span className="text-red-500"> *</span>
-              </label>
-              <textarea className={"w-full col-end-auto outline-none p-2 mt-5 rounded-t" } rows={10} placeholder="Skriv historie her..."
-                  value={storyText} {...register("story")} onChange={(e)=>setStoryText(e.target.value)}>
-              </textarea>
-            </div>
+              <div className="relative">
+                <label className="absolute pointer-events-none -top-1 -left-1 transition-all scale-100 px-1 ">
+                  Sagn <span className="text-red-500"> *</span>
+                </label>
+                <textarea className={"w-full col-end-auto outline-none p-2 mt-5 rounded-t" } rows={10} placeholder="Skriv historie her..."
+                    value={storyText} {...register("story")} onChange={(e)=>setStoryText(e.target.value)}>
+                </textarea>
+              </div>
 
-            <div className="flex flex-col justify-between self-center sm:flex-row sm:self-start sm:w-full">
-              <div className="flex flex-col mb-2 sm:mb-0">
-                <label>{"Årstall/ Århundre"}</label>
-                <input type="number" min={0} max={new Date().getFullYear()} value={year} onChange={(e) => setYear(e.target.value)} className="w-52 p-1 rounded"></input>
+              <div className="flex flex-col justify-between self-center sm:flex-row sm:self-start sm:w-full">
+                <div className="flex flex-col mb-2 sm:mb-0">
+                  <label>{"Årstall/ Århundre"}</label>
+                  <input type="number" min={0} max={new Date().getFullYear()} value={year} onChange={(e) => setYear(e.target.value)} className="w-52 p-1 rounded"></input>
+                </div>
+                
+                <KommuneSearchBox kommuner={kommuneList} selectedKommune={selectedKommune} handleChange={(e: Kommune)=>setSelectedKommune(e)} className="items-center relative" />
               </div>
               
-              <KommuneSearchBox kommuner={kommuneList} selectedKommune={selectedKommune} handleChange={(e: Kommune)=>setSelectedKommune(e)} className="items-center relative" />
-            </div>
-            
-            <div className="flex flex-col-reverse justify-between self-center sm:flex-row sm:self-start sm:w-full  ">
-              <TagsDropBox key={tags.length} className="mt-5 sm:mt-auto " list={tags} handleTag={addTag} propText={"Velg Tagger"} propTextEmpty={"Ikke fler Tagger"}/>
-                           
-              <div className="flex flex-col">
-                <label>Stedsnavn</label>
-                <input type="string" className="w-52 p-1 rounded" value={stedsnavn} onChange={(e) => setStedsnavn(e.target.value)}></input>
+              <div className="flex flex-col-reverse justify-between self-center sm:flex-row sm:self-start sm:w-full  ">
+                <TagsDropBox key={tags.length} className="mt-5 sm:mt-auto " list={tags} handleTag={addTag} propText={"Velg Tagger"} propTextEmpty={"Ikke fler Tagger"}/>
+                              
+                <div className="flex flex-col">
+                  <label>Stedsnavn</label>
+                  <input type="string" className="w-52 p-1 rounded" value={stedsnavn} onChange={(e) => setStedsnavn(e.target.value)}></input>
+                </div>
+
               </div>
+              <SelectedTagsBox key={tags.length} removeTag={removeTag} tagList={tags} />
 
+              <ImageInput onImageChange={setImages} onConvertToText={ (text:string) => {setStoryText(storyText.length>0? storyText+ " " +text : text)} } images={images} className="mt-6"/>
             </div>
-            <SelectedTagsBox key={tags.length} removeTag={removeTag} tagList={tags} />
-
-            <ImageInput onImageChange={setImages} onConvertToText={ (text:string) => {setStoryText(storyText.length>0? storyText+ " " +text : text)} } images={images} className="mt-6"/>
+            <button className="mt-4 p-2 place-self-center sm:place-self-end sm:mb-auto sm:mt-2 sm:px-4 transition duration-300 text-white font-semibold  active:scale-95  bg-green-500 
+                    hover:bg-green-700 shadow shadow-emphasis-600/25 rounded-md hover:shadow-secondary-500"
+                    type="submit"
+            >
+              Publiser
+            </button>
           </div>
-          <button className="mt-4 p-2 place-self-center sm:place-self-end sm:mb-auto sm:mt-2 sm:px-4 transition duration-300 text-white font-semibold  active:scale-95  bg-green-500 
-                  hover:bg-green-700 shadow shadow-emphasis-600/25 rounded-md hover:shadow-secondary-500"
-                  type="submit"
-          >
-            Publiser
-          </button>
-        </div>
-      </form>
-        </div>
+        </form>
+      </div>
     )
 }
 

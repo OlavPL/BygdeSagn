@@ -52,7 +52,6 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
     
     let filteredSagn = Array<Sagn>()
 
-
     if(value.fylkenavn != null){
       fylkeList.forEach((fylke: Fylke) =>{
         if(fylke.fylkenavn === value.fylkenavn){

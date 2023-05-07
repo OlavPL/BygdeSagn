@@ -1,8 +1,12 @@
+import Tooltip from '@/components/Tooltip';
+import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import Tesseract, { ImageLike } from 'tesseract.js';
 import { createWorker } from 'tesseract.js';
+import OCRTooltip from './OCRTooltip';
 
 interface ImageInputProps {
   onImageChange: (images: File | null) => void;
@@ -66,16 +70,21 @@ return (
         {/* <input type="file" accept='image/*' ref={hiddenFileInput} onChange={handleImageChange} className="invisible"/> */}
 
             <div className='flex felx-row space-x-5 py-2 justify-between w-full'>
-                <button onClick={handleSelectImage} type="button" className=" transition duration-300 active:scale-95 py-2 px-4 bg-primary-200 hover:bg-primary-400
-                        text-textColor shadow shadow-primary-600/25 rounded-md hover:shadow-primary-600/75 justify-self-end opacity-100"
-                > Omgjør bilde til tekst
-                </button>
+                <div className='flex flex-row'>
+                    <button onClick={handleSelectImage} type="button" className=" transition duration-300 active:scale-95 py-2 px-4 bg-primary-200 hover:bg-primary-400
+                            text-textColor shadow shadow-primary-600/25 rounded-md hover:shadow-primary-600/75 justify-self-end opacity-100"
+                    > Omgjør bilde til tekst
+                    </button>
+                    <OCRTooltip 
+                        ClassName='bottom-3 -left-[71px] w-72'>
+                    </OCRTooltip>
+                </div>
                 {images && (
                     <button type="button" className=" transition duration-300 active:scale-95 py-2 px-4 bg-emphasis-300 hover:bg-emphasis-500
                             text-textColor shadow shadow-primary-600/25 rounded-md hover:shadow-emphasis-400/75 justify-self-end"
                             onClick={handleOCR}
                     > 
-                        Omgjør til tekst 
+                        Omgjør til tekst
                     </button> 
                 )}
             </div>

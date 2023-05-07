@@ -284,6 +284,7 @@ module.exports = {
         emphasis: coral,
         textColor: gray[800],
         textLink: blue[500],
+        white: '#FFFDFA',
         plantation : {
           '50': '#f1f8f5',
           '100': '#dcefe5',

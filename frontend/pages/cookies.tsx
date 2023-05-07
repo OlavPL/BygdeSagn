@@ -8,7 +8,7 @@ interface cookieData {
   info: string;
 }
 
-const cookies: NextPage = () => {
+const Cookies: NextPage = () => {
     const { title, setTitle } = useContext(AppContext);
     
     const faqData: cookieData[] = [
@@ -56,4 +56,4 @@ const cookies: NextPage = () => {
     );
   };
   
-export default cookies;
+export default Cookies;

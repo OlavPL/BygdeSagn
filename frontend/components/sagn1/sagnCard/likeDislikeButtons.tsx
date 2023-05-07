@@ -19,33 +19,37 @@ const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
     const [_likes, setLikes] = useState<AppUser[]>(likes)
     const [_dislikes, setDislikes] = useState<AppUser[]>(dislikes)
     const [userLikeStatus, setUserLikeStatus] = useState<number>()
-    const session = useSession();
     const [isLoading, setLoading] = useState(false)
+    const session = useSession();
 
-    useEffect(() => {
-        
-        //Funksjon for å håndtere indikasjon på like status ved ny innlastning
-        // if(userLikeStatus === undefined){
+    useEffect( () => {
+        const doSomehting = async () => {
+            const data = await session.data?.user?.email
             let hasInteracted = false
+            
+        // if(userLikeStatus === undefined){
             likes.forEach(like => {
-                if(like.email === session.data?.user?.email){
+                if(like.email === data){
                     hasInteracted = true
                     setUserLikeStatus(1)
                 }
             })
+
             if(hasInteracted === false){
                 dislikes.forEach(dislike => {
-                    if(dislike.email === session.data?.user?.email){
+                    if(dislike.email === data){
                         hasInteracted = true
                         setUserLikeStatus(-1)
                     }
                 })
-            }
-        // }
-
-        setLikes(likes)
-        setDislikes(dislikes)
-    }, [dislikes, likes, session.data?.user?.email, userLikeStatus])
+            // }
+        }
+            setLikes(likes)
+            setDislikes(dislikes)
+        }
+        doSomehting()
+            
+    }, [dislikes, likes, session, userLikeStatus])
     
     
     const addLike = async () => {
@@ -91,7 +95,7 @@ const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
         if(!isLoading) {
             setLoading(true)
             if(session.data == null ){
-                toast.error("Dette krever å være innlogget", getToastOptions(ToastType.light, "loginToInteract") );
+                toast.error("Å like krever å være innlogget", getToastOptions(ToastType.light, "loginToInteract") );
                 return
             }
                 

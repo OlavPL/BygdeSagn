@@ -71,7 +71,3 @@ const SagnCard = ({sagn}: Props) => {
 }
 
 export default SagnCard
-
-function userState(): [any, any] {
-    throw new Error("Function not implemented.")
-}

@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { ToastType, getToastOptions } from '@/controllers/toastController';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope, faLock, faCheck, faTimes  } from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
 
 
 
@@ -175,6 +176,7 @@ const Register =()=> {
             Registrer
           </button>
         </div>
+        <p>Ved å klikke på &quot;Registrer&quot; godtar du våre <Link href="/cookies" target="_blank"  className='text-blue-400'>vilkår for bruk</Link></p>
       </form>
     </div>
   </div>
