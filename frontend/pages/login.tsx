@@ -71,6 +71,7 @@ export default function Login({ providers, csrfToken }: InferGetServerSidePropsT
                   signIn("google")
                 else{
                   setShowCookiePopup(true)
+                  toast.error("For å logge inn må du bekrefte at vi kan bruke ditt google navn og epost", getToastOptions(ToastType.light, "need gdpr accept"))
                 }
               }}
             >
@@ -82,11 +83,9 @@ export default function Login({ providers, csrfToken }: InferGetServerSidePropsT
           <p className="text-sm text-gray-500">Har du ikke bruker? <Link href="/register" className ="text-primary-400 hover:underline cursor-pointer ">Registrer her</Link></p>
         </div>
       </div>
-      <CookiePopup stateValue={showCookiePopoup}
-        setStateValue={(e) => {
-          setShowCookiePopup(e)
-          console.log(e)
-        }}/>
+      <CookiePopup 
+        stateValue={showCookiePopoup}
+        setStateValue={(e) => setShowCookiePopup(e)}/>
     </div>
   )
 }
