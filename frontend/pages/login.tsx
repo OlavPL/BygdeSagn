@@ -5,12 +5,14 @@ import { useState, ChangeEvent, FormEvent, FormEventHandler } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle} from '@fortawesome/free-brands-svg-icons'
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons"
+import { toast } from "react-toastify"
+import { ToastType, getToastOptions } from "@/controllers/toastController"
+import { Router, useRouter } from "next/router"
+import Cookies from "js-cookie"
+import CookiePopup from "@/components/cookiePopup"
 
 export default function Login({ providers, csrfToken }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-
-  const handleLogin = (event: FormEventHandler<HTMLFormElement>) => {
-
-  }
+  const [showCookiePopoup, setShowCookiePopup] = useState(false)
  
   return (
     <div className="flex flex-col items-center mt-20 min-h-screen">
@@ -22,7 +24,7 @@ export default function Login({ providers, csrfToken }: InferGetServerSidePropsT
           <input name="csrfToken" type="hidden" defaultValue={csrfToken}/>
             <label className="block text-gray-700 font-bold mb-2 w-full relative ">
               Email
-              <div className="flex border border-gray-400 rounded w-full focus-within:border-blue-500 border-2">
+              <div className="flex border-gray-400 rounded w-full focus-within:border-blue-500 border-2">
                 <span className="p-2 rounded rounded-r-none border-r-0">
                   <FontAwesomeIcon icon={faEnvelope} size="lg" />
                 </span>
@@ -36,7 +38,7 @@ export default function Login({ providers, csrfToken }: InferGetServerSidePropsT
             
             <label className="block text-gray-700 font-bold mb-2 w-full relative">
               Password
-              <div className="flex border border-gray-400 rounded w-full focus-within:border-blue-500 border-2">
+              <div className="flex border-gray-400 rounded w-full focus-within:border-blue-500 border-2">
                 <span className="p-2 rounded rounded-r-none border-r-0">
                   <FontAwesomeIcon icon={faLock} size="lg" />
                 </span>
@@ -63,7 +65,15 @@ export default function Login({ providers, csrfToken }: InferGetServerSidePropsT
 
             <button className="w-full text-white bg-primary-400 hover:bg-secondary-800 py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 my-2"
               type="button" 
-              onClick={() => signIn("google")}>
+              // onClick={() => signIn("google", {callbackUrl:"/login"})}>
+              onClick={() => { 
+                if(Cookies.get("cookieAcceptance") === ("1") || Cookies.get("cookieAcceptance") === ("0") )
+                  signIn("google")
+                else{
+                  setShowCookiePopup(true)
+                }
+              }}
+            >
                 <FontAwesomeIcon icon={faGoogle} className="mr-2" />
                 Login med Google
             </button>
@@ -72,6 +82,11 @@ export default function Login({ providers, csrfToken }: InferGetServerSidePropsT
           <p className="text-sm text-gray-500">Har du ikke bruker? <Link href="/register" className ="text-primary-400 hover:underline cursor-pointer ">Registrer her</Link></p>
         </div>
       </div>
+      <CookiePopup stateValue={showCookiePopoup}
+        setStateValue={(e) => {
+          setShowCookiePopup(e)
+          console.log(e)
+        }}/>
     </div>
   )
 }

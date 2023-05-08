@@ -73,7 +73,7 @@ return (
                 <div className='flex flex-row'>
                     <button onClick={handleSelectImage} type="button" className=" transition duration-300 active:scale-95 py-2 px-4 bg-primary-200 hover:bg-primary-400
                             text-textColor shadow shadow-primary-600/25 rounded-md hover:shadow-primary-600/75 justify-self-end opacity-100"
-                    > Omgjør bilde til tekst
+                    > Hent tekst fra bilde
                     </button>
                     <OCRTooltip 
                         ClassName='bottom-3 -left-[71px] w-72'>

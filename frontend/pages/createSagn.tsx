@@ -138,8 +138,8 @@ const CreateSagn = ({kommuneList}: IProps) =>{
 
               <ImageInput onImageChange={setImages} onConvertToText={ (text:string) => {setStoryText(storyText.length>0? storyText+ " " +text : text)} } images={images} className="mt-6"/>
             </div>
-            <button className="mt-4 p-2 place-self-center sm:place-self-end sm:mb-auto sm:mt-2 sm:px-4 transition duration-300 text-white font-semibold  active:scale-95  bg-green-500 
-                    hover:bg-green-700 shadow shadow-emphasis-600/25 rounded-md hover:shadow-secondary-500"
+            <button className="mt-4 p-2 place-self-center sm:place-self-end sm:mb-auto sm:mt-2 sm:px-4 transition duration-300 text-white font-semibold  active:scale-95  bg-secondary-400 
+                    hover:bg-secondary-600 shadow shadow-emphasis-600/25 rounded-md hover:shadow-secondary-500"
                     type="submit"
             >
               Publiser

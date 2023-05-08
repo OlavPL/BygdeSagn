@@ -74,8 +74,8 @@ const Header = () => {
                   </button>
                 </Link>
                 :
-                  <Link href={"/createSagn"} className='hidden md:block'>
-                    <button className="items-center space-x-1 font-medium text-textColor hover:text-secondary-800 focus:outline-none bg-primary-200 hover:bg-primary-400 rounded-md px-4 py-1.5">
+                  <Link href={"/login"} className='hidden md:block'>
+                    <button className="items-center space-x-1 font-medium text-textColor focus:outline-none bg-primary-300 hover:bg-primary-400 rounded-md px-4 py-1.5">
                       <span className="text-lg ">Logg inn</span>
                     </button>
                   </Link>
