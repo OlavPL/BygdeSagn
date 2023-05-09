@@ -176,7 +176,7 @@ const Register =()=> {
         <div className="flex flex-col justify-center">
           <div className='flex flex-row justify-center '>
             <input type={'checkbox'} checked={TOSAccept} onChange={()=> setTOSAccept(!TOSAccept)} className='w-5'/>
-            <p className='text-center ml-5'>Jeg er over 13 år og godkjenner {<br/>} BygdeSagn sine <Link href={"/cookies"}>vilkår for bruk</Link></p>
+            <p className='text-center ml-5'>Jeg er over 13 år og godkjenner {<br/>} BygdeSagn sine <Link href={"/termsofservice"}>vilkår for bruk</Link></p>
           </div>
           {/* <p>Ved å klikke på &quot;Registrer&quot; godtar du våre <Link href="/cookies" target="_blank"  className='text-blue-400'>vilkår for bruk</Link></p> */}
           <button
