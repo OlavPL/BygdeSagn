@@ -22,7 +22,7 @@ interface KommuneI {
 }
 
 
-  const postSagn = async (data:any) =>{
+  const postFylker = async (data:any) =>{
 
     // let fylkeArr: FylkeI[] = Array()
     // data.forEach((fylke:any) => {

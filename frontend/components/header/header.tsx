@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome';
-import { faArrowRightFromBracket, faCookie, faKey, faPen, faQuestionCircle, faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faCookie, faEnvelope, faKey, faPen, faQuestionCircle, faRightFromBracket, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { AppContext } from '@/pages/_app';
 import {useSession,signOut,getSession} from 'next-auth/react'
 import Image from 'next/image';
@@ -117,6 +117,18 @@ const Header = () => {
                     <button className="flex items-center space-x-1 font-medium text-textColor focus:outline-none rounded-md px-4 py-1.5">
                       <FontAwesomeIcon icon={faCookie} className="text-2xl w-6 h-6 cursor-pointer ease-in-out fa-lg" />
                       <span className="text-lg underline">Cookies</span>
+                    </button>
+                  </Link>
+                  <Link href="/group" className="block hover:bg-primary-200">
+                    <button className="flex items-center space-x-1 font-medium text-textColor focus:outline-none rounded-md px-4 py-1.5">
+                      <FontAwesomeIcon icon={faUsers} className="text-2xl w-6 h-6 cursor-pointer ease-in-out fa-lg" />
+                      <span className="text-lg underline">Om oss</span>
+                    </button>
+                  </Link>
+                  <Link href="/contactus" className="block hover:bg-primary-200">
+                    <button className="flex items-center space-x-1 font-medium text-textColor focus:outline-none rounded-md px-4 py-1.5">
+                      <FontAwesomeIcon icon={faEnvelope} className="text-2xl w-6 h-6 cursor-pointer ease-in-out fa-lg" />
+                      <span className="text-lg underline">Kontakt oss</span>
                     </button>
                   </Link>
                                     
