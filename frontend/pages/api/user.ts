@@ -1,10 +1,10 @@
 import clientPromise from "@/lib/mongodb";
-import SimpleCrypto from "simple-crypto-js";
+
 import { NextApiRequest, NextApiResponse } from "next";
 import dotenv from "dotenv";
 import { ObjectId } from "mongodb";
 import validator from 'validator';
-
+import bcrypt from 'bcrypt';
 dotenv.config();
 
 const { SECRET_KEY } = process.env;
@@ -16,39 +16,38 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
     const client = await clientPromise;
     const db = client.db("App_Db");
     //Register
-    if (req.method === "POST") {
-      const bodyObject = req.body;
-      const simpleCrypto = new SimpleCrypto(SECRET_KEY);
-      const encryptedPassword = simpleCrypto.encrypt(bodyObject.password);
-      bodyObject.password = encryptedPassword;
+    
+if (req.method === "POST") {
+  const bodyObject = req.body;
+  const saltRounds = (10);
+  const hashedPassword = await bcrypt.hash(bodyObject.password, saltRounds);
+  bodyObject.password = hashedPassword;
 
-      // Validation
-      if (!validator.isEmail(bodyObject.email)) {
-        return res.status(400).json({ error: "Invalid email" });
-      }
+  // Validation
+  if (!validator.isEmail(bodyObject.email)) {
+    return res.status(400).json({ error: "Invalid email" });
+  }
 
-      if (!validator.isStrongPassword(bodyObject.password)) {
-        return res.status(400).json({ error: "Password must be at least 8 characters long and contain a combination of uppercase and lowercase letters, numbers, and symbols" });
-      }
+  if (!validator.isStrongPassword(bodyObject.password)) {
+    return res.status(400).json({ error: "Password must be at least 8 characters long and contain a combination of uppercase and lowercase letters, numbers, and symbols" });
+  }
 
-      const myPost = await db.collection("users").insertOne(bodyObject);
-      res.status(200).json(myPost);
-      console.log("User posted");
-      //Login
-    } else if (req.method === 'GET') {
-      const { email } = req.query;
-      const user = await db
-        .collection('users')
-        .findOne({ email });
-  
-      if (user) {
-        res.status(200).json({ exists: true });
-      } else {
-        res.status(200).json({ exists: false });
-      }
-      
-      //Update User
-    } else if (req.method === "PUT") {
+  const myPost = await db.collection("users").insertOne(bodyObject);
+  res.status(200).json(myPost);
+  console.log("User posted");
+  //Login
+} else if (req.method === 'GET') {
+  const { email } = req.query;
+  const user = await db
+    .collection('users')
+    .findOne({ email });
+
+  if (user) {
+    res.status(200).json({ exists: true });
+  } else {
+    res.status(200).json({ exists: false });
+  }
+}else if (req.method === "PUT") {
       const id = req.body.user_id;
       const updateDocument = {
         $set: {

@@ -2,7 +2,7 @@ import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from 'next-auth/providers/google';
 import clientPromise from "@/lib/mongodb";
-import SimpleCrypto from "simple-crypto-js";
+import bcrypt from 'bcrypt';
 import * as dotenv from 'dotenv'
 dotenv.config()
 
@@ -31,9 +31,8 @@ export default NextAuth({
         const db = client.db("App_Db");
         const user = await db.collection("users").findOne({ email: credentials.email });
         if (user) {
-          const sc = new SimpleCrypto(process.env.SECRET_KEY);
-          const decryptedPassword = sc.decrypt(user.password);
-          if (credentials.password == decryptedPassword) {
+          const match = await bcrypt.compare(credentials.password, user.password);
+          if (match) {
             console.log("User logged in");
             return user;
           } else {
@@ -67,7 +66,7 @@ export default NextAuth({
           await db.collection("users").insertOne(newUser);
         }
         return {
-          id: profile.sub, // Use sub field as id
+          id: profile.sub, 
           name: profile.name,
           email: profile.email,
           image: profile.picture,
