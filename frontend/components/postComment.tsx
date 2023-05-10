@@ -3,6 +3,7 @@ import router from 'next/router';
 import React, { ChangeEvent, useState, useRef } from 'react';
 import { toast } from 'react-toastify';
 import { ToastType, getToastOptions } from '@/controllers/toastController';
+import { filterBadWords } from '@/controllers/automod';
 interface PostCommentProps {
   _id: string;
   fetchComments: () => void;
@@ -42,7 +43,7 @@ const PostComment: React.FC<PostCommentProps> = ({_id, fetchComments}) => {
       const options: RequestInit = {
         headers: { 'Content-Type': 'application/json' },
         method: 'PUT',
-        body: JSON.stringify({ "_id": _id, comment: { text: userText, user: { name: session.data?.user?.name, email: session.data?.user?.email } } }),
+        body: JSON.stringify({ "_id": _id, comment: { text: filterBadWords(userText), user: { name: session.data?.user?.name, email: session.data?.user?.email } } }),
       };
         
       const response = await fetch(url, options);

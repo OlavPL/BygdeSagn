@@ -1,5 +1,5 @@
 export const badWords = Array<string>(
-    "Herman","faen", "neger", "nigger", "retard", "mongo", "helvette", "fitte", "kuk", "hore",
+    "faen", "neger", "nigger", "retard", "mongo", "helvette", "fitte", "kuk", "hore",
      "cock", "cunt", "rævhål",
      )
 
