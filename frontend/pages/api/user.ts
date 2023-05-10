@@ -10,6 +10,7 @@ dotenv.config();
 const { SECRET_KEY } = process.env;
 
 // Create a new user
+// eslint-disable-next-line import/no-anonymous-default-export
 export default async (req:NextApiRequest, res:NextApiResponse) => {
   try {
     const client = await clientPromise;

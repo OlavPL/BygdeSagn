@@ -1,7 +1,7 @@
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import SortListBox from "./sagnSortListBox"
-import SagnListController, { SortTypes } from "../controllers/sagnListController"
+import SagnListController, { SortType } from "../controllers/sagnListController"
 import { useState, useEffect, useContext } from 'react'
 import Sagn from "@/objects/sagn"
 import { AppContext } from "@/pages/_app"
@@ -13,8 +13,8 @@ const HomePage = () => {
     const [isLoading, setLoading] = useState(false)
     const {title, setTitle} = useContext(AppContext);
 
-    const updateList = (e: SortTypes) =>{
-        setList(sagnListController.sortSagn(e))
+    const updateList = (e: SortType) =>{
+        setList(sagnListController.sortSagn(list,e))
     }
 
     useEffect(() => {
@@ -24,7 +24,7 @@ const HomePage = () => {
         .then((data) => {
             let slc = new SagnListController(data)
             setListController(slc)
-            setList(slc.sortSagn(slc.sortType.type))
+            setList(slc.sortSagn(slc.sagnList, slc.sortType))
             setLoading(false)
         })
         
