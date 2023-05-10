@@ -51,7 +51,7 @@ export default function Login({ providers, csrfToken }: InferGetServerSidePropsT
               </div>
             </label>
           
-            <button className="w-full text-white bg-primary-400 hover:bg-secondary-800 py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 my-2"
+            <button className="w-full text-white bg-primary-400 hover:bg-primary-600 py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 my-2"
               type="submit">
                 <FontAwesomeIcon icon={faUser} className="mr-2" />
                 Login med bruker
@@ -63,24 +63,23 @@ export default function Login({ providers, csrfToken }: InferGetServerSidePropsT
               <div className="flex-1 h-px bg-gray-300"></div>
             </div>
 
-            <button className="w-full text-white bg-primary-400 hover:bg-secondary-800 py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 my-2"
+            <button className="w-full text-white bg-primary-400 hover:bg-primary-600 py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 my-2"
               type="button" 
-              // onClick={() => signIn("google", {callbackUrl:"/login"})}>
               onClick={() => { 
                 if(Cookies.get("cookieAcceptance") === ("1") || Cookies.get("cookieAcceptance") === ("0") )
                   signIn("google")
                 else{
                   setShowCookiePopup(true)
-                  toast.error("For å logge inn må du bekrefte at vi kan bruke ditt google navn og epost", getToastOptions(ToastType.light, "need gdpr accept"))
+                  toast.error("For å logge inn må du bekrefte at vi kan bruke ditt google navn og epost", getToastOptions(ToastType.light, "need_gdpr_accept"))
                 }
               }}
             >
-                <FontAwesomeIcon icon={faGoogle} className="mr-2" />
-                Login med Google
+              <FontAwesomeIcon icon={faGoogle} className="mr-2" />
+              Login med Google
             </button>
         </form>
         <div className = "w-full text-right">
-          <p className="text-sm text-gray-500">Har du ikke bruker? <Link href="/register" className ="text-primary-400 hover:underline cursor-pointer ">Registrer her</Link></p>
+          <p className="text-sm text-gray-500">Har du ikke bruker? <Link href="/register" className ="text-primary-400 hover:underline hover:text-primary-500 cursor-pointer ">Registrer her</Link></p>
         </div>
       </div>
       <CookiePopup 

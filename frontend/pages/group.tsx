@@ -11,7 +11,7 @@ interface MemberData {
   roles: string[];
 }
 
-const group: NextPage = () => {
+const Group = () => {
   const { title, setTitle } = useContext(AppContext);
 
   const memberData: MemberData[] = [
@@ -63,4 +63,4 @@ const group: NextPage = () => {
   );
 };
 
-export default group;
+export default Group;

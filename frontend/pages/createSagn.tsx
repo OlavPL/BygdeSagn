@@ -68,6 +68,7 @@ const CreateSagn = ({kommuneList}: IProps) =>{
             return 
         }
 
+        // Sjekk og varsel mot mangel på valgt kommune
         if (selectedKommune.kommunenavnNorsk == "" || selectedKommune == undefined){
             toast.error("Ops! Ser ut som du ikke har spesifisert kommune", getToastOptions(ToastType.colored, "choose kommune"));
             return

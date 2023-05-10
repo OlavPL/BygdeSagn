@@ -100,7 +100,6 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
                     query={searchQuery}
                     setQuery={setSearchQuery}
                   />
-                  {/* <input className="grow rounded-l-none bg-primary-100 focus:outline-none border-l-0 rounded placeholder-textColor " placeholder='Søk på sted...'/> */}
               <button className='p-1 mx-2 my-auto rounded bg-primary-300 hover:bg-primary-500 drop-shadow-m' onClick={resetSearch}>Nullstill</button>
               </div>
           </div>
