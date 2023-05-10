@@ -9,7 +9,7 @@ import Link from 'next/link';
 
 
 
-const Register =()=> {
+const Register = () => {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
