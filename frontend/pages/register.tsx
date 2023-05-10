@@ -1,6 +1,5 @@
 import React, { useState, ChangeEvent } from 'react';
 import { useRouter } from 'next/router';
-import SimpleCrypto from "simple-crypto-js"
 import { toast } from 'react-toastify';
 import { ToastType, getToastOptions } from '@/controllers/toastController';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,6 +13,7 @@ const Register = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [repeatPassword, setRepeatPassword] = useState('')
+  const [TOSAccept, setTOSAccept] = useState(false)
   const router = useRouter()
 
   const [passwordLengthValid, setPasswordLengthValid] = useState(false)
@@ -48,6 +48,11 @@ const Register = () => {
   
     if (password !== repeatPassword) {
       toast.error("Passord er ikke like", getToastOptions(ToastType.light, "Passord stemmer ikke overens"))
+      return
+    }
+
+    if(!TOSAccept){
+      toast.error("Vi kan ikke registrere deg uten at du godkjenner våre vilkår for bruk", getToastOptions(ToastType.light, "need TOSAccept"))
       return
     }
   
@@ -168,7 +173,12 @@ const Register = () => {
               className="grow rounded-l-none bg-white focus:outline-none border-l-0 rounded placeholder-textColor placeholder-opacity-50 w-full"/>
           </div>
         </label>
-        <div className="flex justify-center">
+        <div className="flex flex-col justify-center">
+          <div className='flex flex-row justify-center '>
+            <input type={'checkbox'} checked={TOSAccept} onChange={()=> setTOSAccept(!TOSAccept)} className='w-5'/>
+            <p className='text-center ml-5'>Jeg er over 13 år og godkjenner {<br/>} BygdeSagn sine <Link href={"/termsofservice"}>vilkår for bruk</Link></p>
+          </div>
+          {/* <p>Ved å klikke på &quot;Registrer&quot; godtar du våre <Link href="/cookies" target="_blank"  className='text-blue-400'>vilkår for bruk</Link></p> */}
           <button
             type="button"
             onClick={handleRegister}
@@ -176,7 +186,6 @@ const Register = () => {
             Registrer
           </button>
         </div>
-        <p>Ved å klikke på &quot;Registrer&quot; godtar du våre <Link href="/cookies" target="_blank"  className='text-blue-400'>vilkår for bruk</Link></p>
       </form>
     </div>
   </div>
