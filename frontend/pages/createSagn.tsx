@@ -38,9 +38,9 @@ const CreateSagn = ({kommuneList}: IProps) =>{
     const [tags, setTags] = useState<Tag[]>([])
     const [images, setImages] = useState<File | null>(null)
     const [storyText, setStoryText] = useState<string>("")
-    const [year, setYear] = useState<string|undefined>()
+    const [year, setYear] = useState<string>("")
     const [selectedKommune, setSelectedKommune] = useState<Kommune>({kommunenavn:"", kommunenavnNorsk:""} as Kommune)
-    const [stedsnavn, setStedsnavn] = useState<string|undefined>()
+    const [stedsnavn, setStedsnavn] = useState<string>("")
     const router = useRouter()
 
     useEffect(() => {
@@ -76,8 +76,8 @@ const CreateSagn = ({kommuneList}: IProps) =>{
             
         data.tags = tags
         data.kommune = selectedKommune
-        data.year = year == undefined ? undefined : Number(year)
-        data.stedsnavn = stedsnavn
+        data.year = year.length < 1 ? undefined : Number(year)
+        data.stedsnavn = stedsnavn.length < 1 ? undefined : stedsnavn
         data.owner = session.data?.user!  
         data.story = storyText
         postSagn(data, router)
