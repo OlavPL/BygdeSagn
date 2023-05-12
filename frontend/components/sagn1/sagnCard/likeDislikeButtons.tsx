@@ -131,8 +131,8 @@ const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
     <div className={`flex flex-row ${className}`} >
         <button onClick={addLike} 
             className={`
-                flex flex-row w-20 py-1 place-content-center self-center cursor-default
-                ${session.status === "authenticated" ? "hover:bg-primary-200" : "bg-gray-200"}
+                flex flex-row w-20 py-1 place-content-center self-center 
+                ${session.status === "authenticated" ? "hover:bg-primary-200" : "bg-gray-200 cursor-default"}
                 rounded-l-full border-2 border-slate-500
              `}
         >
@@ -144,8 +144,8 @@ const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
         </button>
         <button onClick={addDislike} 
             className={`
-                flex flex-row w-20 py-1 place-content-center self-center cursor-default
-                ${session.status === "authenticated" ? "hover:bg-red-200" : "bg-gray-200"}
+                flex flex-row w-20 py-1 place-content-center self-center
+                ${session.status === "authenticated" ? "hover:bg-red-200" : "bg-gray-200 cursor-default"}
                 rounded-r-full border-2 border-l-0 border-slate-500
             `}
         >
