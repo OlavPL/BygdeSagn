@@ -48,21 +48,21 @@ const CookiePopup = ({stateValue,setStateValue}:ICookiePopup) => {
               Hei! Vi bruker noen såkalte &apos;Cookies&apos; for å håndtere enktelte deler av nettsiden og ber om din tillatelse til å gjøre dette.
               <Link href={"/cookies"} className='text-blue-500 font-semibold pl-5'>Lær mer</Link>
             </p>
-            <div className='flex flex-row'>
+            <div className='flex flex-col xs:flex-row '>
               <button
-                className="bg-gradient-to-r from-primary-400 to-secondary-400 hover:from-primary-500 hover:to-secondary-600 text-white font-bold py-2 px-4 rounded mt-4 mx-auto"
+                className="bg-gradient-to-r from-primary-400 to-secondary-400 hover:from-primary-500 hover:to-secondary-600 text-white font-bold py-1 px-4 rounded mt-2 xs:mt-4 mx-auto"
                 onClick={() => handleAccept(1)}
               >
                 Ja til alle
               </button>
               <button
-                className="bg-primary-600 hover:bg-primary-700 text-white py-2 px-4 rounded mt-4 mx-auto"
+                className="bg-primary-600 hover:bg-primary-700 text-white py-2 px-4 rounded mt-2 xs:mt-4 mx-auto"
                 onClick={() => handleAccept(0)}
               >
                 Bare nødvendige
               </button>
               <button
-                className="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded mt-4 mx-auto"
+                className="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded mt-2 xs:mt-4 mx-auto"
                 onClick={() => handleAccept(-1)}
               >
                 Nei takk!
