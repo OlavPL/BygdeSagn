@@ -10,6 +10,7 @@ interface PostCommentProps {
 
 const PostComment: React.FC<PostCommentProps> = ({_id, fetchComments}) => {
   const [userText, setUserText] = useState("")
+  const [postingCOmment, setPostingComment] = useState(false)
   const session = useSession()
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -27,6 +28,8 @@ const PostComment: React.FC<PostCommentProps> = ({_id, fetchComments}) => {
 
 
   const handleSubmit = async () => {
+    if(postingCOmment)
+      return
     if (!session.data?.user) {
       toast.error("Du må være logget inn for å legge til en kommentar", getToastOptions(ToastType.light));
       return;
@@ -38,6 +41,7 @@ const PostComment: React.FC<PostCommentProps> = ({_id, fetchComments}) => {
     }
   
     try {
+      setPostingComment(true)
       const url = `/api/post/comments/comment/`;
       const options: RequestInit = {
         headers: { 'Content-Type': 'application/json' },
@@ -61,6 +65,9 @@ const PostComment: React.FC<PostCommentProps> = ({_id, fetchComments}) => {
       setUserText("");
     } catch (error) {
       console.error(`Failed to post comment`);
+    }
+    finally{      
+      setPostingComment(false)
     }
   };
   
