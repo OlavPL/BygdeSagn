@@ -129,14 +129,26 @@ const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
 
     return (
     <div className={`flex flex-row ${className}`} >
-        <button onClick={addLike} className="flex flex-row w-20 py-1 place-content-center self-center hover:bg-primary-200 rounded-l-full border-2 border-slate-500">
+        <button onClick={addLike} 
+            className={`
+                flex flex-row w-20 py-1 place-content-center self-center 
+                ${session.status === "authenticated" ? "hover:bg-primary-200" : "bg-gray-200 cursor-default"}
+                rounded-l-full border-2 border-slate-500
+             `}
+        >
             <FontAwesomeIcon 
                 icon={faThumbsUp} 
                 className={`ml-3 fa-lg ${userLikeStatus! > 0 ? "text-primary-500" : "text-textColor"}`} 
             />
             <div className=" text-center px-2 ">{_likes.length}</div>
         </button>
-        <button onClick={addDislike} className="flex flex-row w-20 py-1 place-content-center self-center hover:bg-red-200 rounded-r-full border-l-0 border-2 border-slate-500">
+        <button onClick={addDislike} 
+            className={`
+                flex flex-row w-20 py-1 place-content-center self-center
+                ${session.status === "authenticated" ? "hover:bg-red-200" : "bg-gray-200 cursor-default"}
+                rounded-r-full border-2 border-l-0 border-slate-500
+            `}
+        >
             <FontAwesomeIcon 
                 icon={faThumbsDown} 
                 className={`fa-lg place-self-end ${userLikeStatus! < 0 ? "text-emphasis-600" : "text-textColor"}`} 

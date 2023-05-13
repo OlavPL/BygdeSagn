@@ -40,14 +40,12 @@ const SagnSortListBox = ({sagnListController, updateList, className}: Props ) =>
             className="hover:bg-primary-50 hover:text-primary-900 ui-active:text-white ui-active ui-not-active:bg-white ui-not-active:text-black"
           >
 
-          {({ selected }) => (
             <div className="relative cursor-default select-none py-2 pl-10 pr-4 overflow-hidden">
               <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                { selected && <FontAwesomeIcon icon={faArrowRight} /> }
+                { sort.type === selected ? <FontAwesomeIcon icon={faArrowRight} /> : <></> }
               </span>
               <span className='truncate'>{sort.text}</span>
             </div>
-          )}
 
           </Listbox.Option>
         ))}

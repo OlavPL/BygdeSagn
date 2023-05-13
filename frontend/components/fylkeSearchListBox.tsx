@@ -61,7 +61,7 @@ const FylkeSortListBox = ({ handleChange, fylkeList, kommuneList, stedsnavnList,
           className={"m-0 rounded rounded-b-none p-1 pb-0 bg-primary-100 focus:outline-none border-b-[1px] border-black"} 
           onChange={(event) => updateQuery(event.target.value)}
         />
-        <Combobox.Options className={"absolute w-52 top-9 rounded-md bg-white shadow-md overflow-y-auto max-h-52"}>
+        <Combobox.Options className={"absolute w-52 top-9 rounded-md bg-white shadow-md overflow-y-auto max-h-52 z-50"}>
           {queriedPlaces.map((object:(any), index) => (
             <Combobox.Option key={index} value={object} 
             className={"p-1 hover:bg-primary-50 hover:text-primary-900 ui-active:text-white ui-active ui-not-active:bg-white ui-not-active:text-black z-100"}

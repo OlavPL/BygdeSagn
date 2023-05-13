@@ -174,15 +174,18 @@ const Register = () => {
           </div>
         </label>
         <div className="flex flex-col justify-center">
-          <div className='flex flex-row justify-center '>
-            <input type={'checkbox'} checked={TOSAccept} onChange={()=> setTOSAccept(!TOSAccept)} className='w-5'/>
-            <p className='text-center ml-5'>Jeg er over 13 år og godkjenner {<br/>} BygdeSagn sine <Link href={"/termsofservice"}>vilkår for bruk</Link></p>
+          <div className='flex flex-row justify-center'>
+            <input type={'checkbox'} checked={TOSAccept} onChange={()=> setTOSAccept(!TOSAccept)} className='w-5 cursor-pointer'/>
+            <p className='text-center ml-5'>Jeg er over 13 år og godkjenner {<br/>} BygdeSagn sine 
+            <Link href={"/termsofservice"} className='text-blue-500'> vilkår for bruk</Link>
+            </p>
           </div>
-          {/* <p>Ved å klikke på &quot;Registrer&quot; godtar du våre <Link href="/cookies" target="_blank"  className='text-blue-400'>vilkår for bruk</Link></p> */}
           <button
             type="button"
             onClick={handleRegister}
-            className="w-full text-white bg-primary-400 hover:bg-secondary-800 py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 my-2">
+            className="w-full text-white bg-primary-400 hover:bg-primary-600 py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500
+              focus:ring-opacity-50 my-2 "
+          >
             Registrer
           </button>
         </div>

@@ -19,7 +19,6 @@ interface IProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   error?: string;
   storyText: string;
   onInput2: React.Dispatch<React.SetStateAction<string>>;
-  // onInput2: (e:React.ChangeEvent<HTMLTextAreaElement>)=>void;
 }
 // eslint-disable-next-line react/display-name
 const Input = React.forwardRef<HTMLTextAreaElement, IProps> (

@@ -9,12 +9,12 @@ dotenv.config();
 
 const { SECRET_KEY } = process.env;
 
-// Create a new user
 export default async (req:NextApiRequest, res:NextApiResponse) => {
   try {
     const client = await clientPromise;
     const db = client.db("App_Db");
-    //Register
+    
+//Register
     
 if (req.method === "POST") {
   const bodyObject = req.body;
@@ -22,13 +22,12 @@ if (req.method === "POST") {
   const hashedPassword = await bcrypt.hash(bodyObject.password, saltRounds);
   bodyObject.password = hashedPassword;
 
-  // Validation
+  // Validering
   if (!validator.isEmail(bodyObject.email)) {
     return res.status(400).json({ error: "Invalid email" });
   }
-
   if (!validator.isStrongPassword(bodyObject.password)) {
-    return res.status(400).json({ error: "Password must be at least 8 characters long and contain a combination of uppercase and lowercase letters, numbers, and symbols" });
+    return res.status(400).json({ error: "Password must be at least 10 characters long and contain a combination of uppercase and lowercase letters, numbers, and symbols" });
   }
 
   const myPost = await db.collection("users").insertOne(bodyObject);
@@ -36,7 +35,10 @@ if (req.method === "POST") {
   console.log("User posted");
   //Login
 } else if (req.method === 'GET') {
-  const { email } = req.query;
+  const email = Array.isArray(req.query.email) ? req.query.email[0] : req.query.email;
+  if (!validator.isEmail(email!)) {
+    return res.status(400).json({ error: 'Invalid email address' });
+  }
   const user = await db
     .collection('users')
     .findOne({ email });
@@ -46,6 +48,7 @@ if (req.method === "POST") {
   } else {
     res.status(200).json({ exists: false });
   }
+  //Update User
 }else if (req.method === "PUT") {
       const id = req.body.user_id;
       const updateDocument = {
@@ -90,20 +93,12 @@ if (req.method === "POST") {
         for (const post of posts) {
           await db.collection(process.env.POST_COLLECTION!).updateOne({ _id: post._id }, { $pull: { comments: { owner: { email } } } });
         }
-      
-      if (posts) {
-        console.log(`Deleted ${posts} comments by user ${email}`);
-      } else {
-        console.log(`No comments found for user ${email}`);
-      }
-      
         
-        
-        res.status(200).json({ message: `User ${email} and all related posts and comments have been deleted` });
+        res.status(200).json({ message: `User ${email} have been deleted` });
       } else {
         res.status(404).json({ error: `User ${email} not found` });
       }
-      console.log("User and related posts and comments deleted");
+      console.log("User deleted");
     }
   } catch (e) {
     console.error(e);

@@ -1,5 +1,7 @@
 import { Kommune } from "@/types/kommune";
 
+//Denne siden ble brukt til å hente spesifik data om kommuner og fylker fra geonorge  til videre bruk i databasen
+
 const FylkeTing = () => (
   <div>
         <button onClick={setFylker}>BUTTON</button>

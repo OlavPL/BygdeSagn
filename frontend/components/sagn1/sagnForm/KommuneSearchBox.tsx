@@ -10,7 +10,6 @@ interface KommuneSearchBoxI{
 }
 
 const KommuneSearchBox =  ( { kommuner, className, selectedKommune, handleChange }:KommuneSearchBoxI ) => {
-  // const [selectedKommune, setSelectedKommune] = useState<Kommune>( kommuner[0] == undefined? ({_id: "0", kommunenavn:"Oslo", kommunenavnNorsk:"Oslo"} as Kommune) : kommuner[0] )
   const [query, setQuery] = useState('')
 
   const handleSelect = (e: string) =>{    

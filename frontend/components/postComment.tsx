@@ -3,6 +3,8 @@ import router from 'next/router';
 import React, { ChangeEvent, useState, useRef } from 'react';
 import { toast } from 'react-toastify';
 import { ToastType, getToastOptions } from '@/controllers/toastController';
+import { filterBadWords } from '@/controllers/automod';
+import Link from 'next/link';
 interface PostCommentProps {
   _id: string;
   fetchComments: () => void;
@@ -46,7 +48,7 @@ const PostComment: React.FC<PostCommentProps> = ({_id, fetchComments}) => {
       const options: RequestInit = {
         headers: { 'Content-Type': 'application/json' },
         method: 'PUT',
-        body: JSON.stringify({ "_id": _id, comment: { text: userText, user: { name: session.data?.user?.name, email: session.data?.user?.email } } }),
+        body: JSON.stringify({ "_id": _id, comment: { text: filterBadWords(userText), user: { name: session.data?.user?.name, email: session.data?.user?.email } } }),
       };
         
       const response = await fetch(url, options);
@@ -73,31 +75,46 @@ const PostComment: React.FC<PostCommentProps> = ({_id, fetchComments}) => {
   
   
   return (
-    <div className="mt-4 relative">
-      <textarea
-        className="shadow-md appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline whitespace-pre-wrap break-words resize-none 
-        ${isFocused ? 'border-blue-600 focus:border-blue-500 focus:ring-1' : 'border-black'"
-        placeholder="Skriv melding ..."
-        required maxLength={500}
-        value={userText}
-        rows = {1}
-        ref={textareaRef}
-        onChange={handleInputChange}
-        onClick={handleClick}
-      ></textarea>
-      <div className="flex justify-end items-center mt-2">
-        <div className="text-center mr-3 text-xs text-gray-600">
-          {userText.length}/500
+    <>
+        <div className="mt-4 relative">
+    { session.status === "authenticated" ? 
+      (
+        <>
+        <textarea
+          className="shadow-md appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline whitespace-pre-wrap break-words resize-none 
+          focus:border-blue-500 focus:ring-1 border-black"
+          placeholder="Skriv melding ..."
+          required maxLength={500}
+          value={userText}
+          rows = {1}
+          ref={textareaRef}
+          onChange={handleInputChange}
+          onClick={handleClick}
+        ></textarea>
+        <div className="flex justify-end items-center mt-2">
+          <div className="text-center mr-3 text-xs text-gray-600">
+            {userText.length}/500
+          </div>
+          <button
+            className="bg-secondary-500 hover:bg-green-500 text-white font-bold py-2 px-4 rounded"
+            onClick={handleSubmit}
+          >
+            Send
+          </button>
         </div>
-        <button
-          className="bg-secondary-500 hover:bg-green-500 text-white font-bold py-2 px-4 rounded"
-          onClick={handleSubmit}
-        >
-          Send
-        </button>
+        </>
+      )
+      
+      :
+      <div>
+        <p className='text-center '> Du må være logget inn for å skrive kommentar. 
+        <br/>Klikk<Link href={"/login"} className='text-blue-500 font-semibold'> her </Link>for å logge inn</p>
       </div>
+    }
     </div>
+    </>
   )
+  
 }
 
 export default PostComment;

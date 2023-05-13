@@ -1,6 +1,6 @@
 export const badWords = Array<string>(
-    "Herman","faen", "neger", "nigger", "retard", "mongo", "helvette", "fitte", "kuk", "hore",
-     "cock", "cunt", "rævhål",
+    "faen", "neger", "nigger", "retard", "mongo", "helvette", "fitte", "kuk", "hore",
+     "cock", "cunt", "rævhål", "skal drepe deg", 
      )
 
 export const filterBadWords = (text: string) => {

@@ -67,7 +67,6 @@ return (
     <div className={`${className} ${""}`}>
         <ToastContainer/>
         <input type="file" accept='image/*' ref={hiddenFileInput} onChange={(e) => handleImageChange(e)} className="invisible"/>
-        {/* <input type="file" accept='image/*' ref={hiddenFileInput} onChange={handleImageChange} className="invisible"/> */}
 
             <div className='flex felx-row space-x-5 py-2 justify-between w-full'>
                 <div className='flex flex-row'>
