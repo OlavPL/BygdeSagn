@@ -23,7 +23,7 @@ const OCRTooltip = ({ children, ClassName }: ITooltip) => {
             <p className="relative mt-1 ml-4 pb-1 z-10 leading-none whitespace-no-wrap rounded-md">(Må være trykkbokstaver)</p>
             <p className="relative mt-4 pb-1 z-10 leading-none whitespace-no-wrap rounded-md"><span className="font-bold">3.</span> Klikk på &apos;Omgjør til tekst&apos;</p>
         </div>
-        <div className="w-3 h-3 -mt-2 -ml-28 bg-primary-300 shadow drop-shadow-lg rotate-45 "/>
+        <div className="w-3 h-3 -mt-2 -ml-28 bg-primary-300 rotate-45 "/>
       </div>
     </div>
   );
