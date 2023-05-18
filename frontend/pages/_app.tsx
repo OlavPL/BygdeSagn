@@ -22,15 +22,17 @@ interface MyAppProps extends AppProps {
   session: Session
 }
 
-const AppContext = createContext<ContextInerface>(({
-  title: "Tittel",
-  setTitle: ()=>{}
-}));
-
+// Interface for useContext
 interface ContextInerface {
   title: string,
   setTitle: React.Dispatch<React.SetStateAction<string>>
 }
+
+// Opprettelse av context objekt.
+const AppContext = createContext<ContextInerface>(({
+  title: "Tittel",
+  setTitle: ()=>{}
+}));
 
 const App = ({ Component, pageProps, session }: MyAppProps) => {
   const [title, setTitle] = useState<string>("");
@@ -54,10 +56,9 @@ const App = ({ Component, pageProps, session }: MyAppProps) => {
         <div className=" text-textColor min-h-screen bg-center relative">
           <CookiePopup />
           <Header/>
-            <ToastContainer />
+            <ToastContainer />  {/* Et ankerpunkt for toastify popup'ene i hele applikasjonen */}
           <Component {...pageProps} />
         </div>
-          {/* <Footer/> */}
       </AppContext.Provider>
     </SessionProvider>
     </div>

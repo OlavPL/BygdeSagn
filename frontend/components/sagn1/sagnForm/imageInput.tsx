@@ -83,7 +83,7 @@ return (
                             text-textColor shadow shadow-primary-600/25 rounded-md hover:shadow-emphasis-400/75 justify-self-end"
                             onClick={handleOCR}
                     > 
-                        Omgjør til tekst
+                        Overfør tekst fra bilde
                     </button> 
                 )}
             </div>
