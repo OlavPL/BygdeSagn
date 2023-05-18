@@ -107,30 +107,30 @@ const Header = () => {
                     <span className="text-lg underline">Nytt Sagn</span>
                   </button>
                   </Link>
-                  <Link href="/Faq" className="block hover:bg-primary-200">
+                  {/* <Link href="/Faq" className="block hover:bg-primary-200">
                     <button className="flex items-center space-x-1 font-medium text-textColor focus:outline-none rounded-md px-4 py-1.5">
                       <FontAwesomeIcon icon={faQuestionCircle} className="text-2xl w-6 h-6 cursor-pointer ease-in-out fa-lg" />
                       <span className="text-lg underline">FAQ</span>
                     </button>
-                  </Link>
+                  </Link> */}
                   <Link href="/cookies" className="block hover:bg-primary-200">
                     <button className="flex items-center space-x-1 font-medium text-textColor focus:outline-none rounded-md px-4 py-1.5">
                       <FontAwesomeIcon icon={faCookie} className="text-2xl w-6 h-6 cursor-pointer ease-in-out fa-lg" />
                       <span className="text-lg underline">Cookies</span>
                     </button>
                   </Link>
-                  <Link href="/group" className="block hover:bg-primary-200">
+                  <Link href="/aboutUs" className="block hover:bg-primary-200">
                     <button className="flex items-center space-x-1 font-medium text-textColor focus:outline-none rounded-md px-4 py-1.5">
                       <FontAwesomeIcon icon={faUsers} className="text-2xl w-6 h-6 cursor-pointer ease-in-out fa-lg" />
                       <span className="text-lg underline">Om oss</span>
                     </button>
                   </Link>
-                  <Link href="/contactus" className="block hover:bg-primary-200">
+                  {/* <Link href="/contactus" className="block hover:bg-primary-200">
                     <button className="flex items-center space-x-1 font-medium text-textColor focus:outline-none rounded-md px-4 py-1.5">
                       <FontAwesomeIcon icon={faEnvelope} className="text-2xl w-6 h-6 cursor-pointer ease-in-out fa-lg" />
                       <span className="text-lg underline">Kontakt oss</span>
                     </button>
-                  </Link>
+                  </Link> */}
                                     
                   {session ? (
                     <button

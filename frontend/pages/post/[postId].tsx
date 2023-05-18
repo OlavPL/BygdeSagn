@@ -11,6 +11,8 @@ import { format } from "date-fns";
 import { ObjectId } from "mongodb";
 import Comments from "@/components/comments";
 import { AppContext } from "../_app";
+
+// Denne vilen er en fullvisning av sagn, hvilke sagn som blir vist kommer ann på hva som blir skrevet i routen (/post/"post ID").
 const SagnFullView = (props:any) =>{
     const [sagn, setSagn] = useState<Sagn>() 
     const {title, setTitle} = useContext(AppContext);

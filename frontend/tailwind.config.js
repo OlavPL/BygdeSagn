@@ -309,6 +309,7 @@ module.exports = {
         primary: aquaIsland,
         secondary: mintGreen,
         emphasis: coral,
+        link: blue[600],
         textColor: gray[800],
         textLink: blue[500],
         white: '#FFFDFA',
