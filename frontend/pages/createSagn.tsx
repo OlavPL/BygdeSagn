@@ -56,6 +56,7 @@ const CreateSagn = ({kommuneList}: IProps) =>{
         var list = tags.filter(equalString)
         setTags(list)
     }
+
     const onSubmit: SubmitHandler<Inputs> = (data) =>{
         // Sjekk og varsel mot ekstremt kort tittel
         if(data.title.trim() == "" || data.title.trim().length < 3){
@@ -90,8 +91,8 @@ const CreateSagn = ({kommuneList}: IProps) =>{
     }
 
     const {
-        register,
-        handleSubmit,    
+      register,
+      handleSubmit,    
     } = useForm<Inputs>();
     
     

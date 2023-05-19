@@ -132,6 +132,7 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
   )
 }
 
+// henter fylker, kommuner, stedsnavn og sagn via server.
 export async function getServerSideProps() {
   try {
       const client = await clientPromise;

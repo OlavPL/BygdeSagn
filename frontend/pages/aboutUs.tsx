@@ -4,6 +4,7 @@ import { AppContext } from '@/pages/_app';
 import Link from 'next/link';
 import Gravatar from 'react-gravatar';
 
+// data for kontaktkort 
 interface MemberData {
   firstName: string;
   lastName: string;
@@ -62,7 +63,7 @@ const faqData: FaqData[] = [
 ];
 
 
-const Group = () => {
+const AboutUs = () => {
   const { title, setTitle } = useContext(AppContext);
   const [dropdownIndex, setDropdownIndex] = useState(-1);
 
@@ -133,4 +134,4 @@ const Group = () => {
   );
 };
 
-export default Group;
+export default AboutUs;

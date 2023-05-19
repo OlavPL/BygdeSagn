@@ -93,26 +93,21 @@ const Header = () => {
                 aria-labelledby="menu-button"
               >
                 <div className="padd relative overflow-hidden rounded" role="none" >
+
                   {session && 
-                  <Link href={"../profilePage"} className="block hover:bg-primary-200">
-                  <button className="flex items-center space-x-1 font-medium text-textColor focus:outline-none rounded-md px-4 py-1.5">
-                    <FontAwesomeIcon icon={faUser} className="text-2xl w-6 h-6 cursor-pointer ease-in-out fa-lg" />
-                    <span className="text-lg underline">Profil</span>
-                  </button>
-                  </Link>
+                    <Link href={"../profilePage"} className="block hover:bg-primary-200">
+                      <button className="flex items-center space-x-1 font-medium text-textColor focus:outline-none rounded-md px-4 py-1.5">
+                        <FontAwesomeIcon icon={faUser} className="text-2xl w-6 h-6 cursor-pointer ease-in-out fa-lg" />
+                        <span className="text-lg underline">Profil</span>
+                      </button>
+                    </Link>
                   }
                   <Link href={"createSagn"} className = "block md:hidden hover:bg-primary-200">
-                  <button className="flex items-center space-x-1 font-medium  focus:outline-none rounded-md px-4 py-1.5">
-                    <FontAwesomeIcon icon={faPen} className="text-2xl w-6 h-6 cursor-pointer ease-in-out fa-lg" />
-                    <span className="text-lg underline">Nytt Sagn</span>
-                  </button>
-                  </Link>
-                  {/* <Link href="/Faq" className="block hover:bg-primary-200">
-                    <button className="flex items-center space-x-1 font-medium text-textColor focus:outline-none rounded-md px-4 py-1.5">
-                      <FontAwesomeIcon icon={faQuestionCircle} className="text-2xl w-6 h-6 cursor-pointer ease-in-out fa-lg" />
-                      <span className="text-lg underline">FAQ</span>
+                    <button className="flex items-center space-x-1 font-medium  focus:outline-none rounded-md px-4 py-1.5">
+                      <FontAwesomeIcon icon={faPen} className="text-2xl w-6 h-6 cursor-pointer ease-in-out fa-lg" />
+                      <span className="text-lg underline">Nytt Sagn</span>
                     </button>
-                  </Link> */}
+                  </Link>
                   <Link href="/cookies" className="block hover:bg-primary-200">
                     <button className="flex items-center space-x-1 font-medium text-textColor focus:outline-none rounded-md px-4 py-1.5">
                       <FontAwesomeIcon icon={faCookie} className="text-2xl w-6 h-6 cursor-pointer ease-in-out fa-lg" />
@@ -125,32 +120,30 @@ const Header = () => {
                       <span className="text-lg underline">Om oss</span>
                     </button>
                   </Link>
-                  {/* <Link href="/contactus" className="block hover:bg-primary-200">
-                    <button className="flex items-center space-x-1 font-medium text-textColor focus:outline-none rounded-md px-4 py-1.5">
-                      <FontAwesomeIcon icon={faEnvelope} className="text-2xl w-6 h-6 cursor-pointer ease-in-out fa-lg" />
-                      <span className="text-lg underline">Kontakt oss</span>
-                    </button>
-                  </Link> */}
                                     
-                  {session ? (
-                    <button
-                      onClick={handleLogout}
-                      className="flex items-center space-x-1 font-medium hover:bg-red-400 w-full focus:outline-none rounded-md px-4 py-1.5"
-                      role="menuitem"
-                      id="menu-item-logout"
-                    >
-                      <FontAwesomeIcon icon={faArrowRightFromBracket} className="text-2xl w-6 h-6 cursor-pointer transition-colors ease-in-out fa-lg" />
-                      <span className="text-lg underline">Logout</span>
-                    </button>
-                  ) : (
-                    <Link href="/login" className="block hover:bg-primary-200" role="menuitem" id="menu-item-login">
-                      <button className="flex items-center space-x-1 font-medium focus:outline-none rounded-md px-4 py-1.5">
-                        <FontAwesomeIcon icon={faRightFromBracket} className="text-2xl w-6 h-6 cursor-pointer transition-colors ease-in-out fa-lg" />
-                        <span className="text-lg underline">Logg inn</span>
+                  {session ?
+                    (
+                      <button
+                        onClick={handleLogout}
+                        className="flex items-center space-x-1 font-medium hover:bg-red-400 w-full focus:outline-none rounded-md px-4 py-1.5"
+                        role="menuitem"
+                        id="menu-item-logout"
+                      >
+                        <FontAwesomeIcon icon={faArrowRightFromBracket} className="text-2xl w-6 h-6 cursor-pointer transition-colors ease-in-out fa-lg" />
+                        <span className="text-lg underline">Logout</span>
                       </button>
-                    </Link>
-                    
-                  )}
+                    ) 
+                      :
+                    (
+                      <Link href="/login" className="block hover:bg-primary-200" role="menuitem" id="menu-item-login">
+                        <button className="flex items-center space-x-1 font-medium focus:outline-none rounded-md px-4 py-1.5">
+                          <FontAwesomeIcon icon={faRightFromBracket} className="text-2xl w-6 h-6 cursor-pointer transition-colors ease-in-out fa-lg" />
+                          <span className="text-lg underline">Logg inn</span>
+                        </button>
+                      </Link>
+                      
+                    )
+                  }
                 </div>
               </div>   
             </div>
