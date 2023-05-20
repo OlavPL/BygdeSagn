@@ -73,6 +73,8 @@ const SagnFullView = (props:any) =>{
     );
 };
 
+
+// Henter sagn basert på postId i url
 export async function getServerSideProps(context: {params: { postId:string} }) {
     try {
         const {params} = context
