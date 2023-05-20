@@ -11,6 +11,9 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
     const id = new ObjectId(req.body._id);
     const user = req.body.user;
     
+    // PUT returnere ut av founksjon om brukeren allerede ligger i dislike listen til sagnet.
+    // Ellers forsøkes det å dra ut brukeren fra dislike og like dokumetnet og legger brukeren til i dislike 
+    // Sagnet blir også sjekket av automod ved dislike. 
     if (req.method === 'PUT') {
         const existingDocument = await db.collection(process.env.POST_COLLECTION!).findOne({_id: id, dislikes: user});
         if (existingDocument) {
@@ -45,6 +48,8 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
             user: user,
             object: result
         });
+        
+    // DELETE sjekker om bruker ligger i Dislike liste på dikumentet og fjerner brukeren om den er
     } else if (req.method === 'DELETE') {
 
         await db.collection(process.env.POST_COLLECTION!)
@@ -68,6 +73,8 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
    }
 }
 
+// Denne metoden sjekker om forholdet mellom likes og dislikes på et sagn går under grensen som er satt i "../controllers/autmod", 
+// om den er det så blir sagnet flagget og en varsel vil komme opp på visning av sagnet. 
 const checkAutomodLikeThreshold = async (id: ObjectId, db: Db) =>{
     let post =  await db.collection(process.env.POST_COLLECTION!)
     .findOne({_id: id});

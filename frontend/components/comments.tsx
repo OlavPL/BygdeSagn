@@ -62,7 +62,7 @@ const Comment = (props: CommentsProps) => {
 
   return(
     <div className = "flex flex-col w-full">
-      <button className = "bg-emphasis-50 rounded-xl p-2 shadow-md ml-auto border border-gray-500 hover:bg-emphasis-200 rounded" onClick={handleToggleComment}>
+      <button className = "bg-emphasis-50 rounded-xl p-2 shadow-md ml-auto border border-gray-500 hover:bg-emphasis-200" onClick={handleToggleComment}>
         {showComment ? 'Skjul kommentar' : 'Vis kommentar'}
       </button>
 

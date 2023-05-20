@@ -57,6 +57,7 @@ const CreateSagn = ({kommuneList}: IProps) =>{
         setTags(list)
     }
 
+    //Sjekker om nødvendige input felt er gyldige -> sender en post request til server.
     const onSubmit: SubmitHandler<Inputs> = (data) =>{
         // Sjekk og varsel mot ekstremt kort tittel
         if(data.title.trim() == "" || data.title.trim().length < 3){
@@ -187,6 +188,7 @@ async function postSagn (data:Inputs, router: NextRouter ){
     })
   }
 
+  // Henter en lsite med fylker fra databasen
   export async function getServerSideProps() {
     interface FylkeI extends WithId<Document>{
       document: WithId<Document>

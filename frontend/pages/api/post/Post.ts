@@ -9,7 +9,9 @@ export default async function handler(
 ) {
   const client = await clientPromise;
   const collection = client.db("App_Db").collection(process.env.POST_COLLECTION!);
-  //GET Sagn
+
+  // Method "GET" sjekker om variabelen _id finner sted i "req" objektet. 
+  // Om den er til stede vil metoden returnere sagnet med lik id i databasen ellers returners alle sagn fra databasen
   if (req.method === "GET") {
     let result;
     if (!req.query._id || req.query._id == null) {
@@ -28,7 +30,8 @@ export default async function handler(
     } else {
       res.status(200).json(result);
     }
-    //Slett Sagn
+
+  //Method "DELETE" Sletter Sagn basert på _id
   } else if (req.method === "DELETE") {
     const result = await collection.deleteOne({ _id: new ObjectId(req.query._id?.toString()) });
 
@@ -37,11 +40,11 @@ export default async function handler(
     } else {
       res.status(404).json({ message: "Post not found" });
     }
-    //Post Sagn
+  //Method "Post" Lager et sagn basert på req.body
   }if (req.method === 'POST') {
     const { stedsnavn, kommune } = req.body;
   
-    // validate stedsnavn and kommune.. Validering av Text felt og Tittel skjer i Frontend
+    // validate stedsnavn og kommune.. Validering av Text felt og Tittel skjer i Frontend
     if (!stedsnavn || !validator.isAlpha(stedsnavn)) {
       return res.status(400).json({ error: 'Invalid stedsnavn' });
     }

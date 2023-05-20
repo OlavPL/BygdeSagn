@@ -10,6 +10,8 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
     const id = new ObjectId(req.body._id);
     const user = req.body.user;
     
+    // PUT returnere ut av founksjon om brukeren allerede ligger i liker listen til sagnet.
+    // Ellers forsøkes det å dra ut brukeren fra dislike og like dokumetnet og legger brukeren til i like 
     if (req.method === 'PUT') {
         const existingDocument = await db.collection(process.env.POST_COLLECTION!).findOne({_id: id, likes: user});
         if (existingDocument) {
@@ -44,6 +46,8 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
             object: result,
             document:returnDocument
         });
+        
+    // DELETE sjekker om bruker ligger i likes liste på dikumentet og fjerner brukeren om den er
     } else if (req.method === 'DELETE') {
         const updateDocument = {
             $pull: {
