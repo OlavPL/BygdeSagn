@@ -192,7 +192,7 @@ const ProfilePageNew = () => {
         </div>
       </div>
       <button
-        className="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded mt-auto ml-auto"
+        className="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded mt-5 ml-auto"
         onClick={() => setShowConfirmation(true)}
       >
         Slett bruker
@@ -207,7 +207,7 @@ const ProfilePageNew = () => {
                 className="bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded mr-2"
                 onClick={() => setShowConfirmation(false)}
               >
-                Angre
+                Avbryt
               </button>
               <button
                 className="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded"

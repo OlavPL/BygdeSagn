@@ -45,9 +45,9 @@ export default async function handler(
     const { stedsnavn, kommune } = req.body;
   
     // validate stedsnavn og kommune.. Validering av Text felt og Tittel skjer i Frontend
-    if (!stedsnavn || !validator.isAlpha(stedsnavn)) {
-      return res.status(400).json({ error: 'Invalid stedsnavn' });
-    }
+    // if (!stedsnavn || !validator.isAlpha(stedsnavn)) {
+    //   return res.status(400).json({ error: 'Invalid stedsnavn' });
+    // }
   
     if (!kommune || !kommune.fylkesnummer || !validator.isNumeric(kommune.fylkesnummer)
         || !kommune.kommunenummer || !validator.isNumeric(kommune.kommunenummer)) {

@@ -19,7 +19,7 @@ const Input = React.forwardRef<HTMLInputElement, IProps> (
           <input
             ref={ref}
             {...props}
-            className="w-full rounded-t focus:ring-0 outline-none border-transparent focus:border-transparent peer"
+            className="w-full rounded-t pl-2 focus:ring-0 outline-none border-transparent focus:border-transparent peer"
             type={"text"}
             placeholder=""
           />
