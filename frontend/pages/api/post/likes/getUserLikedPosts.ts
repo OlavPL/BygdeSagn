@@ -5,6 +5,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  //GET, returns an array of posts that is liked by one user.
   if (req.method === "GET") {
     const email = req.query.email as string;
 

@@ -2,6 +2,8 @@ import { NextPage } from 'next';
 import React, { useContext, useEffect } from 'react';
 import { AppContext } from '@/pages/_app';
 
+
+// Terms and Services side
 const TermsAndServices: NextPage = () => {
   const { title, setTitle } = useContext(AppContext);
 

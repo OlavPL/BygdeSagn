@@ -7,7 +7,7 @@ interface cookieData {
   title: string;
   info: string;
 }
-
+// Cookies side for å informere brukeren om vår bruk av Cookies
 const Cookies: NextPage = () => {
     const { title, setTitle } = useContext(AppContext);
     

@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt';
 import * as dotenv from 'dotenv'
 dotenv.config()
 
-
+// Config for Next-Auth.JS
 
 export default NextAuth({
   pages: {
@@ -17,6 +17,7 @@ export default NextAuth({
     error: '/login?error=Authentication failed', 
   },
   providers: [
+    //'Bygdesagn Provider' for å logge inn med bruker registrert i MongoDb
     CredentialsProvider({
       name: "BygdeSagn Konto",
       credentials: {
@@ -44,6 +45,7 @@ export default NextAuth({
       },
     }),
     GoogleProvider({
+       //'GoogleProvider' Login for eksisterende brukere
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       idToken: true,
@@ -53,7 +55,7 @@ export default NextAuth({
         const client = await clientPromise;
         const db = client.db("App_Db");
         const user = await db.collection("users").findOne({ email: profile.email });
-        if (!user) {
+        if (!user) { // Sjekk for å finne ut om eposten er registrert i systemet tidligere
           const newUser = {
             email: profile.email,
             name: profile.name,

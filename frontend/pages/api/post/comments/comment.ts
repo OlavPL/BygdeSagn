@@ -3,6 +3,7 @@ import clientPromise from "@/lib/mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  //PUT, add's a comment in to a Sagn's comments array
   if (req.method === "PUT") {
     const client = await clientPromise;
     const db = client.db("App_Db");
@@ -23,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     };
     const result = await db.collection(process.env.POST_COLLECTION!).updateOne({ _id: id }, updateDocument);
     res.status(200).json("Comments Updated" + " _id:" + id);
-    //GET brukeren sine kommentarer
+    //GET, returns the users comments 
   } else if (req.method === "GET") {
     const email = req.query.email as string;
     const client = await clientPromise;

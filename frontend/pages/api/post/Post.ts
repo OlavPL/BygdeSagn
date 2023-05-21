@@ -31,7 +31,7 @@ export default async function handler(
       res.status(200).json(result);
     }
 
-  //Method "DELETE" Sletter Sagn basert på _id
+  //DELETE, sletter et sagn basert på query.id variabelen
   } else if (req.method === "DELETE") {
     const result = await collection.deleteOne({ _id: new ObjectId(req.query._id?.toString()) });
 
@@ -40,15 +40,9 @@ export default async function handler(
     } else {
       res.status(404).json({ message: "Post not found" });
     }
-  //Method "Post" Lager et sagn basert på req.body
+  // POST, oppretter et nytt Sagn basert på req.body
   }if (req.method === 'POST') {
     const { stedsnavn, kommune } = req.body;
-  
-    // validate stedsnavn og kommune.. Validering av Text felt og Tittel skjer i Frontend
-    // if (!stedsnavn || !validator.isAlpha(stedsnavn)) {
-    //   return res.status(400).json({ error: 'Invalid stedsnavn' });
-    // }
-  
     if (!kommune || !kommune.fylkesnummer || !validator.isNumeric(kommune.fylkesnummer)
         || !kommune.kommunenummer || !validator.isNumeric(kommune.kommunenummer)) {
       return res.status(400).json({ error: 'Invalid kommune' });
@@ -80,7 +74,7 @@ export default async function handler(
       console.error(e);
       return res.status(301);
     }
-    //Update Sagn
+    //PUT oppdaterer et sagn, ikke implementert men er lagt til rette for det.
   } else if (req.method === "PUT") {
     try {
       const client = await clientPromise;

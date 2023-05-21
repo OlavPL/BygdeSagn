@@ -14,15 +14,16 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
     const client = await clientPromise;
     const db = client.db("App_Db");
     
-//Register
+//Registrering av bruker
     
 if (req.method === "POST") {
   const bodyObject = req.body;
+  //Bcrypt oppsett og hasing av passord
   const saltRounds = (10);
   const hashedPassword = await bcrypt.hash(bodyObject.password, saltRounds);
   bodyObject.password = hashedPassword;
 
-  // Validering
+  // Validaering av input som blir sendt inn
   if (!validator.isEmail(bodyObject.email)) {
     return res.status(400).json({ error: "Invalid email" });
   }
@@ -33,7 +34,8 @@ if (req.method === "POST") {
   const myPost = await db.collection("users").insertOne(bodyObject);
   res.status(200).json(myPost);
   console.log("User posted");
-  //Login
+
+  //Login av bruker
 } else if (req.method === 'GET') {
   const email = Array.isArray(req.query.email) ? req.query.email[0] : req.query.email;
   if (!validator.isEmail(email!)) {
@@ -48,7 +50,7 @@ if (req.method === "POST") {
   } else {
     res.status(200).json({ exists: false });
   }
-  //Update User
+  //Oppdatering av bruker, ikke implementert
 }else if (req.method === "PUT") {
       const id = req.body.user_id;
       const updateDocument = {
@@ -59,7 +61,7 @@ if (req.method === "POST") {
         }
       };
       
-      // Validation
+      // Validaering av input som blir sendt inn
       if (!validator.isMongoId(id)) {
         return res.status(400).json({ error: "Invalid ID" });
       }
@@ -84,10 +86,10 @@ if (req.method === "POST") {
       const user = await db.collection("users").findOneAndDelete({email});
       
       if (user) {
-        // Delete all posts by user
+        // Sletter alle sagn lagt ut av en bruker, ikke ferdig implementert enda.
         await db.collection(process.env.POST_COLLECTION!).deleteMany({"owner.email": email});
         
-        // Delete all comments by user
+        // Sletter alle kommentarer som har blit gjort av brukeren, ikke ferdig implementert enda.
         const posts = await db.collection(process.env.POST_COLLECTION!).find({ "comments.owner.email": email }).toArray();
 
         for (const post of posts) {

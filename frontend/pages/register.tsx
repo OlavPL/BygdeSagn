@@ -56,7 +56,7 @@ const Register = () => {
       return
     }
   
-    // Check if email already exists in the database
+    // sjekker om emailen allerede finnes i databasen for å hindre dobbelt registrering
     const emailCheckResponse = await fetch(`/api/user/?email=${email}`)
     const emailCheckResult = await emailCheckResponse.json()
   

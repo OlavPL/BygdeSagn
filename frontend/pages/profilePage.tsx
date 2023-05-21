@@ -22,7 +22,7 @@ const ProfilePageNew = () => {
   const [liked, setLiked] = useState(0);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const handleClick = () => setExpanded(!expanded);
-
+  //Antall Sagn lagt ut av en bruker
   const getPostCount = async () => {
     try {
       const res = await fetch(`/api/post/getUserPosts?email=${user?.email}`);
@@ -32,7 +32,7 @@ const ProfilePageNew = () => {
       console.log(error);
     }
   };
-
+  //Antall kommentarer gjort av en bruker
   const getComment = async () => {
     try {
       const res = await fetch(`/api/post/comments/getUserComments?name=${user?.name}`);
@@ -42,7 +42,7 @@ const ProfilePageNew = () => {
       console.log(error);
     }
   };
-
+  //Antall likes gjort av en bruker
   const getLiked = async () => {
     try {
       const res = await fetch(`/api/post/likes/getUserLikedPosts?email=${user?.email}`);
@@ -74,7 +74,7 @@ const ProfilePageNew = () => {
       console.error('Error deleting user:', error);
     }
   };
-
+  //Oppdaterer antall likes, kommentarer og posts som blir vist som tall til brukeren
   useEffect(() => {
     getPostCount();
     getComment();
@@ -108,7 +108,7 @@ const ProfilePageNew = () => {
     router.push("/profilePage");
   };
   
-
+//Henter profil bilde fra google / dersom det ikke blir brukt en google bruker så blir det satt til et standard bilde
   const picstring = (): string => {
     if (session) {
       if (session.user?.image == null) {
