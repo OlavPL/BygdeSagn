@@ -154,7 +154,7 @@ const Register = () => {
             </div>
             <div className="flex items-center">
               <FontAwesomeIcon icon={passwordNumberValid ? faCheck : faTimes} className={`mr-1 ${passwordNumberValid ? 'text-green-500' : 'text-red-500'}`} />
-              <span>Må innehold en bokstav</span>
+              <span>Må innehold et tall</span>
             </div>
           </div>
         </label>
