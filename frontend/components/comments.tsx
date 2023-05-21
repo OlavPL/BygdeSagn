@@ -2,23 +2,17 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { format } from 'date-fns';
 import PostComment from './postComment';
+import { Comment } from '@/types/comment';
 
-
-interface CommentData {
-  _id: string;
-  text: string;
-  owner: string;
-  postedAt: string;
-}
 
 interface CommentsProps {
-  comments?: CommentData[];
+  comments: Comment[];
   _id: string;
 }
 
 const Comment = (props: CommentsProps) => {
   const [showComment, setShowComment] = useState(false);
-  const [comments, setComments] = useState<CommentData[]>([]);
+  const [comments, setComments] = useState<Comment[]>(props.comments);
   const { data: session } = useSession();
 
   async function fetchComments() {
@@ -37,7 +31,7 @@ const Comment = (props: CommentsProps) => {
     }
   }
   useEffect(() => {
-    fetchComments();
+    // fetchComments();
   }, [props._id]);
 
   const handleToggleComment = () => {
@@ -73,7 +67,7 @@ const Comment = (props: CommentsProps) => {
               fetchComments={fetchComments}
           />
           <ul className = "mt-4 space-y-4 text-lg">
-            {(comments || []).map((comment: CommentData, index: number) => (
+            {(comments || []).map((comment: Comment, index: number) => (
               <li key={index} className="flex flex-col p-2 bg-gray-100 rounded shadow-md break-words">
                 <div className="flex justify-between items-center">
                   <span className="text-gray-500">{comment.owner}</span>
@@ -100,5 +94,6 @@ const Comment = (props: CommentsProps) => {
     </div>
   )
 }
+
 
 export default Comment

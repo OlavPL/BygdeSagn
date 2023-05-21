@@ -21,7 +21,7 @@ const SagnFullView = (props:any) =>{
         const sagnProp = props.sagn
         console.log(sagnProp)
         if(props.sagn != null){
-            setSagn(new Sagn(sagnProp._id, sagnProp.title, sagnProp.text, sagnProp.tags, sagnProp.postedAt, sagnProp.kommune, sagnProp.stedsnavn, sagnProp.owner, sagnProp.likes, sagnProp.dislikes, sagnProp.happenedAt))
+            setSagn(new Sagn(sagnProp._id, sagnProp.title, sagnProp.text, sagnProp.tags, sagnProp.postedAt, sagnProp.kommune, sagnProp.stedsnavn, sagnProp.owner, sagnProp.likes, sagnProp.dislikes, sagnProp.comments, sagnProp.happenedAt))
         }
         
         setTitle("Sagn visning");
@@ -65,7 +65,7 @@ const SagnFullView = (props:any) =>{
                     </div>
                 </div>
                 <div className="flex flex-col">
-                    <Comments _id={sagn._id} />
+                    <Comments _id={sagn._id} comments={sagn.comments} />
                 </div>
             </div>
         }
@@ -92,7 +92,6 @@ export async function getServerSideProps(context: {params: { postId:string} }) {
     } catch (e) {
         console.error(e);
     }
-
 }
 
 export default SagnFullView
