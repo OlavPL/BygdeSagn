@@ -28,7 +28,7 @@ class SagnListController {
       data.map(object => {
         newData.push(new Sagn( 
           object._id, object.title, object.text, object.tags, object.postedAt, object.kommune, object?.stedsnavn,
-          object.owner, object.likes, object.dislikes, object.happenedAt, 
+          object.owner, object.likes, object.dislikes, object.comments, object.happenedAt, 
         ))
         
       })
