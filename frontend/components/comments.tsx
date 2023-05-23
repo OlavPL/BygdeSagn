@@ -4,15 +4,22 @@ import { format } from 'date-fns';
 import PostComment from './postComment';
 import { Comment } from '@/types/comment';
 
-
+// Definerer properties for komponentet
 interface CommentsProps {
   comments: Comment[];
   _id: string;
 }
 
 const Comment = (props: CommentsProps) => {
-  const [showComment, setShowComment] = useState(false);
-  const [comments, setComments] = useState<Comment[]>(props.comments);
+  // useState variabler som skjuler kommentarer by default.
+  // Hvis en bruker trykker på hvis kommentar, vil denne useState bli initialisert. 
+  const [showComment, setShowComment] = useState(false); 
+  const [comments, setComments] = useState<Comment[]>(props.comments)
+  // Skjuler kommentarer
+  const handleToggleComment = () => {
+    setShowComment(!showComment)
+  }
+
   const { data: session } = useSession();
 
   async function fetchComments() {
@@ -34,9 +41,7 @@ const Comment = (props: CommentsProps) => {
     // fetchComments();
   }, [props._id]);
 
-  const handleToggleComment = () => {
-    setShowComment(!showComment);
-  };
+  
 
   const handleDeleteComment = async (commentId: string) => {
     const response = await fetch(`/api/post/comments/comment?postId=${props._id}&commentId=${commentId}`, {
@@ -53,13 +58,17 @@ const Comment = (props: CommentsProps) => {
         console.log(response);
     }
 };
-
+  {/* Rendrer kommentar */}
   return(
     <div className = "flex flex-col w-full">
+      {/* Knapp som har en boolsk useState med en tekst som sier: Skjul kommentarer / Vis kommentarer*/}
       <button className = "bg-emphasis-50 rounded-xl p-2 shadow-md ml-auto border border-gray-500 hover:bg-emphasis-200" onClick={handleToggleComment}>
         {showComment ? 'Skjul kommentar' : 'Vis kommentar'}
       </button>
-
+      {/* Viser postet kommentarer. 
+        * Looper (map) gjennom alle kommentarer og rendrer dem i en liste
+        * med navn på avsender og dato den ble publisert
+        */}
       {showComment && (
         <>
           <PostComment 
@@ -74,6 +83,7 @@ const Comment = (props: CommentsProps) => {
                   <span>{format(new Date(comment.postedAt), 'dd.MM.yyyy')}</span>
                 </div>
                 <span>{comment.text}</span>
+                {/* Hvis bruker er innlogget og har kommentert på sagn så kan de slette kommentarer direkte i sagn hvis de er comment.owner */}
                 {session?.user?.name === comment.owner && (
                 <button
                   className="mt-2 text-sm font-medium text-red-500 ml-auto"

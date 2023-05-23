@@ -1,11 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useSession, signOut, getSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import { AppContext } from '@/pages/_app';
 import SagnListController, { SortType } from '@/controllers/sagnListController';
 import Sagn from '@/objects/sagn';
-
-import { faAnglesDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import DisplayUserSagn from '@/components/sagn1/displayUserSagn';
@@ -16,12 +14,18 @@ import router from 'next/router';
 const ProfilePageNew = () => {
   const { data: session } = useSession({ required: true });
   const user = session?.user;
+
+  // useState og knapp for å vise alle sagn du har postet
   const [expanded, setExpanded] = useState(false);
+  const handleClick = () => setExpanded(!expanded);
+
+  // useStates som teller antall sagn, kommentarer og likte sagn du har
   const [count, setCount] = useState(0);
   const [comments, setComments] = useState(0);
   const [liked, setLiked] = useState(0);
+
   const [showConfirmation, setShowConfirmation] = useState(false);
-  const handleClick = () => setExpanded(!expanded);
+  
   //Antall Sagn lagt ut av en bruker
   const getPostCount = async () => {
     try {
@@ -149,7 +153,7 @@ const ProfilePageNew = () => {
   }, [session?.user?.email, setTitle, setListController]);
   
 
-    
+  // Rendrer profil
   return(
     <div className="shadow-shadow-500 shadow-3xl rounded-primary relative mx-auto flex h-full w-full max-w-[550px] flex-col items-center bg-cover bg-clip-border p-[16px]">
       <div className="relative mt-1 flex h-32 w-full justify-center rounded-xl bg-cover">
@@ -158,57 +162,69 @@ const ProfilePageNew = () => {
         </div>
       </div>
 
+      {/* brukernavn */}
       <div className="mt-16 flex flex-col items-center">
         <h4 className="text-bluePrimary text-xl font-bold">{user?.name}</h4>
       </div>
       
       <div className="mt-6 mb-3 flex gap-4 md:!gap-14">
+        {/* antall publisert sagn */}
         <div className="flex flex-col items-center justify-center">
           <h3 className="text-bluePrimary text-2xl font-bold">{count} </h3>
           <p className="text-lightSecondary text-sm font-normal">publiserte Sagn</p>
         </div>
 
+        {/* antall publisert kommentarer */}
         <div className="flex flex-col items-center justify-center">
           <h3 className="text-bluePrimary text-2xl font-bold">{comments}</h3>
           <p className="text-lightSecondary text-sm font-normal">Kommentarer</p>
         </div>
 
+        {/* antall likte sagn */}
         <div className="flex flex-col items-center justify-center">
           <h3 className="text-bluePrimary text-2xl font-bold">{liked}</h3>
           <p className="text-lightSecondary text-sm font-normal">likte Sagn</p>
         </div>
       </div>
 
+      {/* Viser dine sagn innlegg */}
       <div className="mt-5 mx-auto content-center">
         <div className="flex flex-col md:max-w-screen-lg justify-center">
         <h2 className="text-lg font-bold text-center cursor-pointer text-link hover:text-primary-200 transition-all duration-300 ease-in-out select-none" onClick={handleClick}>
           <FontAwesomeIcon icon={expanded ? faAngleUp : faAngleDown} />
           Dine Innlegg
         </h2> 
+        {/* Utvider, henter liste  */}
           {expanded && (
             list.length === 0 ? <p> Du har ikke publisert noen sagn enda</p> :
             <DisplayUserSagn sagnList={list} className="mt-5" onDelete={handleDelete} />
           )}
         </div>
       </div>
+
+      {/* Slett bruker */}
       <button
         className="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded mt-5 ml-auto"
         onClick={() => setShowConfirmation(true)}
       >
         Slett bruker
       </button>
+
+      {/* Slette bruker confirm */}
       {showConfirmation && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center">
           <div className="bg-white rounded-md p-6">
             <p className="text-xl mb-4">Er du sikker på at du vil slette brukeren din?</p>
             <p className="text-gray-600 mb-4">Denne handlingen kan ikke tilbake stilles og brukeren vil bli permanent slettet.</p>
             <div className="flex justify-end">
+              {/* Abryt slett bruker */}
               <button
                 className="bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded mr-2"
                 onClick={() => setShowConfirmation(false)}
               >
                 Avbryt
               </button>
+              {/* Ja til slett bruker */}
               <button
                 className="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded"
                 onClick={handleDeleteUser}

@@ -1,19 +1,21 @@
 import type { GetServerSidePropsContext, InferGetServerSidePropsType } from "next"
 import Link from 'next/link'
 import { getProviders, signIn, getCsrfToken } from "next-auth/react"
-import { useState, ChangeEvent, FormEvent, FormEventHandler } from 'react'
+import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGoogle} from '@fortawesome/free-brands-svg-icons'
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faEnvelope, faLock, faUser } from "@fortawesome/free-solid-svg-icons"
 import { toast } from "react-toastify"
 import { ToastType, getToastOptions } from "@/controllers/toastController"
-import { Router, useRouter } from "next/router"
 import Cookies from "js-cookie"
 import CookiePopup from "@/components/cookiePopup"
 
+// Definerer login komponent som gir csrfToken roms props. 
 export default function Login({ providers, csrfToken }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const [showCookiePopoup, setShowCookiePopup] = useState(false)
+  // useState satt til false, hvis true så kommer det en popup 
+  const [showCookiePopup, setShowCookiePopup] = useState(false)
  
+  // Rendrer login form
   return (
     <div className="flex flex-col items-center mt-20 min-h-screen">
       <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full ">
@@ -21,7 +23,9 @@ export default function Login({ providers, csrfToken }: InferGetServerSidePropsT
             <span className="text-primary-90 ">Bygde</span><span className="drop-shadow-md text-primary-400">Sagn</span>
         </div>
         <form method="post" action="/api/auth/callback/credentials">
+          {/* CSRF token som er lagret inn i et gjemt input felt innen "form method="post" " */}
           <input name="csrfToken" type="hidden" defaultValue={csrfToken}/>
+            {/* Epost */}
             <label className="block text-gray-700 font-bold mb-2 w-full relative ">
               Email
               <div className="flex border-gray-400 rounded w-full focus-within:border-blue-500 border-2">
@@ -36,6 +40,7 @@ export default function Login({ providers, csrfToken }: InferGetServerSidePropsT
               </div>
             </label>
             
+            {/* Passord */}
             <label className="block text-gray-700 font-bold mb-2 w-full relative">
               Password
               <div className="flex border-gray-400 rounded w-full focus-within:border-blue-500 border-2">
@@ -51,6 +56,7 @@ export default function Login({ providers, csrfToken }: InferGetServerSidePropsT
               </div>
             </label>
           
+            {/* Login med bruker knapp */}
             <button className="w-full text-white bg-primary-400 hover:bg-primary-600 py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 my-2"
               type="submit">
                 <FontAwesomeIcon icon={faUser} className="mr-2" />
@@ -63,6 +69,7 @@ export default function Login({ providers, csrfToken }: InferGetServerSidePropsT
               <div className="flex-1 h-px bg-gray-300"></div>
             </div>
 
+            {/* Login med Google knapp */}
             <button className="w-full text-white bg-primary-400 hover:bg-primary-600 py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 my-2"
               type="button" 
               onClick={() => { 
@@ -83,7 +90,7 @@ export default function Login({ providers, csrfToken }: InferGetServerSidePropsT
         </div>
       </div>
       <CookiePopup 
-        stateValue={showCookiePopoup}
+        stateValue={showCookiePopup}
         setStateValue={(e) => setShowCookiePopup(e)}/>
     </div>
   )
@@ -93,15 +100,7 @@ export default function Login({ providers, csrfToken }: InferGetServerSidePropsT
 
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  //const session = await getServerSession(context.req, context.res, authOptions);
-  
-  // // If the user is already logged in, redirect.
-  // // Note: Make sure not to redirect to the same page
-  // // To avoid an infinite loop!
-  // if (session) {
-  //   return { redirect: { destination: "/" } };
-  // }
-
+ 
   const providers = await getProviders()
   const csrfToken = await getCsrfToken(context)
   
