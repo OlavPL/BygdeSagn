@@ -55,7 +55,8 @@ export default NextAuth({
         const client = await clientPromise;
         const db = client.db("App_Db");
         const user = await db.collection("users").findOne({ email: profile.email });
-        if (!user) { // Sjekk for å finne ut om eposten er registrert i systemet tidligere
+        // Sjekk for å finne ut om eposten er registrert i systemet tidligere
+        if (!user) { 
           const newUser = {
             email: profile.email,
             name: profile.name,

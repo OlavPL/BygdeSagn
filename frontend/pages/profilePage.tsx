@@ -56,6 +56,7 @@ const ProfilePageNew = () => {
       console.log(error);
     }
   };
+  //Sletter bruker
   const handleDeleteUser = async () => {    
     try {
       const email = session?.user?.email  
@@ -84,7 +85,7 @@ const ProfilePageNew = () => {
     getComment();
     getLiked();
   }, [user]);
-
+  //Sletter Sagn
   const handleDelete = async (_id: string) => {
     try {
       const response = await fetch(`/api/post/Post?_id=${_id}`, {
@@ -136,7 +137,7 @@ const ProfilePageNew = () => {
   useEffect(() => {
     setLoading(true);
     
-  
+  //Henter brukerens posts 
     fetch(`/api/post/getUserPosts?email=${session?.user?.email}`)
       .then((res) => res.json())
       .then((data) => {

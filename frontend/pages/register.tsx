@@ -34,23 +34,23 @@ const Register = () => {
   }
 
   const handleRepeatPasswordChange = (event: ChangeEvent<HTMLInputElement>) => setRepeatPassword(event.target.value)
-  
+  //Registrering av bruker, data fra input felt valideres og sendes til API endepunkt
   const handleRegister = async () => {
     if (!username || !email || !password || !repeatPassword) {
       toast.error("Venligst fyll ut alle felt", getToastOptions(ToastType.light, "error ikke fylt ut felt"))
       return
     }
-  
+  //undersøker passord lengde
     if (password.length < 10) {
       toast.error("Passord kan ikke være under 10 karakterer ", getToastOptions(ToastType.light, "lengde er kan ikke være under 10 "))
       return
     }
-  
+  // undersøker likhet mellom passord
     if (password !== repeatPassword) {
       toast.error("Passord er ikke like", getToastOptions(ToastType.light, "Passord stemmer ikke overens"))
       return
     }
-
+// undersøker godkjennelse av vilkår for bruk
     if(!TOSAccept){
       toast.error("Vi kan ikke registrere deg uten at du godkjenner våre vilkår for bruk", getToastOptions(ToastType.light, "need TOSAccept"))
       return
@@ -64,7 +64,7 @@ const Register = () => {
       toast.error("E-postadresse allerede registrert", getToastOptions(ToastType.light, "E-postadresse allerede registrert"))
       return
     }
-  
+  //JSON dataen som skal sendes til API endepunktet
     const JSOndata = {
       "name": username,
       "password": password,
@@ -83,7 +83,7 @@ const Register = () => {
   
     const response = await fetch("/api/user", options)
     const result = await response.json()
-  
+  // Undersøker om responsen fra api'et er korrekt og sender dermed tilbake melding til brukeren
     if (response.ok) {
       router.push('/login');
       toast.success("Registrering fullført", getToastOptions(ToastType.light, "BrukerRegistrering fullført"))
