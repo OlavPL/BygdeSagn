@@ -9,20 +9,22 @@ import Link from 'next/link';
 
 
 const Register = () => {
+  // useState variabel for bruker detaljer
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [repeatPassword, setRepeatPassword] = useState('')
   const [TOSAccept, setTOSAccept] = useState(false)
+  // Next.js router
   const router = useRouter()
-
+  // useState variabel for sikkerhet rundt passord validering
   const [passwordLengthValid, setPasswordLengthValid] = useState(false)
   const [passwordNumberValid, setPasswordNumberValid] = useState(false)
   const [isPasswordFocused, setIsPasswordFocused] = useState(false)
-  
-  
+  // Funksjon som håndterer passord input events
   const handlePasswordFocus = () => setIsPasswordFocused(true)
   const handlePasswordBlur = () => setIsPasswordFocused(false)
+  // Funksjon som håndterer input endringer
   const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => setUsername(event.target.value)
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => setEmail(event.target.value)
   
