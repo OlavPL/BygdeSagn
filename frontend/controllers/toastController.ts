@@ -6,6 +6,7 @@ export enum ToastType{
     colored
 }
 
+// Ferdiglagde options for å gjøre toasting litt lettere
 export const getToastOptions = (type:ToastType, id?: string) =>{
     switch (type) {
         case ToastType.colored:

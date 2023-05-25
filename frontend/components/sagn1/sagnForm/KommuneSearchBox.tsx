@@ -18,12 +18,13 @@ const KommuneSearchBox =  ( { kommuner, className, selectedKommune, handleChange
       handleChange( selected ) 
   }
 
+  // Filtrerer kommune-valgalternativene basert på brukerinput
   const filteredKommuner =
     query === ''
-      ? kommuner
-      : kommuner.filter((kommune) => {
-          return kommune.kommunenavnNorsk.toLowerCase().includes(query.toLowerCase())
-        })
+    ? kommuner
+    : kommuner.filter((kommune) => {
+        return kommune.kommunenavnNorsk.toLowerCase().includes(query.toLowerCase())
+      })
 
   return (
     <div className={`${className} "w-52"`}>

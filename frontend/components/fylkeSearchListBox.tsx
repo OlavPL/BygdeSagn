@@ -19,6 +19,7 @@ interface Props{
 
 const FylkeSortListBox = ({ handleChange, fylkeList, kommuneList, stedsnavnList, className, placeholder, query, setQuery}: Props ) => {
   const [selected, setSelected] = useState<(Fylke|Kommune|Stedsnavn)>()
+  // Liste med valgalternativer (Steder) som vises som valgalternativer
   const [queriedPlaces, setQueriedPlaces] = useState(Array())
 
   const handleSelect = (e: any) =>{
@@ -27,6 +28,7 @@ const FylkeSortListBox = ({ handleChange, fylkeList, kommuneList, stedsnavnList,
     handleChange(e)
   }
 
+  // Filtrerer Valgalternativene i comboboxen basert på hva bruker skriver inn
   const updateQuery = (e: string) => {
     let filteredPlaces: (any)[] = Array<any>()
     const search = e.trimStart().toLowerCase()

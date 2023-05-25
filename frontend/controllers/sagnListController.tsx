@@ -1,6 +1,7 @@
 import Sagn from "@/objects/sagn";
 import { SagnJSON } from "@/objects/sagn";
 
+// Brukes til sortering av visning
 export enum SortType{
     LIKES_DESC = 'Mest likt',
     LIKES_ASC = 'Minst likt',
@@ -10,6 +11,7 @@ export enum SortType{
     HAPPENING_DATE_ASC = 'Eldst hendelse',
 }
 
+//Brukes som sorteringsobjekter i sagnSortListBox
 export const sortChoises = [
   {id: 0, type: SortType.LIKES_DESC, text:'Mest likt'},
   {id: 1, type: SortType.LIKES_ASC, text:'Minst likt'},

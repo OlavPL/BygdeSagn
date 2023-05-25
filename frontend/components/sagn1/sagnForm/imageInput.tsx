@@ -31,6 +31,7 @@ const ImageInput: React.FC<ImageInputProps> = ({ onImageChange, images, classNam
         }
     };
 
+    // Setter ingang en norsk tesseract arbeider og setter loading = true. Mens loading vil man ikke kunne starte denne metoden igjen 
     const handleOCR = () => {
         if( images != null){
             setLoading(true)

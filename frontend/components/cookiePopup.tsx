@@ -9,6 +9,7 @@ interface ICookiePopup{
 const CookiePopup = ({stateValue,setStateValue}:ICookiePopup) => {
   const [showPopup, setShowPopup] = useState(stateValue? stateValue : false)
 
+  // Setter cookie basert på brukervalg, brukes for å håndtere innlogging med google
   const handleAccept = (cookieChoise:number) => {
     switch (cookieChoise) {
       case 1:

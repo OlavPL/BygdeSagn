@@ -3,6 +3,8 @@ import { Tag } from '@/types/tag'
 import React, { useEffect, useState } from 'react'
 import TagsDropBox from './tagsDropBox'
 
+// Interaktiv visning av tags i en boks
+
 interface Props extends React.HTMLAttributes<HTMLDivElement>{
     className?: string
     tagList: string[]

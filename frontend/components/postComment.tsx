@@ -33,6 +33,7 @@ const PostComment: React.FC<PostCommentProps> = ({_id, fetchComments}) => {
   };
 
 
+  // Validerer publiserings forspørsel om sagn av bruker. Feil ved for lite tekst i tittel/ body eller mangel på session
   const handleSubmit = async () => {
     if(postingCOmment)
       return

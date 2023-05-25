@@ -18,6 +18,7 @@ const TagsDropBox = ({list, handleTag, className, propText, propTextEmpty}: Prop
   const [selected, setSelected] = useState(propText ? (initSelected.length === 0 ? propTextEmpty : propText ) : initSelected[0])
   
   
+  // Når bruker velger en tagg i dropdown, vil den bli lagt i en liste og vises i SelectedTagsBox.
   const handleChange = (e: Tag) =>{
     setSelected(e)
     if(handleTag){

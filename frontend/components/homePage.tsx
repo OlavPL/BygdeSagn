@@ -13,10 +13,12 @@ const HomePage = () => {
     const [isLoading, setLoading] = useState(false)
     const {title, setTitle} = useContext(AppContext);
 
+    // Oppdateringer sortering av liste 
     const updateList = (e: SortType) =>{
         setList(sagnListController.sortSagn(list,e))
     }
 
+    // Henter sagn fra database ved innlasting og serter tittel
     useEffect(() => {
         setLoading(true)
         fetch('/api/post/Post')
