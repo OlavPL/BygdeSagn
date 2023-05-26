@@ -47,84 +47,92 @@ const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
             setLikes(likes)
             setDislikes(dislikes)
         }
-        doSomehting()
+        // doSomehting()
             
     }, [dislikes, likes, session, userLikeStatus])
     
     
     const addLike = async () => {
-        if(!isLoading) {
-            setLoading(true)
-            if(session.data == null ){
-                toast.error("Dette krever å være innlogget", getToastOptions(ToastType.light, "loginToInteract") );
-                return
-            }
-                
-            const options:RequestInit={
-                headers:{'Content-Type':'application/json',},
-                method:'PUT',
-                body:JSON.stringify({
-                    "_id": _id,
-                    "user" : {
-                        name: session.data.user?.name,
-                        email: session.data.user?.email
-                    } as AppUser
-                }),
-            }
+        try{
+            if(!isLoading) {
+                setLoading(true)
+                if(session.data == null ){
+                    toast.error("Dette krever å være innlogget", getToastOptions(ToastType.light, "loginToInteract") );
+                    return
+                }
+                    
+                const options:RequestInit={
+                    headers:{'Content-Type':'application/json',},
+                    method:'PUT',
+                    body:JSON.stringify({
+                        "_id": _id,
+                        "user" : {
+                            name: session.data.user?.name,
+                            email: session.data.user?.email
+                        } as AppUser
+                    }),
+                }
 
-            // Sender like request
-            await fetch("/api/post/likes/like",options).catch()
-            .then((res)=>{
-                if(res.status === 200)
-                    setUserLikeStatus(1)
-                else if(res.status === 201)
-                    setUserLikeStatus(0)
-            })
+                // Sender like request
+                await fetch("/api/post/likes/like",options).catch()
+                .then((res)=>{
+                    if(res.status === 200)
+                        setUserLikeStatus(1)
+                    else if(res.status === 201)
+                        setUserLikeStatus(0)
+                })
 
-            // Henter like og dislikes for å oppdatere visuellt. Skal slåes sammen med metoden over.
-            await fetch(`/api/post/Post?_id=${_id}`).catch()
-            .then((res) => res.json())
-            .then((data) => {
-                setLikes(data.likes)
-                setDislikes(data.dislikes)
-            })
+                // Henter like og dislikes for å oppdatere visuellt. Skal slåes sammen med metoden over.
+                await fetch(`/api/post/Post?_id=${_id}`).catch()
+                .then((res) => res.json())
+                .then((data) => {
+                    setLikes(data.likes)
+                    setDislikes(data.dislikes)
+                })
+            }
+        }
+        catch(error){
+            console.log(error)
+        }
+        finally{
             setLoading(false)
         }
     }
     const addDislike = async () => {
-        if(!isLoading) {
-            setLoading(true)
-            if(session.data == null ){
-                toast.error("Å like krever å være innlogget", getToastOptions(ToastType.light, "loginToInteract") );
-                return
-            }
-                
-            let options:RequestInit={
-                headers:{'Content-Type':'application/json',},
-                method:'PUT',
-                body:JSON.stringify({
-                    "_id": _id,
-                    "user" : {name: session.data.user?.name, email: session.data.user?.email} as AppUser
-                }),
-            }
-            // Sender dislike request
-            await fetch("/api/post/likes/dislike",options).catch()
-            .then((res)=>{
-                if(res.status === 200)
-                    setUserLikeStatus(-1)
-                else if(res.status ===201)
-                    setUserLikeStatus(0)
-            })
-            
-            // Henter like og dislikes for å oppdatere visuellt. Skal slåes sammen med metoden over.
-            await fetch(`/api/post/Post?_id=${_id}`).catch()
-            .then((res) => res.json())
-            .then((data) => {
-                setLikes(data.likes)
-                setDislikes(data.dislikes)
-            })
-            setLoading(false)
+        if( isLoading)
+            return
+        
+        setLoading(true)
+        if(session.data == null ){
+            toast.error("Å like krever å være innlogget", getToastOptions(ToastType.light, "loginToInteract") );
+            return
         }
+            
+        let options:RequestInit={
+            headers:{'Content-Type':'application/json',},
+            method:'PUT',
+            body:JSON.stringify({
+                "_id": _id,
+                "user" : {name: session.data.user?.name, email: session.data.user?.email} as AppUser
+            }),
+        }
+        // Sender dislike request
+        await fetch("/api/post/likes/dislike",options).catch()
+        .then((res)=>{
+            if(res.status === 200)
+                setUserLikeStatus(-1)
+            else if(res.status ===201)
+                setUserLikeStatus(0)
+        })
+        
+        // Henter like og dislikes for å oppdatere visuellt. Skal slåes sammen med metoden over.
+        await fetch(`/api/post/Post?_id=${_id}`).catch()
+        .then((res) => res.json())
+        .then((data) => {
+            setLikes(data.likes)
+            setDislikes(data.dislikes)
+        })
+        setLoading(false)
     }
 
     return (
@@ -140,7 +148,9 @@ const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
                 icon={faThumbsUp} 
                 className={`ml-3 fa-lg ${userLikeStatus! > 0 ? "text-primary-500" : "text-textColor"}`} 
             />
-            <div className=" text-center px-2 ">{_likes.length}</div>
+            <div className=" text-center px-2 ">
+                {_likes.length}
+            </div>
         </button>
         <button onClick={addDislike} 
             className={`

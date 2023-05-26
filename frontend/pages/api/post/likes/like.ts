@@ -21,31 +21,31 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
                 }
             };
             await db.collection(process.env.POST_COLLECTION!).updateOne({_id:id},updateDocument);
-            res.status(201).json({message: "User has already liked this post"});
-            return;
+            return res.status(201).json({message: "User has already liked this post"});
         }
-        
-        const updateDocument = {
-            $push: {
-                likes: user
-            }
-        };
-        await db.collection(process.env.POST_COLLECTION!).updateOne({_id:id},updateDocument);
-        
-        const updateDocument2 = {
-            $pull: {
-                dislikes: req.body.user
-            },
-        };
-        const result = await db.collection(process.env.POST_COLLECTION!).updateOne({_id:id},updateDocument2);
-        const returnDocument = await db.collection(process.env.POST_COLLECTION!).findOne({_id:id});
-        res.status(200).json({
-            message: "Likes updated and removed",
-            _id: id,
-            user: user,
-            object: result,
-            document:returnDocument
-        });
+        else{
+            const updateDocument = {
+                $push: {
+                    likes: user
+                }
+            };
+            await db.collection(process.env.POST_COLLECTION!).updateOne({_id:id},updateDocument);
+            
+            const updateDocument2 = {
+                $pull: {
+                    dislikes: req.body.user
+                },
+            };
+            const result = await db.collection(process.env.POST_COLLECTION!).updateOne({_id:id},updateDocument2);
+            const returnDocument = await db.collection(process.env.POST_COLLECTION!).findOne({_id:id});
+            return res.status(200).json({
+                message: "Likes updated and removed",
+                _id: id,
+                user: user,
+                object: result,
+                document:returnDocument
+            });
+        }
         
     // DELETE sjekker om bruker ligger i likes liste på dikumentet og fjerner brukeren om den er
     } else if (req.method === 'DELETE') {
@@ -56,17 +56,17 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
         };
         await db.collection(process.env.POST_COLLECTION!).updateOne({_id:id},updateDocument);
 
-        res.status(200).json({
+        return res.status(200).json({
             message: "Likes removed",
             _id: id,
             user: user
         });
     } else {
-        res.status(405).json({message: "Method not allowed"});
+        return res.status(405).json({message: "Method not allowed"});
     }
     
    } catch (e) {
        console.error(e);
-       res.status(500).json({message: "Server error"});
+       return res.status(500).json({message: "Server error"});
    }
 }

@@ -18,11 +18,11 @@ export default async function handler(
       .toArray()
 
     if (result) {
-      res.status(200).json(result);
+      return res.status(200).json(result);
     } else {
-      res.status(404).json({ message: "No liked posts found" });
+      return res.status(404).json({ message: "No liked posts found" });
     }
   } else {
-    res.status(405).json({ message: "Method not allowed" });
+    return res.status(405).json({ message: "Method not allowed" });
   }
 }

@@ -26,9 +26,9 @@ export default async function handler(
     }
   
     if (result === null || result.length <= 0) {
-      res.status(404).json({ message: "No posts found" });
+      return res.status(404).json({ message: "No posts found" });
     } else {
-      res.status(200).json(result);
+      return res.status(200).json(result);
     }
 
   //DELETE, sletter et sagn basert på query.id variabelen
@@ -36,9 +36,9 @@ export default async function handler(
     const result = await collection.deleteOne({ _id: new ObjectId(req.query._id?.toString()) });
 
     if (result.deletedCount === 1) {
-      res.status(200).json({ message: "Post deleted successfully" });
+      return res.status(200).json({ message: "Post deleted successfully" });
     } else {
-      res.status(404).json({ message: "Post not found" });
+      return res.status(404).json({ message: "Post not found" });
     }
   // POST, oppretter et nytt Sagn basert på req.body
   }if (req.method === 'POST') {
@@ -90,12 +90,12 @@ export default async function handler(
         }
       );
 
-      res.status(200).json("Document Updated" + " id:" + id);
+      return res.status(200).json("Document Updated" + " id:" + id);
     } catch (e) {
       console.error(e);
     }
     
   } else {
-    res.status(405).json({ message: "Method not allowed" });
+    return res.status(405).json({ message: "Method not allowed" });
   }
 }
