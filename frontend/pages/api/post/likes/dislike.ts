@@ -23,8 +23,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
                 {_id:id}, 
                 {$pull: { dislikes: user }}
             );
-            res.status(201).json({message: "User has already disliked this post"});
-            return;
+            return res.status(201).json({message: "User has already disliked this post"});
         }
 
         await db.collection(process.env.POST_COLLECTION!)
@@ -42,7 +41,7 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
         checkAutomodLikeThreshold(id, db)
 
         
-        res.status(200).json({
+        return res.status(200).json({
             message: "Likes updated and removed",
             _id: id,
             user: user,
@@ -58,18 +57,18 @@ export default async (req:NextApiRequest, res:NextApiResponse) => {
             {$pull: { dislikes: user }}
         );
 
-        res.status(200).json({
+        return res.status(200).json({
             message: "Likes removed",
             _id: id,
             user: user
         });
     } else {
-        res.status(405).json({message: "Method not allowed"});
+        return res.status(405).json({message: "Method not allowed"});
     }
     
    } catch (e) {
        console.error(e);
-       res.status(500).json({message: "Server error"});
+       return res.status(500).json({message: "Server error"});
    }
 }
 
@@ -90,6 +89,4 @@ const checkAutomodLikeThreshold = async (id: ObjectId, db: Db) =>{
         }
 
     }
-
-
 }

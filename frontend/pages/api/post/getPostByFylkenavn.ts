@@ -39,11 +39,11 @@ export default async function handler(
     })
 
     if (outKommuner.length > 0) {
-      res.status(200).json(outKommuner);
+      return res.status(200).json(outKommuner);
     } else {
-      res.status(404).json({ message: "Post not found" });
+      return res.status(404).json({ message: "Post not found" });
     }
   } else {
-    res.status(405).json({ message: "Method not allowed" });
+    return res.status(405).json({ message: "Method not allowed" });
   }
 }
