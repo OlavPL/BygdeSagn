@@ -41,7 +41,7 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps)
   }, [currentSagnList, sagnList, sagnListController, setTitle])
 
   const resetSearch = () => {
-    setCurrentSagnList(sagnListController.sagnList)
+    setCurrentSagnList(sagnListController.sortSagn(sagnListController.sagnList, SortType.POST_DATE_DESC))
     setSearchQuery("")
   }
 
