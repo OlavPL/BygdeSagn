@@ -47,7 +47,7 @@ const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
             setLikes(likes)
             setDislikes(dislikes)
         }
-        // doSomehting()
+        doSomehting()
             
     }, [dislikes, likes, session, userLikeStatus])
     
