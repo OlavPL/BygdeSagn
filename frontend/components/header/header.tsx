@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket, faCookie, faPen, faRightFromBracket, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { AppContext } from '@/pages/_app';
-import {useSession, signOut} from 'next-auth/react'
+import {useSession, signOut, getSession} from 'next-auth/react'
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
@@ -12,7 +12,8 @@ const Header = () => {
   // useState variabel som viser/gjemmer menu
   const [showMenu, setShowMenu] = useState(false)
   const {title} = useContext(AppContext)
-  const{data:session}=useSession()
+  const { data: session, status } = useSession();
+
   // useRef som kommuniserer med DOM direkte
   const menuButtonRef = useRef<HTMLImageElement>(null)
   const menuContainerRef = useRef<HTMLDivElement>(null)

@@ -1,6 +1,4 @@
 import Sagn from "@/objects/sagn";
-import { Kommune } from "@/types/kommune";
-import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import clientPromise from "@/lib/mongodb";
 import CardTags from "@/components/sagn1/sagnCard/cardTags";
@@ -19,7 +17,6 @@ const SagnFullView = (props:any) =>{
   
     useEffect(() => {
         const sagnProp = props.sagn
-        console.log(sagnProp)
         if(props.sagn != null){
             setSagn(new Sagn(sagnProp._id, sagnProp.title, sagnProp.text, sagnProp.tags, sagnProp.postedAt, sagnProp.kommune, sagnProp.stedsnavn, sagnProp.owner, sagnProp.likes, sagnProp.dislikes, sagnProp.comments, sagnProp.happenedAt))
         }

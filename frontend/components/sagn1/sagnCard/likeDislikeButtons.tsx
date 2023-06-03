@@ -57,7 +57,7 @@ const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
             if(!isLoading) {
                 setLoading(true)
                 if(session.data == null ){
-                    toast.error("Dette krever å være innlogget", getToastOptions(ToastType.light, "loginToInteract") );
+                    toast.error("Å like krever en innlogget bruker", getToastOptions(ToastType.light, "loginToInteract") );
                     return
                 }
                     
@@ -104,7 +104,7 @@ const LikeDislikeButtons = ({likes, dislikes, _id, className}: Props) =>{
         
         setLoading(true)
         if(session.data == null ){
-            toast.error("Å like krever å være innlogget", getToastOptions(ToastType.light, "loginToInteract") );
+            toast.error("Å mislike krever en innlogget bruker", getToastOptions(ToastType.light, "loginToInteract") );
             return
         }
             

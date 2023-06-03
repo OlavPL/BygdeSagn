@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import SagnListController, { SortType } from '@/controllers/sagnListController'
 import { useState, useEffect, useContext } from 'react'
 import Sagn, { SagnJSON } from "@/objects/sagn"
-import { AppContext } from "@/pages/_app"
 import SagnCard from '@/components/sagn1/sagnCard/sagnCard'
 import clientPromise from '@/lib/mongodb'
 import { Document, WithId } from 'mongodb'
@@ -14,6 +13,9 @@ import FylkeSortListBox from '@/components/fylkeSearchListBox'
 import SagnSortListBox from '@/components/sagnSortListBox'
 import { Fylke } from '@/types/fylke'
 import { Stedsnavn } from '@/types/stedsnavn'
+import { AppContext } from '@/components/appContext'
+import { getSession } from 'next-auth/react'
+import { Session } from 'next-auth'
 
 library.add(fas)
 
@@ -22,21 +24,22 @@ interface ServersideProps {
   fylkeList: Fylke[]
   kommuneList:Kommune[]
   stedsnavnList:Stedsnavn[]
+  session: Session
 }
 
-const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList}:ServersideProps) => {
+const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList, session}:ServersideProps) => {
   const [sagnListController, setListController] = useState(new SagnListController(sagnList))
 
   // list: Nåverende og stadig oppdatert liste av sagn som skal vises
   const [currentSagnList, setCurrentSagnList] = useState<Sagn[]>()
   const [searchQuery, setSearchQuery] = useState<(string)>("")
 
-  const {title, setTitle} = useContext(AppContext);  
+  const {title, setTitle} = useContext(AppContext);
 
   useEffect(() => {
     if(currentSagnList === undefined)
       setCurrentSagnList(sagnListController.sortSagn(sagnList, sagnListController.sortType))
-      
+
     setTitle("Velkommen til Bygdesagn ™")
   }, [currentSagnList, sagnList, sagnListController, setTitle])
 
@@ -166,12 +169,15 @@ export async function getServerSideProps() {
         })}
       })
 
+      const session = await getSession()
+
       return {
           props: {
             sagnList: JSON.parse(JSON.stringify(sagnList)),
             fylkeList: JSON.parse(JSON.stringify(fylkeSet)),
             kommuneList: JSON.parse(JSON.stringify(kommuneSet)),
             stedsnavnList: JSON.parse(JSON.stringify(stedsNavnSet)),
+            session: session
           }
       }
   } catch (e) {
@@ -179,5 +185,4 @@ export async function getServerSideProps() {
   }
 
 }
-
 export default Home;
