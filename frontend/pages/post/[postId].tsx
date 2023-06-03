@@ -9,6 +9,7 @@ import { format } from "date-fns";
 import { ObjectId } from "mongodb";
 import Comments from "@/components/comments";
 import { AppContext } from "../_app";
+import { GetSessionParams, getSession } from "next-auth/react";
 
 // Denne vilen er en fullvisning av sagn, hvilke sagn som blir vist kommer ann på hva som blir skrevet i routen (/post/"post ID").
 const SagnFullView = (props:any) =>{
@@ -62,7 +63,7 @@ const SagnFullView = (props:any) =>{
                     </div>
                 </div>
                 <div className="flex flex-col">
-                    <Comments _id={sagn._id} comments={sagn.comments} />
+                    <Comments _id={sagn._id} comments={sagn.comments} session={props.session} />
                 </div>
             </div>
         }
@@ -72,7 +73,7 @@ const SagnFullView = (props:any) =>{
 
 
 // Henter sagn basert på postId i url
-export async function getServerSideProps(context: {params: { postId:string} }) {
+export async function getServerSideProps(context: any /* {params: { postId:string, getSessionParams: GetSessionParams} } */ ) {
     try {
         const {params} = context
         const postId = params.postId
@@ -83,8 +84,10 @@ export async function getServerSideProps(context: {params: { postId:string} }) {
         .collection(process.env.POST_COLLECTION!)
         .findOne({_id: new ObjectId(postId)})
 
+        const session = await getSession(context)
+
         return {
-            props: {sagn: JSON.parse(JSON.stringify(response))}
+            props: {sagn: JSON.parse(JSON.stringify(response)), session: JSON.parse(JSON.stringify(session))}
         };
     } catch (e) {
         console.error(e);

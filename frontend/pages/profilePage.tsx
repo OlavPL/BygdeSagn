@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useSession, signOut } from 'next-auth/react';
+import { useSession, signOut, getSession } from 'next-auth/react';
 import Image from 'next/image';
 import { AppContext } from '@/pages/_app';
 import SagnListController, { SortType } from '@/controllers/sagnListController';
@@ -11,9 +11,9 @@ import { ToastType, getToastOptions } from '@/controllers/toastController';
 import { toast } from 'react-toastify';
 import router from 'next/router';
 
-const ProfilePageNew = () => {
-  const { data: session } = useSession({ required: true });
-  const user = session?.user;
+const ProfilePageNew = (props:any) => {
+  const session = props.session
+  const user = session.user
 
   // useState og knapp for å vise alle sagn du har postet
   const [expanded, setExpanded] = useState(false);
@@ -39,7 +39,7 @@ const ProfilePageNew = () => {
   //Antall kommentarer gjort av en bruker
   const getComment = async () => {
     try {
-      const res = await fetch(`/api/post/comments/getUserComments?name=${user?.name}`);
+      const res = await fetch(`/api/post/comments/getUserComments?email=${user?.email}`);
       const data = await res.json();
       setComments(data.length);
     } catch (error) {
@@ -239,6 +239,27 @@ const ProfilePageNew = () => {
 
     </div>
   )
+}
+
+export async function getServerSideProps(context:any) {
+  try {
+    const session = await getSession(context)
+    if( !session ){
+      return {
+        redirect: {
+          destination: '/login',
+          permanent: false,
+        },
+      }
+    }
+
+
+      return {
+          props: {session: JSON.parse(JSON.stringify(session))}
+      };
+  } catch (e) {
+      console.error(e);
+  }
 }
 
 export default ProfilePageNew

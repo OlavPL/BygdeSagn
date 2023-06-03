@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const newComment = {
       _id:new ObjectId().toString(),
       text: req.body.comment.text,
-      owner: req.body.comment.user.name,
+      owner: req.body.comment.user.email,
       postedAt: new Date()
 
     };

@@ -3,27 +3,29 @@ import { useSession } from 'next-auth/react';
 import { format } from 'date-fns';
 import PostComment from './postComment';
 import { Comment } from '@/types/comment';
+import { Session } from 'next-auth';
 
 // Definerer properties for komponentet
 interface CommentsProps {
   comments: Comment[];
   _id: string;
+  session: Session
 }
 
-const Comment = (props: CommentsProps) => {
+const Comment = ({comments, _id, session}: CommentsProps) => {
   // useState variabler som skjuler kommentarer by default.
   // Hvis en bruker trykker på hvis kommentar, vil denne useState bli initialisert. 
   const [showComment, setShowComment] = useState(false); 
-  const [comments, setComments] = useState<Comment[]>(props.comments)
+  const [commentList, setComments] = useState<Comment[]>(comments)
   // Skjuler kommentarer
   const handleToggleComment = () => {
     setShowComment(!showComment)
   }
 
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
 
   async function fetchComments() {
-    const response = await fetch(`/api/post/Post?_id=${props._id}`, {
+    const response = await fetch(`/api/post/Post?_id=${_id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -37,14 +39,9 @@ const Comment = (props: CommentsProps) => {
       setComments(data.comments);
     }
   }
-  useEffect(() => {
-    // fetchComments();
-  }, [props._id]);
-
-  
 
   const handleDeleteComment = async (commentId: string) => {
-    const response = await fetch(`/api/post/comments/comment?postId=${props._id}&commentId=${commentId}`, {
+    const response = await fetch(`/api/post/comments/comment?postId=${_id}&commentId=${commentId}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
@@ -52,7 +49,7 @@ const Comment = (props: CommentsProps) => {
     });
 
     if (response.ok) {
-        setComments(comments.filter(comment => comment._id !== commentId));
+        setComments(commentList.filter(comment => comment._id !== commentId));
         fetchComments();
     } else {
         console.log(response);
@@ -63,7 +60,7 @@ const Comment = (props: CommentsProps) => {
     <div className = "flex flex-col w-full">
       {/* Knapp som har en boolsk useState med en tekst som sier: Skjul kommentarer / Vis kommentarer*/}
       <button className = "bg-emphasis-50 rounded-xl p-2 shadow-md ml-auto border border-gray-500 hover:bg-emphasis-200" onClick={handleToggleComment}>
-        {showComment ? 'Skjul kommentar' : 'Vis kommentar'}
+        {showComment ? 'Skjul kommentarer' : 'Vis kommentarer'}
       </button>
       {/* Viser postet kommentarer. 
         * Looper (map) gjennom alle kommentarer og rendrer dem i en liste
@@ -72,11 +69,11 @@ const Comment = (props: CommentsProps) => {
       {showComment && (
         <>
           <PostComment 
-              _id = {props._id}
+              _id = {_id}
               fetchComments={fetchComments}
           />
           <ul className = "mt-4 space-y-4 text-lg">
-            {(comments || []).map((comment: Comment, index: number) => (
+            {(commentList || []).map((comment: Comment, index: number) => (
               <li key={index} className="flex flex-col p-2 bg-gray-100 rounded shadow-md break-words">
                 <div className="flex justify-between items-center">
                   <span className="text-gray-500">{comment.owner}</span>
@@ -84,7 +81,7 @@ const Comment = (props: CommentsProps) => {
                 </div>
                 <span>{comment.text}</span>
                 {/* Hvis bruker er innlogget og har kommentert på sagn så kan de slette kommentarer direkte i sagn hvis de er comment.owner */}
-                {session?.user?.name === comment.owner && (
+                {session?.user?.email === comment.owner && (
                 <button
                   className="mt-2 text-sm font-medium text-red-500 ml-auto"
                   onClick={() => {

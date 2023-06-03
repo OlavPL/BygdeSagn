@@ -169,15 +169,12 @@ export async function getServerSideProps() {
         })}
       })
 
-      const session = await getSession()
-
       return {
           props: {
             sagnList: JSON.parse(JSON.stringify(sagnList)),
             fylkeList: JSON.parse(JSON.stringify(fylkeSet)),
             kommuneList: JSON.parse(JSON.stringify(kommuneSet)),
             stedsnavnList: JSON.parse(JSON.stringify(stedsNavnSet)),
-            session: session
           }
       }
   } catch (e) {
