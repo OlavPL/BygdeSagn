@@ -11,7 +11,7 @@ interface FylkeI {
   }
 
 
-export default async (req:NextApiRequest, res:NextApiResponse) => {
+  export default async function handler (req:NextApiRequest, res:NextApiResponse)  {
    try {
        const client = await clientPromise;
        const db = client.db("App_Db");
