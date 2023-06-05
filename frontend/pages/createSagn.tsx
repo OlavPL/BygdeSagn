@@ -17,6 +17,7 @@ import { Document, WithId } from 'mongodb'
 import clientPromise from "@/lib/mongodb";
 import { Fylke } from "@/types/fylke";
 import { filterBadWords } from "@/controllers/automod";
+import YearInput from "@/components/sagn1/sagnForm/yearInput";
 
 interface Inputs {
     title: string;
@@ -78,7 +79,7 @@ const CreateSagn = ({kommuneList}: IProps) =>{
             
         data.tags = tags
         data.kommune = selectedKommune
-        data.year = year.length < 1 ? undefined : Number(year)
+        // data.year = year.length < 1 ? undefined : Number(year)
         data.stedsnavn = stedsnavn.length < 1 ? undefined : stedsnavn
         data.owner = session.data?.user!  
         data.story = storyText
@@ -114,27 +115,38 @@ const CreateSagn = ({kommuneList}: IProps) =>{
                 <label className="absolute pointer-events-none -top-1 -left-1 transition-all scale-100 px-1 ">
                   Sagn <span className="text-red-500"> *</span>
                 </label>
-                <textarea className={"w-full col-end-auto outline-none p-2 mt-5 rounded-t" } rows={10} placeholder="Skriv historie her..."
+                <textarea className={"w-full col-end-auto outline-none p-2 mt-5 rounded-t peer" } rows={10} placeholder="Skriv historie her..."
                     value={storyText} {...register("story")} onChange={(e)=>setStoryText(e.target.value)}>
                 </textarea>
+                <div className="absolute top-full transition-all duration-300 bg-primary-400 w-0 h-0.5 peer-focus:w-full pointer"></div>
               </div>
 
-              <div className="flex flex-col justify-between self-center sm:flex-row sm:self-start sm:w-full">
-                <div className="flex flex-col mb-2 sm:mb-0">
+              <div className="flex flex-col justify-between self-center sm:flex-row sm:self-start sm:w-full pt-3">
+                {/* <div className="flex flex-col mb-2 sm:mb-0">
                   <label>{"Årstall/ Århundre"}</label>
                   <input type="number" min={0} max={new Date().getFullYear()} value={year} onChange={(e) => setYear(e.target.value)} className="w-52 p-1 rounded"></input>
-                </div>
+                </div> */}
+                <YearInput
+                  {...register("year") }
+                  className="w-52 my-auto"
+                  labelText="Årstall"
+                />
                 
                 <KommuneSearchBox kommuner={kommuneList} selectedKommune={selectedKommune} handleChange={(e: Kommune)=>setSelectedKommune(e)} className="items-center relative" />
               </div>
               
-              <div className="flex flex-col-reverse justify-between self-center sm:flex-row sm:self-start sm:w-full  ">
-                <TagsDropBox key={tags.length} className="mt-5 sm:mt-auto " list={tags} handleTag={addTag} propText={"Velg Tagger"} propTextEmpty={"Ikke fler Tagger"}/>
+              <div className="flex flex-col-reverse justify-between self-center sm:flex-row sm:self-start sm:w-full">
+                <TagsDropBox key={tags.length} className="sm:mt-auto " list={tags} handleTag={addTag} propText={"Velg Tagger"} propTextEmpty={"Ikke fler Tagger"}/>
                               
-                <div className="flex flex-col">
+                {/* <div className="flex flex-col">
                   <label>Stedsnavn</label>
                   <input type="string" className="w-52 p-1 rounded" value={stedsnavn} onChange={(e) => setStedsnavn(e.target.value)}></input>
-                </div>
+                </div> */}
+                <Input
+                {...register("stedsnavn") }
+                className="w-52 my-auto mt-5"
+                labelText="Stedsnavn"
+              />
 
               </div>
               <SelectedTagsBox key={tags.length} removeTag={removeTag} tagList={tags} />
@@ -163,7 +175,7 @@ async function postSagn (data:Inputs, router: NextRouter ){
         "title": filterBadWords(data.title),
         "text": filterBadWords(data.story) ,
         "tags":data.tags,
-        "happenedAt":data.year,
+        "happenedAt": data.year != undefined ? (data.year < 1 ? undefined : Number(data.year)) : undefined,
         "kommune": data.kommune,
         "stedsnavn": data.stedsnavn,
         "owner":data.owner,

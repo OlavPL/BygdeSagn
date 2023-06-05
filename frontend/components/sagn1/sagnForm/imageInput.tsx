@@ -76,7 +76,7 @@ return (
                     > Hent tekst fra bilde
                     </button>
                     <OCRTooltip 
-                        ClassName='bottom-3 -left-[71px] w-72'>
+                        ClassName='bottom-3 -left-[71px] w-72 z-[20]'>
                     </OCRTooltip>
                 </div>
                 {images && (
