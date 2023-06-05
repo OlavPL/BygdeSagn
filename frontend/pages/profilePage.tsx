@@ -10,6 +10,8 @@ import DisplayUserSagn from '@/components/sagn1/displayUserSagn';
 import { ToastType, getToastOptions } from '@/controllers/toastController';
 import { toast } from 'react-toastify';
 import router from 'next/router';
+import { Session } from 'next-auth';
+import clientPromise from '@/lib/mongodb';
 
 const ProfilePageNew = (props:any) => {
   const session = props.session
@@ -20,9 +22,9 @@ const ProfilePageNew = (props:any) => {
   const handleClick = () => setExpanded(!expanded);
 
   // useStates som teller antall sagn, kommentarer og likte sagn du har
-  const [count, setCount] = useState(0);
-  const [comments, setComments] = useState(0);
-  const [liked, setLiked] = useState(0);
+  const [postCount, setPostCount] = useState(props.postCount);
+  const [comments, setComments] = useState(props.commentCount);
+  const [liked, setLiked] = useState(props.likeCount);
 
   const [showConfirmation, setShowConfirmation] = useState(false);
   
@@ -31,7 +33,7 @@ const ProfilePageNew = (props:any) => {
     try {
       const res = await fetch(`/api/post/getUserPosts?email=${user?.email}`);
       const data = await res.json();
-      setCount(data.length);
+      setPostCount(data.length);
     } catch (error) {
       console.log(error);
     }
@@ -80,11 +82,11 @@ const ProfilePageNew = (props:any) => {
     }
   };
   //Oppdaterer antall likes, kommentarer og posts som blir vist som tall til brukeren
-  useEffect(() => {
-    getPostCount();
-    getComment();
-    getLiked();
-  }, [user]);
+  // useEffect(() => {
+  //   getPostCount();
+  //   getComment();
+  //   getLiked();
+  // }, [user]);
   //Sletter Sagn
   const handleDelete = async (_id: string) => {
     try {
@@ -171,7 +173,7 @@ const ProfilePageNew = (props:any) => {
       <div className="mt-6 mb-3 flex gap-4 md:!gap-14">
         {/* antall publisert sagn */}
         <div className="flex flex-col items-center justify-center">
-          <h3 className="text-bluePrimary text-2xl font-bold">{count} </h3>
+          <h3 className="text-bluePrimary text-2xl font-bold">{postCount} </h3>
           <p className="text-lightSecondary text-sm font-normal">publiserte Sagn</p>
         </div>
 
@@ -251,12 +253,41 @@ export async function getServerSideProps(context:any) {
           permanent: false,
         },
       }
-    }
+    }    
+    
+    const client = await clientPromise;
+    
+    let result = await client
+    .db("App_Db")
+    .collection(process.env.POST_COLLECTION!)
+    .find({ "owner.email": session.user!.email })
+    .sort({ metacritic: -1 })
+    .toArray()
+    let postCount = result.length
 
+    result = await client
+      .db("App_Db")
+      .collection(process.env.POST_COLLECTION!)
+      .find({ "comments.owner": session.user!.email })
+      .toArray();
+    let commentCount = result.length
 
-      return {
-          props: {session: JSON.parse(JSON.stringify(session))}
-      };
+    result = await client
+    .db("App_Db")
+    .collection(process.env.POST_COLLECTION!)
+    .find({ "likes.email": session.user!.email })
+    .sort({ metacritic: -1 })
+    .toArray()
+    let likeCount = result.length
+
+    return {
+      props: {
+        session: JSON.parse(JSON.stringify(session)),
+        postCount: JSON.parse(JSON.stringify(postCount)),
+        commentCount: JSON.parse(JSON.stringify(commentCount)),
+        likeCount: JSON.parse(JSON.stringify(likeCount))
+      }
+    };
   } catch (e) {
       console.error(e);
   }

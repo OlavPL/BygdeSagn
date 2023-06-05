@@ -52,13 +52,13 @@ const Header = () => {
   
   return (
     <nav className="relative">
-        <div className="flex flex-col items-center h-20 w-full ">
+        <div className="flex flex-col items-center h-20 w-full bg-black bg-opacity-20">
           <div className="flex items-center mx-4 justify-between w-full">
             {/* Logo */}
             <div className="flex items-center flex-shrink-0 w-60">
               <Link href="/">
                 <div className="font-bold text-4xl cursor-pointer">
-                <span className="text-primary-90 ">Bygde</span><span className="drop-shadow-md text-primary-400">Sagn</span>
+                <span className="text-primary-90 drop-shadow-[0_1px_1px_rgba(0,0,0,1)]">Bygde</span><span className="drop-shadow-md text-primary-400 drop-shadow-[0_1.4px_1.4px_rgba(0,0,0,1)]">Sagn</span>
                 </div>
               </Link>
             </div>
