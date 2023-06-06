@@ -3,7 +3,7 @@ import { AppContext } from "./_app"
 import { Tag } from "@/types/tag";
 import { Kommune } from "@/types/kommune";
 import AppUser from "@/types/AppUser";
-import { useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { NextRouter, useRouter } from "next/router";
 import KommuneSearchBox from "@/components/sagn1/sagnForm/KommuneSearchBox";
 import TagsDropBox from "@/components/sagn1/sagnForm/tagsDropBox";
@@ -15,9 +15,10 @@ import { ToastType, getToastOptions } from "@/controllers/toastController";
 import { toast } from "react-toastify";
 import { Document, WithId } from 'mongodb'
 import clientPromise from "@/lib/mongodb";
-import { Fylke } from "@/types/fylke";
 import { filterBadWords } from "@/controllers/automod";
 import YearInput from "@/components/sagn1/sagnForm/yearInput";
+import { Session } from "next-auth";
+import Sagn from "@/objects/sagn";
 
 interface Inputs {
     title: string;
@@ -31,17 +32,17 @@ interface Inputs {
 
 interface IProps{
     kommuneList: Kommune[]
+    session: Session
 }
   
-const CreateSagn = ({kommuneList}: IProps) =>{
+const CreateSagn = ({kommuneList, session}: IProps) =>{
     const {title, setTitle} = useContext(AppContext);
-    const session = useSession({required:true}); 
     const [tags, setTags] = useState<Tag[]>([])
     const [images, setImages] = useState<File | null>(null)
     const [storyText, setStoryText] = useState<string>("")
     const [year, setYear] = useState<string>("")
     const [selectedKommune, setSelectedKommune] = useState<Kommune>({kommunenavn:"", kommunenavnNorsk:""} as Kommune)
-    const [stedsnavn, setStedsnavn] = useState<string>("")
+    // const [stedsnavn, setStedsnavn] = useState<string>("")
     const router = useRouter()
 
     useEffect(() => {
@@ -80,8 +81,8 @@ const CreateSagn = ({kommuneList}: IProps) =>{
         data.tags = tags
         data.kommune = selectedKommune
         // data.year = year.length < 1 ? undefined : Number(year)
-        data.stedsnavn = stedsnavn.length < 1 ? undefined : stedsnavn
-        data.owner = session.data?.user!  
+        // data.stedsnavn = stedsnavn.length < 1 ? undefined : stedsnavn
+        data.owner = session.user!  
         data.story = storyText
         postSagn(data, router)
         };
@@ -109,6 +110,7 @@ const CreateSagn = ({kommuneList}: IProps) =>{
                 {...register("title") }
                 className="mt-6 w-full my-auto"
                 labelText="Tittel"
+                isRequired
               />
 
               <div className="relative">
@@ -165,7 +167,7 @@ const CreateSagn = ({kommuneList}: IProps) =>{
     )
 }
 
-async function postSagn (data:Inputs, router: NextRouter ){
+async function postSagn (data:Inputs, router: NextRouter){
     const options:RequestInit={
       headers:{
         'Content-Type':'application/json',
@@ -200,39 +202,38 @@ async function postSagn (data:Inputs, router: NextRouter ){
     })
   }
 
-  // Henter en lsite med fylker fra databasen
-  export async function getServerSideProps() {
-    interface FylkeI extends WithId<Document>{
-      document: WithId<Document>
-      &{
-        fylke:Fylke
+  // Henter en lsite med kommuner fra databasen
+  export async function getServerSideProps(context:any) {
+    const session = await getSession(context)
+    if( !session ){
+      return {
+        redirect: {
+          destination: '/login',
+          permanent: false,
+        },
       }
     }
+    
+    const client = await clientPromise;
+    const db = client.db("App_Db");
     try {
-        const client = await clientPromise;
-        const db = client.db("App_Db");
-  
-        const sagnList = await db
-        .collection(process.env.POST_COLLECTION!)
-        .find().toArray()
-  
         const fylkeList:WithId<Document>[] = await db
         .collection("fylker")
         .find().toArray()
         
         const kommuneSet = new Array()
         fylkeList.forEach( (doc) => {
-  
-            if(doc.kommuner != null){
-                doc.kommuner.forEach( (kommune:Kommune) => {
-                kommuneSet.push(kommune)
-            })}
+          if(doc.kommuner != null){
+              doc.kommuner.forEach( (kommune:Kommune) => {
+              kommuneSet.push(kommune)
+          })}
         })
   
         return {
-            props: {
-              kommuneList: JSON.parse(JSON.stringify(kommuneSet)),
-            }
+          props: {
+            kommuneList: JSON.parse(JSON.stringify(kommuneSet)),
+            session: JSON.parse(JSON.stringify(session))
+          }
         }
     } catch (e) {
         console.error(e);

@@ -75,18 +75,32 @@ export default async function handler(
       return res.status(301);
     }
     //PUT oppdaterer et sagn, ikke implementert men er lagt til rette for det.
-  } else if (req.method === "PUT") {
+  } else if (req.method === "PATCH") {
     try {
       const client = await clientPromise;
       const db = client.db("App_Db");
       const id = req.body._id;
 
-      const result = await db.collection(process.env.POST_COLLECTION!).updateOne(
+      // const updateDocument = {
+      //   $push: {
+            
+      //   }
+      // };
+      await db.collection(process.env.POST_COLLECTION!).updateOne(
         { _id: id },
         {
-          $set: {
-            ...req.body, 
-          },
+          // $set: {
+            title:req.body.title,
+            text:req.body.text,
+            tags:req.body.tags,
+            happenedAt:req.body.happenedAt,
+            kommune:req.body.kommune
+            // kommune:req.body.title
+            // likes:req.body.title
+            // dislikes:req.body.title
+            // postedAt:req.body.title
+            // ...req.body, 
+          // },
         }
       );
 

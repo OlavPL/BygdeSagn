@@ -25,13 +25,22 @@ const UserSagnCard = ({ title, _id, onDelete }: Props) => {
             {title}
           </h1>
         </Link>
-        <div className="flex-row space-x-3">
-          <button 
-            className="flex items-center space-x-1 font-medium bg-red-200 hover:bg-red-400 w-full focus:outline-none rounded-md px-4 py-1.5"
-            onClick={handleDelete}
-          >
-            Slett
-          </button>
+        <div className="flex-col space-y-2">
+          
+          <Link href={`/updateSagn/${encodeURIComponent(_id)}`} className="flex my-auto text-xl font-semibold line-clamp-1 md:max-w-x text-textLink">
+            <button 
+                className="flex items-center space-x-1 font-medium bg-red-200 hover:bg-red-400 w-full focus:outline-none rounded-md px-4 py-1.5"
+              >
+                Oppdater
+            </button>
+          </Link>
+            
+            <button 
+              className="flex items-center space-x-1 font-medium bg-red-200 hover:bg-red-400 w-full focus:outline-none rounded-md px-4 py-1.5"
+              onClick={handleDelete}
+            >
+              Slett
+            </button>
         </div>
       </div>
     </div>
