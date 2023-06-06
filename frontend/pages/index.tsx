@@ -72,6 +72,7 @@ const Home = ({sagnList, fylkeList, kommuneList, stedsnavnList, session}:Servers
     else if (value.kommunenummer != null) {
       sagnListController.sagnList.forEach( post => {
         if( post.kommune.kommunenummer === value.kommunenummer ) {
+          filteredSagn.push( post )
         }
       })
     }
