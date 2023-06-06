@@ -1,5 +1,3 @@
-// import { Kommune } from "@/types/kommune";
-
 // //Denne siden ble brukt til å hente spesifik data om kommuner og fylker fra geonorge  til videre bruk i databasen
 
 // const FylkeTing = () => (
@@ -76,5 +74,5 @@
 // }
 
 // export default FylkeTing;
-
-export {}
+// eslint-disable-next-line import/no-anonymous-default-export
+export default {}
