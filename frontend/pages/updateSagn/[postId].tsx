@@ -122,14 +122,14 @@ const UpdateSagn = ({kommuneList, session, sagn}:IProps) => {
                     <div className="absolute top-full transition-all duration-300 bg-primary-400 w-0 h-0.5 peer-focus:w-full pointer"></div>
                 </div>
 
-                <div className="flex flex-col justify-between self-center sm:flex-row sm:self-start sm:w-full pt-3">
+                <div className="flex flex-col space-y-6 sm:justify-between self-center sm:flex-row sm:self-start sm:w-full pt-3">
                     {/* <div className="flex flex-col mb-2 sm:mb-0">
                     <label>{"Årstall/ Århundre"}</label>
                     <input type="number" min={0} max={new Date().getFullYear()} value={year} onChange={(e) => setYear(e.target.value)} className="w-52 p-1 rounded"></input>
                     </div> */}
                     <YearInput
                     {...register("year") }
-                    className="w-52 my-auto"
+                    className="w-52 mt-auto"
                     labelText="Årstall"
                     defaultValue={sagn.happenedAt}
                     />
@@ -137,8 +137,8 @@ const UpdateSagn = ({kommuneList, session, sagn}:IProps) => {
                     <KommuneSearchBox kommuner={kommuneList} selectedKommune={selectedKommune} handleChange={(e: Kommune)=>setSelectedKommune(e)} className="items-center relative" />
                 </div>
                 
-                <div className="flex flex-col-reverse justify-between self-center sm:flex-row sm:self-start sm:w-full">
-                    <TagsDropBox key={tags.length} className="sm:mt-auto " list={tags} handleTag={addTag} propText={"Velg Tagger"} propTextEmpty={"Ikke fler Tagger"}/>
+                <div className="flex flex-col-reverse sm:justify-between items-center self-center sm:flex-row sm:self-start sm:w-full">
+                    <TagsDropBox key={tags.length} className="mt-3 sm:mt-auto" list={tags} handleTag={addTag} propText={"Velg Tagger"} propTextEmpty={"Ikke fler Tagger"}/>
                                 
                     {/* <div className="flex flex-col">
                     <label>Stedsnavn</label>
@@ -146,7 +146,7 @@ const UpdateSagn = ({kommuneList, session, sagn}:IProps) => {
                     </div> */}
                     <Input
                     {...register("stedsnavn") }
-                    className="w-52 my-auto mt-5"
+                    className="w-52 mt-3"
                     labelText="Stedsnavn"
                     defaultValue={sagn.stedsnavn}
                 />
