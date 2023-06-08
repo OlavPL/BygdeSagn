@@ -100,7 +100,7 @@ const ProfilePageNew = (props:any) => {
       if (response.ok) {
         const data = await response.json();
         console.log(data.message);
-        const toastOptions = getToastOptions(ToastType.light, "sagn deleted");
+        const toastOptions = getToastOptions(ToastType.light, "sagn delete err");
         toast.success("Sagn Slettet", toastOptions);
         getPostCount();
         getComment();
@@ -111,10 +111,8 @@ const ProfilePageNew = (props:any) => {
       }
     } catch (error) {
       console.error("Failed to delete post:", error);
+      toast.error("Fikk ikke slettet sagn", getToastOptions(ToastType.light, "sagn delete err"));
     }
-    const toastOptions = getToastOptions(ToastType.light, "sagn deleted");
-    toast.success("Sagn Slettet", toastOptions);
-    router.push("/profilePage");
   };
   
 //Henter profil bilde fra google / dersom det ikke blir brukt en google bruker så blir det satt til et standard bilde

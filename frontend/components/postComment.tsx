@@ -60,12 +60,12 @@ const PostComment: React.FC<PostCommentProps> = ({_id, fetchComments}) => {
         
       if (response.ok) {
         const toastOptions = getToastOptions(ToastType.light, "Comment posted");
-        toast.success("Comment posted", toastOptions);
+        toast.success("Kommentar publisert", toastOptions);
         fetchComments();
       }
       if (!response.ok) {
-        const toastOptions = getToastOptions(ToastType.light, "Comment not posted");
-        toast.success("Comment not posted", toastOptions);
+        const toastOptions = getToastOptions(ToastType.light, "Comment posted error");
+        toast.success("Kunne ikke publisere kommentar", toastOptions);
         throw new Error(`Failed to post comment: ${response.statusText}`);
       }
         
