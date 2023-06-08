@@ -68,7 +68,7 @@ const UpdateSagn = ({kommuneList, session, sagn}:IProps) => {
         }
         // Sjekk og varsel mot ekstremt kort tittel
         if(storyText.trim().length < 20 || storyText.trim() == ""){
-            toast.error("Ops! Sagnet er for kort, sikker på at du har skrive fgerdig?", getToastOptions(ToastType.colored, "fill text body"));
+            toast.error("Ops! Sagnet er for kort, sikker på at du har skrive ferdig?", getToastOptions(ToastType.colored, "fill text body"));
             return 
         }
 
