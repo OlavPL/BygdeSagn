@@ -14,7 +14,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement>{
  const SelectedTagsBox = ({className, removeTag, tagList}: Props) => {
 
   return (
-    <div className={`${className} ${"flex flex-wrap"}`}>
+    <div className={`${className} ${"flex flex-wrap justify-center sm:justify-start"}`}>
       {tagList.map((tag, index) =>{
         return (
           <div key={tag+index} className={""}>

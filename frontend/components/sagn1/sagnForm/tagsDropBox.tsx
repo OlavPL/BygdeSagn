@@ -42,7 +42,7 @@ const TagsDropBox = ({list, handleTag, className, propText, propTextEmpty}: Prop
         </span>
       </Listbox.Button>
       
-      <Listbox.Options className="flex flex-col w-44 absolute left-[0px] top-9 rounded-md bg-white shadow-md">
+      <Listbox.Options className="flex flex-col w-44 absolute left-[0px] top-9 rounded-md bg-white shadow-md z-[20]">
         {currList.map((tag, index) => (
           <Listbox.Option 
             key={index}

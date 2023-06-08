@@ -11,11 +11,12 @@ import { faPen } from "@fortawesome/free-solid-svg-icons"
 interface Props {
   title: String,
   _id: string,
-  onDelete: (postId: string) => Promise<void>;
+  onDelete: (postId: string) => void;
 }
 
 const UserSagnCard = ({ title, _id, onDelete }: Props) => {
   const handleDelete = async () => {
+
     await onDelete(_id);
   };
 
@@ -36,8 +37,8 @@ const UserSagnCard = ({ title, _id, onDelete }: Props) => {
                 <FontAwesomeIcon icon={faPen} className="w-6 h-6 cursor-pointer transition-colors duration-100 ease-in-out text-md" />
                 Oppdater
             </button>
-          </Link>
-            
+          </Link> 
+          
           <button 
             className="flex items-center space-x-1 font-medium bg-red-200 hover:bg-red-400 focus:outline-none rounded-md px-2 py-1"
             onClick={handleDelete}

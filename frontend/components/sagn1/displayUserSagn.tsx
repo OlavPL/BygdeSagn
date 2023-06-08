@@ -4,7 +4,8 @@ import UserSagnCard from './sagnCard/userSagnCard';
 interface Props {
   sagnList: Sagn[];
   className?: string;
-  onDelete: (postId: string) => Promise<void>;
+  // onDelete: (postId: string) => Promise<void>;
+  onDelete: (postId: string) => void;
 }
 
 const DisplayUserSagn = ({ sagnList, className, onDelete }: Props) => {
