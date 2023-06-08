@@ -11,7 +11,7 @@ import { faPen } from "@fortawesome/free-solid-svg-icons"
 interface Props {
   title: String,
   _id: string,
-  onDelete: (postId: string) => Promise<void>;
+  onDelete: (postId: string) => void;
 }
 
 const UserSagnCard = ({ title, _id, onDelete }: Props) => {

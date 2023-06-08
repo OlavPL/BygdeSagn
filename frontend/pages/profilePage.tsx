@@ -27,6 +27,8 @@ const ProfilePageNew = (props:any) => {
   const [liked, setLiked] = useState(props.likeCount);
 
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showSagnDeleteConfirmation, setShowSagnDeleteConfirmation] = useState(false);
+  const [sagnToDelete, setSagnToDelete] = useState<string>();
   
   //Antall Sagn lagt ut av en bruker
   const getPostCount = async () => {
@@ -88,9 +90,17 @@ const ProfilePageNew = (props:any) => {
   //   getLiked();
   // }, [user]);
   //Sletter Sagn
-  const handleDelete = async (_id: string) => {
+  const prepSagnForDeletion = async (_id: string) => {
+    setSagnToDelete(_id)
+    setShowSagnDeleteConfirmation(true)
+  }
+  const handleDeleteSagn = async () => {
+
+    if(!sagnToDelete)
+      return
+
     try {
-      const response = await fetch(`/api/post/Post?_id=${_id}`, {
+      const response = await fetch(`/api/post/Post?_id=${sagnToDelete}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });
@@ -103,16 +113,18 @@ const ProfilePageNew = (props:any) => {
         getPostCount();
         getComment();
         getLiked();
-        setList((prevList) => prevList.filter((sagn) => sagn._id !== _id));
+        setList((prevList) => prevList.filter((sagn) => sagn._id !== sagnToDelete));
       } else {
         console.error("Failed to delete post:", response.statusText);
       }
     } catch (error) {
       console.error("Failed to delete post:", error);
     }
-    const toastOptions = getToastOptions(ToastType.light, "sagn deleted");
-    toast.success("Sagn Slettet", toastOptions);
-    router.push("/profilePage");
+    finally {
+      setShowSagnDeleteConfirmation(false)
+      const toastOptions = getToastOptions(ToastType.light, "sagn deleted");
+      toast.success("Sagn Slettet", toastOptions);
+    }
   };
   
 //Henter profil bilde fra google / dersom det ikke blir brukt en google bruker så blir det satt til et standard bilde
@@ -200,7 +212,8 @@ const ProfilePageNew = (props:any) => {
         {/* Utvider, henter liste  */}
           {expanded && (
             list.length === 0 ? <p> Du har ikke publisert noen sagn enda</p> :
-            <DisplayUserSagn sagnList={list} className="mt-5" onDelete={handleDelete} />
+            // <DisplayUserSagn sagnList={list} className="mt-5" onDelete={handleDeleteSagn} />
+            <DisplayUserSagn sagnList={list} className="mt-5" onDelete={prepSagnForDeletion} />
           )}
         </div>
       </div>
@@ -218,7 +231,7 @@ const ProfilePageNew = (props:any) => {
         <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center">
           <div className="bg-white rounded-md p-6">
             <p className="text-xl mb-4">Er du sikker på at du vil slette brukeren din?</p>
-            <p className="text-gray-600 mb-4">Denne handlingen kan ikke tilbake stilles og brukeren vil bli permanent slettet.</p>
+            <p className="text-gray-600 mb-4">Denne handlingen kan ikke tilbakestilles og brukeren vil bli permanent slettet.</p>
             <div className="flex justify-end">
               {/* Abryt slett bruker */}
               <button
@@ -239,31 +252,29 @@ const ProfilePageNew = (props:any) => {
         </div>
       )}
 
-{/* <!-- A modal dialog containing a form --> */}
-<dialog id="favDialog">
-  <form>
-    <p>
-      <label>Favorite animal:
-        <select>
-          <option value="default">Choose…</option>
-          <option>Brine shrimp</option>
-          <option>Red panda</option>
-          <option>Spider monkey</option>
-        </select>
-      </label>
-    </p>
-    <div>
-      <button value="cancel" formMethod="dialog">Cancel</button>
-      <button id="confirmBtn" value="default">Confirm</button>
-    </div>
-  </form>
-</dialog>
-<p>
-  <button id="showDialog">Show the dialog</button>
-</p>
-<output></output>
-
-
+{showSagnDeleteConfirmation && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center">
+          <div className="bg-white rounded-md p-6">
+            <p className="text-xl mb-4">Er du sikker på at du vil slette Sagnet?</p>
+            <div className="flex justify-end">
+              {/* Abryt slett sagn */}
+              <button
+                className="bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded mr-2"
+                onClick={() => setShowSagnDeleteConfirmation(false)}
+              >
+                Avbryt
+              </button>
+              {/* Ja til slett sagn */}
+              <button
+                className="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded"
+                onClick={handleDeleteSagn}
+              >
+                Slett Sagn
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
