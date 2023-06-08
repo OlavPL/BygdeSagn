@@ -5,7 +5,7 @@ import { AppContext } from '@/pages/_app';
 import SagnListController, { SortType } from '@/controllers/sagnListController';
 import Sagn from '@/objects/sagn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleUp, faCog } from '@fortawesome/free-solid-svg-icons';
 import DisplayUserSagn from '@/components/sagn1/displayUserSagn';
 import { ToastType, getToastOptions } from '@/controllers/toastController';
 import { toast } from 'react-toastify';
@@ -16,6 +16,8 @@ import clientPromise from '@/lib/mongodb';
 const ProfilePageNew = (props:any) => {
   const session = props.session
   const user = session.user
+
+  const [dropdownVisible, setDropdownVisible] = useState(false)
 
   // useState og knapp for å vise alle sagn du har postet
   const [expanded, setExpanded] = useState(false);
@@ -84,7 +86,7 @@ const ProfilePageNew = (props:any) => {
   //Oppdaterer antall likes, kommentarer og posts som blir vist som tall til brukeren
   // useEffect(() => {
   //   getPostCount();
-  //   getComment();
+  //   getComment();np
   //   getLiked();
   // }, [user]);
   //Sletter Sagn
@@ -164,6 +166,25 @@ const ProfilePageNew = (props:any) => {
           <Image src={picstring()} className="h-full w-full rounded-full" alt="" width={40} height={0}/> 
         </div>
       </div>
+      <div className="relative">
+  <button 
+    onClick={() => setDropdownVisible(!dropdownVisible)} 
+    className="absolute top-[-35px] left-[150px]"
+  >
+    <FontAwesomeIcon icon={faCog} size="2x" />
+  </button>
+  {dropdownVisible && (
+    <div className="absolute top-[10px] left-[150px] bg-white rounded shadow-lg p-2 w-[140px]">
+      <button
+        className="text-white cursor-pointer mb-2 bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded ml-auto"
+        onClick={() => setShowConfirmation(true)}
+      >
+        Slett bruker
+      </button>
+    </div>
+  )}
+</div>
+
 
       {/* brukernavn */}
       <div className="mt-16 flex flex-col items-center">
@@ -193,7 +214,8 @@ const ProfilePageNew = (props:any) => {
       {/* Viser dine sagn innlegg */}
       <div className="mt-5 mx-auto content-center">
         <div className="flex flex-col md:max-w-screen-lg justify-center">
-        <h2 className="text-lg font-bold text-center cursor-pointer text-link hover:text-primary-200 transition-all duration-300 ease-in-out select-none" onClick={handleClick}>
+        <h2 className="text-lg font-bold text-center cursor-pointer text-link hover:text-primary-200 transition-all duration-300 ease-in-out select-none" 
+        onClick={handleClick}>
           <FontAwesomeIcon icon={expanded ? faAngleUp : faAngleDown} />
           Dine Innlegg
         </h2> 
@@ -205,13 +227,14 @@ const ProfilePageNew = (props:any) => {
         </div>
       </div>
 
-      {/* Slett bruker */}
+      {/* Slett bruker 
       <button
         className="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded mt-5 ml-auto"
         onClick={() => setShowConfirmation(true)}
       >
         Slett bruker
       </button>
+    */}
 
       {/* Slette bruker confirm */}
       {showConfirmation && (
