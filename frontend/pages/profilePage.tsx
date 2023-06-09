@@ -75,6 +75,7 @@ const ProfilePageNew = (props:any) => {
         credentials: 'include',
       });
       if (response.ok) {
+        toast.success("Konto slettet", getToastOptions(ToastType.light,"account deleted"))
         await router.push('/');
         await  signOut()
         
@@ -110,8 +111,7 @@ const ProfilePageNew = (props:any) => {
       if (response.ok) {
         const data = await response.json();
         console.log(data.message);
-        const toastOptions = getToastOptions(ToastType.light, "sagn delete err");
-        toast.success("Sagn Slettet", toastOptions);
+        toast.success("Sagn Slettet", getToastOptions(ToastType.light, "sagn delete"));
         getPostCount();
         getComment();
         getLiked();
@@ -125,8 +125,6 @@ const ProfilePageNew = (props:any) => {
     }
     finally {
       setShowSagnDeleteConfirmation(false)
-      const toastOptions = getToastOptions(ToastType.light, "sagn deleted");
-      toast.success("Sagn Slettet", toastOptions);
     }
   };
   
@@ -189,7 +187,7 @@ const ProfilePageNew = (props:any) => {
   {dropdownVisible && (
     <div className="absolute top-[10px] left-[150px] bg-white rounded shadow-lg p-2 w-[140px]">
       <button
-        className="text-white cursor-pointer mb-2 bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded ml-auto"
+        className="text-white cursor-pointer mb-2 bg-red-500 hover:bg-red-600 font-medium py-2 px-4 rounded ml-auto"
         onClick={() => setShowConfirmation(true)}
       >
         Slett bruker

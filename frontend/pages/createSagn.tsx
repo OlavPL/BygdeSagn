@@ -18,7 +18,6 @@ import clientPromise from "@/lib/mongodb";
 import { filterBadWords } from "@/controllers/automod";
 import YearInput from "@/components/sagn1/sagnForm/yearInput";
 import { Session } from "next-auth";
-import Sagn from "@/objects/sagn";
 
 interface Inputs {
     title: string;
@@ -90,7 +89,7 @@ const CreateSagn = ({kommuneList, session}: IProps) =>{
         useForm()
 
         const onError: SubmitErrorHandler<Inputs> = () => {
-        toast.error("Vennligs fyll ut alle felt med stjerne", getToastOptions(ToastType.colored));
+        toast.error("Vennligs fyll ut alle felt med stjerne", getToastOptions(ToastType.colored, "fields missing"));
     }
 
     const {

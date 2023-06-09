@@ -38,12 +38,12 @@ const PostComment: React.FC<PostCommentProps> = ({_id, fetchComments}) => {
     if(postingCOmment)
       return
     if (!session.data?.user) {
-      toast.error("Du må være logget inn for å legge til en kommentar", getToastOptions(ToastType.light));
+      toast.error("Du må være logget inn for å legge til en kommentar", getToastOptions(ToastType.light, "not logged in"));
       return;
     }
   
     if (userText.length < 1) {
-      toast.error("Du må først skrive en kommentar", getToastOptions(ToastType.light));
+      toast.error("Du må først skrive en kommentar", getToastOptions(ToastType.light, "field missing"));
       return;
     }
   

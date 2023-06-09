@@ -90,7 +90,7 @@ const UpdateSagn = ({kommuneList, session, sagn}:IProps) => {
         useForm()
 
         const onError: SubmitErrorHandler<Inputs> = () => {
-        toast.error("Vennligs fyll ut alle felt med stjerne", getToastOptions(ToastType.colored));
+        toast.error("Vennligs fyll ut alle felt med stjerne", getToastOptions(ToastType.colored, "error: missing field"));
     }
 
     const {

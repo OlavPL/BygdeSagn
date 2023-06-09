@@ -1,10 +1,4 @@
-import { Tag } from "@/types/tag"
 import Link from "next/link"
-import CardTags from "./cardTags"
-import router, { Router, useRouter } from "next/router"
-import Sagn from "@/objects/sagn"
-import { toast } from "react-toastify"
-import { ToastType, getToastOptions } from "@/controllers/toastController"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPen } from "@fortawesome/free-solid-svg-icons"
 
