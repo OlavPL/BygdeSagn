@@ -35,12 +35,12 @@ const App = ({ Component, pageProps, session }: MyAppProps) => {
     <div className='bg-emphasis-100 text-textColor min-h-screen relative pb-20 overflow-hidden'>
     <SessionProvider session ={session}>
 
-      <Image
+      {/* <Image
         alt="background"
         className='absolute animate-float-slow pointer-events-none'
-        src="frontend\images\FloaterBG.png"
+        src="..\frontend\images\FloaterBG.png"
         fill
-      />
+      /> */}
 
       <AppContext.Provider value={contextValue}>
         <div className=" text-textColor min-h-screen bg-center relative">
