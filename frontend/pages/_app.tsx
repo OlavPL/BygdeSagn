@@ -38,7 +38,7 @@ const App = ({ Component, pageProps, session }: MyAppProps) => {
       <Image
         alt="background"
         className='absolute animate-float-slow pointer-events-none'
-        src="https://res.cloudinary.com/zsa-technology/image/upload/f_auto/q_auto/v1/zsa-io-refactor-prod/hot-swappable-waves.png?_a=ATCqVAA0"
+        src="frontend\images\FloaterBG.png"
         fill
       />
 
